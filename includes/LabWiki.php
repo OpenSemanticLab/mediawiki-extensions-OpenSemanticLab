@@ -4,7 +4,7 @@ class LabWiki {
 
 	public static function onPageImporterRegisterPageLists( array &$pageLists ) {
 
-		$pageLists['SemanticActions'] = [
+		$pageLists['LabWiki'] = [
 
 			// list of pages to create and the corresponding files to use as content
 			"pages" => [
