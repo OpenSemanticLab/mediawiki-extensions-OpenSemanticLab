@@ -65,6 +65,7 @@
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "LabWiki::onPageImporterRegisterPageLists",
-		"BeforePageDisplay": "LabWiki::onBeforePageDisplay"
+		"BeforePageDisplay": "LabWiki::onBeforePageDisplay",
+		"SetupAfterCache": "SemanticActions::onSetupAfterCache"
 	}
 }
