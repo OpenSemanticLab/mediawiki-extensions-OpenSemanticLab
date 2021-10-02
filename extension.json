@@ -1,0 +1,70 @@
+{
+   "name": "LabWiki",
+	"version": "0.0.1",
+	"author": [
+		"Simon Stier"
+	],
+	"url": "https://github.com/simontaurus/LabWiki",
+	"descriptionmsg": "sa-desc",
+	"namemsg": "sa-name",
+	"license-name": "GPL v3",
+	"type": "semantic",
+	"requires": {
+		"MediaWiki": ">= 1.31"
+	},
+	"MessagesDirs": {
+		"LabWiki": [
+			"i18n"
+		]
+	},
+	"manifest_version": 1,
+	"ResourceModules": {
+		"ext.LabWiki.styles": {
+			"styles": [
+				"LabWiki.css"
+			],
+			"position": "bottom"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "LabWiki/resources"
+	},
+	"namespaces": [
+		{
+			"id": 810,
+			"constant": "NS_MATERIAL",
+			"name": "Material"
+		},
+		{
+			"id": 811,
+			"constant": "NS_MATERIAL_TALK",
+			"name": "Material_Talk"
+		},
+		{
+			"id": 812,
+			"constant": "NS_DEVICE",
+			"name": "Device"
+		},
+		{
+			"id": 813,
+			"constant": "NS_DEVICE_TALK",
+			"name": "Device_Talk"
+		}
+	],
+	"attributes": {
+		"VisualEditor": {
+			"AvailableNamespaces": {
+				"810": true,
+				"812": true
+			}
+		}
+	},
+	"AutoloadClasses": {
+		"LabWiki": "includes/LabWiki.php"
+	},
+	"Hooks": {
+		"PageImporterRegisterPageLists": "LabWiki::onPageImporterRegisterPageLists",
+		"BeforePageDisplay": "LabWiki::onBeforePageDisplay"
+	}
+}
