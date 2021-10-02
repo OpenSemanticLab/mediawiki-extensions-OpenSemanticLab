@@ -1,0 +1,7 @@
+{
+	"@metadata": {
+		"authors": ["Simon Stier"]
+	},
+	"sa-desc": "Ein wissenschaftliches Laborinformations- und managementsystem (sciLIMS) basierend auf Semantic MediaWiki",
+	"sa-name": "LaborWiki"
+}
