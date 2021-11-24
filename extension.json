@@ -32,31 +32,81 @@
 	},
 	"namespaces": [
 		{
-			"id": 810,
+			"id": 7010,
 			"constant": "NS_MATERIAL",
 			"name": "Material"
 		},
 		{
-			"id": 811,
+			"id": 7011,
 			"constant": "NS_MATERIAL_TALK",
 			"name": "Material_Talk"
 		},
 		{
-			"id": 812,
+			"id": 7020,
 			"constant": "NS_DEVICE",
 			"name": "Device"
 		},
 		{
-			"id": 813,
+			"id": 7021,
 			"constant": "NS_DEVICE_TALK",
 			"name": "Device_Talk"
+		},
+		{
+			"id": 7030,
+			"constant": "NS_ROOM",
+			"name": "Room"
+		},
+		{
+			"id": 7031,
+			"constant": "NS_ROOM_TALK",
+			"name": "Room_Talk"
+		},
+		{
+			"id": 7040,
+			"constant": "NS_PROJECT",
+			"name": "Project"
+		},
+		{
+			"id": 7041,
+			"constant": "NS_PROJECT_TALK",
+			"name": "Project_Talk"
+		},
+		{
+			"id": 7100,
+			"constant": "NS_LABNOTE",
+			"name": "LabNote"
+		},
+		{
+			"id": 7101,
+			"constant": "NS_LABNOTE_TALK",
+			"name": "LabNote_Talk"
 		}
+		{
+			"id": 7110,
+			"constant": "NS_LABPROCESS",
+			"name": "LabProcess"
+		},
+		{
+			"id": 7111,
+			"constant": "NS_LABPROCESS_TALK",
+			"name": "LabProcess_Talk"
+		},
+		{
+			"id": 7120,
+			"constant": "NS_LABOBJECT",
+			"name": "LabObject"
+		},
+		{
+			"id": 7121,
+			"constant": "NS_LABOBJECT_TALK",
+			"name": "LabObject_Talk"
+		},
 	],
 	"attributes": {
 		"VisualEditor": {
 			"AvailableNamespaces": {
-				"810": true,
-				"812": true
+				"7100": true,
+				"7200": true
 			}
 		}
 	},

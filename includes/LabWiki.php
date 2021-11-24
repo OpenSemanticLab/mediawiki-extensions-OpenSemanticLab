@@ -133,10 +133,23 @@ class LabWiki {
 	public static function onSetupAfterCache( ) {
 
 		global $smwgNamespacesWithSemanticLinks;
-
 		$smwgNamespacesWithSemanticLinks[NS_MATERIAL] = true;
 		$smwgNamespacesWithSemanticLinks[NS_DEVICE] = true;
+		$smwgNamespacesWithSemanticLinks[NS_ROOM] = true;
+		$smwgNamespacesWithSemanticLinks[NS_PROJECT] = true;
+		$smwgNamespacesWithSemanticLinks[NS_LABNOTE] = true;
+		$smwgNamespacesWithSemanticLinks[NS_LABPROCESS] = true;
+		$smwgNamespacesWithSemanticLinks[NS_LABOBJECT] = true;
 
+		global $wgNamespaceContentModels;        
+		$wgNamespaceContentModels[NS_MATERIAL_TALK] = 'flow-board';
+		$wgNamespaceContentModels[NS_DEVICE_TALK] = 'flow-board';
+		$wgNamespaceContentModels[NS_ROOM_TALK] = 'flow-board';
+		$wgNamespaceContentModels[NS_PROJECT_TALK] = 'flow-board';
+		$wgNamespaceContentModels[NS_LABNOTE_TALK] = 'flow-board';
+		$wgNamespaceContentModels[NS_LABPROCESS_TALK] = 'flow-board';
+		$wgNamespaceContentModels[NS_LABOBJECT_TALK] = 'flow-board';
+        
 		return true;
 
 	}
