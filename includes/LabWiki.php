@@ -57,8 +57,6 @@ class LabWiki {
 				"Template:LabProcess/Header" => "Template/LabProcess/Header.mediawiki",
 				"Formular:LabProcess/Instance" => "Formular/LabProcess/Instance.mediawiki",
 				"Template:LabProcess/Instance" => "Template/LabProcess/Instance.mediawiki",
-				"Template:LabProcess/Instance/Demo1/0030" => "Template/LabProcess/Instance/Demo1/0030.mediawiki",
-				"Template:LabProcess/Instance/Demo1/0040" => "Template/LabProcess/Instance/Demo1/0040.mediawiki",
 				"Template:LabProcess/Instance/Footer" => "Template/LabProcess/Instance/Footer.mediawiki",
 				"Template:LabProcess/Instance/Header" => "Template/LabProcess/Instance/Header.mediawiki",
 				"Template:LabProcess/Object" => "Template/LabProcess/Object.mediawiki",
