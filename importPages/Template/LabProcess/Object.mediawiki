@@ -1,0 +1,15 @@
+<includeonly>{{#subobject: {{#explode:{{{1}}}|###|0}}
+|@category=Lab Process Object
+|Display title of={{#explode:{{{1}}}|###|0}}
+|HasName={{#explode:{{{1}}}|###|0}}
+}}<!-- Subobject for products 
+-->{{#if:{{#explode:{{{1}}}|###|1}}|{{#subobject: {{#replace:{{#replace:{{PAGENAME}}|00-d|}}|00-s|}}{{#explode:{{{1}}}|###|1}} 
+|@category=Lab Process Output|+sep=;
+|HasIscId={{#replace:{{#replace:{{PAGENAME}}|00-d|}}|00-s|}}{{#explode:{{{1}}}|###|1}}
+|HasWikiId={{FULLPAGENAME}}#{{#replace:{{#replace:{{PAGENAME}}|00-d|}}|00-s|}}{{#explode:{{{1}}}|###|1}}
+|Display title of={{#replace:{{#replace:{{PAGENAME}}|00-d|}}|00-s|}}{{#explode:{{{1}}}|###|1}}
+|HasProcessObject=<!-- {{FULLPAGENAME}}# -->{{#explode:{{{1}}}|###|0}}
+|IsInstanceOf={{#if:{{#explode:{{{1}}}|###|2}}|{{#explode:{{{1}}}|###|2}}|
+{{#ask: [[{{FULLPAGENAME}}]] |?HasMainOutput= |mainlabel=- |link=none |format=plain}}}}
+}}
+|}}</includeonly>

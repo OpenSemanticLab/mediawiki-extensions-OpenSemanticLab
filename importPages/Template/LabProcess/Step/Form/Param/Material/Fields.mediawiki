@@ -1,0 +1,17 @@
+<includeonly>|-
+! {{{name in form}}}
+<!-- CATEGORY -->
+<!-- | <nowiki>{{{field|</nowiki>{{{template parameter}}} category<nowiki>|input type=combobox|restricted|default=</nowiki>Category:{{{category|Material}}}<nowiki>|values from concept=</nowiki>{{{concept|MaterialCategory}}}<nowiki>}}}</nowiki> -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>{{{template parameter}}} category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|MaterialCategory}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
+<!-- NOMINAL -->
+<!-- | <nowiki>{{{field|</nowiki>nominal {{{template parameter}}}<nowiki>|restricted|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>{{{template parameter}}} category<nowiki>|label}}}</nowiki> -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal {{{template parameter}}}<nowiki>|restricted|input type=SF_Select|query=((Category:Material));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
+<!-- NOMINAL BATCH -->
+<!-- | <nowiki>{{{field|</nowiki>nominal {{{template parameter}}} batch<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>nominal {{{template parameter}}}<nowiki>|label}}}</nowiki> -->
+<!-- | <nowiki>{{{field|</nowiki>nominal {{{template parameter}}} batch<nowiki>|restricted|input type=combobox|values from namespace=Lab}}}</nowiki> -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal {{{template parameter}}} batch<nowiki>|input type=SF_Select|query=((Category:LabObject));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
+<!-- ACTUAL -->
+| <nowiki>{{{field|</nowiki>actual {{{template parameter}}}<nowiki>|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>{{{template parameter}}} category<nowiki>|label|mandatory}}}</nowiki>
+<!-- ACTUAL BATCH -->
+| <nowiki>{{{field|</nowiki>actual {{{template parameter}}} batch<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>actual {{{template parameter}}}<nowiki>|label|mandatory}}}</nowiki>
+</includeonly>

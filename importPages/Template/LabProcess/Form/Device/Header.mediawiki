@@ -1,0 +1,12 @@
+<includeonly>{| class="formtable"
+|
+|
+! colspan="2" |Sollwert 
+! colspan="2" |Istwert
+|-
+| style="width: 10%" |
+! style="width: 10%" |Klasse
+! style="width: 30%" |Typ
+! style="width: 10%" |Exemplar
+! style="width: 30%" |Klasse
+! style="width: 10%" |Exemplar</includeonly>

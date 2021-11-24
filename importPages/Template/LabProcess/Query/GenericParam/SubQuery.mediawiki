@@ -1,0 +1,15 @@
+<includeonly><!--
+Create variable name
+-->{{#vardefine:varname|{{#replace:{{#replace:var_{{FULLPAGENAME}}{{#if: {{{process step name|}}}|/{{{process step name}}}|}}_{{{parameter name}}}|(|}}|)|}}}}<!--
+Query for Parameter
+-->{{#vardefine:{{#var:varname}}
+  |{{#ask: 
+    [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process step name|}}}|/{{{process step name}}}|}}]] 
+    [[HasParameterType::{{{type|Istwert}}}]]
+    [[HasName::{{{parameter name}}}]] 
+    |?{{{parameter property}}} {{#if: {{{parameter unit|}}}|# {{{parameter unit}}}|}} = 
+    |mainlabel=- 
+    |link={{#ifeq:{{{link|}}}|{{Helper/Strings/Yes}}|NOTnone|none}}
+}}}}<!--
+Embedd result if present
+-->{{#if: {{#var:{{#var:varname}}}} | {{{exists intro msg}}} {{#var:{{#var:varname}}}}{{{exists outro msg}}}| {{{exists not msg}}}}}</includeonly>

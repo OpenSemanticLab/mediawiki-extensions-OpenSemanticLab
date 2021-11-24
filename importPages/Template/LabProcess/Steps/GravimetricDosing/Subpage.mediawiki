@@ -1,0 +1,111 @@
+<noinclude>
+{{LabProcess/Step/Subpage/Template
+  |form=Form:{{BASEPAGENAME}}
+  |page template=Template:{{BASEPAGENAME}}
+  |status=Complete
+  |version=3.0
+}}
+
+Vorlage für einen Gravimetrischen Dosierschritt
+
+<pre>
+{{Prozessschritt_Gravimetrisches_Dosieren
+  |educt category=Edukt Kategory, z.B. Ormocere
+  |nominal educt=Edukt (Stoff), z.B. Ormocer, 200721_sist_0001_m
+  |nominal educt batch=Edukt Charge/Ansatz
+  |actual educt=Tatsächliche verwendetes Edukt
+  |actual educt batch=Tatsächlich verwendete Edukt-Charge
+  |nominal mass=Massenvorgabe
+  |nominal mass unit=Einheit der Massenvorgabe
+  |actual mass=Tatsächliche Masse
+  |actual mass unit=Einheit der tatsächlichen Masse
+  |nominal device=Vorgabe für verwendetes Gerät
+  |actual device=Tätsächlich verwendetes Gerät
+  |device category=Gerätekategorie
+  |nominal device type=Zu verwendender Gerätetyp
+  |actual device type=Tatsächlich verwendeter Gerättyp
+  |nominal device instance=Zu verwendende Gerätinstanz
+  |actual device instance=Tatsächlich verwendete Gerätinstanz
+  |nominal device setup=Zu verwendendes Setup
+  |actual device setup=Tatsächlich verwendetes Setup
+}}
+
+</pre>
+Seite bearbeiten um den Quelltext zu sehen.
+</noinclude>
+<includeonly>
+<!-- PARAMETER -->
+{{LabProcess/Parameter
+   |name=Einwaage |type=Sollwert |attribute=Masse 
+   |value={{#if: {{{nominal mass|}}} | {{{nominal mass|}}}{{{nominal mass unit|}}} }}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Einwaage 
+   |type=Istwert 
+   |attribute=Masse
+   |value={{#if: {{{actual mass|}}} | {{{actual mass|}}}{{{actual mass unit|}}} }}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Edukt |type=Sollwert |attribute=Edukt Kategorie |value={{{educt category|}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Edukt |type=Sollwert |attribute=Edukt |value={{{nominal educt|}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Edukt |type=Istwert |attribute=Edukt |value={{{actual educt|}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Edukt Charge |type=Sollwert |attribute=Edukt Charge |value={{{nominal educt batch}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Edukt Charge |type=Istwert |attribute=Edukt Charge |value={{{actual educt batch|}}}
+}}<!--
+-->{{LabProcess/Parameter/Device
+|prefix=
+|suffix=
+|device category={{{device category|}}}
+|nominal device type={{{nominal device type|}}}
+|actual device type={{{actual device type|}}}
+|nominal device instance={{{nominal device instance|{{{nominal device|}}}}}}
+|actual device instance={{{actual device instance|{{{actual device|}}}}}}
+|nominal device setup={{{nominal device setup|}}}
+|actual device setup={{{actual device setup|}}}
+}}<!--
+--><!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
+Von {{#if: {{{nominal educt|}}}|[[{{{nominal educt}}}]]|{{Message/NotDefined}}}} 
+(Stoffklasse: {{#if: {{{educt category|}}}|[[:{{{educt category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal educt batch|}}}|[[{{{nominal educt batch}}}]]|{{Message/NotDefined}}}}) 
+sollen
+{{#if: {{{nominal mass|}}}|{{{nominal mass}}} {{{nominal mass unit}}}|{{Message/NotDefined}}}} 
+eingewogen werden.
+{{LabProcess/Query/DeviceParam
+|intro=Als Gerät soll
+|outro=verwendet werden.
+|prefix=
+|suffix=
+|process step name={{{name|}}}
+|device category={{{device category|}}}
+|nominal device type={{{nominal device type|}}}
+|actual device type={{{actual device type|}}}
+|nominal device instance={{{nominal device instance|{{{nominal device|}}}}}}
+|actual device instance={{{actual device instance|{{{actual device|}}}}}}
+|nominal device setup={{{nominal device setup|}}}
+|actual device setup={{{actual device setup|}}}
+}}
+{{LabProcess/Query/GenericParam
+|process step name={{{name|}}}
+|parameter name=Einwaage
+|parameter unit={{{actual mass unit|{{{nominal mass unit}}}}}}
+|exists intro msg=Die tatsächliche [[Einwaage]] betrug
+|exists outro msg=.
+|exists not msg=Die tatsächliche [[Einwaage]] muss noch dokumentiert werden.}}
+{{LabProcess/Query/GenericParam
+|process step name={{{name|}}}
+|parameter name=Edukt Charge
+|exists intro msg=Die tatsächliche verwendete [[Edukt Charge]] war
+|exists outro msg=.
+|exists not msg=Die tatsächliche [[Edukt Charge]] muss noch dokumentiert werden.}}
+<!--
+-->{{LabProcess/Step/Footer
+|specific template=Template:LabProcess/Steps/GravimetricDosing/Subpage
+}}
+</includeonly>

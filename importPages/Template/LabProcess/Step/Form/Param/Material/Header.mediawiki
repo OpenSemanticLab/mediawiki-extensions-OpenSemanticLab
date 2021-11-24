@@ -1,0 +1,12 @@
+<includeonly>{| class="formtable"
+|
+|
+! colspan="2" |Sollwert 
+! colspan="2" |Istwert
+|-
+| style="width: 10%" |
+! style="width: 10%" |Klasse
+! style="width: 30%" |Material
+! style="width: 10%" |Charge
+! style="width: 30%" |Material
+! style="width: 10%" |Charge</includeonly>

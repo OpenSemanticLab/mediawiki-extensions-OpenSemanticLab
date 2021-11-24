@@ -1,0 +1,7 @@
+<includeonly>|-
+| {{{name in form}}}
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal {{{template parameter}}}<nowiki>}}}</nowiki></div> 
+| <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal {{{template parameter}}} unit<nowiki>|input type=SF_Select|query=((Category:UnitDefinition))((-Has subobject::</nowiki>{{{quantity}}}<nowiki>));?HasUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~
+200|sametemplate|field=quantity|mandatory}}}</nowiki></div> 
+| <nowiki>{{{field|</nowiki>actual {{{template parameter}}}<nowiki>}}}</nowiki> 
+| <nowiki>{{{field|</nowiki>actual {{{template parameter}}} unit<nowiki>|input type=SF_Select|query=((Category:UnitDefinition))((-Has subobject::</nowiki>{{{quantity}}}<nowiki>));?HasUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=quantity|mandatory}}}</nowiki> </includeonly>

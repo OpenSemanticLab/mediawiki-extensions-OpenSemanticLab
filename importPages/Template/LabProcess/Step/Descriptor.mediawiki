@@ -1,0 +1,10 @@
+<includeonly>{{#subobject:{{{name}}}
+|@category=Lab Process Descriptor
+|HasName={{{name}}}
+|Display title of={{{name}}}
+|HasPredecessor={{{predecessor|}}}|+sep=;
+|IsConcurrentTo={{{concurrent to|}}}|+sep=;
+|HasSubpage{{#ifexist:{{FULLPAGENAME}}/{{{name}}} |={{#ask:[[{{FULLPAGENAME}}/{{{name}}}]]|link=none}}|NULL=}}
+|HasInput={{{input objects|}}}|+sep=;
+|HasOutput={{{output objects|}}}|+sep=;
+}}</includeonly>

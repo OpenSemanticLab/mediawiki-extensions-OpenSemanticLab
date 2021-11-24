@@ -1,0 +1,48 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+</noinclude>
+<includeonly>
+{{#formlink:form=ELN/Entry|link text=Eintrag mit Formular bearbeiten|link type=post button|target={{PAGENAME}}}}
+<div style="float:right">
+{{#ask: [[{{PAGENAME}}]]
+|?HasKeyword
+|format=tagcloud
+|limit=2500
+|link=all
+|headers=show
+|searchlabel=… further results
+|tagorder=alphabetical
+<!-- |template=Tagcloud.tag.title -->
+|increase=log
+|widget=sphere
+|height=200
+|width=200
+|mincount=1
+|minsize=70
+|maxsize=220
+|maxtags=1000
+}}
+</div>
+
+
+Ersteller: [[HasCreator::{{{agent}}}]]
+
+Start [[HasCreationDate::{{{start date}}}]]
+
+Ende [[HasCreationDate::{{{end date}}}]]
+
+{{#set:
+ |HasKeyword={{{keywords}}}|+sep=;
+}}
+
+{{#ask: [[{{PAGENAME}}]]
+|?HasKeyword
+ |format=tagcloud
+ |limit=20
+ |searchlabel=Example
+ |link=all
+}}
+
+
+[[Category:ElnEntry]]
+</includeonly>

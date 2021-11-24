@@ -1,0 +1,11 @@
+<includeonly>{{LabProcess/Query/GenericParam/SubQuery
+|process step name={{{process step name}}}
+|parameter name={{{parameter name}}}
+|type={{{type|Istwert}}}
+|parameter property={{#replace:{{#replace:{{#ask: [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process step name|}}}|/{{{process step name}}}|}}]] [[HasParameterType::{{{type|Istwert}}}]][[HasName::{{{parameter name}}}]] |?HasProperty= |mainlabel=- |link=none}}|Attribut:|}}|Property:|}}
+|parameter unit={{{parameter unit|}}}
+|exists intro msg={{{exists intro msg|}}}
+|exists outro msg={{{exists outro msg|}}}
+|exists not msg={{{exists not msg|-Nicht angegeben-}}}
+|link={{{link|{{Helper/Strings/Yes}}}}}
+}}</includeonly>

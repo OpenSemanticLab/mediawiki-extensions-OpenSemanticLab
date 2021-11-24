@@ -1,0 +1,199 @@
+<includeonly>{{LabProcess/Step
+|name={{{name|}}}
+|required={{{required|}}}
+|predecessor={{{predecessor|}}}
+|concurrent={{{concurrent|}}}
+|input objects={{{input objects|}}}
+|output objects={{{output objects|}}}
+|form=LabProcess/Steps/GravimetricDosing
+|specific template=LabProcess/Steps/GravimetricDosing/Subpage
+|popup={{{popup|{{{Helper/Strings/No}}}}}}
+|parameters=
+   {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
+   {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}
+   [name]={{{name|}}};
+   [device]={{{device|}}};
+   [precondition]={{{precondition|}}};
+   [postcondition]={{{postcondition|}}}
+|specific parameters=
+   [educt category]={{{educt category|Category:Material}}};
+   [nominal educt]={{{nominal educt|}}};
+   [nominal educt batch]={{{nominal educt batch|}}};
+   [actual educt]={{{actual educt|}}};
+   [actual educt batch]={{{actual educt batch|}}};
+   [nominal mass]={{{nominal mass|}}};
+   [nominal mass unit]={{{nominal mass unit|}}};
+   [actual mass]={{{actual mass|}}};
+   [actual mass unit]={{{actual mass unit|{{{nominal mass unit}}}}}};
+   [device category]={{{device category|Category:Device}}};
+   [nominal device type]={{{nominal device type|}}};
+   [actual device type]={{{actual device type|}}};
+   [nominal device instance]={{{nominal device instance|{{{nominal device|}}}}}};
+   [actual device instance]={{{actual device instance|{{{actual device|}}}}}};
+   [nominal device setup]={{{nominal device setup|}}};
+   [actual device setup]={{{actual device setup|}}}
+}}
+
+<!-- BESCHREIBUNG -->
+Von {{#if: {{{nominal educt|}}}|[[{{{nominal educt}}}]]|{{Message/NotDefined}}}} 
+(Stoffklasse: {{#if: {{{educt category|}}}|[[:{{{educt category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal educt batch|}}}|[[{{{nominal educt batch}}}]]|{{Message/NotDefined}}}}) 
+sollen
+{{#if: {{{nominal mass|}}}|{{{nominal mass}}} {{{nominal mass unit}}}|{{Message/NotDefined}}}} 
+eingewogen werden.
+{{LabProcess/Query/DeviceParam
+|intro=Als Gerät soll
+|outro=verwendet werden.
+|prefix=
+|suffix=
+|process step name={{{name|}}}
+|device category={{{device category|}}}
+|nominal device type={{{nominal device type|}}}
+|actual device type={{{actual device type|}}}
+|nominal device instance={{{nominal device instance|{{{nominal device|}}}}}}
+|actual device instance={{{actual device instance|{{{actual device|}}}}}}
+|nominal device setup={{{nominal device setup|}}}
+|actual device setup={{{actual device setup|}}}
+}}
+{{LabProcess/Query/GenericParam
+|process step name={{{name}}}
+|parameter name=Einwaage
+|parameter unit={{{actual mass unit|{{{nominal mass unit}}}}}}
+|exists intro msg=Die tatsächliche [[Einwaage]] betrug
+|exists outro msg=.
+|exists not msg=Die tatsächliche [[Einwaage]] muss noch dokumentiert werden.}}
+{{LabProcess/Query/GenericParam
+|process step name={{{name|}}}
+|parameter name=Edukt Charge
+|exists intro msg=Die tatsächliche verwendete [[Edukt Charge]] war
+|exists outro msg=.
+|exists not msg=Die tatsächliche [[Edukt Charge]] muss noch dokumentiert werden.}}
+</includeonly>
+<noinclude>
+<templatedata>
+{
+	"params": {
+		"name": {
+			"label": "Name des Prozessschrittes",
+			"example": "Einwaage Ethanol",
+			"type": "string",
+			"required": true
+		},
+		"predecessor": {
+			"label": "Vorgängerschritt"
+		},
+		"concurrent": {
+			"label": "Gleichzeitiger Schritt"
+		},
+		"input objects": {
+			"label": "Eingehende Objekte",
+			"description": "Objekte, die vom Prozessschritt konsumiert werden. Mehrer Objekte werden mit Semikolon getrennt",
+			"example": "Becherglas;Rührfisch",
+			"type": "string"
+		},
+		"output objects": {
+			"label": "Augehende Objekte",
+			"description": "Objekte, die vom Prozessschritt produziert werden. Mehrer Objekte werden mit Semikolon getrennt",
+			"type": "string"
+		},
+		"device": {
+			"label": "Verwendetes Gerät",
+			"example": "Waage",
+			"type": "wiki-page-name"
+		},
+		"precondition": {
+			"label": "Vorbedingung",
+			"description": "Freitext-Bedingung, die vor Beginn des Prozessschrittes erfüllt sein muss",
+			"example": "Becherglas spülen",
+			"type": "string"
+		},
+		"postcondition": {
+			"label": "Nachbedingung",
+			"description": "Freitext-Bedingung, die nach Beenden des Prozessschrittes erfüllt sein muss",
+			"example": "Becherglas abdecken",
+			"type": "string"
+		},
+		"educt category": {
+			"label": "Stoffkategorie des Eduktes",
+			"example": "Lösungsmittel",
+			"type": "wiki-page-name",
+			"autovalue": "Category:Material",
+			"required": true
+		},
+		"nominal educt": {
+			"label": "Vorgabe für das Edukt",
+			"example": "Ethanol",
+			"type": "wiki-page-name"
+		},
+		"nominal educt batch": {
+			"label": "Charge des Eduktes",
+			"type": "wiki-page-name",
+			"autovalue": ""
+		},
+		"actual educt": {
+			"label": "Tatsächliches Edukt",
+			"type": "wiki-page-name",
+			"autovalue": ""
+		},
+		"actual educt batch": {
+			"label": "Tatsächliche Edukt Charge",
+			"type": "wiki-page-name"
+		},
+		"nominal mass": {
+			"label": "Vorgegebene Masse",
+			"type": "number",
+			"autovalue": "",
+			"suggested": true
+		},
+		"nominal mass unit": {
+			"label": "Einheit der Massenvorgabe",
+			"type": "string",
+			"autovalue": "g",
+			"suggested": true
+		},
+		"actual mass": {
+			"label": "Tatsächliche Masse",
+			"type": "string"
+		},
+		"actual mass unit": {
+			"label": "Tatsächlich verwendete Masseneinheit",
+			"type": "string"
+		},
+		"nominal device instance": {
+			"label": "Vorgabe für das zu verwendende Gerät",
+			"type": "wiki-page-name"
+		},
+		"actual device instance": {
+			"label": "Tatsächlich verwendetes Gerät"
+		},
+		"required": {
+			"label": "Verpflichtender Prozessschritt",
+			"type": "boolean"
+		}
+	},
+	"description": "Prozessschritt, um einen Stoff bzw. ein Material unter Angabe seiner Masse dem Prozess hinzuzufügen",
+	"format": "block",
+	"paramOrder": [
+		"name",
+		"predecessor",
+		"concurrent",
+		"input objects",
+		"output objects",
+		"device",
+		"precondition",
+		"postcondition",
+		"educt category",
+		"nominal educt",
+		"nominal educt batch",
+		"actual educt",
+		"actual educt batch",
+		"nominal mass",
+		"nominal mass unit",
+		"actual mass",
+		"actual mass unit",
+		"nominal device instance",
+		"actual device instance",
+		"required"
+	]
+}
+</templatedata>
+</noinclude>

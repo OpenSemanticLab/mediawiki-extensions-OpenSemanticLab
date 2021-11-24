@@ -1,0 +1,39 @@
+<noinclude>Template um einen vollen Geräteparametersatz (Kategorie, Typ Soll/Ist, Instanz Soll/Ist, Setup Soll/Ist) anzuzeigen und abzufragen.
+<pre>
+{{LabProcess/Query/DeviceParam
+|intro=Einleitender Halbsatz, Standard: "Das Laborprodukt soll mit dem Gerät"
+|outro=Ausleitender Halbsatz, Standard: "bearbeitet werden."
+|prefix=Präfix für die Verwendung mehrer Geräte (optional)
+|suffix=Suffix für die Verwendung mehrer Geräte (optional)
+|process step name=Name des Prozessschrittes, falls nicht auf dessen Unterseite verwendet
+|device category=Gerätekategorie
+|nominal device type=Zu verwendender Gerätetyp
+|actual device type=Tatsächlich verwendeter Gerätetyp
+|nominal device instance=Zu verwendende Geräteinstanz
+|actual device instance=Tatsächlich verwendete Geräteinstanz
+|nominal device setup=Zu verwendendes Gerätesetup
+|actual device setup=Tatsächlich verwendetes Gerätesetup
+}}
+</pre>
+</noinclude><includeonly><!--
+
+-->{{{intro|Das Laborprodukt soll mit dem Werkzeug}}}  
+{{#if: {{{nominal device type|}}}|[[{{{nominal device type}}}]]|{{Message/NotDefined}}}} 
+(Geräteklasse: {{#if: {{{device category|}}}|[[:{{{device category}}}]]|{{Message/NotDefined}}}}, Exemplar/Instanz: 
+{{#if: {{{nominal device instance|}}}|[[{{{nominal device instance}}}]]|{{Message/NotDefined}}}}) mit Setup 
+{{#if: {{{nominal device setup|}}}|[[{{{nominal device setup}}}]]|{{Message/NotDefined}}}}
+{{{outro|vereinzelt werden.}}}
+{{LabProcess/Query/GenericParam
+|process step name={{{process step name|}}}
+|parameter name={{{prefix|}}} Gerät {{{suffix|}}}
+|exists intro msg=Als Gerät wurde verwendet: 
+|exists outro msg=.
+|exists not msg=Das benutzte Gerät muss noch dokumentiert werden.}}
+{{LabProcess/Query/GenericParam
+|process step name={{{process step name|}}}
+|parameter name={{{prefix|}}} Gerätesetup {{{suffix|}}}
+|exists intro msg=Als Gerätesetup wurde verwendet: 
+|exists outro msg=.
+|exists not msg=Das benutzte Gerätesetup ist nicht dokumentiert.}}<!--
+
+--></includeonly>

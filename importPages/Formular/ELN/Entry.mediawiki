@@ -1,0 +1,37 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+
+
+{{#forminput:form=ELN/Entry}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|ELN/Entry}}}
+{| class="formtable"
+! Schlagwörter: 
+| {{{field|keywords|input type=tokens|mandatory|values from property=HasKeyword|list|delimiter=;}}}
+|-
+! Ersteller: 
+| {{{field|agent|default=current user}}}
+| {{{field|creation date|hidden|input type=datetimepicker|mandatory|value=now}}}
+|-
+! Startzeitpunkt: 
+| {{{field|start date|input type=datetimepicker|mandatory|default=now}}}
+|-
+! Endzeitpunkt: 
+| {{{field|end date|input type=datetimepicker|default=now}}}
+|}
+{{{end template}}}
+
+==Ziel==
+{{{section|Ziel|level=2|editor=visualeditor|class=toolbarOnTop}}}
+
+==Vorgehen==
+{{{section|Vorgehen|level=2|editor=visualeditor|class=toolbarOnTop}}}
+
+==Ergebnis==
+{{{section|Ergebnis|level=2|editor=visualeditor|class=toolbarOnTop}}}
+
+
+{{{standard input|save}}} {{{standard input|cancel}}}
+</includeonly>

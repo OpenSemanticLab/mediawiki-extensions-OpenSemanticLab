@@ -1,0 +1,9 @@
+<includeonly>
+Dies ist das Formular „{{PAGENAME}}“.
+Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen in das Eingabefeld unten ein.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wirst du automatisch zum Bearbeitungsformular der Seite weitergeleitet.
+
+
+{{#forminput:form={{PAGENAME}}}}
+
+</includeonly>

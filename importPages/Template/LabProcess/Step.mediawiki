@@ -1,0 +1,15 @@
+<includeonly>
+==={{{name}}}{{#ifeq: {{{required|{{Helper/Strings/Yes}}}}}|{{Helper/Strings/No}}|<nowiki> </nowiki>(optional)|}}===
+{{#ifexist:{{FULLPAGENAME}}/{{{name}}}|([[{{FULLPAGENAME}}/{{{name}}}|Details]])|}}
+{{#formlink:form={{{form}}}|query string=super_page={{FULLPAGENAME}}&{{{template|LabProcess/Step/Subpage}}}[related to]={{FULLPAGENAME}}&{{#arraymap:{{{parameters|}}}|{{{sep|;}}}|__GEN_PARAMS__|{{{template|LabProcess/Step/Subpage}}}{{#replace:__GEN_PARAMS__|_|<nowiki/> <nowiki/>}}|&}}&{{#arraymap:{{{specific parameters|}}}|{{{sep|;}}}|__SPEC_PARAMS__|{{{specific template|{{{form}}}}}}{{#replace:__SPEC_PARAMS__|_|<nowiki/> <nowiki/>}}|&}}&{{#arraymap:{{{additional parameters 1|}}}|{{{sep|;}}}|__ADD_1_PARAMS__|{{{additional template 1|{{{form}}}}}}{{#replace:__ADD_1_PARAMS__|_|<nowiki/> <nowiki/>}}|&}}&returnto={{FULLPAGENAME}}|target={{FULLPAGENAME}}/{{{name}}}|link text=Prozessschritt {{{name}}} erstellen oder bearbeiten|tooltip=Prozessschritt {{{name}}} erstellen oder bearbeiten|link type=NOTpost button|returntoNOT={{FULLPAGENAME}}|reload|{{#ifeq: {{{popup|}}}|{{{Helper/Strings/Yes}}}|popup|}}}}<!--
+-->{{LabProcess/Step/Descriptor
+|name={{{name}}}
+|predecessor={{#arraymap:{{{predecessor|}}}|;|__VALUE__|{{FULLPAGENAME}}#__VALUE__|;}}
+|concurrent to={{#arraymap:{{{concurrent|}}}|;|__VALUE__|{{FULLPAGENAME}}#__VALUE__|;}}
+|input objects={{{input objects|}}}
+|output objects={{#arraymaptemplate:{{{output objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}}
+}}{{#arraymaptemplate:{{{output objects|}}}|LabProcess/Object|;|}}
+{{#ifeq: {{Helper/Query/DebugProperty}}|wahr|
+{{#if: {{{input objects|}}}| </br>Eingehende interne Objekte: {{{input objects|}}} |}}
+{{#if: {{{output objects|}}}| </br>Ausgehende interne Objekte: {{#arraymaptemplate:{{{output objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}} |}}
+|}}</includeonly>

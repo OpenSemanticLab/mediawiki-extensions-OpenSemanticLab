@@ -1,0 +1,8 @@
+<includeonly></br>
+</br>
+<nowiki>{{{for template|</nowiki>{{{process step template}}}<nowiki>}}}</nowiki>
+== Spezifische Prozessparameter ==</includeonly>
+<!-- {| class="formtable"
+|
+! colspan="2" |Sollwert 
+! colspan="2" |Istwert -->

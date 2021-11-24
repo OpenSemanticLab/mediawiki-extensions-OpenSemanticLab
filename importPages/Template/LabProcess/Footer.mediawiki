@@ -1,0 +1,18 @@
+<includeonly>
+== Produkte ==
+{{#ask: [[Category:Process Product]] [[-has subobject::{{FULLPAGENAME}}]]
+<!-- |?HasWikiId=Wiki ID -->
+|?HasIscId=ISC ID
+|?HasMaterial
+|?HasProcessObject=Prozessobjekt
+|mainlabel=-
+|@deferred
+}}
+
+<!-- == Weitere Verwendung ==
+{{#ask: [[-Gehört zu.Has Subobject.Edukt Charge.-Has subobject::Laborprodukt:210506-oppm-0100-d]]
+|?Material
+|?Definiert in=Vorschrift
+|?Ersteller
+}} -->
+</includeonly>

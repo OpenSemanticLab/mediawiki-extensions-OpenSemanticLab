@@ -1,0 +1,2 @@
+For lab objects like samples, parts, drafts, measurements, etc.
+{{#subpagelist: }}
