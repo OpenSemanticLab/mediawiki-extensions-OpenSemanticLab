@@ -80,7 +80,7 @@
 			"id": 7101,
 			"constant": "NS_LABNOTE_TALK",
 			"name": "LabNote_Talk"
-		}
+		},
 		{
 			"id": 7110,
 			"constant": "NS_LABPROCESS",
