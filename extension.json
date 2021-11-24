@@ -62,16 +62,6 @@
 			"name": "Room_Talk"
 		},
 		{
-			"id": 7040,
-			"constant": "NS_PROJECT",
-			"name": "Project"
-		},
-		{
-			"id": 7041,
-			"constant": "NS_PROJECT_TALK",
-			"name": "Project_Talk"
-		},
-		{
 			"id": 7100,
 			"constant": "NS_LABNOTE",
 			"name": "LabNote"
@@ -100,7 +90,7 @@
 			"id": 7121,
 			"constant": "NS_LABOBJECT_TALK",
 			"name": "LabObject_Talk"
-		},
+		}
 	],
 	"attributes": {
 		"VisualEditor": {
