@@ -1,0 +1,23 @@
+<includeonly>{{Helper/UI/VE/Visible
+|icon=chem
+|content=Chem Editor
+}}
+{{Helper/UI/VE/Hidden 
+|content=<div class="div_kekule_view_edit" id="chemViewEdit_{{{doc}}}" style="width:{{{width|99}}}%;height:{{{height|500}}}px;border:1px solid black;">{{FULLPAGENAME}}/{{{doc}}}</div>
+}}</includeonly>
+<noinclude>
+<templatedata>
+{
+	"params": {
+		"doc": {
+			"label": "Dokumentenname",
+			"description": "Muss eindeutig auf dieser Seite sein",
+			"type": "wiki-page-name",
+			"autovalue": "ChemDoc",
+			"required": true
+		}
+	},
+	"description": "Erstellt ein Kekule Composer Widget zum bearbeiten der angegebenen Unterseite"
+}
+</templatedata>
+</noinclude>

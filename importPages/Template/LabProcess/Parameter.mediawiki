@@ -1,10 +1,10 @@
 <includeonly>{{#subobject:
  |@category=Parameter
  |@category=ProcessParameter
- |IsRelatedTo={{{related to|{{FULLPAGENAME}}}}}
+ |IsRelatedTo={{{related_to|{{FULLPAGENAME}}}}}
  |HasName={{{name}}}
  |HasParameterType={{{type}}}
- |HasProperty=Attribut:{{#replace:{{{attribute}}}|Attribut:|}}
- |{{#replace:{{{attribute}}}|Attribut:|}}={{{value|}}}|+sep={{{sep|;}}}
+ |HasProperty=Property:{{#replace:{{#replace:{{{property}}}|Attribut:|}}|Property:|}}
+ |{{#replace:{{#replace:{{{property}}}|Attribut:|}}|Property:|}}={{{value|}}}|+sep={{{sep|;}}}
  |HasValue={{{value|}}}
 }}</includeonly>

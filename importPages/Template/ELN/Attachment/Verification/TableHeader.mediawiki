@@ -1,0 +1,7 @@
+<includeonly>
+== Verifizierte Versionen ==
+
+{| class="smwtable-clean sortable"
+ ! File !! Proof !! Status
+ |-
+</includeonly>

@@ -1,0 +1,21 @@
+<noinclude> To verify timestamps
+
+{{#subpagelist:}}
+
+</noinclude>
+<includeonly>
+<div id="pdf-converter"></div>
+
+{{#ask:
+[[Category:ELN/Attachment/TimeStampedDoc]] 
+[[IsRelatedTo::{{FULLPAGENAME}}]] 
+ |?=file 
+ |?HasOtsFile=proof
+ |format=plainlist
+ |introtemplate=ELN/Attachment/Verification/TableHeader
+ |template=ELN/Attachment/Verification/TableBody
+ |outrotemplate=ELN/Attachment/Verification/TableFooter
+ |searchlabel=
+ |named args=yes
+ |limit=1
+}}</includeonly>

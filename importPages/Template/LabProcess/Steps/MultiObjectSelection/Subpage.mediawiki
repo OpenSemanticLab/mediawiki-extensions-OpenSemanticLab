@@ -1,0 +1,34 @@
+<noinclude>
+{{LabProcess/Step/Subpage/Template
+  |form=Form:{{BASEPAGENAME}}
+  |template=Template:{{BASEPAGENAME}}
+  |status=Complete
+  |version=4.0
+}}
+
+
+Vorlage für einen Prozessschritt zur Objektauswahl
+
+<pre>
+{{LabProcess/Steps/MultiObjectSelection/Subpage
+  | object_category=Objekt Kategory, z.B. Folie
+  | actual_object_category=Tatsächliche Objekt Kategory, z.B. Folie
+  | objects=Array of LabProcess/Steps/MultiObjectSelection/Object
+}}
+
+</pre>
+Seite bearbeiten um den Quelltext zu sehen.
+</noinclude>
+<includeonly>
+<!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
+Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{object_category|}}}|[[:{{{object_category}}}]]|{{Message/NotDefined}}}}) ausgewählt werden.
+
+{{{description|}}}
+
+{{{objects}}}
+
+<!--
+-->{{LabProcess/Step/Footer
+|specific_template=Template:LabProcess/Steps/MultiObjectSelection/Subpage
+}}
+</includeonly>

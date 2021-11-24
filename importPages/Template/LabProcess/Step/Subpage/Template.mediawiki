@@ -1,5 +1,5 @@
 <includeonly>
 [[Category:ProcessStepSubpageTemplate]]
-Status: [[HasStatus::{{{status|Unvollständig}}}]], Version: [[HasVersion::{{{version|0.0}}}]] <br/>Zugehöriges Formular=[[{{{form}}}]]<br/> Zugehörige Seitenvorlage=[[{{{page template}}}]]
-{{#set: HasForm={{{form}}} | HasTemplate={{{page template}}} }}
+Status: [[HasStatus::{{{status|Unvollständig}}}]], Version: [[HasVersion::{{{version|0.0}}}]] <br/>Zugehöriges Formular=[[{{{form}}}]]<br/> Zugehörige Seitenvorlage=[[{{{template}}}]]
+{{#set: HasForm={{{form}}} | HasTemplate={{{template}}} }}
 </includeonly>

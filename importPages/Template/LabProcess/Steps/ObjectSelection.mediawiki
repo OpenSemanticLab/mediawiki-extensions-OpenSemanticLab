@@ -1,0 +1,128 @@
+<includeonly>{{LabProcess/Step
+|id={{{id|}}}
+|name={{{name|}}}
+|required={{{required|}}}
+|predecessor={{{predecessor|}}}
+|concurrent={{{concurrent|}}}
+|input_objects={{{input_objects|}}}
+|output_objects={{{output_objects|}}}
+|form=LabProcess/Steps/ObjectSelection
+|specific_template=LabProcess/Steps/ObjectSelection/Subpage
+|link_type={{{link_type|}}}
+|popup={{{popup|}}}
+|parameters=
+   {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
+   {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}
+   [name]={{{name|}}};
+   [precondition]={{{precondition|}}};
+   [postcondition]={{{postcondition|}}}
+|specific_parameters=
+   [object_category]={{{object_category|Category:Material}}};
+   [actual_object_category]={{{actual_object_category|{{{object_category|Category:Material}}}}}};
+   [nominal_object_type]={{{nominal_object_type|}}};
+   [nominal_object_instance]={{{nominal_object_instance|}}};
+   [actual_object_type]={{{actual_object_type|}}};
+   [actual_object_instance]={{{actual_object_instance|}}}
+}}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
+Für den nächsten Prozessschritt muss zunächst eine konkretes Laborobjekt vom Typ 
+{{#if: {{{nominal_object_type|}}}|[[{{{nominal_object_type}}}]]|{{Message/NotDefined}}}} 
+(Kategorie: {{#if: {{{object_category|}}}|[[:{{{object_category}}}]]|{{Message/NotDefined}}}}) 
+ausgewählt werden. {{LabProcess/Query/GenericParam
+|process_step_name={{{name|}}}
+|parameter_name=Objektinstanz
+|exists_intro_msg=Ausgewählt wurde 
+|exists_outro_msg=.
+|exists_not_msg=Die Auswahl muss noch getroffen werden.}}</includeonly>
+<noinclude>
+<templatedata>
+{
+	"params": {
+		"name": {
+			"label": "Name des Prozessschrittes",
+			"example": "Auswahl Probe",
+			"type": "string",
+			"required": true
+		},
+		"predecessor": {
+			"label": "Vorgängerschritt"
+		},
+		"concurrent": {
+			"label": "Gleichzeitiger Schritt"
+		},
+		"input_objects": {
+			"label": "Eingehende Objekte",
+			"description": "Objekte, die vom Prozessschritt konsumiert werden. Mehrer Objekte werden mit Semikolon getrennt",
+			"example": "Becherglas;Rührfisch",
+			"type": "string"
+		},
+		"output_objects": {
+			"label": "Augehende Objekte",
+			"description": "Objekte, die vom Prozessschritt produziert werden. Mehrer Objekte werden mit Semikolon getrennt",
+			"type": "string"
+		},
+		"precondition": {
+			"label": "Vorbedingung",
+			"description": "Freitext-Bedingung, die vor Beginn des Prozessschrittes erfüllt sein muss",
+			"example": "Becherglas spülen",
+			"type": "string"
+		},
+		"postcondition": {
+			"label": "Nachbedingung",
+			"description": "Freitext-Bedingung, die nach Beenden des Prozessschrittes erfüllt sein muss",
+			"example": "Becherglas abdecken",
+			"type": "string"
+		},
+		"required": {
+			"label": "Verpflichtender Prozessschritt",
+			"type": "boolean"
+		},
+		"actual_object_instance": {
+			"label": "Tatsächliche Objekt Instanz",
+			"type": "wiki-page-name"
+		},
+		"actual_object_type": {
+			"label": "Tatsächlicher Objekttyp",
+			"type": "wiki-page-name",
+			"autovalue": ""
+		},
+		"nominal_object_instance": {
+			"label": "Vorgabe für die Objektinstanz",
+			"example": "ein bestimmtes Stück Siliconfolie",
+			"type": "wiki-page-name",
+			"autovalue": ""
+		},
+		"object_category": {
+			"label": "Kategorie des Objekttyps",
+			"example": "Category:Folie",
+			"type": "wiki-page-name",
+			"autovalue": "Category:Material",
+			"required": true
+		},
+		"nominal_object_type": {
+			"label": "Vorgabe für den Objekttyp",
+			"example": "Kategorie:Siliconfolie",
+			"type": "wiki-page-name",
+			"autovalue": "",
+			"suggested": true
+		}
+	},
+	"description": "Prozessschritt, um Objekt für den folgenden Prozessschritt auszuwählen",
+	"format": "block",
+	"paramOrder": [
+		"name",
+		"predecessor",
+		"concurrent",
+		"input_objects",
+		"output_objects",
+		"precondition",
+		"postcondition",
+		"object_category",
+		"nominal_object_type",
+		"nominal_object_instance",
+		"actual_object_type",
+		"actual_object_instance",
+		"required"
+	]
+}
+</templatedata>
+</noinclude>

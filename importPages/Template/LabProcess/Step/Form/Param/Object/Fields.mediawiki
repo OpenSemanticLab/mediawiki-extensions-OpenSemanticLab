@@ -1,0 +1,29 @@
+<includeonly>|-
+! {{{name_in_form}}} Kategorie
+<!-- NOMINAL CATEGORY:Combobox -->
+<!-- | <nowiki>{{{field|</nowiki>{{{template_parameter}}} category<nowiki>|input type=combobox|restricted|default=</nowiki>Category:{{{category|211112-sist-0001-mc}}}<nowiki>|values from concept=</nowiki>{{{concept|MaterialCategory}}}<nowiki>}}}</nowiki> -->
+<!-- NOMINAL CATEGORY:SFS Combobox-->
+| {{#ifeq: {{{category_input_type|combobox}}}|combobox| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>{{{template_parameter}}}_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|MaterialCategory}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>}}<!-- 
+NOMINAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|}}}|tree|
+<div class='sfselect-restricted'><nowiki>{{{field|</nowiki>{{{template_parameter}}}_category<nowiki>|input type=tree|restricted|top category=</nowiki>{{{category|211112-sist-0001-mc}}}<nowiki>|height=500|width=400|depth=1}}}</nowiki></div>}}
+
+<!-- ACTUAL CATEGORY:SFS Combobox-->
+| {{#ifeq: {{{category_input_type|combobox}}}|combobox|<nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|MaterialCategory}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki>}}<!-- 
+ACTUAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|}}}|tree|
+<nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_category<nowiki>|input type=tree|restricted|top category=</nowiki>{{{category|211112-sist-0001-mc}}}<nowiki>|height=500|width=400|depth=1}}}</nowiki>}}
+|-
+! {{{name_in_form}}} Typ
+<!-- NOMINAL TYPE-->
+<!-- | <nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}<nowiki>|restricted|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>{{{template parameter}}} category<nowiki>|label}}}</nowiki> -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_type<nowiki>|restricted|input type=SF_Select|query=</nowiki>((Category:{{{category|211112-sist-0001-mc}}}))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
+<!-- ACTUAL TYPE-->
+| <nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_type<nowiki>|input type=SF_Select|query=((</nowiki>{{#ifeq: {{{category_input_type|}}}|tree|Category:}}<nowiki>@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>actual_{{{template_parameter}}}_category<nowiki>|label|mandatory}}}</nowiki>
+|-
+! {{{name_in_form}}} Instanz
+<!-- NOMINAL INSTANCE -->
+<!-- | <nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>nominal_{{{template_parameter}}}_type<nowiki>|label}}}</nowiki> -->
+<!-- | <nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_instance<nowiki>|restricted|input type=combobox|values from namespace=LabObject}}}</nowiki> -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_instance<nowiki>|input type=SF_Select|query=((Category:LabObject));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
+<!-- ACTUAL INSTANCE -->
+| <nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>actual_{{{template_parameter}}}_type<nowiki>|label|mandatory}}}</nowiki>
+</includeonly>

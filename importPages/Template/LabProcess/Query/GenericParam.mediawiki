@@ -1,11 +1,11 @@
 <includeonly>{{LabProcess/Query/GenericParam/SubQuery
-|process step name={{{process step name}}}
-|parameter name={{{parameter name}}}
+|process_step_name={{{process_step_name}}}
+|parameter_name={{{parameter_name}}}
 |type={{{type|Istwert}}}
-|parameter property={{#replace:{{#replace:{{#ask: [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process step name|}}}|/{{{process step name}}}|}}]] [[HasParameterType::{{{type|Istwert}}}]][[HasName::{{{parameter name}}}]] |?HasProperty= |mainlabel=- |link=none}}|Attribut:|}}|Property:|}}
-|parameter unit={{{parameter unit|}}}
-|exists intro msg={{{exists intro msg|}}}
-|exists outro msg={{{exists outro msg|}}}
-|exists not msg={{{exists not msg|-Nicht angegeben-}}}
+|parameter_property={{#replace:{{#replace:{{#ask: [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process_step_name|}}}|/{{{process_step_name}}}|}}]] [[HasParameterType::{{{type|Istwert}}}]][[HasName::{{{parameter_name}}}]] |?HasProperty= |mainlabel=- |link=none}}|Attribut:|}}|Property:|}}
+|parameter_unit={{{parameter_unit|}}}
+|exists_intro_msg={{{exists_intro_msg|}}}
+|exists_outro_msg={{{exists_outro_msg|}}}
+|exists_not_msg={{{exists_not_msg|-Nicht angegeben-}}}
 |link={{{link|{{Helper/Strings/Yes}}}}}
 }}</includeonly>

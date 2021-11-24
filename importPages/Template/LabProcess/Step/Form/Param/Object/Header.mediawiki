@@ -1,0 +1,4 @@
+<includeonly>{| class="formtable"
+| style="width: 10%" |
+! style="width: 40%" |Sollwert 
+! style="width: 40%" |Istwert</includeonly>

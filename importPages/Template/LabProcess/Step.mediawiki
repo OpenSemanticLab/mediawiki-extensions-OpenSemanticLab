@@ -1,15 +1,17 @@
 <includeonly>
 ==={{{name}}}{{#ifeq: {{{required|{{Helper/Strings/Yes}}}}}|{{Helper/Strings/No}}|<nowiki> </nowiki>(optional)|}}===
-{{#ifexist:{{FULLPAGENAME}}/{{{name}}}|([[{{FULLPAGENAME}}/{{{name}}}|Details]])|}}
-{{#formlink:form={{{form}}}|query string=super_page={{FULLPAGENAME}}&{{{template|LabProcess/Step/Subpage}}}[related to]={{FULLPAGENAME}}&{{#arraymap:{{{parameters|}}}|{{{sep|;}}}|__GEN_PARAMS__|{{{template|LabProcess/Step/Subpage}}}{{#replace:__GEN_PARAMS__|_|<nowiki/> <nowiki/>}}|&}}&{{#arraymap:{{{specific parameters|}}}|{{{sep|;}}}|__SPEC_PARAMS__|{{{specific template|{{{form}}}}}}{{#replace:__SPEC_PARAMS__|_|<nowiki/> <nowiki/>}}|&}}&{{#arraymap:{{{additional parameters 1|}}}|{{{sep|;}}}|__ADD_1_PARAMS__|{{{additional template 1|{{{form}}}}}}{{#replace:__ADD_1_PARAMS__|_|<nowiki/> <nowiki/>}}|&}}&returnto={{FULLPAGENAME}}|target={{FULLPAGENAME}}/{{{name}}}|link text=Prozessschritt {{{name}}} erstellen oder bearbeiten|tooltip=Prozessschritt {{{name}}} erstellen oder bearbeiten|link type=NOTpost button|returntoNOT={{FULLPAGENAME}}|reload|{{#ifeq: {{{popup|}}}|{{{Helper/Strings/Yes}}}|popup|}}}}<!--
+{{#ifexist:{{FULLPAGENAME}}/{{{id}}}|([[{{FULLPAGENAME}}/{{{id}}}|Details]])|}}
+{{Helper/UI/VE/Visible |content=Prozessschritt {{{name}}} erstellen oder bearbeiten |icon=doubleChevronEnd}}
+{{Helper/UI/Div/VE-Hidden}}{{#formlink:form={{{form}}}|query string=super_page={{FULLPAGENAME}}&{{{template|LabProcess/Step/Subpage}}}[related_to]={{FULLPAGENAME}}&{{#arraymap:{{{parameters|}}}|{{{sep|;}}}|__GEN_PARAMS__|{{{template|LabProcess/Step/Subpage}}}__GEN_PARAMS__|&}}&{{#arraymap:{{{specific_parameters|}}}|{{{sep|;}}}|__SPEC_PARAMS__|{{{specific_template|{{{form}}}}}}__SPEC_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_1|}}}|{{{sep|;}}}|__ADD_1_PARAMS__|{{{additional_template_1|{{{form}}}}}}__ADD_1_PARAMS__|&}}&returnto={{FULLPAGENAME}}|target={{FULLPAGENAME}}/{{{id}}}|link text=Prozessschritt {{{name}}} erstellen oder bearbeiten|tooltip=Prozessschritt {{{name}}} erstellen oder bearbeiten|link type={{{link_type|post button}}}|returntoNOT={{FULLPAGENAME}}|reload|{{#ifeq: {{{popup|}}}|{{{Helper/Strings/Yes}}}|popup|}}}}{{Helper/UI/Div/Closing}}<!--
 -->{{LabProcess/Step/Descriptor
+|id={{{id}}}
 |name={{{name}}}
 |predecessor={{#arraymap:{{{predecessor|}}}|;|__VALUE__|{{FULLPAGENAME}}#__VALUE__|;}}
-|concurrent to={{#arraymap:{{{concurrent|}}}|;|__VALUE__|{{FULLPAGENAME}}#__VALUE__|;}}
-|input objects={{{input objects|}}}
-|output objects={{#arraymaptemplate:{{{output objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}}
-}}{{#arraymaptemplate:{{{output objects|}}}|LabProcess/Object|;|}}
+|concurrent_to={{#arraymap:{{{concurrent|}}}|;|__VALUE__|{{FULLPAGENAME}}#__VALUE__|;}}
+|input_objects={{{input_objects|}}}
+|output_objects={{#arraymaptemplate:{{{output_objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}}
+}}{{#arraymaptemplate:{{{output_objects|}}}|LabProcess/Object|;|}}
 {{#ifeq: {{Helper/Query/DebugProperty}}|wahr|
-{{#if: {{{input objects|}}}| </br>Eingehende interne Objekte: {{{input objects|}}} |}}
-{{#if: {{{output objects|}}}| </br>Ausgehende interne Objekte: {{#arraymaptemplate:{{{output objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}} |}}
+{{#if: {{{input_objects|}}}| </br>Eingehende interne Objekte: {{{input_objects|}}} |}}
+{{#if: {{{output_objects|}}}| </br>Ausgehende interne Objekte: {{#arraymaptemplate:{{{output_objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}} |}}
 |}}</includeonly>

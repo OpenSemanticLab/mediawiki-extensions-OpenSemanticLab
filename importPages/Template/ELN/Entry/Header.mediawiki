@@ -1,0 +1,65 @@
+<includeonly> 
+== Stammdaten ==
+{{Helper/UI/VE/Visible |content=Stammdaten bearbeiten}}
+{{Helper/UI/VE/Hidden|content={{#formlink:form=ELN/Entry|link text=Stammdaten bearbeiten|link type=post button|target={{PAGENAME}}}}}}
+
+<!-- <div style="float:right">
+{{#ask: [[{{PAGENAME}}]]
+|?HasKeyword
+|format=tagcloud
+|limit=2500
+|link=all
+|headers=show
+|searchlabel=… further results
+|tagorder=alphabetical
+|template=Tagcloud.tag.title
+|increase=log
+|widget=sphere
+|height=200
+|width=200
+|mincount=1
+|minsize=70
+|maxsize=220
+|maxtags=1000
+}}
+</div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} ({{#explode:{{PAGENAME}}|:|1}}) | {{#explode:{{PAGENAME}}|:|1}}}}
+}}{{#set:
+|HasID={{#explode:{{PAGENAME}}|:|1}}
+|HasName={{{name|}}}
+|HasCreator=User:{{{creator|}}}
+|HasAgend={{{agents|}}}|+sep=,
+|HasCreationDate={{{start_date|}}}
+|HasEndDate={{{end_date|}}}
+|HasKeyword={{{keywords|}}}|+sep=;
+|IsRelatedTo={{{related_entries|}}}|+sep=;
+|HasDescription={{{description|}}}
+|HasTypeSymbol={{{type_symbol|}}}
+|HasShortTimestamp={{{short_timestamp|}}}
+|HasCreatorAbbreviation={{{creator_abbreviation|}}}
+}}{{#ask: [[{{PAGENAME}}]]
+|mainlabel=-
+|?HasCreator=Ersteller
+|?HasKeyword=Keywords
+|?HasCreationDate=Begonnen
+|?HasEndDate=Beendet
+|?HasDescription=Beschreibung
+|format=table
+|transpose=true
+|link=none
+}}
+{{#ask: [[{{PAGENAME}}]]
+|mainlabel=-
+|?IsRelatedTo=Verwandte Einträge
+|format=table
+|transpose=true
+}}
+== Inhalt ==
+{{Helper/UI/VE/EditButton}}
+<!-- <inputbox>
+type=create
+default={{FULLPAGENAME}}
+buttonlabel=Inhalt bearbeiten
+hidden=yes
+</inputbox> -->
+
+</includeonly>

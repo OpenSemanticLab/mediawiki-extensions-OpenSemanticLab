@@ -1,0 +1,35 @@
+<noinclude>Template for common form part
+<!-- Setting page info in template does not work -->
+<!-- <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+<nowiki>{{{info|page name=</nowiki>Material:<{{{template}}}[short_timestamp]>-<{{{template}}}[creator_abbreviation]>-<unique number;start=0001>-<{{{template}}}[type_symbol]><nowiki>}}}</nowiki>
+<nowiki>{{{for template|</nowiki>{{{template}}}<nowiki>}}}</nowiki> -->
+<!-- <nowiki>{{{info|page name=Material:<</nowiki>{{{template}}}<nowiki>[short_timestamp]>-<</nowiki>{{{template}}}<nowiki>[creator_abbreviation]>-<unique number;start=0001>-<</nowiki>{{{template}}}<nowiki>[type_symbol]>}}}</nowiki> -->
+</noinclude>
+<includeonly>
+{| class="formtable"
+! UUID: 
+| <nowiki>{{{field|uuid|default=uuid}}}</nowiki>
+|-
+! Type: 
+| <nowiki>{{{field|type_symbol}}}</nowiki>
+|-
+! Zeitstempel: 
+| <nowiki>{{{field|short_timestamp}}}</nowiki>
+|-
+! Erstelldatum: 
+| <nowiki>{{{field|timestamp|input type=datetimepicker|default=now}}}</nowiki>
+|-
+! Erstellerkuerzel: 
+| <nowiki>{{{field|creator_abbreviation}}}</nowiki>
+|-
+! Ersteller: 
+| <nowiki>{{{field|creator|default=current user}}}</nowiki>
+|-
+! Anzeigename: 
+| <nowiki>{{{field|display_name}}}</nowiki>
+|-
+! Vollständiger Name: 
+| <nowiki>{{{field|full_name}}}</nowiki>
+|-
+! Beschreibung: 
+| <nowiki>{{{field|description|input type=textarea|editor=NOTwikieditor|class=toolbarOnTop}}}</nowiki></includeonly>

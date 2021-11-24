@@ -6,34 +6,25 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Te
 |agent=Ausführende Person oder Maschine
 |predecessor=Vorgänger
 |concurrent=Parallelprozess
-|start date=Beginn
-|end date=Ende
-|related to=Zugehöriger Prozess bzw. Laborprodukt
+|start_date=Beginn
+|end_date=Ende
+|related_to=Zugehöriger Prozess bzw. Laborprodukt
 |precondition=Allgemeine Vorbedingung, die vor Beginn des Prozess erfüllt werden muss
-|precondition fulfilled=Vorbedingung ist erfüllt
+|precondition_fulfilled=Vorbedingung ist erfüllt
 |postcondition=Nachbedingung vor entgültigem Abschluss des Prozessschrittes
-|postcondition fulfilled=Nachbedingung ist erfüllt
+|postcondition_fulfilled=Nachbedingung ist erfüllt
 }}
 </pre>
 </noinclude>
-<includeonly><!-- Name: {{{name}}}
-
-Bearbeiter: {{{agent}}}
-
-Begonnen am: {{{start date}}}
-
-Beendet am: {{{end date}}}
-
-Vorgänger: {{{predecessor|Keiner}}} / Parallelprozess: {{{concurrent|Keiner}}}
- -->{{#set: HasName={{{name}}}}}
+<includeonly>{{#set: HasName={{{name}}} |HasID={{SUBPAGENAME}}}}
 === Prozessschritt {{{name}}} ===
-{{#if: {{{start date|}}} |
-Prozessschritt {{{name}}} des Laborproduktes [[IsRelatedTo::{{{related to}}}]] wurde von [[HasAgent::{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartTimeAndDate::{{{start date}}}]] begonnen und am [[HasEndTimeAndDate::{{{end date}}}]] beendet.
+{{#if: {{{start_date|}}} |
+Prozessschritt {{{name}}} des Laborproduktes [[IsRelatedTo::{{{related_to}}}]] wurde von [[HasAgent::{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartTimeAndDate::{{{start_date}}}]] begonnen und am [[HasEndTimeAndDate::{{{end_date}}}]] beendet.
 |
 Der Prozessschritt wurde noch nicht begonnen
 }}
 
-{{#if: {{{precondition|}}}|Die Vorbedingung ''{{{precondition|}}}'' wurde {{#ifeq: {{{precondition fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}
-{{#if: {{{postcondition |}}}|Die Nachbedingung ''{{{postcondition|}}}'' wurde {{#ifeq: {{{postcondition fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}
+{{#if: {{{precondition|}}}|Die Vorbedingung ''{{{precondition|}}}'' wurde {{#ifeq: {{{precondition_fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}
+{{#if: {{{postcondition|}}}|Die Nachbedingung ''{{{postcondition|}}}'' wurde {{#ifeq: {{{postcondition_fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}
 
-[[Kategorie:ProcessStepInstance]]</includeonly>
+[[Category:ProcessStepInstance]]</includeonly>

@@ -1,0 +1,57 @@
+<noinclude>
+{{LabProcess/Step/Subpage/Template
+  |form=Form:{{BASEPAGENAME}}
+  |template=Template:{{BASEPAGENAME}}
+  |status=Complete
+  |version=3.0
+}}
+
+
+Vorlage für einen Prozessschritt zur Objektauswahl
+
+<pre>
+{{LabProcess/Steps/ObjectSelection/Subpage
+  | object_category=Objekt Kategory, z.B. Folie
+  | nominal_object_type=Objekttyp, z.B. Siliconfolie
+  | nominal_object_instance=Objektinstanz, z.B. ein bestimmtes Stück Siliconfolie
+  | actual_object_type=Tatsächliche verwendeter Objekttyp
+  | actual_object_instance=Tatsächlich verwendete Objektinstanz
+}}
+
+</pre>
+Seite bearbeiten um den Quelltext zu sehen.
+</noinclude>
+<includeonly>
+<!-- PARAMETER
+-->{{LabProcess/Parameter
+   |name=Objekt |type=Sollwert |attribute=Objekt Kategorie |value={{{object_category|}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Objekttyp |type=Sollwert |attribute=Objekttyp |value={{{nominal_object_type|}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Objekttyp |type=Istwert |attribute=Objekttyp |value={{{actual_object_type|}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Objektinstanz |type=Sollwert |attribute=Objektinstanz |value={{{nominal_object_instance|}}}
+}}<!--
+-->{{LabProcess/Parameter
+   |name=Objektinstanz |type=Istwert |attribute=Objektinstanz |value={{{actual_object_instance|}}}
+}}<!--
+--><!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
+Für den nächsten Prozessschritt muss zunächst eine konkretes Laborobjekt vom Typ 
+{{#if: {{{nominal_object_type|}}}|[[{{{nominal_object_type}}}]]|{{Message/NotDefined}}}} 
+(Kategorie: {{#if: {{{object_category|}}}|[[:{{{object_category}}}]]|{{Message/NotDefined}}}}) 
+ausgewählt werden.
+
+{{LabProcess/Query/GenericParam
+|process_step_name={{{name|}}}
+|parameter_name=Objektinstanz
+|exists_intro_msg=Ausgewählt wurde 
+|exists_outro_msg=.
+|exists_not_msg=Die Auswahl muss noch getroffen werden.}}
+<!--
+-->{{LabProcess/Step/Footer
+|specific_template=Template:LabProcess/Steps/ObjectSelection/Subpage
+}}
+</includeonly>

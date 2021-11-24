@@ -1,15 +1,15 @@
 <includeonly><!--
 Create variable name
--->{{#vardefine:varname|{{#replace:{{#replace:var_{{FULLPAGENAME}}{{#if: {{{process step name|}}}|/{{{process step name}}}|}}_{{{parameter name}}}|(|}}|)|}}}}<!--
+-->{{#vardefine:varname|{{#replace:{{#replace:var_{{FULLPAGENAME}}{{#if: {{{process_step_name|}}}|/{{{process_step_name}}}|}}_{{{parameter_name}}}|(|}}|)|}}}}<!--
 Query for Parameter
 -->{{#vardefine:{{#var:varname}}
   |{{#ask: 
-    [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process step name|}}}|/{{{process step name}}}|}}]] 
+    [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process_step_name|}}}|/{{{process_step_name}}}|}}]] 
     [[HasParameterType::{{{type|Istwert}}}]]
-    [[HasName::{{{parameter name}}}]] 
-    |?{{{parameter property}}} {{#if: {{{parameter unit|}}}|# {{{parameter unit}}}|}} = 
+    [[HasName::{{{parameter_name}}}]] 
+    |?{{{parameter_property}}} {{#if: {{{parameter_unit|}}}|#_{{{parameter_unit}}}|}} = 
     |mainlabel=- 
     |link={{#ifeq:{{{link|}}}|{{Helper/Strings/Yes}}|NOTnone|none}}
 }}}}<!--
 Embedd result if present
--->{{#if: {{#var:{{#var:varname}}}} | {{{exists intro msg}}} {{#var:{{#var:varname}}}}{{{exists outro msg}}}| {{{exists not msg}}}}}</includeonly>
+-->{{#if: {{#var:{{#var:varname}}}} | {{{exists_intro_msg}}} {{#var:{{#var:varname}}}}{{{exists_outro_msg}}}| {{{exists_not_msg}}}}}</includeonly>

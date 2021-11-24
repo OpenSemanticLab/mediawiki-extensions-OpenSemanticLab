@@ -1,0 +1,24 @@
+
+<includeonly>{{Helper/UI/VE/Visible
+|icon=table 
+|content=Wellplate Editor
+}}
+{{Helper/UI/VE/Hidden 
+|content=<div class="WellplateViewer">{{FULLPAGENAME}}/{{{file_name}}}</div>
+}}</includeonly>
+<noinclude>
+<templatedata>
+{
+	"params": {
+		"file_name": {
+			"label": "Name",
+			"description": "Name für das Wellplattenobjekt, muss eindeutig auf dieser Seite sein",
+			"example": "wellplate_01",
+			"type": "string",
+			"required": true
+		}
+	},
+	"description": "Fügt eine Viewer mit verlinktem Editor für Wellplatten hinzu"
+}
+</templatedata>
+</noinclude>

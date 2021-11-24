@@ -1,0 +1,16 @@
+<includeonly>{{#declare:
+ IsRelatedTo=page
+ |HasSha256=sha256
+ |HasOtsFile=ots
+ |HasCreator=user
+ |HasOtsHex=ots_hex
+}}[[Category:ELN/Attachment/TimeStampedDoc]]
+
+{{#ask: [[{{FULLPAGENAME}}]]
+ |?IsRelatedTo=Page
+ |?HasSha256=SHA256
+ |?HasOtsFile=OTS
+ |?HasCreator=User
+ |transpose=true
+}}
+</includeonly>

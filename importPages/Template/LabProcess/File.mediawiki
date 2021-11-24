@@ -1,0 +1,6 @@
+<includeonly>
+Related process: [[IsOutputOf::{{{process_id|}}}]]
+Source Device: [[HasSourceDevice::{{{device_id|}}}]]
+
+[[Category:LabProcess/File]]
+<includeonly>

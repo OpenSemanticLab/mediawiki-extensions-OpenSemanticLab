@@ -1,0 +1,22 @@
+<noinclude>
+Wrapper for custom instances
+
+{{Helper/Docu/FormTemplate}}
+</noinclude>
+<includeonly>{{#default_form:LabProcess/Instance}}
+{{{{{template}}}
+| template={{{template|}}}
+| type_symbol={{{type_symbol|}}}
+| short_timestamp={{{short_timestamp|}}}
+| timestamp={{{timestamp|}}}
+| creator_abbreviation={{{creator_abbreviation|}}}
+| creator={{{creator|}}} 
+| display_name={{{display_name|}}} 
+| full_name={{{full_name|}}} 
+| output_category={{{output_category|}}}
+| output_type={{{output_type|}}}
+| projects={{{projects|}}}
+| additional_ids={{{additional_ids|}}}
+| description={{{description|}}} 
+}}
+</includeonly>

@@ -1,12 +1,14 @@
 <includeonly>{{LabProcess/Step
+|id={{{id|}}}
 |name={{{name|}}}
 |required={{{required|}}}
 |predecessor={{{predecessor|}}}
 |concurrent={{{concurrent|}}}
-|input objects={{{input objects|}}}
-|output objects={{{output objects|}}}
+|input_objects={{{input_objects|}}}
+|output_objects={{{output_objects|}}}
 |form=LabProcess/Steps/GravimetricDosing
-|specific template=LabProcess/Steps/GravimetricDosing/Subpage
+|specific_template=LabProcess/Steps/GravimetricDosing/Subpage
+|link_type={{{link_type|}}}
 |popup={{{popup|{{{Helper/Strings/No}}}}}}
 |parameters=
    {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
@@ -15,58 +17,59 @@
    [device]={{{device|}}};
    [precondition]={{{precondition|}}};
    [postcondition]={{{postcondition|}}}
-|specific parameters=
-   [educt category]={{{educt category|Category:Material}}};
-   [nominal educt]={{{nominal educt|}}};
-   [nominal educt batch]={{{nominal educt batch|}}};
-   [actual educt]={{{actual educt|}}};
-   [actual educt batch]={{{actual educt batch|}}};
-   [nominal mass]={{{nominal mass|}}};
-   [nominal mass unit]={{{nominal mass unit|}}};
-   [actual mass]={{{actual mass|}}};
-   [actual mass unit]={{{actual mass unit|{{{nominal mass unit}}}}}};
-   [device category]={{{device category|Category:Device}}};
-   [nominal device type]={{{nominal device type|}}};
-   [actual device type]={{{actual device type|}}};
-   [nominal device instance]={{{nominal device instance|{{{nominal device|}}}}}};
-   [actual device instance]={{{actual device instance|{{{actual device|}}}}}};
-   [nominal device setup]={{{nominal device setup|}}};
-   [actual device setup]={{{actual device setup|}}}
+|specific_parameters=
+   [educt_category]={{{educt_category|Category:Material}}};
+   [nominal_educt]={{{nominal_educt|}}};
+   [nominal_educt_batch]={{{nominal_educt_batch|}}};
+   [actual_educt]={{{actual_educt|}}};
+   [actual_educt_batch]={{{actual_educt_batch|}}};
+   [nominal_mass]={{{nominal_mass|}}};
+   [nominal_mass_unit]={{{nominal_mass_unit|}}};
+   [actual_mass]={{{actual_mass|}}};
+   [actual_mass_unit]={{{actual_mass_unit|{{{nominal_mass_unit}}}}}};
+   [device_category]={{{device_category|Category:Device}}};
+   [nominal_device_type]={{{nominal_device_type|}}};
+   [actual_device_type]={{{actual_device_type|}}};
+   [nominal_device_instance]={{{nominal_device_instance}}};
+   [actual_device_instance]={{{actual_device_instance}}};
+   [nominal_device_setup]={{{nominal_device_setup|}}};
+   [actual_device_setup]={{{actual_device_setup|}}}
 }}
 
 <!-- BESCHREIBUNG -->
-Von {{#if: {{{nominal educt|}}}|[[{{{nominal educt}}}]]|{{Message/NotDefined}}}} 
-(Stoffklasse: {{#if: {{{educt category|}}}|[[:{{{educt category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal educt batch|}}}|[[{{{nominal educt batch}}}]]|{{Message/NotDefined}}}}) 
+Von {{#if: {{{nominal_educt|}}}|[[{{{nominal_educt}}}]]|{{Message/NotDefined}}}} 
+(Stoffklasse: {{#if: {{{educt_category|}}}|[[:{{{educt_category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal_educt_batch|}}}|[[{{{nominal_educt_batch}}}]]|{{Message/NotDefined}}}}) 
 sollen
-{{#if: {{{nominal mass|}}}|{{{nominal mass}}} {{{nominal mass unit}}}|{{Message/NotDefined}}}} 
+{{#if: {{{nominal_mass|}}}|{{{nominal_mass}}} {{{nominal_mass_unit}}}|{{Message/NotDefined}}}} 
 eingewogen werden.
 {{LabProcess/Query/DeviceParam
 |intro=Als Gerät soll
 |outro=verwendet werden.
 |prefix=
 |suffix=
-|process step name={{{name|}}}
-|device category={{{device category|}}}
-|nominal device type={{{nominal device type|}}}
-|actual device type={{{actual device type|}}}
-|nominal device instance={{{nominal device instance|{{{nominal device|}}}}}}
-|actual device instance={{{actual device instance|{{{actual device|}}}}}}
-|nominal device setup={{{nominal device setup|}}}
-|actual device setup={{{actual device setup|}}}
+|process_step_name={{{name|}}}
+|device_category={{{device_category|}}}
+|nominal_device_type={{{nominal_device_type|}}}
+|actual_device_type={{{actual_device_type|}}}
+|nominal_device_instance={{{nominal_device_instance|{{{nominal_device|}}}}}}
+|actual_device_instance={{{actual_device_instance|{{{actual_device|}}}}}}
+|nominal_device_setup={{{nominal_device_setup|}}}
+|actual_device_setup={{{actual_device_setup|}}}
 }}
 {{LabProcess/Query/GenericParam
-|process step name={{{name}}}
-|parameter name=Einwaage
-|parameter unit={{{actual mass unit|{{{nominal mass unit}}}}}}
-|exists intro msg=Die tatsächliche [[Einwaage]] betrug
-|exists outro msg=.
-|exists not msg=Die tatsächliche [[Einwaage]] muss noch dokumentiert werden.}}
+|process_step_name={{{name}}}
+|parameter_name=Einwaage
+|parameter_unit={{{actual_mass_unit|{{{nominal_mass_unit}}}}}}
+|exists_intro_msg=Die tatsächliche [[Einwaage]] betrug
+|exists_outro_msg=.
+|exists_not_msg=Die tatsächliche [[Einwaage]] muss noch dokumentiert werden.}}
 {{LabProcess/Query/GenericParam
-|process step name={{{name|}}}
-|parameter name=Edukt Charge
-|exists intro msg=Die tatsächliche verwendete [[Edukt Charge]] war
-|exists outro msg=.
-|exists not msg=Die tatsächliche [[Edukt Charge]] muss noch dokumentiert werden.}}
+|process_step_name={{{name|}}}
+|parameter_name=Edukt Charge
+|exists_intro_msg=Die tatsächliche verwendete [[Edukt Charge]] war
+|exists_outro_msg=.
+|exists_not_msg=Die tatsächliche [[Edukt Charge]] muss noch dokumentiert werden.}}
+
 </includeonly>
 <noinclude>
 <templatedata>
@@ -84,21 +87,16 @@ eingewogen werden.
 		"concurrent": {
 			"label": "Gleichzeitiger Schritt"
 		},
-		"input objects": {
+		"input_objects": {
 			"label": "Eingehende Objekte",
 			"description": "Objekte, die vom Prozessschritt konsumiert werden. Mehrer Objekte werden mit Semikolon getrennt",
 			"example": "Becherglas;Rührfisch",
 			"type": "string"
 		},
-		"output objects": {
+		"output_objects": {
 			"label": "Augehende Objekte",
 			"description": "Objekte, die vom Prozessschritt produziert werden. Mehrer Objekte werden mit Semikolon getrennt",
 			"type": "string"
-		},
-		"device": {
-			"label": "Verwendetes Gerät",
-			"example": "Waage",
-			"type": "wiki-page-name"
 		},
 		"precondition": {
 			"label": "Vorbedingung",
@@ -112,57 +110,57 @@ eingewogen werden.
 			"example": "Becherglas abdecken",
 			"type": "string"
 		},
-		"educt category": {
+		"educt_category": {
 			"label": "Stoffkategorie des Eduktes",
 			"example": "Lösungsmittel",
 			"type": "wiki-page-name",
 			"autovalue": "Category:Material",
 			"required": true
 		},
-		"nominal educt": {
+		"nominal_educt": {
 			"label": "Vorgabe für das Edukt",
 			"example": "Ethanol",
 			"type": "wiki-page-name"
 		},
-		"nominal educt batch": {
+		"nominal_educt_batch": {
 			"label": "Charge des Eduktes",
 			"type": "wiki-page-name",
 			"autovalue": ""
 		},
-		"actual educt": {
+		"actual_educt": {
 			"label": "Tatsächliches Edukt",
 			"type": "wiki-page-name",
 			"autovalue": ""
 		},
-		"actual educt batch": {
+		"actual_educt_batch": {
 			"label": "Tatsächliche Edukt Charge",
 			"type": "wiki-page-name"
 		},
-		"nominal mass": {
+		"nominal_mass": {
 			"label": "Vorgegebene Masse",
 			"type": "number",
 			"autovalue": "",
 			"suggested": true
 		},
-		"nominal mass unit": {
+		"nominal_mass_unit": {
 			"label": "Einheit der Massenvorgabe",
 			"type": "string",
 			"autovalue": "g",
 			"suggested": true
 		},
-		"actual mass": {
+		"actual_mass": {
 			"label": "Tatsächliche Masse",
 			"type": "string"
 		},
-		"actual mass unit": {
+		"actual_mass_unit": {
 			"label": "Tatsächlich verwendete Masseneinheit",
 			"type": "string"
 		},
-		"nominal device instance": {
+		"nominal_device_instance": {
 			"label": "Vorgabe für das zu verwendende Gerät",
 			"type": "wiki-page-name"
 		},
-		"actual device instance": {
+		"actual_device_instance": {
 			"label": "Tatsächlich verwendetes Gerät"
 		},
 		"required": {
@@ -176,22 +174,21 @@ eingewogen werden.
 		"name",
 		"predecessor",
 		"concurrent",
-		"input objects",
-		"output objects",
-		"device",
+		"input_objects",
+		"output_objects",
 		"precondition",
 		"postcondition",
-		"educt category",
-		"nominal educt",
-		"nominal educt batch",
-		"actual educt",
-		"actual educt batch",
-		"nominal mass",
-		"nominal mass unit",
-		"actual mass",
-		"actual mass unit",
-		"nominal device instance",
-		"actual device instance",
+		"educt_category",
+		"nominal_educt",
+		"nominal_educt_batch",
+		"actual_educt",
+		"actual_educt_batch",
+		"nominal_mass",
+		"nominal_mass_unit",
+		"actual_mass",
+		"actual_mass_unit",
+		"nominal_device_instance",
+		"actual_device_instance",
 		"required"
 	]
 }

@@ -1,0 +1,48 @@
+<noinclude>{{Helper/Docu/FormTemplate}}
+
+Laborprodukttyp [[HasTypeSymbol::m]]
+</noinclude>
+<includeonly>
+''Material''</br>
+{{DISPLAYTITLE: {{{display_name}}}}}
+{{#formlink:form=LIMS/Material/Type|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Materialien|reload}}
+
+[[Form:LIMS/Material/Type| Neuen Material erstellen]]
+
+ISC-ID: [[HasIscId::{{PAGENAME}}]]</br>
+PubChem-ID: {{#if: {{{pubchem_cid|}}} | [[Has pubchem cid::{{{pubchem_cid}}}]] | {{Message/NotDefined}}}} </br>
+<!-- Needs ExternalData > v2.2 ? -->
+<!-- {{#if: {{{pubchem cid|}}} |
+{{#get_web_data:url=https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/{{{pubchem cid}}}/XML?heading=GHS+Classification|format=xml|use xpath|data=tox=/Record/Section/Section/Section/Information[./ReferenceNumber=//Record/Reference[./SourceName="European Chemicals Agency (ECHA)"]/ReferenceNumber][./Name="Pictogram(s)"]//Markup//Extra}}
+GHS classification, according to [https://pubchem.ncbi.nlm.nih.gov/compound/{{{pubchem cid}}} pubchem/ECHA]: {{#for_external_table:[[HasGhsClassification::{{{tox}}}]], }}
+</br>|}} -->
+
+{{#arraymap:{{#replace:{{{category|}}}|Kategorie:|}}|;|x|[[Category:x]]|\s}}</br>
+Materialkategorien:
+<!-- {{#arraymap:{{#replace:{{{category|}}}|Kategorie:|}}|;|x|[[:Category:x]]|}} -->
+{{#ask: [[{{FULLPAGENAME}}]]
+|?Category=
+|mainlabel=-
+|format=plain
+}}
+</br>
+
+== Beschreibung ==
+{{{description|}}}
+
+== Erstellte Instanzen ==
+=== Gekauft ===
+{{#ask: [[Category:LabObject]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?HasCreationDate=Datum
+|?HasCreator=Ersteller
+}}
+
+=== Selbst hergestellt ===
+{{#ask: [[Category:LabProcessOutput]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?-Has subobject.HasCreationDate=Datum
+|?-Has subobject.IsDefinedIn=Vorschrift
+|?-Has subobject.HasCreator=Ersteller
+}}
+
+[[Category:LIMS/Material/Type]]
+</includeonly>

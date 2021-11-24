@@ -3,37 +3,37 @@
 {{LabProcess/Parameter/Device
 |prefix=Präfix für die Verwendung mehrer Geräte (optional)
 |suffix=Suffix für die Verwendung mehrer Geräte (optional)
-|device category=Gerätekategory
-|nominal device type=Zu verwendender Gerätetyp
-|actual device type=Tatsächlich verwendeter Gerätetyp
-|nominal device instance=Zu verwendende Geräteinstanz
-|actual device instance=Tatsächlich verwendete Geräteinstanz
-|nominal device setup=Zu verwendendes Gerätesetup
-|actual device setup=Tatsächlich verwendetes Gerätesetup
+|device_category=Gerätekategory
+|nominal_device_type=Zu verwendender Gerätetyp
+|actual_device_type=Tatsächlich verwendeter Gerätetyp
+|nominal_device_instance=Zu verwendende Geräteinstanz
+|actual_device_instance=Tatsächlich verwendete Geräteinstanz
+|nominal_device_setup=Zu verwendendes Gerätesetup
+|actual_device_setup=Tatsächlich verwendetes Gerätesetup
 }}
 </pre>
 </noinclude><includeonly><!--
 
 -->{{LabProcess/Parameter
-   |name={{{prefix|}}} Gerätekategorie {{{suffix|}}}|type=Sollwert |attribute=Gerätekategorie |value={{{device category|}}}
+   |name={{{prefix|}}} Gerätekategorie {{{suffix|}}}|type=Sollwert |attribute=Gerätekategorie |value={{{device_category|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name={{{prefix|}}} Gerätetyp {{{suffix|}}}|type=Sollwert |attribute=Gerätetyp |value={{{nominal device type|}}}
+   |name={{{prefix|}}} Gerätetyp {{{suffix|}}}|type=Sollwert |attribute=Gerätetyp |value={{{nominal_device_type|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name={{{prefix|}}} Gerätetyp {{{suffix|}}}|type=Istwert |attribute=Gerätetyp |value={{{actual device type|}}}
+   |name={{{prefix|}}} Gerätetyp {{{suffix|}}}|type=Istwert |attribute=Gerätetyp |value={{{actual_device_type|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name={{{prefix|}}} Gerät {{{suffix|}}}|type=Sollwert |attribute=Gerät |value={{{nominal device instance|}}}
+   |name={{{prefix|}}} Gerät {{{suffix|}}}|type=Sollwert |attribute=Gerät |value={{{nominal_device_instance|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name={{{prefix|}}} Gerät {{{suffix|}}}|type=Istwert |attribute=Gerät |value={{{actual device instance|}}}
+   |name={{{prefix|}}} Gerät {{{suffix|}}}|type=Istwert |attribute=Gerät |value={{{actual_device_instance|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name={{{prefix|}}} Gerätesetup {{{suffix|}}}|type=Sollwert |attribute=Gerätesetup |value={{{nominal device setup|}}}
+   |name={{{prefix|}}} Gerätesetup {{{suffix|}}}|type=Sollwert |attribute=Gerätesetup |value={{{nominal_device_setup|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name={{{prefix|}}} Gerätesetup {{{suffix|}}}|type=Istwert |attribute=Gerätesetup |value={{{actual device setup|}}} |sep=,
+   |name={{{prefix|}}} Gerätesetup {{{suffix|}}}|type=Istwert |attribute=Gerätesetup |value={{{actual_device_setup|}}} |sep=,
 }}<!--
 
 --></includeonly>

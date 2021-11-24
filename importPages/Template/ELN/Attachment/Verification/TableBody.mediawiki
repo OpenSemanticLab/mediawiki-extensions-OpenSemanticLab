@@ -1,0 +1,5 @@
+<includeonly>
+ | {{{file}}} || style="text-align: right" | {{{proof}}} || style="text-align: right" | 
+<div class="timestamp-validator">{{#replace:{{{file}}}|Datei:|}};{{#replace:{{{proof}}}|Datei:|}}</div>
+ |-
+</includeonly>

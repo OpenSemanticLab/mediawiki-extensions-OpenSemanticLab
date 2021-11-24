@@ -7,7 +7,7 @@
 | <nowiki>{{{field|name|restricted}}}</nowiki>
 |-
 ! Gehört zu Laborprodukt: 
-| <nowiki>{{{field|related to|mandatory|restricted}}}</nowiki>
+| <nowiki>{{{field|related_to|mandatory|restricted}}}</nowiki>
 |-
 ! Vorgängerschritt: 
 | <nowiki>{{{field|predecessor|restricted}}}</nowiki>
@@ -16,10 +16,10 @@
 | <nowiki>{{{field|agent|default=current user}}}</nowiki>
 |-
 ! Startzeitpunkt: 
-| <nowiki>{{{field|start date|input type=datetimepicker|mandatory|default=now}}}</nowiki>
+| <nowiki>{{{field|start_date|input type=datetimepicker|mandatory|default=now}}}</nowiki>
 |-
 ! Endzeitpunkt: 
-| <nowiki>{{{field|end date|input type=datetimepicker|default=now}}}</nowiki>
+| <nowiki>{{{field|end_date|input type=datetimepicker|default=now}}}</nowiki>
 |-
 ! Kommentar: 
 | <nowiki>{{{field|comment|input type=textarea|autogrow}}}</nowiki>
@@ -32,11 +32,11 @@
 |-
 ! Vorbedingung: 
 | style="width: 80%;" |<nowiki>{{{field|precondition|placeholder=(Keine)|input type=text area|autogrow}}}</nowiki>
-| style="width: 5%;" |<nowiki>{{{field|precondition fulfilled|default=no|input type=checkbox}}}</nowiki>
+| style="width: 5%;" |<nowiki>{{{field|precondition_fulfilled|default=no|input type=checkbox}}}</nowiki>
 |-
 ! Nachbedingung: 
 | style="width: 80%;" |<nowiki>{{{field|postcondition|placeholder=(Keine)|input type=text area|autogrow}}}</nowiki>
-| style="width: 5%;" |<nowiki>{{{field|postcondition fulfilled|default=no|input type=checkbox}}}</nowiki>
+| style="width: 5%;" |<nowiki>{{{field|postcondition_fulfilled|default=no|input type=checkbox}}}</nowiki>
 |}
 <nowiki>{{{end template}}}</nowiki>
 </includeonly>

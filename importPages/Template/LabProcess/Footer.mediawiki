@@ -1,18 +1,23 @@
 <includeonly>
+
 == Produkte ==
-{{#ask: [[Category:Process Product]] [[-has subobject::{{FULLPAGENAME}}]]
-<!-- |?HasWikiId=Wiki ID -->
+{{#ask: [[Category:LabProcessOutput]] [[-has subobject::{{FULLPAGENAME}}]]
+<!-- |?wiki id=Wiki ID-->
 |?HasIscId=ISC ID
-|?HasMaterial
 |?HasProcessObject=Prozessobjekt
-|mainlabel=-
-|@deferred
+<!-- |mainlabel=- -->
 }}
 
-<!-- == Weitere Verwendung ==
-{{#ask: [[-Gehört zu.Has Subobject.Edukt Charge.-Has subobject::Laborprodukt:210506-oppm-0100-d]]
-|?Material
-|?Definiert in=Vorschrift
-|?Ersteller
-}} -->
+
+== Erstellte Instanzen ==
+
+{{#ask: [[Category:LabObject]] [[IsDefinedIn::{{FULLPAGENAME}}]]
+|?HasCreationDate=Datum
+|?HasProject=Projekt
+|?HasCreator=Ersteller
+|?HasOutputCategory=Product Kategorie
+|?HasOutputTyp=Product Typ
+|sort=HasCreationDate
+|order=desc
+}}
 </includeonly>

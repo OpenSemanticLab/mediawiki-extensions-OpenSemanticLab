@@ -1,0 +1,20 @@
+<includeonly>
+== Produkte ==
+{{#ask: [[Category:LabProcessOutput]] [[-has subobject::{{FULLPAGENAME}}]]
+<!-- |?HasWikiId=Wiki ID -->
+|?HasIscId=ISC ID
+|?IsInstanceOf=Typ
+|?HasProcessObject=Prozessobjekt
+|mainlabel=-
+|@deferred
+}}
+
+== Weitere Verwendung ==
+<!-- Forward: LabObject.Has subobject.-HasValue.-Has subobject.IsRelatedTo.LabObject
+Backward: LabObject.-IsRelatedTo.Has subobject.HasValue.-Has subobject -->
+{{#ask: [[-IsRelatedTo.Has subobject.HasValue.-Has subobject::{{FULLPAGENAME}}]]
+|?HasCreationDate=Datum
+|?IsDefinedIn=Vorschrift
+|?HasCreator=Ersteller
+}}
+</includeonly>

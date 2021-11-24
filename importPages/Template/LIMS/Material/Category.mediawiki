@@ -1,0 +1,34 @@
+<noinclude>Template of all matter categories
+
+{{Helper/Docu/FormTemplate}}
+</noinclude><includeonly>
+{{DISPLAYTITLE: {{#if:{{{display_name|}}} | {{{display_name|}}} | {{PAGENAME}} }} }}
+{{#formlink:form=LIMS/Material/Category|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Materialkategorien|reload}}
+
+{{#ask: [[IsA::MaterialCategory]] [[IsASubcategoryOf::{{FULLPAGENAME}}]]
+OR [[IsA::MaterialCategory]] [[IsASubcategoryOf.-IsASubcategoryOf::{{FULLPAGENAME}}]]
+ |?IsASubcategoryOf
+ |format=graph
+ |graphcolor=yes
+ |graphlink=yes
+ |graphname=_Graph
+ |graphlegend=no
+ |graphlabel=no
+ |nodelabel=displaytitle
+ |highlight={{FULLPAGENAME}}
+ |graphsize=10,100
+ |rankdir=RL
+}}
+
+ISC ID: [[HasIscId::{{PAGENAME}}]]
+
+{{#if: {{{ontology_iri|}}} | [[has ontology iri::{{{ontology_iri}}}]] | }}
+
+{{#arraymap:{{{sub_category_of|}}}|,|x|[[Category:{{#replace: x|Kategorie:|}}]]|\s}}
+{{#arraymap:{{{sub_category_of|}}}|,|x|{{#set: IsASubcategoryOf=Category:{{#replace: x|Kategorie:|}}}}|}}
+{{#arraymap:{{{category_type|}}}|,|x|{{#set: IsA=x}}|}}
+[[IsA::MaterialCategory]]
+
+== Beschreibung ==
+{{{description|}}}
+</includeonly>

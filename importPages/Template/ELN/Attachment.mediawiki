@@ -1,0 +1,5 @@
+<includeonly>
+Dateianhang für [[IsFileAttachmentOf::{{{1}}}]]
+
+{{#set: |HasName={{PAGENAME}} |HasUrl={{filepath:{{PAGENAME}}}} }}
+</includeonly>

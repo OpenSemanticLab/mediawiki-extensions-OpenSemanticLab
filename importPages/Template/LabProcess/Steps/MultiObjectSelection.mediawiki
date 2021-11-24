@@ -1,0 +1,38 @@
+<includeonly>{{LabProcess/Step
+|id={{{id|}}}
+|name={{{name|}}}
+|required={{{required|}}}
+|predecessor={{{predecessor|}}}
+|concurrent={{{concurrent|}}}
+|input_objects={{{input_objects|}}}
+|output_objects={{{output_objects|}}}
+|link_type={{{link_type|}}}
+|popup={{{popup|}}}
+|form=LabProcess/Steps/MultiObjectSelection
+|specific_template=LabProcess/Steps/MultiObjectSelection/Subpage
+|parameters=
+   {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
+   {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}
+   [name]={{{name|}}};
+   [precondition]={{{precondition|}}};
+   [postcondition]={{{postcondition|}}}
+|specific_parameters=
+   [object_category]={{{object_category|Category:211112-sist-0001-mc}}};
+   [actual_object_category]={{{actual_object_category|{{{object_category|Category:211112-sist-0001-mc}}}}}};
+|additional_template_1=LabProcess/Steps/MultiObjectSelection/Object
+|additional_parameters_1={{{objects|}}}
+}}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
+Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{object_category|}}}|[[:{{{object_category}}}]]|{{Message/NotDefined}}}}) ausgewählt werden.
+{{{description|}}}
+
+====Parameter====
+{{#ask: [[Category:ProcessParameter]] [[-Has subobject::{{FULLPAGENAME}}/{{{id|}}}]]
+ |?HasName
+ |?HasParameterTyp
+ |?HasProperty
+ |?HasValue
+ |sort=Name
+ }}
+</includeonly>
+<noinclude>
+</noinclude>

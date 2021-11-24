@@ -1,0 +1,8 @@
+<noinclude>Template for common form part
+</noinclude>
+<includeonly>
+|}
+<nowiki>{{{end template}}}</nowiki>
+
+<nowiki>{{{standard input|save}}}</nowiki><nowiki>{{{standard input|cancel}}}</nowiki>
+</includeonly>

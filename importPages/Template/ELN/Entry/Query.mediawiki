@@ -1,0 +1,23 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+</noinclude>
+<includeonly>
+== Ergebnisse ==
+{{#ask: 
+[[Category:LabNote]]
+{{#if: {{{id|}}} | [[HasID::~*{{{id|}}}*]] | [[HasID::+]]}}
+{{#if: {{{date_from|}}} | [[HasCreationDate::>{{{date_from|}}}]] |}}
+{{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
+{{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
+{{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
+|sort=HasCreationDate
+|order=desc
+|?HasID=ID
+|?HasName=Name
+|?HasCreationDate=Datum 
+|?HasCreator=Ersteller  
+|?HasKeyword=Keywords 
+|?HasDescription=Beschreibung 
+|format=table 
+|default=Keine Daten gefunden}}
+</includeonly>

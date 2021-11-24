@@ -1,0 +1,24 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+
+</noinclude>
+<includeonly>
+{{DISPLAYTITLE:{{PAGENAME}}}}{{#set: HasId={{PAGENAME}}}}
+{{LIMS/Common}}
+{{#declare:
+ HasUuid=uuid
+ |HasId=
+ |IsInstanceOf=type
+ |HasCreator=creator
+ |HasCreationDate=creation_date
+ |HasName=display_name
+ |HasFullName=full_name
+ |HasDescription=description
+ |HasVendor=vendor
+ |HasVendorTypeId=vendor_type_id
+ |HasVendorInstanceId=vendor_instance_id
+}}
+
+[[Category:LabObject]]
+[[Category:LIMS/Material/Instance]]
+</includeonly>

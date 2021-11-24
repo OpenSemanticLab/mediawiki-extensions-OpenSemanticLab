@@ -1,0 +1,15 @@
+<includeonly>{{#declare:
+ IsRelatedTo=page
+ |HasSha256=sha256
+ |HasFile=file
+ |HasCreator=user
+}}[[Category:ELN/Attachment/TimeStamp]]
+
+{{#ask: [[{{FULLPAGENAME}}]]
+ |?IsRelatedTo=Page
+ |?HasSha256=SHA256
+ |?HasFile=File
+ |?HasCreator=User
+ |transpose=true
+}}
+</includeonly>

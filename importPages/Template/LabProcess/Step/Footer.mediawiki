@@ -1,0 +1,10 @@
+<includeonly>===Prozessparameter===
+{{#ask: [[Category:ProcessParameter]] [[-Has subobject::{{FULLPAGENAME}}]]
+ |?HasName=Name
+ |?HasParameterType
+ |?HasProperty=Attribut
+ |?HasValue=Wert
+ |sort=HasName
+ }}
+
+Dieser Prozessschritt ist definiert in: [[{{{specific_template}}}]]</includeonly>

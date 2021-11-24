@@ -5,35 +5,35 @@
 |outro=Ausleitender Halbsatz, Standard: "bearbeitet werden."
 |prefix=Präfix für die Verwendung mehrer Geräte (optional)
 |suffix=Suffix für die Verwendung mehrer Geräte (optional)
-|process step name=Name des Prozessschrittes, falls nicht auf dessen Unterseite verwendet
-|device category=Gerätekategorie
-|nominal device type=Zu verwendender Gerätetyp
-|actual device type=Tatsächlich verwendeter Gerätetyp
-|nominal device instance=Zu verwendende Geräteinstanz
-|actual device instance=Tatsächlich verwendete Geräteinstanz
-|nominal device setup=Zu verwendendes Gerätesetup
-|actual device setup=Tatsächlich verwendetes Gerätesetup
+|process_step_name=Name des Prozessschrittes, falls nicht auf dessen Unterseite verwendet
+|device_category=Gerätekategorie
+|nominal_device_type=Zu verwendender Gerätetyp
+|actual_device_type=Tatsächlich verwendeter Gerätetyp
+|nominal_device_instance=Zu verwendende Geräteinstanz
+|actual_device_instance=Tatsächlich verwendete Geräteinstanz
+|nominal_device_setup=Zu verwendendes Gerätesetup
+|actual_device_setup=Tatsächlich verwendetes Gerätesetup
 }}
 </pre>
 </noinclude><includeonly><!--
 
 -->{{{intro|Das Laborprodukt soll mit dem Werkzeug}}}  
-{{#if: {{{nominal device type|}}}|[[{{{nominal device type}}}]]|{{Message/NotDefined}}}} 
-(Geräteklasse: {{#if: {{{device category|}}}|[[:{{{device category}}}]]|{{Message/NotDefined}}}}, Exemplar/Instanz: 
-{{#if: {{{nominal device instance|}}}|[[{{{nominal device instance}}}]]|{{Message/NotDefined}}}}) mit Setup 
-{{#if: {{{nominal device setup|}}}|[[{{{nominal device setup}}}]]|{{Message/NotDefined}}}}
+{{#if: {{{nominal_device_type|}}}|[[{{{nominal_device_type}}}]]|{{Message/NotDefined}}}} 
+(Geräteklasse: {{#if: {{{device_category|}}}|[[:{{{device_category}}}]]|{{Message/NotDefined}}}}, Exemplar/Instanz: 
+{{#if: {{{nominal_device_instance|}}}|[[{{{nominal_device_instance}}}]]|{{Message/NotDefined}}}}) mit Setup 
+{{#if: {{{nominal_device_setup|}}}|[[{{{nominal_device_setup}}}]]|{{Message/NotDefined}}}}
 {{{outro|vereinzelt werden.}}}
 {{LabProcess/Query/GenericParam
-|process step name={{{process step name|}}}
-|parameter name={{{prefix|}}} Gerät {{{suffix|}}}
-|exists intro msg=Als Gerät wurde verwendet: 
-|exists outro msg=.
-|exists not msg=Das benutzte Gerät muss noch dokumentiert werden.}}
+|process_step_name={{{process_step_name|}}}
+|parameter_name={{{prefix|}}} Gerät {{{suffix|}}}
+|exists_intro_msg=Als Gerät wurde verwendet: 
+|exists_outro_msg=.
+|exists_not_msg=Das benutzte Gerät muss noch dokumentiert werden.}}
 {{LabProcess/Query/GenericParam
-|process step name={{{process step name|}}}
-|parameter name={{{prefix|}}} Gerätesetup {{{suffix|}}}
-|exists intro msg=Als Gerätesetup wurde verwendet: 
-|exists outro msg=.
-|exists not msg=Das benutzte Gerätesetup ist nicht dokumentiert.}}<!--
+|process_step_name={{{process_step_name|}}}
+|parameter_name={{{prefix|}}} Gerätesetup {{{suffix|}}}
+|exists_intro_msg=Als Gerätesetup wurde verwendet: 
+|exists_outro_msg=.
+|exists_not_msg=Das benutzte Gerätesetup ist nicht dokumentiert.}}<!--
 
 --></includeonly>

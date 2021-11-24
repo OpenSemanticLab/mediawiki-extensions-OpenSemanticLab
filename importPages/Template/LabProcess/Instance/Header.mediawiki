@@ -1,0 +1,54 @@
+<includeonly>{{#set: Debug={{{debug|{{Helper/Strings/No}}}}}}}<!-- 
+
+-->{{DISPLAYTITLE:{{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}}}}<!-- 
+
+--><!-- {{Purge link}} --><!-- 
+
+--><!-- Dies ist eine Laborprodukt vom Typ [[HasObjectType::{{{type}}}]] -->
+
+Dokumentation zur Herstellung von [[HasOutputType::{{{output_type}}}]] (Kategorie: [[HasOutputCategory::{{{output_category}}}]])
+
+Ersteller [[HasCreator::{{{creator}}}]] ([[HasCreatorShortName::{{{creator_abbreviation}}}]])
+
+Erstelldatum [[HasCreationDate::{{{timestamp}}}]] (Kurzzeitstempel [[HasCreationShortTimeStamp::{{{short_timestamp}}}]])
+{{#if: {{{projects|}}}|</br> 
+Projekt: {{#arraymap:{{{projects|}}}|,|__x__|[[HasProject::__x__]]|,}} |}}</br> 
+ISC-ID: [[HasIscId::{{PAGENAME}}]]
+{{#if: {{{additional_ids|}}}|</br> 
+Weitere IDs: {{#arraymap:{{{additional ids|}}}|,|__x__|[[HasIscId::__x__]]|,}} |}}
+
+[[Category:LabObject]]
+
+Definiert in [[IsDefinedIn::{{{template}}}]]
+
+<!--== Fortschritt ==
+
+{{#ask: [[Category:Prozessschritt]] [[HasRelationTo::{{FULLPAGENAME}}]]
+ |?-HasPredecessor=Nachfolger
+ |?-IsConcurrentWith=Gleichzeitig
+ |?mainlabel=-
+ |format=graph
+ |graphcolor=yes
+ |graphlink=yes
+ |graphlegend=no
+ |graphlabel=yes
+ |graphsize=10,10
+ |rankdir=TB
+}}-->
+<!-- {{#ask: [[Category:Prozessschritt Deskriptor]] [[-Has subobject::{{FULLPAGENAME}}]]
+ |?-HasPredecessor=Nachfolger
+ |?-IsConcurrentWith=Gleichzeitig
+ |?HasSubpage=Dokumentation
+ |?mainlabel=-
+ |format=graph
+ |graphcolor=yes
+ |graphlink=yes
+ |graphlegend=yes
+ |graphlabel=yes
+ |graphsize=10,10
+ |graphfontsize=8
+ |rankdir=TB
+}} -->
+
+== Vorschrift ==
+</includeonly>

@@ -5,7 +5,7 @@
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>{{{template parameter}}} category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|MaterialCategory}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
 <!-- NOMINAL -->
 <!-- | <nowiki>{{{field|</nowiki>nominal {{{template parameter}}}<nowiki>|restricted|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>{{{template parameter}}} category<nowiki>|label}}}</nowiki> -->
-| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal {{{template parameter}}}<nowiki>|restricted|input type=SF_Select|query=((Category:Material));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal {{{template parameter}}}<nowiki>|restricted|input type=SF_Select|query=((Category:Stoff));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|label}}}</nowiki></div>
 <!-- NOMINAL BATCH -->
 <!-- | <nowiki>{{{field|</nowiki>nominal {{{template parameter}}} batch<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~200|sametemplate|field=</nowiki>nominal {{{template parameter}}}<nowiki>|label}}}</nowiki> -->
 <!-- | <nowiki>{{{field|</nowiki>nominal {{{template parameter}}} batch<nowiki>|restricted|input type=combobox|values from namespace=Lab}}}</nowiki> -->

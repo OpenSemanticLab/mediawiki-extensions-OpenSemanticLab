@@ -1,44 +1,19 @@
-<includeonly>{{#set: Debug={{{debug|{{Helper/Strings/No}}}}}}}<!-- 
+<includeonly>{{#set: Debug={{{debug|{{Helper/Strings/No}}}}}}}
+<!-- {{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}} -->
+{{DISPLAYTITLE:{{#replace:{{{name}}}|_|<nowiki/> <nowiki/>}}}}
+[[Category:ProcessTemplate]]
+Von {{#if: {{{output_type|}}}|[[{{{output_type}}}]]|{{Message/NotDefined}}}} 
+(Stoffklasse: {{#if: {{{output_category|}}}|[[:{{{output_category}}}]]|{{Message/NotDefined}}}}
 
--->{{DISPLAYTITLE:{{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}}}}<!-- 
+<span style="color:red">Dies ist nur die Vorlage. Zum Ausfüllen zunächst einen Kopie mit folgendem Button erstellen!</span>
+{{LabProcess/CreateInstanceLink |output_category={{{output_category|}}} |output_type={{{output_type|}}}}}
 
--->{{Purge link}}<!-- 
-
---><!-- Dies ist eine Laborprodukt vom Typ [[HasObjectType::{{{type}}}]] -->
-
-Dokumentation zur Herstellung von [[HasProduct::{{{material}}}]]
-
-Ersteller [[HasCreator::{{{ersteller}}}]] ([[HasCreatorShortName::{{{erstellerkuerzel}}}]])
-
-Erstelldatum [[HasCreationDate::{{{creation date}}}]] (Kurzzeitstempel [[HasCreationShortTimeStamp::{{{short time stamp}}}]])
-{{#if: {{{projects|}}}|</br> 
-Projekt: {{#arraymap:{{{projects|}}}|,|__x__|[[Projekt::__x__]]|,}} |}}</br> 
-ISC-ID: [[HasIscId::{{PAGENAME}}]]
-{{#if: {{{additional ids|}}}|</br> 
-Weitere IDs: {{#arraymap:{{{additional ids|}}}|,|__x__|[[HasIscId::__x__]]|,}} |}}
-
-[[Category:Lab Object]]
-
-Definiert in [[IsDefinedIn::{{{template}}}]]
-
-<!--== Fortschritt ==
-
-{{#ask: [[Category:Prozessschritt]] [[HasRelationTo::{{FULLPAGENAME}}]]
- |?-HasPredecessor=Nachfolger
- |?-IsConcurrentWith=Gleichzeitig
- |?mainlabel=-
- |format=graph
- |graphcolor=yes
- |graphlink=yes
- |graphlegend=no
- |graphlabel=yes
- |graphsize=10,10
- |rankdir=TB
-}}-->
-<!-- {{#ask: [[Category:Prozessschritt Deskriptor]] [[-Has subobject::{{FULLPAGENAME}}]]
- |?-HasPredecessor=Nachfolger
- |?-IsConcurrentWith=Gleichzeitig
- |?HasSubpage=Dokumentation
+== Vorschrift ==
+<!-- Version 1
+{{#ask: [[Category:Prozessschritt Deskriptor]] [[-Has subobject::{{FULLPAGENAME}}]]
+ |?-Vorgänger=Nachfolger
+ |?-Gleichzeitig mit=Gleichzeitig
+ |?Unterseite=Dokumentation
  |?mainlabel=-
  |format=graph
  |graphcolor=yes
@@ -46,9 +21,35 @@ Definiert in [[IsDefinedIn::{{{template}}}]]
  |graphlegend=yes
  |graphlabel=yes
  |graphsize=10,10
- |graphfontsize=8
  |rankdir=TB
+ |graphname=plot
 }} -->
 
-== Vorschrift ==
+<!-- Version 2 -->
+{{#ask: [[Category:LabProcessDescriptor]] [[-Has subobject::{{FULLPAGENAME}}]]
+  |?NOThas label=haslabel
+  |?Display title of=haslabel
+<!--   |?has OrSuccessor=hasorsuccessor  -->
+  |?-HasPredecessor=hassuccessor 
+<!--   |?has ConTrueSuccessor=hascontruesuccessor 
+  |?has ConFalseSuccessor =hasconfalsesuccessor 
+  |?has Condition=hascondition  -->
+  |?NOTHasSubpage=hasrole 
+  |?HasInput=usesresource
+  |?HasOutput=producesresource
+  |?NOTHasSubpage=hasstatus
+  |format=process
+  |graphname=ProcessGraph
+  |NOTprocesscat=Process
+  |graphsize={{{width|15}}},{{{hight|15}}}
+  |graphvalidation=no
+  |showroles=yes
+  |showstatus=yes
+  |showresources=yes 
+  |clustercolor=lightgrey
+  |showcompound=no
+  |debug=no
+  |rankdir={{{rank|TB}}}
+ }}
+
 </includeonly>
