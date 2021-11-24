@@ -5,8 +5,8 @@
 		"Simon Stier"
 	],
 	"url": "https://github.com/simontaurus/LabWiki",
-	"descriptionmsg": "sa-desc",
-	"namemsg": "sa-name",
+	"descriptionmsg": "labwiki-desc",
+	"namemsg": "labwiki-name",
 	"license-name": "GPL v3",
 	"type": "semantic",
 	"requires": {

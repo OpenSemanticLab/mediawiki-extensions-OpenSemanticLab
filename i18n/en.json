@@ -2,6 +2,6 @@
 	"@metadata": {
 		"authors": ["Simon Stier"]
 	},
-	"sa-desc": "An Scientific Lab Information and Management System (sciLIMS) based on Semantic MediaWiki",
-	"sa-name": "LabWiki"
+	"labwiki-desc": "An Scientific Lab Information and Management System (sciLIMS) based on Semantic MediaWiki",
+	"labwiki-name": "LabWiki"
 }
