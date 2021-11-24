@@ -92,6 +92,14 @@
 			"name": "LabObject_Talk"
 		}
 	],
+        "config": {
+		"smwgNamespacesWithSemanticLinks":{
+			"7100": true,
+			"7110": true,
+			"7120": true,
+			"_merge_strategy": "array_plus"
+		}
+        },
 	"attributes": {
 		"VisualEditor": {
 			"AvailableNamespaces": {
@@ -106,6 +114,6 @@
 	"Hooks": {
 		"PageImporterRegisterPageLists": "LabWiki::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "LabWiki::onBeforePageDisplay",
-		"SetupAfterCache": "LabWiki::onSetupAfterCache"
-	}
+	},
+	"callback": "LabWiki::onSetupAfterCache"
 }
