@@ -1,5 +1,5 @@
 {
-	"name": "LabWiki",
+   "name": "LabWiki",
 	"version": "0.0.2",
 	"author": [
 		"Simon Stier"
@@ -39,8 +39,7 @@
 		{
 			"id": 7011,
 			"constant": "NS_MATERIAL_TALK",
-			"name": "Material_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"name": "Material_Talk"
 		},
 		{
 			"id": 7020,
@@ -50,8 +49,7 @@
 		{
 			"id": 7021,
 			"constant": "NS_DEVICE_TALK",
-			"name": "Device_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"name": "Device_Talk"
 		},
 		{
 			"id": 7030,
@@ -61,77 +59,61 @@
 		{
 			"id": 7031,
 			"constant": "NS_ROOM_TALK",
-			"name": "Room_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"name": "Room_Talk"
 		},
 		{
 			"id": 7100,
 			"constant": "NS_LABNOTE",
-			"name": "LabNote",
-			"subpages" : true
+			"name": "LabNote"
 		},
 		{
 			"id": 7101,
 			"constant": "NS_LABNOTE_TALK",
-			"name": "LabNote_Talk",
-			"defaultcontentmodel": "flow-board"
+			"name": "LabNote_Talk"
 		},
 		{
 			"id": 7110,
 			"constant": "NS_LABPROCESS",
-			"name": "LabProcess",
-                        "subpages" : true
+			"name": "LabProcess"
 		},
 		{
 			"id": 7111,
 			"constant": "NS_LABPROCESS_TALK",
-			"name": "LabProcess_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"name": "LabProcess_Talk"
 		},
 		{
 			"id": 7120,
 			"constant": "NS_LABOBJECT",
-			"name": "LabObject",
-                        "subpages" : true
+			"name": "LabObject"
 		},
 		{
 			"id": 7121,
 			"constant": "NS_LABOBJECT_TALK",
-			"name": "LabObject_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"name": "LabObject_Talk"
 		}
 	],
-        "config_prefix": "",
-	"config": {
-		"smwgNamespacesWithSemanticLinks": {
-			"value": {
-				"7010": true,
-				"7020": true,
-				"7030": true,
-				"7100": true,
-				"7110": true,
-				"7120": true
+	"config_prefix": "",
+        "config": {
+		"smwgNamespacesWithSemanticLinks":{
+                        "value":{
+                        "7010": true,
+                        "7020": true,
+                        "7030": true,
+			"7100": true,
+			"7110": true,
+			"7120": true
 			},
-			"merge_strategy": "array_plus"
-		},
-                "wgNamespacesToBeSearchedDefault": {
-                        "value": {
-                                "7010": true,
-                                "7020": true,
-                                "7030": true,
-                                "7100": true
-                        },
-                        "merge_strategy": "array_plus"
-                }
-	},
+			"_merge_strategy": "array_plus"
+		}
+        },
 	"attributes": {
 		"VisualEditor": {
 			"AvailableNamespaces": {
 				"7010": true,
-				"7020": true,
-				"7030": true,
-				"7100": true,
-				"7110": true,
+                                "7020": true,
+                                "7030": true,
+                                "7100": true,
+                                "7110": true,
 				"7120": true
 			}
 		}
@@ -141,6 +123,7 @@
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "LabWiki::onPageImporterRegisterPageLists",
-		"BeforePageDisplay": "LabWiki::onBeforePageDisplay"
+		"BeforePageDisplay": "LabWiki::onBeforePageDisplay",
+		"SetupAfterCache": "LabWiki::onSetupAfterCache"
 	}
 }
