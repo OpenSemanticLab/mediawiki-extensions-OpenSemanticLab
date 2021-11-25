@@ -101,7 +101,7 @@
                         "defaultcontentmodel": "flow-board"
 		}
 	],
-        "config_prefix": "",
+  "config_prefix": "",
 	"config": {
 		"smwgNamespacesWithSemanticLinks": {
 			"value": {
@@ -113,16 +113,16 @@
 				"7120": true
 			},
 			"merge_strategy": "array_plus"
-		},
-                "wgNamespacesToBeSearchedDefault": {
-                        "value": {
-                                "7010": true,
-                                "7020": true,
-                                "7030": true,
-                                "7100": true
-                        },
-                        "merge_strategy": "array_plus"
-                }
+    },
+    "wgNamespacesToBeSearchedDefault": {
+      "value": {
+        "7010": true,
+        "7020": true,
+        "7030": true,
+        "7100": true
+      },
+      "merge_strategy": "array_plus"
+    }
 	},
 	"attributes": {
 		"VisualEditor": {
