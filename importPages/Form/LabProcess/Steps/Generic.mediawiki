@@ -1,0 +1,32 @@
+<noinclude>
+{{LabProcess/Step/Form/Header}}
+</noinclude><includeonly>
+{{LabProcess/Step/Form/Param/Common}}
+{{LabProcess/Step/Form/Param/Specific/Header
+   |process step template=LabProcess/Steps/Generic/Subpage}}
+   {{LabProcess/Step/Form/Param/Device/Fields
+      |name_in_form=Geräte
+      |template_parameter=device
+      |category_input_type=tree
+   }}
+   {{LabProcess/Step/Form/Param/MultiObject/Rows
+      |template=LabProcess/Steps/Generic/Subpage
+      |name_in_form=Objekt
+      |template_parameter=object
+      |category_input_type=tree
+   }}
+   {{LabProcess/Step/Form/Param/MultiQuantitative/Rows
+      |template=LabProcess/Steps/Generic/Subpage
+   }}
+{{LabProcess/Step/Form/Param/Specific/Footer}}
+{{LabProcess/Step/Form/Param/MultiObject/Fields
+   |template=LabProcess/Steps/Generic/Subpage
+   |name_in_form=Objekt
+   |template_parameter=object
+   |category_input_type=tree
+}}
+{{LabProcess/Step/Form/Param/MultiQuantitative/Fields
+   |template=LabProcess/Steps/Generic/Subpage
+}}
+{{LabProcess/Step/Form/Footer}}
+</includeonly>

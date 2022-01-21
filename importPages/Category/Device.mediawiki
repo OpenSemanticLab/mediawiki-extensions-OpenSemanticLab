@@ -1,0 +1,11 @@
+{{LIMS/Device/Category
+|uuid=53f1ec90-cbdf-480a-b352-644c540a8a31
+|type_symbol=dc
+|short_timestamp=211125
+|timestamp=2021-11-25T18:25:53.000Z
+|creator_abbreviation=sist
+|creator=Simon Stier
+|display_name=Gerät
+|category_type=Anwendungsdefinierte Gerätekategorie
+|sub_category_of=Object
+}}

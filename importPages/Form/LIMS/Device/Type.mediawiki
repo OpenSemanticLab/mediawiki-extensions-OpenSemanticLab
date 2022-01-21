@@ -1,0 +1,37 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+
+<div class=dynamic-page-form-link>{{#formlink:form=LIMS/Device/Type|link text=Neuen Gerätetyp erstellen|link type=post button|query string=LIMS/Device/Type[short_timestamp]=${short_timestamp}&LIMS/Device/Type[creator_abbreviation]=${user_abbreviation}&LIMS/Device/Type[type_symbol]=mt|tooltip=|new window}}</div>
+
+</noinclude><includeonly>
+Neue Stoffkategorien müssen zunächst hier angelegt werden: [[Form:LIMS/Device/Category]]
+{{{info|page name=Device:<LIMS/Device/Type[short_timestamp]>-<LIMS/Device/Type[creator_abbreviation]>-<unique number;start=0001>-<LIMS/Device/Type[type_symbol]>}}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|LIMS/Device/Type}}}
+{{LIMS/Form/Common/Header}}
+|-
+! Kategorie(n): 
+| {{{field|category|input type=tokens|values from concept=LIMS/Device/Category|delimiter=;|required}}} 
+|-
+! Hersteller: 
+| {{{field|vendor}}} 
+|-
+! Hersteller Typenbezeichnung: 
+| {{{field|vendor_type_id}}} 
+|-
+! Bild: 
+| {{{field|image|uploadable|image preview}}} 
+<!-- |-
+! Digitalisierungsklasse: 
+| {{{field|digitalization class}}}
+|-
+! Eingabeschnittstellen: 
+| {{{field|input interfaces|list|input type=tokens}}}
+|-
+! Ausgabeschnittstellen: 
+| {{{field|output interfaces|list|input type=tokens}}}
+|-
+! Ansprechpartner: 
+| {{{field|contact person|list|delimiter=;|input type=tokens|values from category=Person}}} -->
+{{LIMS/Form/Common/Footer}}
+</includeonly>

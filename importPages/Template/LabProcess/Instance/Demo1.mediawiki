@@ -1,0 +1,120 @@
+<noinclude>
+{{LabProcess/Header
+|name=Demo 1 Template
+|output_category=
+|output_type=
+|debug={{Helper/Strings/No}}
+}}
+</noinclude>
+<includeonly>
+{{LabProcess/Instance/Header
+|name=Demo 1 Instance
+|output_category={{{output_category}}}
+|output_type={{{output_type}}}
+|type_symbol={{{type_symbol}}}
+|creator_abbreviation={{{creator_abbreviation}}}
+|creator={{{creator}}}
+|short_timestamp={{{short_timestamp}}}
+|timestamp={{{timestamp}}}
+|projects={{{projects}}}
+|additional_ids={{{additional_ids}}}
+|template={{{template}}}
+|debug={{Helper/Strings/No}}
+}}
+</includeonly>
+
+{{LabProcess/Steps/GravimetricDosing
+| id=0010
+| name=Stoff 1 einwiegen
+| predecessor=
+| input_objects=Mischbecher
+| output_objects=Mischbecher+Stoff1
+| precondition=Vorbedingung
+| nominal_educt_category=Category:211112-sist-0002-mc <!-- Feststoff -->
+| nominal_educt=
+| nominal_educt_batch=
+| actual_educt=
+| nominal_mass=1
+| nominal_mass_unit=g 
+| nominal_device_category=Category:211125-sist-0003-dc
+| nominal_device_type=
+| nominal_device_instance=
+| actual_device_type=
+}}
+
+{{LabProcess/Steps/GravimetricDosing
+| id=0020
+| name=Stoff 2 einwiegen
+| predecessor=0010
+| input_objects=Mischbecher+Stoff1
+| output_objects=Ansatz
+| precondition=
+| nominal_educt_category=Category:211112-sist-0002-mc
+| nominal_educt=
+| nominal_educt_batch=
+| actual_educt=
+| nominal_mass=
+| nominal_mass unit=g 
+| nominal_device_category=
+| nominal_device_type=
+| nominal_device_instance=
+| popup={{{Helper/Strings/Yes}}}
+}}
+
+{{LabProcess/Steps/ObjectSelection
+| id=0030
+| name=Probe auswählen
+| required=Nein
+| predecessor=0020
+| precondition=
+| input_objects=
+| output_objects=Probe Leitfähigkeitsmessung
+| nominal_object_category=Category:211112-sist-0002-mc
+| nominal_object_type=
+| nominal_object_instance=
+| actual_object_type=
+| actual_object_instance=
+| link_type=link
+| popup={{{Helper/Strings/No}}}
+}}
+
+{{LabProcess/Steps/MultiObjectSelection
+| id=0040
+| name=Probe 2 auswählen
+| link_type=link
+| popup={{{Helper/Strings/No}}}
+| required=Nein
+| predecessor=0030
+| precondition=
+| input_objects=
+| output_objects={{LabProcess/Object/ObjectCreator |count=3}}
+| nominal_object_category=Category:211112-sist-0002-mc
+| objects={{LabProcess/Parameter/MultiObject/ParamArray |count=3 |nominal_type=Material:211121-sist-0001-mt |actual_type=Material:211121-sist-0001-mt}}
+}}
+
+{{LabProcess/Steps/Generic
+| id=0050
+| name=Bild und Gewicht erfassen
+| link_type=link
+| popup={{{Helper/Strings/No}}}
+| required=Nein
+| predecessor=0040
+| precondition=
+| input_objects={{LabProcess/Object/ObjectCreator |count=3}}
+| output_objects=
+| description=Zur Erfassung von Gewicht und Bild von mehreren Objekten
+| nominal_device_category=Category:211125-sist-0003-dc
+| nominal_object_category=Category:211112-sist-0002-mc
+| objects={{LabProcess/Parameter/MultiObject/ParamArray |count=3 |nominal_type=Material:211121-sist-0001-mt |actual_type=Material:211121-sist-0001-mt}}
+| quantitatives={{LabProcess/Parameter/MultiQuantitative/ParamArray |count=3 |nominal_quantity=Property:Mass |nominal_unit=g |actual_quantity=Property:Mass |actual_unit=g}}
+   <!-- [1][id]=TestID;1][name]=Test;[1][nominal_quantity]=Property:Mass;[1][nominal_unit]=g;[1][actual_quantity]=Property:Mass;[1][actual_unit]=g -->
+}}
+
+{{LabProcess/Object/ObjectCreator |count=3}}
+
+<includeonly>
+{{LabProcess/Instance/Footer}}
+</includeonly>
+<noinclude>
+{{LabProcess/Footer}}
+</noinclude>

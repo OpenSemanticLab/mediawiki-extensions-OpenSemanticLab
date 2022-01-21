@@ -1,0 +1,32 @@
+<noinclude>
+This is the "Property/Subquantity" form.
+To create a page with this form, enter the page name below;
+if a page with that name already exists, you will be sent to a form to edit that page.
+
+{{#forminput:form=Property/Quantity|query string=namespace=Property}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+<!-- {{{for template|Quantity_property/Subquantity_property|label=Subquantity property}}} -->
+{{{for template|Property/Quantity|label=Subquantity property}}}
+{| class="formtable"
+! Description: 
+| {{{field|description|input type=textarea}}}
+|-
+! Display units (e.g. m for length but µm for wavelength){{#info:Units of the base quantity usually used for the display}}: 
+| {{{field|display_units|input type=SF_Select|query=((@@@@));?HasUnitSymbol;format~plain;sep~,;link~none;headers~hide;mainlabel~-;limit~1000|sametemplate|field=base_quantity|mandatory|list}}}
+|}
+== Automatically generated entries ==
+<div class="mw-collapsible mw-collapsed">
+{| class="formtable"
+! Base quantity (e. g. for "HasPeakWaveLength" it's "HasLength": 
+| {{{field|base_quantity|input type=combobox|values from category=QuantityProperty|restricted}}}
+|-
+! Subquantity of (e. g. for "HasWaveLength" it's "HasLength": 
+| {{{field|subquantity_of|input type=combobox|values from category=QuantityProperty|restricted}}}
+|}
+</div>
+{{{end template}}}
+
+{{{standard input|save}}} {{{standard input|cancel}}}
+</includeonly>

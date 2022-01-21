@@ -1,0 +1,25 @@
+<noinclude>
+{{LabProcess/Step/Form/Header}}
+</noinclude><includeonly>
+{{LabProcess/Step/Form/Param/Common}}
+{{LabProcess/Step/Form/Param/Specific/Header
+   |process step template=LabProcess/Steps/GravimetricDosing/Subpage}}
+   {{LabProcess/Step/Form/Param/Device/Fields
+      |name_in_form=Gerät
+      |template_parameter=device
+      |category_input_type=tree
+   }}
+   {{LabProcess/Step/Form/Param/Material/Fields
+      |name_in_form=Edukt
+      |template_parameter=educt
+      |category_input_type=tree
+   }}
+   {{LabProcess/Step/Form/Param/Quantitative/Fields
+     |name_in_form=Einwaage
+     |template_parameter=mass
+     |quantity=Property:Mass
+   }}{{LabProcess/Step/Form/Param/MultiQuantitative/Fields
+   |template=LabProcess/Steps/GravimetricDosing/Subpage}}
+{{LabProcess/Step/Form/Param/Specific/Footer}}
+{{LabProcess/Step/Form/Footer}}
+</includeonly>

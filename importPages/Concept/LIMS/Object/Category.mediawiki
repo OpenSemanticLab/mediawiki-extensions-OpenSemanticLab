@@ -1,0 +1,4 @@
+{{#concept:
+ [[IsA::MaterialCategory]] OR [[IsA::DeviceCategory]]
+ |Kategorien für Objekte
+}}

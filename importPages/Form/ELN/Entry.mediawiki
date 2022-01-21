@@ -1,0 +1,57 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+
+<!-- {{#formlink:form=ELN/Entry|link text=Neuen Laborbucheintrag erstellen|link type=post button|tooltip=Erstellt einen neuen Standard-Laborbucheintrag|new window}} 
+{{{info|page name=LabNote:<unique number;start=1>}}}-->
+<div class=dynamic-page-form-link>{{#formlink:form=ELN/Entry|link text=Neuen Laborbucheintrag erstellen|link type=NOTpost button|query string=ELN/Entry/Header[short_timestamp]=${short_time_stamp}&ELN/Entry/Header[creator_abbreviation]=${user_abbreviation}&ELN/Entry/Header[type_symbol]=n|tooltip=|new window}}</div>
+
+<!-- <div class=dynamic-page-form-link>{{#formlink:form=ELN/Entry|link text=Neuen Laborbucheintrag erstellen|link type=NOTpost button|query string=free_text={{ELN/Entry/Body}}&ELN/Entry/Header[short_timestamp]=${short_time_stamp}&ELN/Entry/Header[creator_abbreviation]=${user_abbreviation}&ELN/Entry/Header[type_symbol]=n|tooltip=|new window}}</div> -->
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+== Stammdaten ==
+{{{info|page name=LabNote:<ELN/Entry/Header[short_timestamp]>-<ELN/Entry/Header[creator_abbreviation]>-<unique number;start=0001>-<ELN/Entry/Header[type_symbol]>}}}
+{{{for template|ELN/Entry/Header}}}
+{| class="formtable"
+! Name{{#info:Jeder Eintrag hat eine eideutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
+| {{{field|name}}}
+|-
+! Schlagwörter{{#info:Schlagwörter helfen, den Eintrag zu kategorisieren und später leichter wieder zu finden}}: 
+| {{{field|keywords|input type=tokens|mandatory|values from property=HasKeyword|list|delimiter=;}}}
+| {{{field|type_symbol|hidden}}}
+|-
+! Bearbeitet von{{#info:Personen, die in die Bearbeitung des Versuches involviert sind}}: 
+| {{{field|agents|input type=tokens|list|values from category=Person|default=current user}}}
+| {{{field|creator|hidden|default=current user}}}
+| {{{field|creator_abbreviation|hidden}}}
+|-
+! Startzeitpunkt{{#info:Zeitpunkt, zu dem das Experiment begonnen wurde}}: 
+| {{{field|start_date|input type=datetimepicker|mandatory|default=now}}}
+| {{{field|creation_date|hidden|input type=datetimepicker|value=now}}}
+| {{{field|short_timestamp|hidden|input type=datetimepicker}}}
+|-
+! Endzeitpunkt{{#info:Zeitpunkt, zu dem das Experiment beendet wurde}}: 
+| {{{field|end_date|input type=datetimepicker|default=NOTnow}}}
+|-
+! Beschreibung{{#info:Kurzer Beschreibungstext. Die ausführliche Beschreibung kann nach dem Speichern der Stammdaten erfolgen.}}: 
+| {{{field|description|input type=textarea|editor=NOTvisualeditor|class=toolbarOnTop}}}
+|}
+== Zusätzliche Angaben ==
+<div class="mw-collapsible mw-collapsed">
+{| class="formtable"
+! Verwandte Einträge{{#info:Andere Versuche, die für diesen Versuch relevant sind (z.B. vorausgegangene Experimente)}}: 
+| {{{field|related_entries|input type=tokens|values from category=LabNote}}}
+|}
+</div>
+
+{{{end template}}}
+
+
+
+
+{{{standard input|free text|hidden|preload=Template:ELN/Entry/Body}}}
+
+{{{for template|ELN/Entry/Footer}}}
+
+{{{standard input|save|label=Speichern}}} {{{standard input|cancel|label=Abbrechen}}}
+</includeonly>

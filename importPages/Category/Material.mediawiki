@@ -1,0 +1,12 @@
+{{LIMS/Material/Category
+|uuid=3d1de11a-a96d-4728-aa91-708257a05c46
+|type_symbol=mc
+|short_timestamp=211112
+|timestamp=2021-11-12T06:32:47.000Z
+|creator_abbreviation=sist
+|creator=Simon Stier
+|display_name=Material
+|description=Übergeordnete Kategorie für alle Materialien / Stoffe
+|sub_category_of=Object
+|ontology_iri=http://emmo.info/emmo#EMMO_4207e895_8b83_4318_996a_72cfb32acd94
+}}

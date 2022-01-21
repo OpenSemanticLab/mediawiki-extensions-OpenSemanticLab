@@ -1,0 +1,7 @@
+<!-- {| class="wikitable"
+| style="width: 160px" |
+! style="width: 470px" | Sollwert 
+! style="width: 470px" | Istwert
+|} -->
+<includeonly>|-
+! {{{label|}}} || || </includeonly>

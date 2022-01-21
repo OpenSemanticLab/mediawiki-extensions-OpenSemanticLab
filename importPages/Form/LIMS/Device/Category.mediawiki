@@ -1,0 +1,21 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+
+<div class=dynamic-page-form-link>{{#formlink:form=LIMS/Device/Category|link text=Neue Gerätekategorie erstellen|link type=post button|query string=LIMS/Device/Category[short_timestamp]=${short_timestamp}&LIMS/Device/Category[creator_abbreviation]=${user_abbreviation}&LIMS/Device/Category[type_symbol]=dc|tooltip=|new window}}</div>
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{info|page name=Category:<LIMS/Device/Category[short_timestamp]>-<LIMS/Device/Category[creator_abbreviation]>-<unique number;start=0001>-<LIMS/Device/Category[type_symbol]>}}}
+{{{for template|LIMS/Device/Category}}}
+{{LIMS/Form/Common/Header}}
+|-
+! Kategorietyp: 
+| {{{field|category_type|input type=tokens|values=Anwendungsdefinierte Gerätekategorie,Technologische Gerätekategorie, Organisatorische Gerätekategorie,Sonstige Gerätekategorie|default=Anwendungsdefinierte Gerätekategorie|list}}}
+|-
+! Übergeordnete Kategorien: 
+| {{{field|sub_category_of|input type=tokens|property=IsA|values from concept=LIMS/Device/Category|default=Category:Device|list}}}
+|-
+! Ontologie IRI: 
+| {{{field|ontology_iri|property=has ontology iri}}}
+{{LIMS/Form/Common/Footer}}
+</includeonly>

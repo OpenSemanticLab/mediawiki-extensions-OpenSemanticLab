@@ -1,0 +1,13 @@
+<includeonly>{{#set: |Corresponds to={{{factor}}} {{{unit}}} {{#if:{{{alternative_names|}}}|,{{{alternative_names|}}}|}}}} 
+<!-- Corresponds to [[Corresponds to::{{{factor}}} {{{unit}}} {{#if:{{{alternative_names|}}}|,{{{alternative_names|}}}|}}]] --><!--
+-->{{#ifeq: {{{use_as_display_unit}}}|Yes|{{#set:|Display units={{{unit}}}}}|}}<!--
+-->{{#set:|Display units={{{unit}}}}}<!--
+-->{{#set:|HasUnitSymbol={{{unit}}}}}<!--
+-->{{#subobject: 
+|@category=UnitDefinition
+|HasUnitSymbol={{{unit}}}
+|HasAlternativeNames={{{alternative_names|}}}
+|HasConversionFactor={{{factor}}}
+|IsDisplayUnit={{{use_as_display_unit}}}
+|IsMainUnit=False
+}}{{#set: |HasUnitDefinition={{{factor}}} {{{unit}}}{{#if:{{{alternative_names|}}}|,{{{alternative_names|}}}|}}}}</includeonly>

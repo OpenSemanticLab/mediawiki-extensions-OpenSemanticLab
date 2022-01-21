@@ -1,0 +1,27 @@
+<noinclude><pre>
+count_source_name = Name des Prozessschrittes, aus dem die Anzahl stammt (Kann nicht der gleiche Prozessschritt sein)
+count = Fixe Anzahl (alternativ zu source_name)
+param_name = Name / Prefix der generierten Parameter (Default: Parameter)
+type = Typkürzel der referenzierten IDs (Default: mi)
+start = Startwert für die referenzierten ID (Default: 01)
+nominal_quantity= Soll-Größe
+nominal_value= Soll-Wert
+nominal_unit= Soll-Einheit
+actual_quantity= Ist-Größe
+actual_value= Ist-Wert
+actual_unit= Ist-Einheit
+</pre>
+</noinclude>
+<includeonly>{{#vardefine: i | {{{start|1}}} }}{{#while:
+ | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_objects|{{{count}}}}} + {{{start|1}}} - 1}} | true }}
+ | <!--
+-->[{{#var: i }}][id]={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{type|mi}}};<!--
+-->[{{#var: i }}][name]={{{param_name|Parameter}}} {{#var: i }};<!--
+-->[{{#var: i }}][nominal_quantity]={{{nominal_quantity|}}};<!--
+-->[{{#var: i }}][nominal_value]={{{nominal_value|}}};<!--
+-->[{{#var: i }}][nominal_unit]={{{nominal_unit|}}};<!--
+-->[{{#var: i }}][actual_quantity]={{{actual_quantity|}}};<!--
+-->[{{#var: i }}][actual_value]={{{actual_value|}}};<!--
+-->[{{#var: i }}][actual_unit]={{{actual_unit|}}};<!--
+-->{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
+}}</includeonly>
