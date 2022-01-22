@@ -1,0 +1,67 @@
+<noinclude>
+This is the "Property/Quantity" form.
+To create a page with this form, enter the page name below;
+if a page with that name already exists, you will be sent to a form to edit that page.
+
+{{#forminput:form=Property/Quantity|query string=namespace=Property}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+[[Form:Property/Quantity]]
+{{{for template|Property/Quantity|label=Quantity property}}}
+{| class="formtable"
+! Description: 
+| {{{field|description|input type=textarea}}}
+|-
+! Main unit: 
+| {{{field|main_unit|mandatory}}}
+|-
+! Alternative name for main unit: 
+| {{{field|alternative_names|input type=tokens}}}
+|-
+! Alternative units: 
+| {{{field|alternative_units|holds template}}}
+|-
+<!-- ! Display units: 
+| {{{field|display_units|holds template}}} -->
+|}
+== Automatically generated entries ==
+<div class="mw-collapsible mw-collapsed">
+{| class="formtable"
+! Base quantity (e. g. for "HasPeakWaveLength" it's "HasLength": 
+| {{{field|base_quantity|input type=combobox|values from category=QuantityProperty|restricted}}}
+|-
+! Subquantity of (e. g. for "HasWaveLength" it's "HasLength": 
+| {{{field|subquantity_of|input type=combobox|values from category=QuantityProperty|restricted}}}
+|}
+</div>
+{{{end template}}}
+
+{{{for template|Property/Quantity/Unit|multiple|minimum instances=0|add button text=Add alternative unit|embed in field=Property/Quantity[alternative_units]}}}
+{| class="formtable"
+! Unit (e. g. kg): 
+| {{{field|unit|mandatory}}}
+|-
+! Conversion factor X=1 for main unit: main unit = X * this unit 
+| {{{field|factor|mandatory}}}
+|-
+! Alternative names (e. g. kilogram): 
+| {{{field|alternative_names|input type=tokens|list|delimiter=,}}}
+|-
+! Use as display unit: 
+| {{{field|use_as_display_unit|input type=checkbox|default=yes}}}
+|}
+{{{end template}}}
+
+<!-- {{{for template|Property/Quantity/DisplayUnit|label=Display units|multiple|minimum instances=0|add button text=Add display unit|embed in field=Property/Quantity[display_units]}}}
+{| class="formtable"
+! Unit (e. g. kg): 
+| {{{field|unit|mandatory}}}
+|-
+! Use as display unit: 
+| {{{field|use_as_display_unit|input type=checkbox|default=yes}}}
+|}
+{{{end template}}} -->
+
+{{{standard input|save}}} {{{standard input|cancel}}}
+</includeonly>

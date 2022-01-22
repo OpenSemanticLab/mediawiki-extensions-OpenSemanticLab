@@ -1,0 +1,3 @@
+Parameter wrapper for multiple objects (e. g. materials)
+
+{{#subpagelist:}}

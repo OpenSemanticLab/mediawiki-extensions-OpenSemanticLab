@@ -1,0 +1,4 @@
+<includeonly>{| class="wikitable" 
+| style="width: 140px" |
+| style="width: 470px" | '''ID'''  <nowiki>{{{field|id}}} </nowiki>  
+| style="width: 470px" | '''Name'''  <nowiki>{{{field|name}}} </nowiki><includeonly>

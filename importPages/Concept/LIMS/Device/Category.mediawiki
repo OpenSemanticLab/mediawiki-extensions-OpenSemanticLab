@@ -1,0 +1,4 @@
+{{#concept:
+ [[IsA::DeviceCategory]]
+ |Kategorien für Geräte
+}}

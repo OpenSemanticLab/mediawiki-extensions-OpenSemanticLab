@@ -1,0 +1,13 @@
+<noinclude><pre>
+count_source_name = Name des Prozessschrittes, aus dem die Anzahl stammt
+count = Fixe Anzahl (alternativ zu count_source_name)
+objectname = Name / Prefix der generierten Objecte (Default: Objekt)
+class = Typ/Material der generierten Object (optional)
+type = Typkürzel (Default: mi)
+start = Startwert für die ID (Default: 01)
+</pre>
+</noinclude>
+<includeonly>{{#vardefine: i | {{{start|1}}} }}{{#while:
+ | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{sourcename|}}}_actual_number_of_objects|{{{count|0}}}}} + {{{start|1}}} - 1}} | true }}
+ | {{{objectname|Objekt}}} {{#var: i }}###{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{type|mi}}}{{#if: {{{class|}}}|###{{{class}}}|}};{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
+}}</includeonly>

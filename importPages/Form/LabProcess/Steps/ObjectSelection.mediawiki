@@ -1,0 +1,13 @@
+<noinclude>
+{{LabProcess/Step/Form/Header}}
+</noinclude><includeonly>
+{{LabProcess/Step/Form/Param/Common}}
+{{LabProcess/Step/Form/Param/Specific/Header
+|process step template=LabProcess/Steps/ObjectSelection/Subpage}}
+   {{LabProcess/Step/Form/Param/Object/Fields
+      |name_in_form=Objekt
+      |template_parameter=object
+      |category_input_type=tree
+   }}
+{{LabProcess/Step/Form/Param/Specific/Footer}}
+{{LabProcess/Step/Form/Footer}}

@@ -1,0 +1,42 @@
+<noinclude>{{Helper/Docu/FormTemplate}}
+
+Laborprodukttyp [[HasTypeSymbol::dt]]
+</noinclude>
+<includeonly>
+''Gerätetyp''</br>
+{{DISPLAYTITLE: {{{display_name}}}}}
+{{#formlink:form=LIMS/Device/Type|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Gerätetypen|reload}}
+
+[[Form:LIMS/Device/Type| Neuen Gerätetyp erstellen]]
+
+ISC-ID: [[HasIscId::{{PAGENAME}}]]</br>
+
+{{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}</br>
+Kategorien:
+<!-- {{#arraymap:{{#replace:{{{category|}}}|Kategorie:|}}|;|x|[[:Category:x]]|}} -->
+{{#ask: [[{{FULLPAGENAME}}]]
+|?Category=
+|mainlabel=-
+|format=plain
+}}
+</br>
+
+== Beschreibung ==
+{{{description|}}}
+
+== Erstellte Instanzen ==
+=== Gekauft ===
+{{#ask: [[Category:LIMS/Device/Instance]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?HasCreationDate=Datum
+|?HasCreator=Ersteller
+}}
+
+=== Selbst hergestellt ===
+{{#ask: [[Category:LabProcessOutput]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?-Has subobject.HasCreationDate=Datum
+|?-Has subobject.IsDefinedIn=Vorschrift
+|?-Has subobject.HasCreator=Ersteller
+}}
+
+[[Category:LIMS/Device/Type]]
+</includeonly>

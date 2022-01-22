@@ -1,0 +1,3 @@
+<includeonly>{{LabProcess/Step/Form/Param/Multi/SectionHeader |label=Quantitative Parameter}}
+|-
+| colspan="3" | <nowiki>{{{field|quantitatives|mandatory|holds template}}}</nowiki></includeonly>
