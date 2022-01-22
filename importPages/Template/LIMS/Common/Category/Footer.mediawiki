@@ -1,0 +1,4 @@
+<noinclude>Footer template of all object categories 
+
+{{Helper/Docu/FormTemplate}}
+</noinclude><includeonly></includeonly>

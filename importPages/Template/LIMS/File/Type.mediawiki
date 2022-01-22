@@ -1,0 +1,41 @@
+<noinclude>{{Helper/Docu/FormTemplate}}
+
+Laborprodukttyp [[HasTypeSymbol::ft]]
+</noinclude>
+<includeonly>
+''Dateityp''</br>
+{{DISPLAYTITLE: {{{display_name}}}}}
+{{#formlink:form=LIMS/File/Type|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Typen|reload}}
+
+[[Form:LIMS/File/Type| Neuen Typ erstellen]]
+
+ID: [[HasId::{{PAGENAME}}]]</br>
+
+{{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}</br>
+Kategorien:
+<!-- {{#arraymap:{{#replace:{{{category|}}}|Kategorie:|}}|;|x|[[:Category:x]]|}} -->
+{{#ask: [[{{FULLPAGENAME}}]]
+|?Category=
+|mainlabel=-
+|format=plain
+}}
+</br>
+
+== Beschreibung ==
+{{{description|}}}
+
+== Erstellte Instanzen ==
+=== Gekauft ===
+{{#ask: [[Category:LIMS/File/Instance]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?HasCreationDate=Datum
+|?HasCreator=Ersteller
+}}
+
+=== Selbst hergestellt ===
+{{#ask: [[Category:LabProcessOutput]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?-Has subobject.HasCreationDate=Datum
+|?-Has subobject.IsDefinedIn=Vorschrift
+|?-Has subobject.HasCreator=Ersteller
+}}
+
+</includeonly>

@@ -1,0 +1,34 @@
+<noinclude>Header template of all object categories 
+
+{{Helper/Docu/FormTemplate}}
+</noinclude><includeonly>
+{{DISPLAYTITLE: {{#if:{{{display_name|}}} | {{{display_name|}}} | {{PAGENAME}} }} }}
+{{#formlink:form=LIMS/{{{category_group_name}}}/Category|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Kategorien|reload}}
+
+{{#ask: [[IsASubcategoryOf::{{FULLPAGENAME}}]]
+OR [[IsASubcategoryOf.-IsASubcategoryOf::{{FULLPAGENAME}}]]
+ |?IsASubcategoryOf
+ |format=graph
+ |graphcolor=yes
+<!--  |graphlink=yes --><!-- buggy -->
+ |graphname=_Graph
+ |graphlegend=no
+ |graphlabel=no
+ |nodelabel=displaytitle
+ |highlight={{FULLPAGENAME}}
+ |graphsize=10,100
+ |rankdir=RL
+}}
+
+ID: [[HasID::{{PAGENAME}}]]
+
+{{#arraymap:{{{ontology_iri|}}}|,|x|[[HasOntologyIri::x]]|\n}}
+
+{{#arraymap:{{{sub_category_of|}}}|,|x|[[Category:{{#replace: x|Category:|}}]]|\s}}
+{{#arraymap:{{{sub_category_of|}}}|,|x|{{#set: IsASubcategoryOf=Category:{{#replace: x|Category:|}}}}|}}
+{{#arraymap:{{{category_type|}}}|,|x|{{#set: IsA=x}}|}}
+[[IsA::{{{category_group_name}}}Category]]
+
+== Beschreibung ==
+{{{description|}}}
+</includeonly>

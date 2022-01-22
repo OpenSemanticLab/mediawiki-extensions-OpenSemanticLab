@@ -1,0 +1,16 @@
+<noinclude>
+{{Helper/Docu/FormTemplate}}
+
+<div class=dynamic-page-form-link>{{#formlink:form=LIMS/File/Type|link text=Neuen Typ erstellen|link type=post button|query string=LIMS/File/Type[short_timestamp]=${short_timestamp}&LIMS/File/Type[creator_abbreviation]=${user_abbreviation}&LIMS/File/Type[type_symbol]=ft|tooltip=|new window}}</div>
+
+</noinclude><includeonly>
+Neue Kategorien müssen zunächst hier angelegt werden: [[Form:LIMS/File/Category]]
+{{{info|page name=FileType:<LIMS/File/Type[short_timestamp]>-<LIMS/File/Type[creator_abbreviation]>-<unique number;start=0001>-<LIMS/File/Type[type_symbol]>}}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|LIMS/File/Type}}}
+{{LIMS/Form/Common/Header}}
+|-
+! Kategorie(n): 
+| {{{field|category|input type=tokens|values from concept=LIMS/File/Category|delimiter=;|required}}} 
+{{LIMS/Form/Common/Footer}}
+</includeonly>

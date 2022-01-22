@@ -1,0 +1,14 @@
+<noinclude>Template of all file categories 
+
+{{Helper/Docu/FormTemplate}}
+</noinclude><includeonly><!-- 
+-->{{LIMS/Common/Category/Header
+  |category_group_name=File
+  |display_name={{{display_name|}}}
+  |ontology_iri={{{ontology_iri|}}}
+  |sub_category_of={{{sub_category_of|}}}
+  |category_type={{{category_type|}}}
+  |description={{{description|}}}
+}}
+{{LIMS/Common/Category/Footer}}
+</includeonly>

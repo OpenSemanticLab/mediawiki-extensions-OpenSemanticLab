@@ -1,0 +1,16 @@
+<noinclude><pre>
+count_source_name = Name des Prozessschrittes, aus dem die Anzahl stammt (Kann nicht der gleiche Prozessschritt sein)
+count = Fixe Anzahl (alternativ zu source_name)
+param_name = Name / Prefix der generierten Dateien (Default: File)
+type = Typkürzel der referenzierten IDs (Default: fi)
+start = Startwert für die referenzierten ID (Default: 01)
+nominal_type = Soll-Dateityp
+nominal_instance = Soll-Dateiinstanz
+actual_type = Ist-Dateityp
+actual_instance = Ist-Dateiinstanz
+</pre>
+</noinclude>
+<includeonly>{{#vardefine: i | {{{start|1}}} }}{{#while:
+ | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_files|{{{count}}}}} + {{{start|1}}} - 1}} | true }}
+ | [{{#var: i }}][id]={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{type|fi}}};[{{#var: i }}][name]={{{param_name|File}}} {{#var: i }};[{{#var: i }}][nominal_type]={{{nominal_type|}}};[{{#var: i }}][nominal_instance]={{{nominal_instance|}}};[{{#var: i }}][actual_type]={{{actual_type|}}};[{{#var: i }}][actual_instance]={{{actual_instance|}}};{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
+}}</includeonly>

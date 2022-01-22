@@ -1,0 +1,4 @@
+{{#concept:
+ [[IsA::FileCategory]]
+ |Category for files
+}}
