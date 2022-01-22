@@ -1,10 +1,10 @@
 <includeonly> 
 == Stammdaten ==
 {{Helper/UI/VE/Visible |content=Stammdaten bearbeiten}}
-{{Helper/UI/VE/Hidden|content={{#formlink:form=ELN/Entry|link text=Stammdaten bearbeiten|link type=post button|target={{PAGENAME}}}}}}
+{{Helper/UI/VE/Hidden|content={{#formlink:form=ELN/Entry|link text=Stammdaten bearbeiten|link type=post button|target={{FULLPAGENAME}}}}}}
 
 <!-- <div style="float:right">
-{{#ask: [[{{PAGENAME}}]]
+{{#ask: [[{{FULLPAGENAME}}]]
 |?HasKeyword
 |format=tagcloud
 |limit=2500
@@ -22,9 +22,9 @@
 |maxsize=220
 |maxtags=1000
 }}
-</div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} ({{#explode:{{PAGENAME}}|:|1}}) | {{#explode:{{PAGENAME}}|:|1}}}}
+</div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} ({{PAGENAME}}) | {{PAGENAME}} }}
 }}{{#set:
-|HasID={{#explode:{{PAGENAME}}|:|1}}
+|HasID={{PAGENAME}}
 |HasName={{{name|}}}
 |HasCreator=User:{{{creator|}}}
 |HasAgend={{{agents|}}}|+sep=,
@@ -36,7 +36,7 @@
 |HasTypeSymbol={{{type_symbol|}}}
 |HasShortTimestamp={{{short_timestamp|}}}
 |HasCreatorAbbreviation={{{creator_abbreviation|}}}
-}}{{#ask: [[{{PAGENAME}}]]
+}}{{#ask: [[{{FULLPAGENAME}}]]
 |mainlabel=-
 |?HasCreator=Ersteller
 |?HasKeyword=Keywords
@@ -47,7 +47,7 @@
 |transpose=true
 |link=none
 }}
-{{#ask: [[{{PAGENAME}}]]
+{{#ask: [[{{FULLPAGENAME}}]]
 |mainlabel=-
 |?IsRelatedTo=Verwandte Einträge
 |format=table

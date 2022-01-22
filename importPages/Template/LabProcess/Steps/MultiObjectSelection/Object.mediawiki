@@ -1,7 +1,0 @@
-<includeonly><!--
--->{{LabProcess/Parameter
-   |related_to={{{id}}}
-   |name={{{name}}} |type=Istwert |property=HasPredecessor
-   |value={{{actual_instance}}}
-}}<!--
---></includeonly>

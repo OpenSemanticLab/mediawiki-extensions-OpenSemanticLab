@@ -18,6 +18,12 @@
    {{LabProcess/Step/Form/Param/MultiQuantitative/Rows
       |template=LabProcess/Steps/Generic/Subpage
    }}
+   {{LabProcess/Step/Form/Param/MultiFile/Rows
+      |template=LabProcess/Steps/Generic/Subpage
+      |name_in_form=Datei
+      |template_parameter=file
+      |category_input_type=tree
+   }}
 {{LabProcess/Step/Form/Param/Specific/Footer}}
 {{LabProcess/Step/Form/Param/MultiObject/Fields
    |template=LabProcess/Steps/Generic/Subpage
@@ -27,6 +33,12 @@
 }}
 {{LabProcess/Step/Form/Param/MultiQuantitative/Fields
    |template=LabProcess/Steps/Generic/Subpage
+}}
+{{LabProcess/Step/Form/Param/MultiFile/Fields
+   |template=LabProcess/Steps/Generic/Subpage
+   |name_in_form=File
+   |template_parameter=file
+   |category_input_type=tree
 }}
 {{LabProcess/Step/Form/Footer}}
 </includeonly>

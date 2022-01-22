@@ -1,3 +1,0 @@
-Forms for Lab Processes (templates see [[Template:LabProcess]])
-
-{{#subpagelist:}}

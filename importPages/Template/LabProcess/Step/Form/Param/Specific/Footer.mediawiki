@@ -1,1 +1,1 @@
-<includeonly><!-- |} --><nowiki>{{{end template}}}</nowiki></includeonly>
+<includeonly>|}<nowiki>{{{end template}}}</nowiki></includeonly>

@@ -33,8 +33,8 @@
 | {{{field|full_name}}} 
 |-
 ! Produkt Kategorie (z. B. Material Kategorie): 
-| {{{field|output_category|input type=tree|top category=211112-sist-0001-mc|height=500|width=400|depth=1}}} 
-<!-- {{{field|material category2|input type=combobox|default=Kategorie:211112-sist-0001-mc|values from concept=MaterialCategory}}} -->
+| {{{field|output_category|input type=tree|top category=Material|height=500|width=400|depth=1}}} 
+<!-- {{{field|material category2|input type=combobox|default=Category:Material|values from concept=MaterialCategory}}} -->
 |-
 ! Produkt Typ:
 | {{{field|output_type|input type=SF_Select|query=((Category:@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=output_category|label|mandatory}}}

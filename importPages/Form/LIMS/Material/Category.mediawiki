@@ -7,15 +7,9 @@
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 {{{info|page name=Category:<LIMS/Material/Category[short_timestamp]>-<LIMS/Material/Category[creator_abbreviation]>-<unique number;start=0001>-<LIMS/Material/Category[type_symbol]>}}}
 {{{for template|LIMS/Material/Category}}}
-{{LIMS/Form/Common/Header}}
+{{LIMS/Form/Common/Category/Header |category_group_name=Material}}
 |-
 ! Materialkategorietyp: 
 | {{{field|category_type|input type=tokens|values=Physikalische Stoffkategorie,Chemische Stoffkategorie,Anwendungsdefinierte Stoffkategorie,Biologische Stoffkategorie,Wirtschaftswissenschaftliche Stoffkategorie,Sonstige Stoffkategorie|list}}}
-|-
-! Übergeordnete Materialkategorien: 
-| {{{field|sub_category_of|input type=tokens|property=IsA|values from concept=LIMS/Material/Category|default=Category:211112-sist-0001-mc|list}}}
-|-
-! Ontologie IRI: 
-| {{{field|ontology_iri|property=has ontology iri}}}
 {{LIMS/Form/Common/Footer}}
 </includeonly>

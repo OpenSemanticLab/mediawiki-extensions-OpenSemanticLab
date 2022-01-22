@@ -17,12 +17,12 @@
    [precondition]={{{precondition|}}};
    [postcondition]={{{postcondition|}}}
 |specific_parameters=
-   [object_category]={{{object_category|Category:211112-sist-0001-mc}}};
-   [actual_object_category]={{{actual_object_category|{{{object_category|Category:211112-sist-0001-mc}}}}}};
-|additional_template_1=LabProcess/Steps/MultiObjectSelection/Object
+   [nominal_object_category]={{#replace:{{{nominal_object_category|Category:Object}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [actual_object_category]={{#replace:{{{actual_object_category|{{{nominal_object_category|Category:Object}}}}}}|Category:|}} <!-- Tree input expects no namespace -->
+|additional_template_1=LabProcess/Parameter/MultiObject/Object
 |additional_parameters_1={{{objects|}}}
 }}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
-Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{object_category|}}}|[[:{{{object_category}}}]]|{{Message/NotDefined}}}}) ausgewählt werden.
+Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{Message/NotDefined}}}}) ausgewählt werden.
 {{{description|}}}
 
 ====Parameter====

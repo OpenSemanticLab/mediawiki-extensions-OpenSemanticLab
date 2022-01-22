@@ -11,7 +11,7 @@ Vorlage für einen Prozessschritt zur Objektauswahl
 
 <pre>
 {{LabProcess/Steps/MultiObjectSelection/Subpage
-  | object_category=Objekt Kategory, z.B. Folie
+  | nominal_object_category=Objekt Kategory, z.B. Folie
   | actual_object_category=Tatsächliche Objekt Kategory, z.B. Folie
   | objects=Array of LabProcess/Steps/MultiObjectSelection/Object
 }}
@@ -21,7 +21,7 @@ Seite bearbeiten um den Quelltext zu sehen.
 </noinclude>
 <includeonly>
 <!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
-Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{object_category|}}}|[[:{{{object_category}}}]]|{{Message/NotDefined}}}}) ausgewählt werden.
+Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{Message/NotDefined}}}}) ausgewählt werden.
 
 {{{description|}}}
 

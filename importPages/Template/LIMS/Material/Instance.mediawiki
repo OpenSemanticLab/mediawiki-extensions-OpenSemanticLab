@@ -3,11 +3,10 @@
 
 </noinclude>
 <includeonly>
-{{DISPLAYTITLE:{{PAGENAME}}}}{{#set: HasId={{PAGENAME}}}}
-{{LIMS/Common}}
+{{LIMS/Common |name={{{display_name}}}}}
+
 {{#declare:
  HasUuid=uuid
- |HasId=
  |IsInstanceOf=type
  |HasCreator=creator
  |HasCreationDate=creation_date
@@ -18,6 +17,23 @@
  |HasVendorTypeId=vendor_type_id
  |HasVendorInstanceId=vendor_instance_id
 }}
+
+{{#ask: [[{{FULLPAGENAME}}]]
+ |?HasUuid=uuid
+ |?HasId=ID
+ |?IsInstanceOf=Type
+ |?HasCreator=Ersteller
+ |?HasCreationDate=Erstelldatum
+ |?HasName=Name
+ |?HasFullName=Voller Name
+ |?HasDescription=Beschreibung
+ |?HasVendor=Herstller
+ |?HasVendorTypeId=Produkt ID
+ |?HasVendorInstanceId=Chargen ID
+ |format=table
+ |transpose=true
+}}
+
 
 [[Category:LabObject]]
 [[Category:LIMS/Material/Instance]]

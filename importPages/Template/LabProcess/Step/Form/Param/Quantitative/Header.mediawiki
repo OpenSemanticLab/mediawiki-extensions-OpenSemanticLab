@@ -2,9 +2,13 @@
 </br>
 <nowiki>{{{for template</nowiki>|{{{process step template}}}<nowiki>}}}</nowiki>
 == Spezifische Prozessparameter == -->
+<!-- {| class="formtable"
+| style="width: 20%" |
+! style="width: 30%" |Sollwert: 
+! style="width: 10%" |Einheit:
+! style="width: 30%" |Istwert:
+! style="width: 10%" |Einheit: -->
 {| class="formtable"
 |
-! Sollwert: 
-! Einheit:
-! Istwert:
-! Einheit:</includeonly>
+! Sollwert
+! Istwert</includeonly>

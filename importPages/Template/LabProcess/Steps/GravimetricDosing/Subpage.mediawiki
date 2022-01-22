@@ -36,29 +36,29 @@ Seite bearbeiten um den Quelltext zu sehen.
 <includeonly>
 <!-- PARAMETER -->
 {{LabProcess/Parameter
-   |name=Einwaage |type=Sollwert |attribute=Masse 
+   |name=Einwaage |type=Sollwert |property=Masse 
    |value={{#if: {{{nominal_mass|}}} | {{{nominal_mass|}}}{{{nominal_mass_unit|}}} }}
 }}<!--
 -->{{LabProcess/Parameter
    |name=Einwaage 
    |type=Istwert 
-   |attribute=Masse
+   |property=Masse
    |value={{#if: {{{actual_mass|}}} | {{{actual_mass|}}}{{{actual_mass_unit|}}} }}
 }}<!--
 -->{{LabProcess/Parameter
-   |name=Edukt |type=Sollwert |attribute=Edukt Kategorie |value={{{educt_category|}}}
+   |name=Edukt |type=Sollwert |property=Edukt Kategorie |value={{{educt_category|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name=Edukt |type=Sollwert |attribute=Edukt |value={{{nominal_educt|}}}
+   |name=Edukt |type=Sollwert |property=Edukt |value={{{nominal_educt|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name=Edukt |type=Istwert |attribute=Edukt |value={{{actual_educt|}}}
+   |name=Edukt |type=Istwert |property=Edukt |value={{{actual_educt|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name=Edukt Charge |type=Sollwert |attribute=Edukt Charge |value={{{nominal_educt_batch|}}}
+   |name=Edukt Charge |type=Sollwert |property=Edukt Charge |value={{{nominal_educt_batch|}}}
 }}<!--
 -->{{LabProcess/Parameter
-   |name=Edukt Charge |type=Istwert |attribute=Edukt Charge |value={{{actual_educt_batch|}}}
+   |name=Edukt Charge |type=Istwert |property=Edukt Charge |value={{{actual_educt_batch|}}}
 }}<!--
 -->{{LabProcess/Parameter/Device
 |prefix=

@@ -1,3 +1,0 @@
-Forms for simple Electronik Lab Notebook features
-
-{{#subpagelist: }}

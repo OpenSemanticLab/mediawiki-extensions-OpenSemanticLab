@@ -1,34 +1,14 @@
 <noinclude>Template of all device categories 
 
 {{Helper/Docu/FormTemplate}}
-</noinclude><includeonly>
-{{DISPLAYTITLE: {{#if:{{{display_name|}}} | {{{display_name|}}} | {{PAGENAME}} }} }}
-{{#formlink:form=LIMS/Device/Category|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Gerätekategorien|reload}}
-
-{{#ask: [[IsA::DeviceCategory]] [[IsASubcategoryOf::{{FULLPAGENAME}}]]
-OR [[IsA::DeviceCategory]] [[IsASubcategoryOf.-IsASubcategoryOf::{{FULLPAGENAME}}]]
- |?IsASubcategoryOf
- |format=graph
- |graphcolor=yes
- |graphlink=yes
- |graphname=_Graph
- |graphlegend=no
- |graphlabel=no
- |nodelabel=displaytitle
- |highlight={{FULLPAGENAME}}
- |graphsize=10,100
- |rankdir=RL
+</noinclude><includeonly><!-- 
+-->{{LIMS/Common/Category/Header
+  |category_group_name=Device
+  |display_name={{{display_name|}}}
+  |ontology_iri={{{ontology_iri|}}}
+  |sub_category_of={{{sub_category_of|}}}
+  |category_type={{{category_type|}}}
+  |description={{{description|}}}
 }}
-
-ISC ID: [[HasIscId::{{PAGENAME}}]]
-
-{{#if: {{{ontology_iri|}}} | [[has ontology iri::{{{ontology_iri}}}]] | }}
-
-{{#arraymap:{{{sub_category_of|}}}|,|x|[[Category:{{#replace: x|Category:|}}]]|\s}}
-{{#arraymap:{{{sub_category_of|}}}|,|x|{{#set: IsASubcategoryOf=Category:{{#replace: x|Category:|}}}}|}}
-{{#arraymap:{{{category_type|}}}|,|x|{{#set: IsA=x}}|}}
-[[IsA::DeviceCategory]]
-
-== Beschreibung ==
-{{{description|}}}
+{{LIMS/Common/Category/Footer}}
 </includeonly>

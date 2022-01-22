@@ -13,12 +13,13 @@
 |parameters=
    {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
    {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}
+   [id]={{{id|}}};
    [name]={{{name|}}};
-   [device]={{{device|}}};
    [precondition]={{{precondition|}}};
    [postcondition]={{{postcondition|}}}
 |specific_parameters=
-   [educt_category]={{{educt_category|Category:Material}}};
+   [nominal_educt_category]={{#replace:{{{nominal_educt_category|Category:Material}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [actual_educt_category]={{#replace:{{{actual_educt_category|{{{nominal_educt_category|Category:Material}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [nominal_educt]={{{nominal_educt|}}};
    [nominal_educt_batch]={{{nominal_educt_batch|}}};
    [actual_educt]={{{actual_educt|}}};
@@ -27,18 +28,19 @@
    [nominal_mass_unit]={{{nominal_mass_unit|}}};
    [actual_mass]={{{actual_mass|}}};
    [actual_mass_unit]={{{actual_mass_unit|{{{nominal_mass_unit}}}}}};
-   [device_category]={{{device_category|Category:Device}}};
+   [nominal_device_category]={{#replace:{{{nominal_device_category|Category:Device}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [actual_device_category]={{#replace:{{{actual_device_category|{{{nominal_device_category|Category:Device}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [nominal_device_type]={{{nominal_device_type|}}};
    [actual_device_type]={{{actual_device_type|}}};
-   [nominal_device_instance]={{{nominal_device_instance}}};
-   [actual_device_instance]={{{actual_device_instance}}};
+   [nominal_device_instance]={{{nominal_device_instance|}}};
+   [actual_device_instance]={{{actual_device_instance|}}};
    [nominal_device_setup]={{{nominal_device_setup|}}};
    [actual_device_setup]={{{actual_device_setup|}}}
 }}
 
 <!-- BESCHREIBUNG -->
 Von {{#if: {{{nominal_educt|}}}|[[{{{nominal_educt}}}]]|{{Message/NotDefined}}}} 
-(Stoffklasse: {{#if: {{{educt_category|}}}|[[:{{{educt_category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal_educt_batch|}}}|[[{{{nominal_educt_batch}}}]]|{{Message/NotDefined}}}}) 
+(Stoffklasse: {{#if: {{{nominal_educt_category|}}}|[[:{{{nominal_educt_category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal_educt_batch|}}}|[[{{{nominal_educt_batch}}}]]|{{Message/NotDefined}}}}) 
 sollen
 {{#if: {{{nominal_mass|}}}|{{{nominal_mass}}} {{{nominal_mass_unit}}}|{{Message/NotDefined}}}} 
 eingewogen werden.
@@ -48,11 +50,11 @@ eingewogen werden.
 |prefix=
 |suffix=
 |process_step_name={{{name|}}}
-|device_category={{{device_category|}}}
+|device_category={{{nominal_device_category|}}}
 |nominal_device_type={{{nominal_device_type|}}}
 |actual_device_type={{{actual_device_type|}}}
-|nominal_device_instance={{{nominal_device_instance|{{{nominal_device|}}}}}}
-|actual_device_instance={{{actual_device_instance|{{{actual_device|}}}}}}
+|nominal_device_instance={{{nominal_device_instance|}}}
+|actual_device_instance={{{actual_device_instance|}}}
 |nominal_device_setup={{{nominal_device_setup|}}}
 |actual_device_setup={{{actual_device_setup|}}}
 }}

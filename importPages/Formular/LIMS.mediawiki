@@ -1,5 +1,0 @@
-Form for lab inventory
-
-{{Helper/Docu/FormTemplate}}
-
-{{#subpagelist:}}

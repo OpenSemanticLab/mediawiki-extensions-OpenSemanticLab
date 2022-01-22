@@ -1,7 +1,10 @@
 <includeonly>{{#subobject:
  |@category=Parameter
  |@category=ProcessParameter
- |IsRelatedTo={{{related_to|{{FULLPAGENAME}}}}}
+ |Display title of={{{name}}} ({{{type}}})
+ |IsRelatedTo={{{related_to|{{FULLPAGENAME}}}}}<!-- should get replaced with IsProcessParameterOf={{{process|}}} -->
+ |IsProcessParameterOf={{{process|}}}
+ |IsObjectParameterOf={{{object|}}}
  |HasName={{{name}}}
  |HasParameterType={{{type}}}
  |HasProperty=Property:{{#replace:{{#replace:{{{property}}}|Attribut:|}}|Property:|}}

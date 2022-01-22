@@ -1,4 +1,6 @@
 {{Helper/Docu/FormTemplate}}
 
 For lab objects like samples, parts, drafts, measurements, etc.
+See also [[LabProcess]]
+
 {{#subpagelist: }}

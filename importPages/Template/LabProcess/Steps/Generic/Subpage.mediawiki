@@ -29,7 +29,7 @@ Generischer Prozessschritt vom Typ {{#if: {{{type|}}}|[[{{{type}}}]]|{{Message/N
 {{#if: {{{quantitatives|}}}
 | Für den diesen Prozessschritt müssen ein oder mehrere Parameter angegeben werden. |}}
 
-{{{devices|}}}{{{objects|}}}{{{quantitatives|}}}
+{{{devices|}}}{{{objects|}}}{{{quantitatives|}}}{{{files|}}}
 
 <!--
 -->{{LabProcess/Step/Footer

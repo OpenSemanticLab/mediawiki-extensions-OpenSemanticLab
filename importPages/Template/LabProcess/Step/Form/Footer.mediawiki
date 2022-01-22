@@ -7,5 +7,8 @@
 
 <nowiki>{{{standard input|minor edit}}} {{{standard input|watch}}}</nowiki> -->
 
-<nowiki>{{{standard input|save|label=Speichern}}}</nowiki> <!-- <nowiki>{{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}</nowiki> -->
+<nowiki>{{{standard input|save|label=Speichern und Schließen}}}</nowiki> <nowiki>{{{standard input|cancel}}}</nowiki>
+<nowiki>{{{standard input|save and continue|label=Speichern}}}</nowiki>
+<!-- 
+<div class="dynamic-page-form-link-step"><div id="dynamic-page-form-link-previous"></div><nowiki>{{{standard input|save and continue|label=Speichern}}}</nowiki><div id="dynamic-page-form-link-next"></div></div> -->
 </includeonly>

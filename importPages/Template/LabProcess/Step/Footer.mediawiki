@@ -1,5 +1,7 @@
 <includeonly>===Prozessparameter===
 {{#ask: [[Category:ProcessParameter]] [[-Has subobject::{{FULLPAGENAME}}]]
+ |?IsProcessParameterOf=Prozess
+ |?IsObjectParameterOf=Objekt
  |?HasName=Name
  |?HasParameterType
  |?HasProperty=Attribut

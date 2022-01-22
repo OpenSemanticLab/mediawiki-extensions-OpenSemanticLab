@@ -2,13 +2,13 @@
 ==={{{name}}}{{#ifeq: {{{required|{{Helper/Strings/Yes}}}}}|{{Helper/Strings/No}}|<nowiki> </nowiki>(optional)|}}===
 {{#ifexist:{{FULLPAGENAME}}/{{{id}}}|([[{{FULLPAGENAME}}/{{{id}}}|Details]])|}}
 {{Helper/UI/VE/Visible |content=Prozessschritt {{{name}}} erstellen oder bearbeiten |icon=doubleChevronEnd}}
-{{Helper/UI/Div/VE-Hidden}}{{#formlink:form={{{form}}}|query string=super_page={{FULLPAGENAME}}&{{{template|LabProcess/Step/Subpage}}}[related_to]={{FULLPAGENAME}}&{{#arraymap:{{{parameters|}}}|{{{sep|;}}}|__GEN_PARAMS__|{{{template|LabProcess/Step/Subpage}}}__GEN_PARAMS__|&}}&{{#arraymap:{{{specific_parameters|}}}|{{{sep|;}}}|__SPEC_PARAMS__|{{{specific_template|{{{form}}}}}}__SPEC_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_1|}}}|{{{sep|;}}}|__ADD_1_PARAMS__|{{{additional_template_1|{{{form}}}}}}__ADD_1_PARAMS__|&}}&returnto={{FULLPAGENAME}}|target={{FULLPAGENAME}}/{{{id}}}|link text=Prozessschritt {{{name}}} erstellen oder bearbeiten|tooltip=Prozessschritt {{{name}}} erstellen oder bearbeiten|link type={{{link_type|post button}}}|returntoNOT={{FULLPAGENAME}}|reload|{{#ifeq: {{{popup|}}}|{{{Helper/Strings/Yes}}}|popup|}}}}{{Helper/UI/Div/Closing}}<!--
+{{Helper/UI/Div/VE-Hidden}}{{#formlink:form={{{form}}}|query string=super_page={{FULLPAGENAME}}&{{{template|LabProcess/Step/Subpage}}}[related_to]={{FULLPAGENAME}}&{{#arraymap:{{{parameters|}}}|{{{sep|;}}}|__GEN_PARAMS__|{{{template|LabProcess/Step/Subpage}}}__GEN_PARAMS__|&}}&{{#arraymap:{{{specific_parameters|}}}|{{{sep|;}}}|__SPEC_PARAMS__|{{{specific_template|{{{form}}}}}}__SPEC_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_1|}}}|{{{sep|;}}}|__ADD_1_PARAMS__|{{{additional_template_1|{{{form}}}}}}__ADD_1_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_2|}}}|{{{sep|;}}}|__ADD_2_PARAMS__|{{{additional_template_2|{{{form}}}}}}__ADD_2_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_3|}}}|{{{sep|;}}}|__ADD_3_PARAMS__|{{{additional_template_3|{{{form}}}}}}__ADD_3_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_4|}}}|{{{sep|;}}}|__ADD_4_PARAMS__|{{{additional_template_4|{{{form}}}}}}__ADD_4_PARAMS__|&}}&returnto={{FULLPAGENAME}}|target={{FULLPAGENAME}}/{{{id}}}|link text=Prozessschritt {{{name}}} erstellen oder bearbeiten|tooltip=Prozessschritt {{{name}}} erstellen oder bearbeiten|link type={{{link_type|post button}}}|returntoNOT={{FULLPAGENAME}}|reload|{{#ifeq: {{{popup|}}}|{{{Helper/Strings/Yes}}}|popup|}}}}{{Helper/UI/Div/Closing}}<!--
 -->{{LabProcess/Step/Descriptor
 |id={{{id}}}
 |name={{{name}}}
 |predecessor={{#arraymap:{{{predecessor|}}}|;|__VALUE__|{{FULLPAGENAME}}#__VALUE__|;}}
 |concurrent_to={{#arraymap:{{{concurrent|}}}|;|__VALUE__|{{FULLPAGENAME}}#__VALUE__|;}}
-|input_objects={{{input_objects|}}}
+|input_objects={{#arraymaptemplate:{{{input_objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}}
 |output_objects={{#arraymaptemplate:{{{output_objects|}}}|Helper/StringOps/SplitOnTripleHashSelectFirst|;|}}
 }}{{#arraymaptemplate:{{{output_objects|}}}|LabProcess/Object|;|}}
 {{#ifeq: {{Helper/Query/DebugProperty}}|wahr|

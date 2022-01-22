@@ -1,2 +1,1 @@
-<includeonly>
-</includeonly>
+<includeonly>{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} ({{{id|{{PAGENAME}}}}}) | {{{id|{{PAGENAME}}}}} }}}}</includeonly>

@@ -32,4 +32,4 @@
 | <nowiki>{{{field|full_name}}}</nowiki>
 |-
 ! Beschreibung: 
-| <nowiki>{{{field|description|input type=textarea|editor=NOTwikieditor|class=toolbarOnTop}}}</nowiki></includeonly>
+| <nowiki>{{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}</nowiki></includeonly>

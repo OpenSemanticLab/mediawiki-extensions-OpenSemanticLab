@@ -1,4 +1,0 @@
-{{#concept:
- [[IsA::MaterialCategory]]
- |Kategorien für Stoffe - Stoffklassen 
-}}
