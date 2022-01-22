@@ -55,15 +55,26 @@
 		},
 		{
 			"id": 7030,
-			"constant": "NS_ROOM",
-			"name": "Room"
+			"constant": "NS_LOCATION",
+			"name": "Location"
 		},
 		{
 			"id": 7031,
-			"constant": "NS_ROOM_TALK",
-			"name": "Room_Talk",
+			"constant": "NS_LOCATION_TALK",
+			"name": "Location_Talk",
                         "defaultcontentmodel": "flow-board"
 		},
+                {
+                        "id": 7040,
+                        "constant": "NS_FILETYPE",
+                        "name": "FileType"
+                },
+                {
+                        "id": 7041,
+                        "constant": "NS_FILETYPE_TALK",
+                        "name": "FileType_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
 		{
 			"id": 7100,
 			"constant": "NS_LABNOTE",
@@ -108,6 +119,7 @@
 				"7010": true,
 				"7020": true,
 				"7030": true,
+				"7040": true,
 				"7100": true,
 				"7110": true,
 				"7120": true
@@ -119,6 +131,7 @@
         "7010": true,
         "7020": true,
         "7030": true,
+	"7040": true,
         "7100": true
       },
       "merge_strategy": "array_plus"
@@ -130,6 +143,7 @@
 				"7010": true,
 				"7020": true,
 				"7030": true,
+				"7040": true,
 				"7100": true,
 				"7110": true,
 				"7120": true
