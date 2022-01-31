@@ -1,15 +1,10 @@
 <noinclude>{{Helper/Docu/FormTemplate}}
 
-Laborprodukttyp [[HasTypeSymbol::m]]
+{{LIMS/Common/Template |id_postfix=mt}}
 </noinclude>
 <includeonly>
-''Material''</br>
-{{DISPLAYTITLE: {{{display_name}}}}}
-{{#formlink:form=LIMS/Material/Type|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Materialien|reload}}
+{{LIMS/Common |Material|Type|name={{{display_name|}}}}}
 
-[[Form:LIMS/Material/Type| Neuen Material erstellen]]
-
-ISC-ID: [[HasIscId::{{PAGENAME}}]]</br>
 PubChem-ID: {{#if: {{{pubchem_cid|}}} | [[Has pubchem cid::{{{pubchem_cid}}}]] | {{Message/NotDefined}}}} </br>
 <!-- Needs ExternalData > v2.2 ? -->
 <!-- {{#if: {{{pubchem cid|}}} |
@@ -17,9 +12,9 @@ PubChem-ID: {{#if: {{{pubchem_cid|}}} | [[Has pubchem cid::{{{pubchem_cid}}}]] |
 GHS classification, according to [https://pubchem.ncbi.nlm.nih.gov/compound/{{{pubchem cid}}} pubchem/ECHA]: {{#for_external_table:[[HasGhsClassification::{{{tox}}}]], }}
 </br>|}} -->
 
-{{#arraymap:{{#replace:{{{category|}}}|Kategorie:|}}|;|x|[[Category:x]]|\s}}</br>
+{{#arraymap:{{#replace:{{{category|}}}|Category:|}}|;|x|[[Category:x]]|\s}}</br>
 Materialkategorien:
-<!-- {{#arraymap:{{#replace:{{{category|}}}|Kategorie:|}}|;|x|[[:Category:x]]|}} -->
+<!-- {{#arraymap:{{#replace:{{{category|}}}|Category:|}}|;|x|[[:Category:x]]|}} -->
 {{#ask: [[{{FULLPAGENAME}}]]
 |?Category=
 |mainlabel=-

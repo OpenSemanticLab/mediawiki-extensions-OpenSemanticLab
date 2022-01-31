@@ -1,15 +1,8 @@
 <noinclude>{{Helper/Docu/FormTemplate}}
-
-Laborprodukttyp [[HasTypeSymbol::ft]]
+{{LIMS/Common/Template |id_postfix=ft}}
 </noinclude>
 <includeonly>
-''Dateityp''</br>
-{{DISPLAYTITLE: {{{display_name}}}}}
-{{#formlink:form=LIMS/File/Type|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Typen|reload}}
-
-[[Form:LIMS/File/Type| Neuen Typ erstellen]]
-
-ID: [[HasId::{{PAGENAME}}]]</br>
+{{LIMS/Common |File|Type|name={{{display_name|}}}}}
 
 {{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}</br>
 Kategorien:

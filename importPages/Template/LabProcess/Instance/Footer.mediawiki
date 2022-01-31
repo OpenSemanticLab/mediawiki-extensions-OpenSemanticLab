@@ -2,7 +2,7 @@
 == Produkte ==
 {{#ask: [[Category:LabProcessOutput]] [[-has subobject::{{FULLPAGENAME}}]]
 <!-- |?HasWikiId=Wiki ID -->
-|?HasIscId=ISC ID
+|?HasId=ID
 |?IsInstanceOf=Typ
 |?HasProcessObject=Prozessobjekt
 |mainlabel=-

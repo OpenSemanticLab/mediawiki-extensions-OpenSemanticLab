@@ -3,7 +3,7 @@
 == Produkte ==
 {{#ask: [[Category:LabProcessOutput]] [[-has subobject::{{FULLPAGENAME}}]]
 <!-- |?wiki id=Wiki ID-->
-|?HasIscId=ISC ID
+|?HasId=ID
 |?HasProcessObject=Prozessobjekt
 <!-- |mainlabel=- -->
 }}
@@ -11,12 +11,12 @@
 
 == Erstellte Instanzen ==
 
-{{#ask: [[Category:LabObject]] [[IsDefinedIn::{{FULLPAGENAME}}]]
+{{#ask: [[Category:LabObject]] [[IsInstanceOf::{{FULLPAGENAME}}]]
 |?HasCreationDate=Datum
 |?HasProject=Projekt
 |?HasCreator=Ersteller
 |?HasOutputCategory=Product Kategorie
-|?HasOutputTyp=Product Typ
+|?HasOutputType=Product Typ
 |sort=HasCreationDate
 |order=desc
 }}

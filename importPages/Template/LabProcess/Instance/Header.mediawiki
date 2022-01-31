@@ -6,20 +6,20 @@
 
 --><!-- Dies ist eine Laborprodukt vom Typ [[HasObjectType::{{{type}}}]] -->
 
-Dokumentation zur Herstellung von [[HasOutputType::{{{output_type}}}]] (Kategorie: [[HasOutputCategory::{{{output_category}}}]])
+Dokumentation zur Herstellung von [[HasOutputType::{{{output_type}}}]] (Kategorie: [[HasOutputCategory::Category:{{{output_category}}}]])
 
 Ersteller [[HasCreator::{{{creator}}}]] ([[HasCreatorShortName::{{{creator_abbreviation}}}]])
 
 Erstelldatum [[HasCreationDate::{{{timestamp}}}]] (Kurzzeitstempel [[HasCreationShortTimeStamp::{{{short_timestamp}}}]])
 {{#if: {{{projects|}}}|</br> 
 Projekt: {{#arraymap:{{{projects|}}}|,|__x__|[[HasProject::__x__]]|,}} |}}</br> 
-ISC-ID: [[HasIscId::{{PAGENAME}}]]
+ID: [[HasId::{{PAGENAME}}]]
 {{#if: {{{additional_ids|}}}|</br> 
-Weitere IDs: {{#arraymap:{{{additional ids|}}}|,|__x__|[[HasIscId::__x__]]|,}} |}}
+Weitere IDs: {{#arraymap:{{{additional ids|}}}|,|__x__|[[HasId::__x__]]|,}} |}}
 
-[[Category:LabObject]]
+[[Category:LabObject]][[Category:Labprocess/Instance]]
 
-Definiert in [[IsDefinedIn::{{{template}}}]]
+Definiert in [[IsInstanceOf::{{{template}}}]]
 
 <!--== Fortschritt ==
 

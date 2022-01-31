@@ -13,6 +13,7 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Te
 |precondition_fulfilled=Vorbedingung ist erfüllt
 |postcondition=Nachbedingung vor entgültigem Abschluss des Prozessschrittes
 |postcondition_fulfilled=Nachbedingung ist erfüllt
+|status=Bearbeitungsstatus
 }}
 </pre>
 </noinclude>
@@ -22,7 +23,7 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Te
 Prozessschritt {{{name}}} des Laborproduktes [[IsRelatedTo::{{{related_to}}}]] wurde von [[HasAgent::{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartTimeAndDate::{{{start_date}}}]] begonnen und am [[HasEndTimeAndDate::{{{end_date}}}]] beendet.
 |
 Der Prozessschritt wurde noch nicht begonnen
-}}
+}}{{#if: {{{status|}}}| (Status: [[HasStatus::{{{status|}}}]])|}}
 
 {{#if: {{{precondition|}}}|Die Vorbedingung ''{{{precondition|}}}'' wurde {{#ifeq: {{{precondition_fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}
 {{#if: {{{postcondition|}}}|Die Nachbedingung ''{{{postcondition|}}}'' wurde {{#ifeq: {{{postcondition_fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}

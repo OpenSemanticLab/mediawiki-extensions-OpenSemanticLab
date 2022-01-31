@@ -5,7 +5,7 @@
 }}<!-- Subobject for products 
 -->{{#if:{{#explode:{{{1}}}|###|1}}|{{#subobject: {{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}} 
 |@category=LabProcessOutput|+sep=;
-|HasIscId={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
+|HasId={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
 |HasWikiId={{FULLPAGENAME}}#{{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
 |Display title of={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
 |HasProcessObject=<!-- {{FULLPAGENAME}}# -->{{#explode:{{{1}}}|###|0}}

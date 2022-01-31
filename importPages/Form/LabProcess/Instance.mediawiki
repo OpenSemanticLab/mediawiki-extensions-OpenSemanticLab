@@ -45,6 +45,9 @@
 ! Weitere IDs: 
 | {{{field|additional_ids|input type=tokens}}}
 |-
+! Status{{#info:Gibt den Bearbeitungszustand an}}: 
+| {{{field|status|input type=dropdown|default=Pending|values=Pending,In Work,Completed}}}
+|-
 ! Beschreibung: 
 | {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}} 
 |}

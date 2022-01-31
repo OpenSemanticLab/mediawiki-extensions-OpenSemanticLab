@@ -16,6 +16,6 @@
 <!-- | {{#if: {{#urlget:{{{template|}}}[nominal_instance]|}} | [[Media:{{#urlget:{{{template|}}}[nominal_instance]|}}]] | {{Message/NotDefined}}}} -->
 <!-- ACTUAL INSTANCE -->
 <!-- | '''Ist''' | -->
-| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|uploadable|default filename=File_{{#time:Y-m-d_H-i-s}}|image preview|mandatory}}}</nowiki>
+| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|combobox|values from namespace=File|uploadable|default filename=File_{{#time:Y-m-d_H-i-s}}|NOimage preview|mandatory}}}</nowiki>
 |}
 <nowiki>{{{end template}}}</nowiki></includeonly>

@@ -1,16 +1,14 @@
 <noinclude>Header template of all object categories 
 
-{{Helper/Docu/FormTemplate}}
 </noinclude><includeonly>
-{{DISPLAYTITLE: {{#if:{{{display_name|}}} | {{{display_name|}}} | {{PAGENAME}} }} }}
-{{#formlink:form=LIMS/{{{category_group_name}}}/Category|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Kategorien|reload}}
+{{LIMS/Common |{{{category_group_name}}}|Category|name={{{display_name|}}}}}
 
 {{#ask: [[IsASubcategoryOf::{{FULLPAGENAME}}]]
 OR [[IsASubcategoryOf.-IsASubcategoryOf::{{FULLPAGENAME}}]]
  |?IsASubcategoryOf
  |format=graph
  |graphcolor=yes
-<!--  |graphlink=yes --><!-- buggy -->
+ |graphlink=yes
  |graphname=_Graph
  |graphlegend=no
  |graphlabel=no
@@ -20,7 +18,7 @@ OR [[IsASubcategoryOf.-IsASubcategoryOf::{{FULLPAGENAME}}]]
  |rankdir=RL
 }}
 
-ID: [[HasID::{{PAGENAME}}]]
+ID: [[HasId::{{PAGENAME}}]]
 
 {{#arraymap:{{{ontology_iri|}}}|,|x|[[HasOntologyIri::x]]|\n}}
 

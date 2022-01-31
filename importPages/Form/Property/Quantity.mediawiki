@@ -48,8 +48,11 @@ if a page with that name already exists, you will be sent to a form to edit that
 ! Alternative names (e. g. kilogram): 
 | {{{field|alternative_names|input type=tokens|list|delimiter=,}}}
 |-
-! Use as display unit: 
+! Use as display unit{{#info: adds unit to the conversation tooltip}}: 
 | {{{field|use_as_display_unit|input type=checkbox|default=yes}}}
+|-
+! Use as input unit{{#info: makes this unit selectable in input forms}}: 
+| {{{field|use_as_input_unit|input type=checkbox|default=yes}}}
 |}
 {{{end template}}}
 

@@ -21,6 +21,9 @@
 ! Endzeitpunkt: 
 | <nowiki>{{{field|end_date|input type=datetimepicker|default=now}}}</nowiki>
 |-
+! Status{{#info:Gibt den Bearbeitungszustand für u. a. für die automatisierte Verarbeitung an}}: 
+| <nowiki>{{{field|status|input type=dropdown|default=Completed|values=Pending,In Work,Completed}}}</nowiki>
+|-
 ! Kommentar: 
 | <nowiki>{{{field|comment|input type=textarea|autogrow}}}</nowiki>
 |}

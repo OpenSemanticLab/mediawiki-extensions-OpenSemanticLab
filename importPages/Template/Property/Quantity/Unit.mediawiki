@@ -8,6 +8,7 @@
 |HasUnitSymbol={{{unit}}}
 |HasAlternativeNames={{{alternative_names|}}}
 |HasConversionFactor={{{factor}}}
-|IsDisplayUnit={{{use_as_display_unit}}}
+|IsDisplayUnit={{{use_as_display_unit|Yes}}}
+|IsInputUnit={{{use_as_input_unit|Yes}}}
 |IsMainUnit=False
 }}{{#set: |HasUnitDefinition={{{factor}}} {{{unit}}}{{#if:{{{alternative_names|}}}|,{{{alternative_names|}}}|}}}}</includeonly>

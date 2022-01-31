@@ -1,15 +1,8 @@
 <noinclude>{{Helper/Docu/FormTemplate}}
-
-Laborprodukttyp [[HasTypeSymbol::dt]]
+{{LIMS/Common/Template |id_postfix=dt}}
 </noinclude>
 <includeonly>
-''Gerätetyp''</br>
-{{DISPLAYTITLE: {{{display_name}}}}}
-{{#formlink:form=LIMS/Device/Type|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Gerätetypen|reload}}
-
-[[Form:LIMS/Device/Type| Neuen Gerätetyp erstellen]]
-
-ISC-ID: [[HasIscId::{{PAGENAME}}]]</br>
+{{LIMS/Common |Device|Type|name={{{display_name|}}}}}
 
 {{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}</br>
 Kategorien:

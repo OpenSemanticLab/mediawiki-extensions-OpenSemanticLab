@@ -1,5 +1,5 @@
 <noinclude>Template of all material categories
-
+{{LIMS/Common/Template |id_postfix=mc}}
 {{Helper/Docu/FormTemplate}}
 </noinclude><includeonly><!-- 
 -->{{LIMS/Common/Category/Header

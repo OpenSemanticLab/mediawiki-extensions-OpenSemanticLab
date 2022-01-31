@@ -1,5 +1,5 @@
 <noinclude>Template of all file categories 
-
+{{LIMS/Common/Template |id_postfix=fc}}
 {{Helper/Docu/FormTemplate}}
 </noinclude><includeonly><!-- 
 -->{{LIMS/Common/Category/Header

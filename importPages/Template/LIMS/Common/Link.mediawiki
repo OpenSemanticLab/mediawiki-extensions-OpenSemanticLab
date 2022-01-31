@@ -1,0 +1,15 @@
+<noinclude>
+<pre>
+{{LIMS/Common/Link
+  |1=link type: Create or Edit
+  |2=object type, e. g. Material
+  |3=abtraction level: Category, Type or Instance
+  |4=target, default create: none; default edit:{{FULLPAGENAME}}
+}}
+</pre>
+</noinclude>
+<includeonly>{{#ifeq: {{{1}}}|Create
+|<div class=dynamic-page-form-link>{{#formlink:form=LIMS/{{{2}}}/{{{3}}}|link text=Create new {{{2}}}-{{{3}}}|link type=post button|query string=LIMS/{{{2}}}/{{{3}}}[short_timestamp]=${short_timestamp}&LIMS/{{{2}}}/{{{3}}}[creator_abbreviation]=${user_abbreviation}&LIMS/{{{2}}}/{{{3}}}[type_symbol]={{#ask: [[Template:LIMS/{{{2}}}/{{{3}}}]] |?HasIdPostfix |mainlabel=- |headers=hide |link=none}}|tooltip=|new window}}</div>|
+}}{{#ifeq: {{{1}}}|Edit
+|{{#formlink:form=LIMS/{{{2}}}/{{{3}}}|link text=Edit|link type=post button|target={{{4|{{FULLPAGENAME}}}}}|tooltip=Edit this page with the {{{2}}}-{{{3}}}-Form|reload}}|
+}}</includeonly>

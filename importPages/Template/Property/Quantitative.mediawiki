@@ -1,5 +1,5 @@
 <includeonly>
-[[Category:QuantitativeProperty]]
+[[Category:Property/Quantitative]]
 {{#set: HasQuantitativePropertyName={{PAGENAME}}}}
 <!-- {{#set: Subproperty of=Quantitative_property}} -->
 </includeonly>

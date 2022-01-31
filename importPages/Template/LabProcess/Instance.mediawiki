@@ -18,5 +18,6 @@ Wrapper for custom instances
 | projects={{{projects|}}}
 | additional_ids={{{additional_ids|}}}
 | description={{{description|}}} 
+| status={{{status}}}
 }}
 </includeonly>

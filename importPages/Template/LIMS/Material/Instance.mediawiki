@@ -1,9 +1,9 @@
 <noinclude>
 {{Helper/Docu/FormTemplate}}
-
+{{LIMS/Common/Template |id_postfix=mi}}
 </noinclude>
 <includeonly>
-{{LIMS/Common |name={{{display_name}}}}}
+{{LIMS/Common |Material|Instance|name={{{display_name|}}}}}
 
 {{#declare:
  HasUuid=uuid

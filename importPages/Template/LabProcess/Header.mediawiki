@@ -1,7 +1,7 @@
 <includeonly>{{#set: Debug={{{debug|{{Helper/Strings/No}}}}}}}
 <!-- {{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}} -->
 {{DISPLAYTITLE:{{#replace:{{{name}}}|_|<nowiki/> <nowiki/>}}}}
-[[Category:ProcessTemplate]]
+[[Category:LabProcess/Template]]
 Von {{#if: {{{output_type|}}}|[[{{{output_type}}}]]|{{Message/NotDefined}}}} 
 (Stoffklasse: {{#if: {{{output_category|}}}|[[:{{{output_category}}}]]|{{Message/NotDefined}}}}
 

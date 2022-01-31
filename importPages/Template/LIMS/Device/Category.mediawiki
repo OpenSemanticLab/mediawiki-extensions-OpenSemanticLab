@@ -1,5 +1,5 @@
 <noinclude>Template of all device categories 
-
+{{LIMS/Common/Template |id_postfix=dc}}
 {{Helper/Docu/FormTemplate}}
 </noinclude><includeonly><!-- 
 -->{{LIMS/Common/Category/Header

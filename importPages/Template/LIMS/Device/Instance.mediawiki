@@ -1,11 +1,9 @@
 <noinclude>
 {{Helper/Docu/FormTemplate}}
-
+{{LIMS/Common/Template |id_postfix=di}}
 </noinclude>
 <includeonly>
-{{LIMS/Common |name={{{display_name}}}}}
-
-{{#formlink:form=LIMS/Device/Instance|link text=Diese Seite editieren|link type=post button|target={{FULLPAGENAME}}|tooltip=Bearbeitet dieses Seite mit dem Formular für Geräteinstanzen|reload}}
+{{LIMS/Common |Device|Instance|name={{{display_name|}}}}}
 
 {{#declare:
  HasUuid=uuid
