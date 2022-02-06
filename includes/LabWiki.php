@@ -170,7 +170,7 @@ class LabWiki {
 
 	public static function onBeforePageDisplay( $out ) {
 
-		$out->addModuleStyles( 'ext.LabWiki.styles' );
+		$out->addModuleStyles( 'ext.OpenSemanticLab.editor' );
 
 		return true;
 
