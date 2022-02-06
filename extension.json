@@ -26,7 +26,7 @@
 		"ext.OpenSemanticLab.editor": {
 			"localBasePath": "modules/ext.OpenSemanticLab.editor",
         		"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
-      			"packageFiles": [
+      			"scripts": [
 				"ve_integration.js"
       			]
 		}
