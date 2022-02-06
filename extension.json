@@ -1,16 +1,20 @@
 {
-	"name": "LabWiki",
-	"version": "0.0.2",
+	"name": "OpenSemanticLab",
+	"version": "0.0.3",
 	"author": [
 		"Simon Stier"
 	],
-	"url": "https://github.com/simontaurus/LabWiki",
+	"url": "https://github.com/OpenSemanticLab/mediawiki-extensions-OpenSemanticLab",
 	"descriptionmsg": "labwiki-desc",
 	"namemsg": "labwiki-name",
-	"license-name": "GPL v3",
+	"license-name": "AGPL v3",
 	"type": "semantic",
 	"requires": {
-		"MediaWiki": ">= 1.31"
+		"MediaWiki": ">= 1.31",
+		"extensions": {
+			"DrawioEditor": ">= 1.0",
+			"WellplateEditor": "*"
+		}
 	},
 	"MessagesDirs": {
 		"LabWiki": [
@@ -19,16 +23,13 @@
 	},
 	"manifest_version": 2,
 	"ResourceModules": {
-		"ext.LabWiki.styles": {
-			"styles": [
-				"LabWiki.css"
-			],
-			"position": "bottom"
+		"ext.OpenSemanticLab.editor": {
+			"localBasePath": "modules/ext.OpenSemanticLab.editor",
+        		"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
+      			"packageFiles": [
+				"ve_integration.js"
+      			]
 		}
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "resources",
-		"remoteExtPath": "LabWiki/resources"
 	},
 	"namespaces": [
 		{
