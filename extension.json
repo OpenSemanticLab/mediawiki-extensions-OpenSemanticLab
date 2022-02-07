@@ -5,8 +5,8 @@
 		"Simon Stier"
 	],
 	"url": "https://github.com/OpenSemanticLab/mediawiki-extensions-OpenSemanticLab",
-	"descriptionmsg": "labwiki-desc",
-	"namemsg": "labwiki-name",
+	"descriptionmsg": "open-semantic-lab-desc",
+	"namemsg": "open-semantic-lab-name",
 	"license-name": "AGPL v3",
 	"type": "semantic",
 	"requires": {
@@ -17,19 +17,22 @@
 		}
 	},
 	"MessagesDirs": {
-		"LabWiki": [
+		"OpenSemanticLab": [
 			"i18n"
 		]
 	},
 	"manifest_version": 2,
 	"ResourceModules": {
 		"ext.OpenSemanticLab.editor": {
-			"localBasePath": "modules/ext.OpenSemanticLab.editor",
-        		"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
       			"scripts": [
 				"ve_integration.js"
-      			]
+      			],
+			"position": "bottom"
 		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules/ext.OpenSemanticLab.editor",
+		"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor"
 	},
 	"namespaces": [
 		{
@@ -152,10 +155,10 @@
 		}
 	},
 	"AutoloadClasses": {
-		"LabWiki": "includes/LabWiki.php"
+		"OpenSemanticLab": "includes/OpenSemanticLab.php"
 	},
 	"Hooks": {
-		"PageImporterRegisterPageLists": "LabWiki::onPageImporterRegisterPageLists",
-		"BeforePageDisplay": "LabWiki::onBeforePageDisplay"
+		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
+		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay"
 	}
 }

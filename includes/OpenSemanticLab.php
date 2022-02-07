@@ -1,10 +1,10 @@
 <?php
 
-class LabWiki {
+class OpenSemanticLab {
 
 	public static function onPageImporterRegisterPageLists( array &$pageLists ) {
 
-		$pageLists['LabWiki'] = [
+		$pageLists['OpenSemanticLab'] = [
 
 			// list of pages to create and the corresponding files to use as content
 			"pages" => [
@@ -163,14 +163,14 @@ class LabWiki {
 			"root" => dirname(__DIR__) . '/importPages',
 
 			// edit summary used when PageImporter edits pages
-			"comment" => "Updated with content from Extension:LabWiki version 0.0.1"
+			"comment" => "Updated with content from Extension:OpenSemanticLab version 0.0.3"
 		];
 
 	}
 
 	public static function onBeforePageDisplay( $out ) {
 
-		$out->addModuleStyles( 'ext.OpenSemanticLab.editor' );
+		$out->addModules( 'ext.OpenSemanticLab.editor' );
 
 		return true;
 
