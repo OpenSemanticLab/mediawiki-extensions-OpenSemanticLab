@@ -24,15 +24,13 @@
 	"manifest_version": 2,
 	"ResourceModules": {
 		"ext.OpenSemanticLab.editor": {
+	                "localBasePath": "modules/ext.OpenSemanticLab.editor",
+        	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
       			"scripts": [
 				"ve_integration.js"
       			],
 			"position": "bottom"
 		}
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "modules/ext.OpenSemanticLab.editor",
-		"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor"
 	},
 	"namespaces": [
 		{
