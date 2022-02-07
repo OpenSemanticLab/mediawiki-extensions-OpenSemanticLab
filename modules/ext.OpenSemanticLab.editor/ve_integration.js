@@ -15,51 +15,62 @@ mw.loader.using( [ 'ext.visualEditor.core', 'ext.visualEditor.mwtransclusion' ] 
 }
 
 
-var tool_groups = [{name: 'labnote', label: 'LabNote'}];
+var tool_groups = [];//[{name: 'labnote', label: 'LabNote'}];
 var template_tools = [
 	{
 		group: 'insert', //built in: insert
 		custom_group: false, 
-		title: 'Drawing',
-		icon: 'edit', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
+		title: 'Sketch',
+		icon: 'sandbox', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
+		name: 'svgedit_editor',
+		dialog: true,
+		sequence: '{S}',
+		shortcut: 'ctrl+alt+s',
+		template: { target: {href: 'Template:ELN/Editor/SvgEdit', wt: 'ELN/Editor/SvgEdit'}, params: {'file_name': {wt: 'sketch_01'}}} 
+	},
+	{
+		group: 'insert',
+		custom_group: false, 
+		title: 'Diagram',
+		icon: 'browser', 
 		name: 'drawio_editor',
 		dialog: true,
 		sequence: '{D}',
 		shortcut: 'ctrl+alt+d',
-		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'ELN/Editor/DrawIO'}, params: {'file_name': {wt: 'drawing_01'}}} 
+		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'ELN/Editor/DrawIO'}, params: {'file_name': {wt: 'diagram_01'}}} 
 	},
 	{
-		group: 'labnote',
-		custom_group: true, 
+		group: 'insert',
+		custom_group: false, 
+		title: 'ChemViewer',
+		icon: 'labFlask',
+		name: 'kekule_viewer', 
+		dialog: true,
+		sequence: '{V}',
+		shortcut: 'ctrl+alt+v',
+		template: { target: {href: 'Template:ELN/Viewer/Kekule', wt: 'ELN/Viewer/Kekule'}, params: {'cid': {wt: '2244'}, 'mode': {wt: '2d'}}}  
+	},
+	{
+		group: 'insert',
+		custom_group: false, 
+		title: 'ChemEditor',
+		icon: 'labFlask',
+		name: 'kekule_editor', 
+		dialog: true,
+		sequence: '{C}',
+		shortcut: 'ctrl+alt+c',
+		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'ELN/Editor/Kekule'}, params: {'file_name': {wt: 'chemdoc_01'}}}  
+	},
+	{
+		group: 'insert',
+		custom_group: false, 
 		title: 'Wellplate',
-		icon: 'table',
+		icon: 'die',
 		name: 'wellplate_viewer', 
 		dialog: true,
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
 		template: { target: {href: 'Template:ELN/Viewer/Wellplate', wt: 'ELN/Viewer/Wellplate'}, params: {'file_name': {wt: 'wellplate_01'}}} 
-	},
-	{
-		group: 'labnote',
-		custom_group: true, 
-		title: 'ChemViewer',
-		icon: 'chem',
-		name: 'kekule_viewer', 
-		dialog: true,
-		sequence: '{V}',
-		shortcut: 'ctrl+alt+v',
-		template: { target: {href: 'Template:ELN/Viewer/Kekule', wt: 'ELN/Viewer/Kekule'}} 
-	},
-	{
-		group: 'labnote',
-		custom_group: true, 
-		title: 'ChemEditor',
-		icon: 'chem',
-		name: 'kekule_editor', 
-		dialog: true,
-		sequence: '{C}',
-		shortcut: 'ctrl+alt+c',
-		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'ELN/Editor/Kekule'}} 
 	}
 ];
 
