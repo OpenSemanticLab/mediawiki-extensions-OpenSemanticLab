@@ -78,6 +78,17 @@
                         "defaultcontentmodel": "flow-board"
                 },
 		{
+			"id": 7050,
+			"constant": "NS_OU",
+			"name": "OU"
+		},
+		{
+			"id": 7051,
+			"constant": "NS_OU_TALK",
+			"name": "OU_Talk",
+                        "defaultcontentmodel": "flow-board"
+		},
+		{
 			"id": 7100,
 			"constant": "NS_LABNOTE",
 			"name": "LabNote",
@@ -122,6 +133,7 @@
 				"7020": true,
 				"7030": true,
 				"7040": true,
+				"7050": true,
 				"7100": true,
 				"7110": true,
 				"7120": true
@@ -134,6 +146,7 @@
         "7020": true,
         "7030": true,
 	"7040": true,
+	"7050": true,
         "7100": true
       },
       "merge_strategy": "array_plus"
@@ -146,6 +159,7 @@
 				"7020": true,
 				"7030": true,
 				"7040": true,
+				"7050": true,
 				"7100": true,
 				"7110": true,
 				"7120": true
