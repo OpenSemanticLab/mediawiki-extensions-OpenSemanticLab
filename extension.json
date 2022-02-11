@@ -31,7 +31,7 @@
       			],
 			"position": "bottom"
 		},
-		"ext.OpenSemanticLab.LIMS": {
+		"ext.OpenSemanticLab.LIMS.styles": {
 	                "localBasePath": "modules/ext.OpenSemanticLab.LIMS",
         	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.LIMS",
       			"styles": [
