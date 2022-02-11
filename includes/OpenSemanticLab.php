@@ -170,7 +170,7 @@ class OpenSemanticLab {
 
 	public static function onBeforePageDisplay( $out ) {
 
-		$out->addModules( 'ext.OpenSemanticLab.LIMS' );
+		$out->addModuleStyles( 'ext.OpenSemanticLab.LIMS' );
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 
 		return true;
