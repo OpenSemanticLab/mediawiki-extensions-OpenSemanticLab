@@ -171,6 +171,7 @@
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
-		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay"
+		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
+		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation"
 	}
 }
