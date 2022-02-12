@@ -21,7 +21,7 @@ var template_tools = [
 		group: 'insert', //built in: insert
 		custom_group: false, 
 		title: 'Sketch',
-		icon: 'sandbox', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
+		icon: 'highlight', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
 		name: 'svgedit_editor',
 		dialog: true,
 		sequence: '{S}',
