@@ -1,0 +1,78 @@
+/* 
+DEV: MediaWiki:LimsInfoBox.css 
+REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
+*/
+
+/*info_box is used in all templates with an info box.*/
+.info_box {
+ border: 1px solid #000000;
+ width: 30em; 
+ font-family: Arial;
+ background-color: #f1f3f3; 
+ color: black; 
+ margin-bottom: 0.5em; 
+ margin-left: 1em; 
+ padding: 0.2em; 
+ float: right; 
+ clear: right; 
+ text-align: left !important;
+ border-collapse: collapse;
+}
+
+.info_box th {
+ border-top: 1px solid #000000;
+ border-bottom: 1px solid #000000;
+ border-collapse: collapse;
+ background-color: #f1f3f3;
+}
+
+.info_box td {
+ border-top: 1px solid #000000;
+ border-bottom: 1px solid #000000;
+ border-collapse: collapse;
+}
+
+/*subheading is used for the subheadings in the info box.*/
+.subheading{
+ text-align: center; 
+ background-color:#6dbfa9;
+ font-weight: bold
+}
+
+.picture{
+ text-align: center;
+ padding: 10px 0;
+ width: 1000px;
+}
+
+/*heading is used for the heading of the info box.*/
+.heading{
+ text-align: center !important;
+ background-color: #6dbfa9 !important; 
+ font-size: larger;
+}
+
+/*device is used in templates for the boxes within the wiki text.*/
+.device {
+ border: 1px solid #000000;
+ width: 100%; 
+ font-family: Arial;
+ background-color: #f1f3f3; 
+ color: black; 
+ clear: right; 
+ text-align: left !important;
+ border-collapse: collapse;
+ margin-bottom: 0.5em; 
+ padding: 0.2em;
+}
+
+.device th {
+ border-top: 1px solid #000000;
+ border-bottom: 1px solid #000000;
+ border-collapse: collapse;
+ background-color: #6dbfa9;
+ text-align: center !important;
+ margin-bottom: 0.5em;
+ padding: 0.2em;
+ width: 100%;
+}

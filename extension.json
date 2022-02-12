@@ -30,6 +30,14 @@
 				"ve_integration.js"
       			],
 			"position": "bottom"
+		},
+		"ext.OpenSemanticLab.LIMS.styles": {
+	                "localBasePath": "modules/ext.OpenSemanticLab.LIMS",
+        	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.LIMS",
+      			"styles": [
+				"LimsInfoBox.css"
+      			],
+			"position": "top"
 		}
 	},
 	"namespaces": [
