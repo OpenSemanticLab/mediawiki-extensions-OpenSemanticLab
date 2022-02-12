@@ -181,7 +181,7 @@ class OpenSemanticLab {
        		//https://stackoverflow.com/questions/18442495/how-to-get-current-page-url-in-mediawiki
       		$links['views']['subpage'] = array(
 			'class' => false, // false or 'selected', defines whether the tab should be highlighted
-			'text' => 'Unterseite neu erstellen', // what the tab says
+			'text' => wfMessage('open-semantic-lab-create-subpage'), // what the tab says
 			'href' => "https://$_SERVER[HTTP_HOST]/wiki/CreatePage?superpage=" . $skin->getTitle()->getDBkey(),
 		);
 

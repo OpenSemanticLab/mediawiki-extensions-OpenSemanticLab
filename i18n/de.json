@@ -3,5 +3,6 @@
 		"authors": ["Simon Stier"]
 	},
 	"open-semantic-lab-desc": "Ein offenes und semantisches Laborinformations- und managementsystem basierend auf Semantic MediaWiki",
-	"open-semantic-lab-name": "OpenSemanticLab"
+	"open-semantic-lab-name": "OpenSemanticLab",
+	"open-semantic-lab-create-subpage": "Unterseite erstellen"
 }
