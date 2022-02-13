@@ -1,3 +1,4 @@
+/*@nomin*/
 //see also: https://www.mediawiki.org/wiki/VisualEditor/Gadgets/Add_a_tool
 
 mw.loader.using( 'ext.visualEditor.desktopArticleTarget.init' ).done( function() {
@@ -111,7 +112,7 @@ var template_tools = [
                                 } );
 
 		},
-		custom_dialog:  function( template ) {
+		custom_dialog2:  function( template ) {
 			return OO.ui.prompt( 'Select Building Block (CD2)', { textInput: { placeholder: 'Pagename' } } ).then( function ( result ) {
 				if ( result !== null ) {
 					template.target.href = result;
@@ -120,7 +121,112 @@ var template_tools = [
 				}
 				return null;
 			} ); 
+		},
+                custom_dialog3:  function( template ) {
+			var textInput = new OO.ui.TextInputWidget( {placeholder: 'Pagename'} );
+			var ok_button = new OO.ui.ButtonWidget( {label: 'OK'} );
+			var popup = new OO.ui.PopupWidget( {
+				$content: $( '<div id="custom-dialog-popup-content" style="width:400px;height:400px;"></div>' ),
+				padded: true, width: 450, height: 450, head: true, anchor: true, align: 'center', label: 'Select Building Block',
+				//$container: $('.oo-ui-toolbar-bar')[0]
+			} );
+			//$( document.body ).append( popup.$element );
+			//$('.oo-ui-toolbar-bar')[0].append( popup.$element );
+			$('#custom-dialog-popup-content').append(textInput.$element);
+			$('#custom-dialog-popup-content').append(ok_button.$element);
+			popup.toggle( true );
+			var deferred = $.Deferred();
+			//return new Promise((resolve, reject) => {
+				ok_button.on( 'click', function () {
+					popup.toggle( false );
+					popup.$element.remove();
+					var result = null;
+                                	if ( result !== null ) {
+                                        	template.target.href = result;
+                                        	template.target.wt = "subst:" + result;
+                                        	deferred.resolve(template);
+                                	}
+                                	//return null;
+				} );
+                        //} );
+			return deferred.promise();
+                },
+                custom_dialog:  function( template ) {
+			var dialog_result = null;
+			var textInput = new OO.ui.TextInputWidget( {placeholder: 'Pagename'} );
+			function ProcessDialog( config ) { ProcessDialog.super.call( this, config ); }
+			OO.inheritClass( ProcessDialog, OO.ui.ProcessDialog );
+
+			ProcessDialog.static.name = 'builing-block-dialog';
+			ProcessDialog.static.title = 'Building block';
+			ProcessDialog.static.actions = [{action: 'save', label: 'Done', flags: 'primary'}, {label: 'Cancel', flags: 'safe'}];
+
+			ProcessDialog.prototype.initialize = function () {
+				ProcessDialog.super.prototype.initialize.apply( this, arguments );
+				this.content = new OO.ui.PanelLayout( {padded: true, expanded: false} );
+				this.content.$element.append( '<p>Here you can select a building block.</p><div style="height: 400px"><div id="autocomplete"><input class="autocomplete-input"></input><ul class="autocomplete-result-list"></ul></div></div>' );
+				//this.content.$element.append( textInput.$element );
+				this.$body.append( this.content.$element );
+				new Autocomplete('#autocomplete', {
+					search: input => {
+						const url = `/w/api.php?action=ask&query=[[Category:SubstitutionTemplate]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
+						return new Promise(resolve => {
+							if (input.length < 0) { return resolve([]); }
+							fetch(url)
+							.then(response => response.json())
+							.then(data => {
+								//convert result dict to list/array
+								resultList = Object.values(data.query.results);
+								resultList = resultList.filter(fulltext => {
+									return fulltext.fulltext.toLowerCase().startsWith(input.toLowerCase());
+								});
+								resolve(resultList);
+							});
+						});
+					},
+					renderResult: (result, props) => `
+					<li ${props}>
+						<div class="wiki-title">
+							${result.printouts['HasDisplayName'][0]}
+						</div>
+						<div class="wiki-snippet">
+							${result.printouts['HasDescription'][0]}
+						</div>
+					</li>`,
+					getResultValue: result => result.printouts['HasDisplayName'][0],
+					onSubmit: result => {
+						//console.log(result); 
+						dialog_result = result;
+					}
+				});
+			};
+			var deferred = $.Deferred();
+			ProcessDialog.prototype.getActionProcess = function ( action ) {
+				var dialog = this;
+				if ( action ) {
+					return new OO.ui.Process( function () { 
+						dialog.close( { action: action } );
+						dialog.$element.remove();
+						if (dialog_result !== null){
+                                                	template.target.href = dialog_result.fulltext;
+                                                	template.target.wt = "subst:" + dialog_result.fulltext;
+                                                	deferred.resolve(template);
+						}
+
+					} );
+				}
+				return ProcessDialog.super.prototype.getActionProcess.call( this, action );
+			};
+			ProcessDialog.prototype.getBodyHeight = function () { return this.content.$element.outerHeight( true ); };
+
+			var windowManager = new OO.ui.WindowManager();
+			$( document.body ).append( windowManager.$element );
+			var processDialog = new ProcessDialog({size: 'medium'});
+			windowManager.addWindows( [ processDialog ] );
+			windowManager.openWindow( processDialog );
+			return deferred.promise();
 		}
+
         }
 ];
 
