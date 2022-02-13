@@ -25,6 +25,7 @@ var template_tools = [
 		icon: 'highlight', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
 		name: 'svgedit_editor',
 		dialog: true,
+                dialog_type: 'template',
 		sequence: '{S}',
 		shortcut: 'ctrl+alt+s',
 		template: { target: {href: 'Template:ELN/Editor/SvgEdit', wt: 'ELN/Editor/SvgEdit'}, params: {'file_name': {wt: `sketch-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
@@ -36,6 +37,7 @@ var template_tools = [
 		icon: 'browser', 
 		name: 'drawio_editor',
 		dialog: true,
+                dialog_type: 'template',
 		sequence: '{D}',
 		shortcut: 'ctrl+alt+d',
 		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'ELN/Editor/DrawIO'}, params: {'file_name':  {wt: `diagram-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}}
@@ -47,6 +49,7 @@ var template_tools = [
 		icon: 'labFlask',
 		name: 'kekule_viewer', 
 		dialog: true,
+                dialog_type: 'template',
 		sequence: '{V}',
 		shortcut: 'ctrl+alt+v',
 		template: { target: {href: 'Template:ELN/Viewer/Kekule', wt: 'ELN/Viewer/Kekule'}, params: {'cid': {wt: '2244'}, 'mode': {wt: '2d'}}}  
@@ -58,6 +61,7 @@ var template_tools = [
 		icon: 'labFlask',
 		name: 'kekule_editor', 
 		dialog: true,
+                dialog_type: 'template',
 		sequence: '{C}',
 		shortcut: 'ctrl+alt+c',
 		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'ELN/Editor/Kekule'}, params: {'file_name': {wt: `chemdoc-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
@@ -69,10 +73,23 @@ var template_tools = [
 		icon: 'die',
 		name: 'wellplate_viewer', 
 		dialog: true,
+                dialog_type: 'template',
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
 		template: { target: {href: 'Template:ELN/Viewer/Wellplate', wt: 'ELN/Viewer/Wellplate'}, params: {'file_name': {wt: `wellplate-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
-	}
+	},
+        {
+                group: 'insert',
+                custom_group: false,
+                title: 'Building Block',
+                icon: 'puzzle',
+                name: 'building_block',
+                dialog: true,
+                dialog_type: 'custom',
+                sequence: '{I}',
+                shortcut: 'ctrl+alt+i',
+                template: { target: {href: '<gets replaced by dialog result', wt: 'subst:<gets replaced by dialog result'} }
+        }
 ];
 
 
@@ -111,8 +128,29 @@ function VeExtensions_create() {
 		OO.inheritClass( InsertAndOpenCommand, ve.ui.Command );   
 		InsertAndOpenCommand.prototype.execute = function( surface, args ) {
 			args = args || this.args;
-			surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
-			surface.execute( 'window', 'open', 'transclusion' );
+			if (template_tool.dialog_type === 'template'){
+				surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
+				surface.execute( 'window', 'open', 'transclusion' );
+			}
+			else {
+				//store current position
+				var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
+				OO.ui.prompt( 'Select Building Block', { textInput: { placeholder: 'Pagename' } } ).done( function ( result ) {
+    					if ( result !== null ) {
+        					//console.log( 'User typed "' + result + '" then clicked "OK".' );
+                                                template = args[0][0].attributes.mw.parts[0].template;
+						template.target.href = result;
+						template.target.wt = "subst:" + result;
+						//restore position
+						surface.getModel().setLinearSelection(new ve.Range( 0, currentPos ) );
+						surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
+	    				} else {
+        					//console.log( 'User clicked "Cancel" or closed the dialog.' );
+    					}
+				} );
+                                //surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
+                                //surface.execute( 'window', 'open', 'transclusion' );
+			}
 			return true;
 		};
 		ve.ui.commandRegistry.register(
