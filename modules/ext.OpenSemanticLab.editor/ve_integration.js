@@ -85,10 +85,42 @@ var template_tools = [
                 icon: 'puzzle',
                 name: 'building_block',
                 dialog: true,
-                dialog_type: 'custom',
+                dialog_type: 'custom_dialog',
+		edit_dialog: false,
                 sequence: '{I}',
                 shortcut: 'ctrl+alt+i',
-                template: { target: {href: '<gets replaced by dialog result', wt: 'subst:<gets replaced by dialog result'} }
+                template: { target: {href: '<gets replaced by dialog result', wt: 'subst:<gets replaced by dialog result'} },
+		custom_command:  function( surface, args ) {
+			args = args || this.args;
+
+                                //store current position
+                                var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
+                                OO.ui.prompt( 'Select Building Block (CC)', { textInput: { placeholder: 'Pagename' } } ).done( function ( result ) {
+                                        if ( result !== null ) {
+                                                //console.log( 'User typed "' + result + '" then clicked "OK".' );
+                                                template = args[0][0].attributes.mw.parts[0].template;
+                                                template.target.href = result;
+                                                template.target.wt = "subst:" + result;
+                                                //restore position
+                                                surface.getModel().setLinearSelection(new ve.Range( 0, currentPos ) );
+                                                surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
+                                                surface.execute( 'window', 'open', 'transclusion' );
+                                        } else {
+                                                //console.log( 'User clicked "Cancel" or closed the dialog.' );
+                                        }
+                                } );
+
+		},
+		custom_dialog:  function( template ) {
+			return OO.ui.prompt( 'Select Building Block (CD2)', { textInput: { placeholder: 'Pagename' } } ).then( function ( result ) {
+				if ( result !== null ) {
+					template.target.href = result;
+					template.target.wt = "subst:" + result;
+					return template;
+				}
+				return null;
+			} ); 
+		}
         }
 ];
 
@@ -132,24 +164,23 @@ function VeExtensions_create() {
 				surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
 				surface.execute( 'window', 'open', 'transclusion' );
 			}
-			else {
-				//store current position
-				var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
-				OO.ui.prompt( 'Select Building Block', { textInput: { placeholder: 'Pagename' } } ).done( function ( result ) {
-    					if ( result !== null ) {
-        					//console.log( 'User typed "' + result + '" then clicked "OK".' );
-                                                template = args[0][0].attributes.mw.parts[0].template;
-						template.target.href = result;
-						template.target.wt = "subst:" + result;
+			else if (template_tool.dialog_type === 'custom_dialog') {
+                                //store current position
+                                var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
+                                template_tool.custom_dialog(args[0][0].attributes.mw.parts[0].template).done( function ( template ) {
+					if (template !== null) {
 						//restore position
 						surface.getModel().setLinearSelection(new ve.Range( 0, currentPos ) );
+						//insert template
 						surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
-	    				} else {
-        					//console.log( 'User clicked "Cancel" or closed the dialog.' );
-    					}
-				} );
-                                //surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
-                                //surface.execute( 'window', 'open', 'transclusion' );
+						//open template edit dialog if requested
+						if (template_tool.edit_dialog) surface.execute( 'window', 'open', 'transclusion' );
+					}
+                                } );
+			}
+			else {
+				//call custom command
+				template_tool.custom_command( surface, args );
 			}
 			return true;
 		};
