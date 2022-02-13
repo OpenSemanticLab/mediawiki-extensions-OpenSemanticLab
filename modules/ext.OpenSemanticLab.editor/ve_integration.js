@@ -14,7 +14,8 @@ mw.loader.using( [ 'ext.visualEditor.core', 'ext.visualEditor.mwtransclusion' ] 
 } );
 }
 
-
+//const VeExt_pageName = mw.config.get('wgPageName');
+//const VeExt_id = (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "").substring(0, 4);
 var tool_groups = [];//[{name: 'labnote', label: 'LabNote'}];
 var template_tools = [
 	{
@@ -26,7 +27,7 @@ var template_tools = [
 		dialog: true,
 		sequence: '{S}',
 		shortcut: 'ctrl+alt+s',
-		template: { target: {href: 'Template:ELN/Editor/SvgEdit', wt: 'ELN/Editor/SvgEdit'}, params: {'file_name': {wt: 'sketch_01'}}} 
+		template: { target: {href: 'Template:ELN/Editor/SvgEdit', wt: 'ELN/Editor/SvgEdit'}, params: {'file_name': {wt: `sketch-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
 	},
 	{
 		group: 'insert',
@@ -37,7 +38,7 @@ var template_tools = [
 		dialog: true,
 		sequence: '{D}',
 		shortcut: 'ctrl+alt+d',
-		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'ELN/Editor/DrawIO'}, params: {'file_name': {wt: 'diagram_01'}}} 
+		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'ELN/Editor/DrawIO'}, params: {'file_name':  {wt: `diagram-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}}
 	},
 	{
 		group: 'insert',
@@ -59,7 +60,7 @@ var template_tools = [
 		dialog: true,
 		sequence: '{C}',
 		shortcut: 'ctrl+alt+c',
-		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'ELN/Editor/Kekule'}, params: {'file_name': {wt: 'chemdoc_01'}}}  
+		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'ELN/Editor/Kekule'}, params: {'file_name': {wt: `chemdoc-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
 	},
 	{
 		group: 'insert',
@@ -70,7 +71,7 @@ var template_tools = [
 		dialog: true,
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
-		template: { target: {href: 'Template:ELN/Viewer/Wellplate', wt: 'ELN/Viewer/Wellplate'}, params: {'file_name': {wt: 'wellplate_01'}}} 
+		template: { target: {href: 'Template:ELN/Viewer/Wellplate', wt: 'ELN/Viewer/Wellplate'}, params: {'file_name': {wt: `wellplate-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
 	}
 ];
 
