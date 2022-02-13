@@ -122,35 +122,6 @@ var template_tools = [
 				return null;
 			} ); 
 		},
-                custom_dialog3:  function( template ) {
-			var textInput = new OO.ui.TextInputWidget( {placeholder: 'Pagename'} );
-			var ok_button = new OO.ui.ButtonWidget( {label: 'OK'} );
-			var popup = new OO.ui.PopupWidget( {
-				$content: $( '<div id="custom-dialog-popup-content" style="width:400px;height:400px;"></div>' ),
-				padded: true, width: 450, height: 450, head: true, anchor: true, align: 'center', label: 'Select Building Block',
-				//$container: $('.oo-ui-toolbar-bar')[0]
-			} );
-			//$( document.body ).append( popup.$element );
-			//$('.oo-ui-toolbar-bar')[0].append( popup.$element );
-			$('#custom-dialog-popup-content').append(textInput.$element);
-			$('#custom-dialog-popup-content').append(ok_button.$element);
-			popup.toggle( true );
-			var deferred = $.Deferred();
-			//return new Promise((resolve, reject) => {
-				ok_button.on( 'click', function () {
-					popup.toggle( false );
-					popup.$element.remove();
-					var result = null;
-                                	if ( result !== null ) {
-                                        	template.target.href = result;
-                                        	template.target.wt = "subst:" + result;
-                                        	deferred.resolve(template);
-                                	}
-                                	//return null;
-				} );
-                        //} );
-			return deferred.promise();
-                },
                 custom_dialog:  function( template ) {
 			var dialog_result = null;
 			var textInput = new OO.ui.TextInputWidget( {placeholder: 'Pagename'} );
@@ -164,7 +135,7 @@ var template_tools = [
 			ProcessDialog.prototype.initialize = function () {
 				ProcessDialog.super.prototype.initialize.apply( this, arguments );
 				this.content = new OO.ui.PanelLayout( {padded: true, expanded: false} );
-				this.content.$element.append( '<p>Here you can select a building block.</p><div style="height: 400px"><div id="autocomplete"><input class="autocomplete-input"></input><ul class="autocomplete-result-list"></ul></div></div>' );
+				this.content.$element.append( '<p>Here you can select a building block. After saving the page once, you can edit its content.</p><div style="height: 400px"><div id="autocomplete"><input class="autocomplete-input"></input><ul class="autocomplete-result-list"></ul></div></div>' );
 				//this.content.$element.append( textInput.$element );
 				this.$body.append( this.content.$element );
 				new Autocomplete('#autocomplete', {
