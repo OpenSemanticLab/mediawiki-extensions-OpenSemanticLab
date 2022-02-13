@@ -177,7 +177,7 @@ var template_tools = [
 				if ( action ) {
 					return new OO.ui.Process( function () { 
 						dialog.close( { action: action } );
-						dialog.$element.remove();
+						dialog.$element.remove();  //otherwise not removed from DOM
 						if (dialog_result !== null){
                                                 	template.target.href = dialog_result.fulltext;
                                                 	template.target.wt = "subst:" + dialog_result.fulltext;
@@ -186,7 +186,15 @@ var template_tools = [
 
 					} );
 				}
-				return ProcessDialog.super.prototype.getActionProcess.call( this, action );
+
+                                else { //Cancel
+                                        return new OO.ui.Process( function () {
+                                                dialog.close();
+                                                dialog.$element.remove();  //otherwise not removed from DOM
+
+                                        } );
+                                }
+				//return ProcessDialog.super.prototype.getActionProcess.call( this, action );
 			};
 			ProcessDialog.prototype.getBodyHeight = function () { return this.content.$element.outerHeight( true ); };
 
