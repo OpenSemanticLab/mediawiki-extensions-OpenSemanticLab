@@ -1,5 +1,5 @@
 <includeonly>{{Helper/UI/VE/Visible
-|icon=edit
+|icon=browser
 |content=DrawIO Editor
 }}
 {{Helper/UI/VE/Hidden 

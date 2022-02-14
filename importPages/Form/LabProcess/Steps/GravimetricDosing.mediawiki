@@ -3,7 +3,7 @@
 </noinclude><includeonly>
 {{LabProcess/Step/Form/Param/Common}}
 {{LabProcess/Step/Form/Param/Specific/Header
-   |process step template=LabProcess/Steps/GravimetricDosing/Subpage}}
+   |process_step_template=LabProcess/Steps/GravimetricDosing/Subpage}}
    {{LabProcess/Step/Form/Param/Device/Fields
       |name_in_form=Gerät
       |template_parameter=device

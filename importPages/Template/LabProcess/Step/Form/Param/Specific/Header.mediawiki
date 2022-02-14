@@ -1,7 +1,9 @@
-<includeonly></br>
+<includeonly><!-- 
+--><nowiki>{{{for template|</nowiki>{{{process_step_template}}}<nowiki>}}}</nowiki><!-- 
+-->{{#if: {{{hide_heading|}}}||</br>
 </br>
-<nowiki>{{{for template|</nowiki>{{{process step template}}}<nowiki>}}}</nowiki>
 == Spezifische Prozessparameter ==
+}}
 {| class="wikitable"
 | style="width: 160px" |
 ! style="width: 470px" | Sollwert 

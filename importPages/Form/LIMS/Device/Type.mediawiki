@@ -14,13 +14,25 @@ Neue Stoffkategorien müssen zunächst hier angelegt werden: [[Form:LIMS/Device/
 | {{{field|category|input type=tokens|values from concept=LIMS/Device/Category|delimiter=;|required}}} 
 |-
 ! Hersteller: 
-| {{{field|vendor}}} 
+| {{{field|manufacturer}}} 
 |-
 ! Hersteller Typenbezeichnung: 
-| {{{field|vendor_type_id}}} 
+| {{{field|manufacturer_type_id}}} 
 |-
 ! Bild: 
-| {{{field|image|uploadable|image preview}}} 
+| {{{field|image|property=HasImage|uploadable|image preview}}} 
+|-
+! Datenblatt: 
+| {{{field|datasheet|property=HasDatasheet|size=25|uploadable}}}
+|-
+! Bedienungsableitung: 
+| {{{field|manual|property=HasManual|size=25|uploadable}}}
+|-
+! Gefährdungsbeurteilung: 
+| {{{field|risk_assessment|property=HasRiskAssessment|size=25|uploadable}}}
+|-
+! Sonstige Dokumente: 
+| {{{field|additional_documents|property=HasAdditionalDocument|size=25|uploadable}}}
 <!-- |-
 ! Digitalisierungsklasse: 
 | {{{field|digitalization class}}}

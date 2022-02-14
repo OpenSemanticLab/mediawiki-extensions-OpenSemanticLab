@@ -1,21 +1,66 @@
 <noinclude>{{Helper/Docu/FormTemplate}}
 {{LIMS/Common/Template |id_postfix=dt}}
 </noinclude>
-<includeonly>
-{{LIMS/Common |Device|Type|name={{{display_name|}}}}}
-
-{{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}</br>
-Kategorien:
-<!-- {{#arraymap:{{#replace:{{{category|}}}|Kategorie:|}}|;|x|[[:Category:x]]|}} -->
-{{#ask: [[{{FULLPAGENAME}}]]
+<includeonly><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasId::{{{id|{{PAGENAME}}}}}]]</td>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasDisplayName::{{{display_name|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>Gerätekategorie</th>
+<td>{{#arraymap:{{{category|}}}|;|x|[[x]][[:x]]|\n}}</td>
+</tr>
+<tr>
+<th>Hersteller</th>
+<td>[[HasManufacturer::{{{manufacturer|}}}]]</td>
+</tr>
+<tr>
+<th>Typenbezeichnung</th>
+<td>[[HasDeviceTypeName::{{{manufacturer_type_id|}}}]]</td>
+</tr>
+</table>
+<!-- {{#ask: [[{{FULLPAGENAME}}]]
 |?Category=
 |mainlabel=-
 |format=plain
+}} -->
+{{LIMS/Common |Device|Type|name={{{display_name|}}}}}{{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}
+{{#declare:
+ |HasUuid=uuid
+ |HasCreator=creator
+ |HasCreationDate=creation_date
+ |HasDescription=description
+ |HasImage=image
+ |HasDatasheet=datasheet
+ |HasManual=manual
+ |HasRiskAssessment=risk_assessment
 }}
-</br>
 
 == Beschreibung ==
 {{{description|}}}
+
+== Dokumente ==
+{{#tag:gallery|
+File:{{{datasheet}}}{{!}}Datenblatt{{!}}link=[[Special:Redirect/file/{{{datasheet}}}]]
+File:{{{manual}}}{{!}}Bedienungsableitung{{!}}link=[[Special:Redirect/file/{{{manual}}}]]
+File:{{{risk_assessment}}}{{!}}Gefährdungsbeurteilung{{!}}link=[[Special:Redirect/file/{{{risk_assessment}}}]]
+{{#arraymap:{{{additional_documents|}}}|,|x|File:x{{!}}Sonstige Dokumente|\n}}
+|mode="traditional"
+}}
 
 == Erstellte Instanzen ==
 === Gekauft ===
@@ -31,5 +76,5 @@ Kategorien:
 |?-Has subobject.HasCreator=Ersteller
 }}
 
-[[Category:LIMS/Device/Type]]
+[[Category:LIMS/Device/Type]]{{#default_form:LIMS/Device/Type}}
 </includeonly>

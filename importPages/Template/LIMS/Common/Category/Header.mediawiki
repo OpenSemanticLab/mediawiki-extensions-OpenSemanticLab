@@ -1,8 +1,35 @@
 <noinclude>Header template of all object categories 
 
-</noinclude><includeonly>
-{{LIMS/Common |{{{category_group_name}}}|Category|name={{{display_name|}}}}}
+</noinclude><includeonly><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasId::{{{id|{{PAGENAME}}}}}]]</td>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasDisplayName::{{{display_name|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>Unterkategorie von</th>
+<td>{{#arraymap:{{{sub_category_of|}}}|,|x|[[:Category:{{#replace: x|Category:|}}]]|\s}}</td>
+</tr>
+<tr>
+<th>IRIs</th>
+<td>{{#arraymap:{{{ontology_iri|}}}|,|x|[[HasOntologyIri::x]]|\n}}</td>
+</tr>
+</table>{{LIMS/Common |{{{category_group_name}}}|Category|name={{{display_name|}}}}}
 
+== Beschreibung ==
+{{{description|}}}
+
+== Einordnung ==
 {{#ask: [[IsASubcategoryOf::{{FULLPAGENAME}}]]
 OR [[IsASubcategoryOf.-IsASubcategoryOf::{{FULLPAGENAME}}]]
  |?IsASubcategoryOf
@@ -18,15 +45,8 @@ OR [[IsASubcategoryOf.-IsASubcategoryOf::{{FULLPAGENAME}}]]
  |rankdir=RL
 }}
 
-ID: [[HasId::{{PAGENAME}}]]
-
-{{#arraymap:{{{ontology_iri|}}}|,|x|[[HasOntologyIri::x]]|\n}}
-
 {{#arraymap:{{{sub_category_of|}}}|,|x|[[Category:{{#replace: x|Category:|}}]]|\s}}
 {{#arraymap:{{{sub_category_of|}}}|,|x|{{#set: IsASubcategoryOf=Category:{{#replace: x|Category:|}}}}|}}
 {{#arraymap:{{{category_type|}}}|,|x|{{#set: IsA=x}}|}}
-[[IsA::{{{category_group_name}}}Category]]
-
-== Beschreibung ==
-{{{description|}}}
+{{#set: IsA=LIMS/{{{category_group_name}}}/Category}}
 </includeonly>

@@ -1,7 +1,7 @@
 <noinclude>
 {{LabProcess/Header
 |name=Demo 2 Template
-|output_category=Kategorie:Feststoff
+|output_category=Category:Feststoff
 |output_type=
 |debug={{Helper/Strings/No}}
 }}
@@ -29,7 +29,7 @@
 | input objects=Mischbecher
 | output objects=Mischbecher+Stoff1
 | precondition=Vorbedingung
-| educt category=Kategorie:Feststoff
+| educt category=Category:Feststoff
 | nominal educt=Material:211028-sist-0001-m
 | nominal educt batch=
 | actual educt=Material:211028-sist-0001-m
@@ -46,7 +46,7 @@
 | input objects=Mischbecher+Stoff1
 | output objects=Ansatz###01-a
 | precondition=
-| educt category=Kategorie:Feststoff
+| educt category=Category:Feststoff
 | nominal educt=
 | nominal educt batch=
 | actual educt=

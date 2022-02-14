@@ -6,7 +6,7 @@
 {{LIMS/Common |Material|Instance|name={{{display_name|}}}}}
 
 {{#declare:
- HasUuid=uuid
+ |HasUuid=uuid
  |IsInstanceOf=type
  |HasCreator=creator
  |HasCreationDate=creation_date

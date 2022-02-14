@@ -1,6 +1,6 @@
 
 <includeonly>{{Helper/UI/VE/Visible
-|icon=table 
+|icon=die
 |content=Wellplate Editor
 }}
 {{Helper/UI/VE/Hidden 

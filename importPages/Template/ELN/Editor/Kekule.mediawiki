@@ -1,19 +1,19 @@
 <includeonly>{{Helper/UI/VE/Visible
-|icon=chem
-|content=Chem Editor
+|icon=labFlask
+|content=ChemEditor
 }}
 {{Helper/UI/VE/Hidden 
-|content=<div class="div_kekule_view_edit" id="chemViewEdit_{{{doc}}}" style="width:{{{width|99}}}%;height:{{{height|500}}}px;border:1px solid black;">{{FULLPAGENAME}}/{{{doc}}}</div>
+|content=<div class="div_kekule_view_edit" id="chemViewEdit_{{{file_name}}}" style="width:{{{width|99}}}%;height:{{{height|500}}}px;border:1px solid black;">{{FULLPAGENAME}}/{{{file_name}}}</div>
 }}</includeonly>
 <noinclude>
 <templatedata>
 {
 	"params": {
-		"doc": {
+		"file_name": {
 			"label": "Dokumentenname",
 			"description": "Muss eindeutig auf dieser Seite sein",
 			"type": "wiki-page-name",
-			"autovalue": "ChemDoc",
+			"autovalue": "chemdoc_01",
 			"required": true
 		}
 	},

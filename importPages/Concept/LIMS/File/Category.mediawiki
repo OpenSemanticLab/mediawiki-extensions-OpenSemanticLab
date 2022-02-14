@@ -1,4 +1,4 @@
 {{#concept:
- [[IsA::FileCategory]]
+ [[IsA::{{PAGENAME}}]]
  |Category for files
 }}

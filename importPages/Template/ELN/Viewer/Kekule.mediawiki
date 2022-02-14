@@ -1,6 +1,6 @@
 <includeonly>
 {{Helper/UI/VE/Visible
-|icon=chem
+|icon=labFlask
 |content=Chem Viewer
 }}
 {{Helper/UI/VE/Hidden 

@@ -1,5 +1,5 @@
 <includeonly>{{#declare:
- IsRelatedTo=page
+ |IsRelatedTo=page
  |HasSha256=sha256
  |HasFile=file
  |HasCreator=user
