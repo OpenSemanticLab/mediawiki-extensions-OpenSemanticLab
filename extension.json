@@ -118,6 +118,39 @@
                         "name": "Person_Talk",
                         "defaultcontentmodel": "flow-board"
                 },
+                {
+                        "id": 7080,
+                        "constant": "NS_FIELD",
+                        "name": "Field"
+                },
+                {
+                        "id": 7081,
+                        "constant": "NS_FIELD_TALK",
+                        "name": "Field_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
+                {
+                        "id": 7082,
+                        "constant": "NS_TERM",
+                        "name": "Term"
+                },
+                {
+                        "id": 7083,
+                        "constant": "NS_TERM_TALK",
+                        "name": "Term_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
+		{
+                        "id": 7084,
+                        "constant": "NS_MODEL",
+                        "name": "Model"
+                },
+                {
+                        "id": 7085,
+                        "constant": "NS_MODEL_TALK",
+                        "name": "Model_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
 		{
 			"id": 7100,
 			"constant": "NS_LABNOTE",
