@@ -118,35 +118,13 @@
                         "name": "Person_Talk",
                         "defaultcontentmodel": "flow-board"
                 },
-                {
-                        "id": 7080,
-                        "constant": "NS_FIELD",
-                        "name": "Field"
-                },
-                {
-                        "id": 7081,
-                        "constant": "NS_FIELD_TALK",
-                        "name": "Field_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
-                {
-                        "id": 7082,
-                        "constant": "NS_TERM",
-                        "name": "Term"
-                },
-                {
-                        "id": 7083,
-                        "constant": "NS_TERM_TALK",
-                        "name": "Term_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
 		{
-                        "id": 7084,
+                        "id": 7080,
                         "constant": "NS_MODEL",
                         "name": "Model"
                 },
                 {
-                        "id": 7085,
+                        "id": 7081,
                         "constant": "NS_MODEL_TALK",
                         "name": "Model_Talk",
                         "defaultcontentmodel": "flow-board"
@@ -210,6 +188,51 @@
                         "constant": "NS_OSLFORM_TALK",
                         "name": "OslForm_Talk",
                         "defaultcontentmodel": "flow-board"
+                },
+		{
+                        "id": 7300,
+                        "constant": "NS_FIELD",
+                        "name": "Field"
+                },
+                {
+                        "id": 7301,
+                        "constant": "NS_FIELD_TALK",
+                        "name": "Field_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
+                {
+                        "id": 7310,
+                        "constant": "NS_TERM",
+                        "name": "Term"
+                },
+                {
+                        "id": 7311,
+                        "constant": "NS_TERM_TALK",
+                        "name": "Term_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
+		{
+                        "id": 7320,
+                        "constant": "NS_STATEMENT",
+                        "name": "Statement"
+                },
+                {
+                        "id": 7321,
+                        "constant": "NS_STATEMENT_TALK",
+                        "name": "Statement_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
+		{
+                        "id": 7330,
+                        "constant": "NS_CR",
+                        "name": "CR",
+			"alias": "Reference"
+                },
+                {
+                        "id": 7331,
+                        "constant": "NS_CR_TALK",
+                        "name": "CR_Talk",
+                        "defaultcontentmodel": "flow-board"
                 }
 	],
   "config_prefix": "",
@@ -223,11 +246,16 @@
 				"7050": true,
 				"7060": true,
 				"7070": true,
+				"7080": true,
 				"7100": true,
 				"7110": true,
 				"7120": true,
                                 "7200": true,
-                                "7210": true
+                                "7210": true,
+				"7300": true,
+				"7310": true,
+				"7320": true,
+				"7330": true
 			},
 			"merge_strategy": "array_plus"
     },
@@ -241,7 +269,9 @@
 	"7050": true,
         "7060": true,
 	"7070": true,
-        "7100": true
+        "7100": true,
+        "7300": true,
+        "7310": true
       },
       "merge_strategy": "array_plus"
     }
@@ -256,9 +286,12 @@
 				"7050": true,
                                 "7060": true,
                                 "7070": true,
+                                "7080": true,
 				"7100": true,
 				"7110": true,
-				"7120": true
+				"7120": true,
+                                "7300": true,
+                                "7310": true
 			}
 		}
 	},
