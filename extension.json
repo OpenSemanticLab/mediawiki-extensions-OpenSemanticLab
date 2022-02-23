@@ -44,7 +44,8 @@
 		{
 			"id": 7010,
 			"constant": "NS_MATERIAL",
-			"name": "Material"
+			"name": "Material",
+			"subpages" : true
 		},
 		{
 			"id": 7011,
@@ -55,7 +56,8 @@
 		{
 			"id": 7020,
 			"constant": "NS_DEVICE",
-			"name": "Device"
+			"name": "Device",
+			"subpages" : true
 		},
 		{
 			"id": 7021,
@@ -66,7 +68,8 @@
 		{
 			"id": 7030,
 			"constant": "NS_LOCATION",
-			"name": "Location"
+			"name": "Location",
+			"subpages" : true
 		},
 		{
 			"id": 7031,
@@ -77,7 +80,8 @@
                 {
                         "id": 7040,
                         "constant": "NS_FILETYPE",
-                        "name": "FileType"
+                        "name": "FileType",
+			"subpages" : true
                 },
                 {
                         "id": 7041,
@@ -88,7 +92,8 @@
 		{
 			"id": 7050,
 			"constant": "NS_OU",
-			"name": "OU"
+			"name": "OU",
+			"subpages" : true
 		},
 		{
 			"id": 7051,
@@ -99,7 +104,8 @@
                 {
                         "id": 7060,
                         "constant": "NS_OSL_PROJECT",
-                        "name": "Project"
+                        "name": "Project",
+			"subpages" : true
                 },
                 {
                         "id": 7061,
@@ -110,7 +116,8 @@
                 {
                         "id": 7070,
                         "constant": "NS_PERSON",
-                        "name": "Person"
+                        "name": "Person",
+			"subpages" : true
                 },
                 {
                         "id": 7071,
@@ -121,7 +128,8 @@
 		{
                         "id": 7080,
                         "constant": "NS_MODEL",
-                        "name": "Model"
+                        "name": "Model",
+			"subpages" : true
                 },
                 {
                         "id": 7081,
@@ -192,7 +200,8 @@
 		{
                         "id": 7300,
                         "constant": "NS_FIELD",
-                        "name": "Field"
+                        "name": "Field",
+			"subpages" : true
                 },
                 {
                         "id": 7301,
@@ -203,7 +212,8 @@
                 {
                         "id": 7310,
                         "constant": "NS_TERM",
-                        "name": "Term"
+                        "name": "Term",
+			"subpages" : true
                 },
                 {
                         "id": 7311,
@@ -214,7 +224,8 @@
 		{
                         "id": 7320,
                         "constant": "NS_STATEMENT",
-                        "name": "Statement"
+                        "name": "Statement",
+			"subpages" : true
                 },
                 {
                         "id": 7321,
@@ -226,7 +237,8 @@
                         "id": 7330,
                         "constant": "NS_CR",
                         "name": "CR",
-			"alias": "Reference"
+			"alias": "Reference",
+			"subpages" : true
                 },
                 {
                         "id": 7331,
