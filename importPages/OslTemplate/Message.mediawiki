@@ -1,0 +1,2 @@
+common text blocks
+{{#subpagelist:}}

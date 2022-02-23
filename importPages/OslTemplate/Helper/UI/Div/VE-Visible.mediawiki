@@ -1,0 +1,6 @@
+<noinclude>Provides a opening div element:
+<syntaxhighlight lang="css">
+<div class="ve-visible" style="display:none">
+</syntaxhighlight>
+Default hidden gets overwritten by css selector
+</noinclude><includeonly><div class="ve-visible" style="display:none"></includeonly>

@@ -1,0 +1,14 @@
+<noinclude>Provides a opening div element:
+
+<syntaxhighlight lang="html">
+<div class="ve-hidden">
+</syntaxhighlight>
+
+Default visible, gets overwritten by css selector when display in VE
+
+<syntaxhighlight lang="css">
+div.ve-hidden.ve-ce-leafNode.ve-ce-mwTransclusionNode { display:none!important; }
+</syntaxhighlight>
+
+</noinclude>
+<includeonly><div class="ve-hidden"></includeonly>

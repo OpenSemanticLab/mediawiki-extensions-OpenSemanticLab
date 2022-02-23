@@ -1,0 +1,8 @@
+<noinclude>
+<pre>
+|page=Page, e.g. "Main_page"
+|params=params, e.g. "test=true&dummy=1"
+|label=Link label, e.g. "click here"
+</pre>
+</noinclude>
+<includeonly>[{{SERVER}}{{localurl:{{{page}}}|{{{params|}}}}} {{{label|{{{page}}}}}}]</includeonly>

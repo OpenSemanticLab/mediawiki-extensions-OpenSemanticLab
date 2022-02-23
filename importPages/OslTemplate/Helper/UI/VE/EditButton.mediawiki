@@ -1,0 +1,1 @@
+{{OslTemplate:Helper/UI/VE/Hidden |content=<div class="custom-ve-edit-button"></div>}}

@@ -1,0 +1,8 @@
+<noinclude>
+maps inputs to outputs of a process, e. g. materials
+</noinclude>
+<includeonly><!-- IoMapping {{{input|}}} -> {{{output|}}}  -->{{#subobject:
+|@category=LabProcess/Template/IoMapping
+|HasInput={{{input|}}}
+|HasOutput={{{output|}}}
+}}</includeonly>

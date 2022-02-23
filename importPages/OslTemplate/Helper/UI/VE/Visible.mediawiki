@@ -1,0 +1,27 @@
+<noinclude>Provides a div wrapper:
+
+<syntaxhighlight lang="html">
+<div class="ve-visible" style="display:none">
+{{{content|}}}
+</div>
+</syntaxhighlight>
+
+Default style hidden gets overwritten by css selector:
+
+<syntaxhighlight lang="css">
+div.ve-visible.ve-ce-leafNode.ve-ce-mwTransclusionNode { display:block!important; }
+</syntaxhighlight>
+
+Icons see: [https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop]
+
+</noinclude>
+<includeonly><div class="ve-visible" style="display:none">
+<span class="oo-ui-widget oo-ui-widget-disabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-buttonWidget" aria-disabled="false">
+<span class="oo-ui-buttonElement-button" role="button" title="Remove" rel="nofollow" tabindex="0" aria-disabled="false">
+<span class="oo-ui-iconElement-icon oo-ui-image-invert oo-ui-icon-{{{icon|puzzle}}}">
+</span>
+<span class="oo-ui-labelElement-label">{{{content|}}}</span><span class="oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator">
+</span>
+</span>
+</span>
+</div></includeonly>

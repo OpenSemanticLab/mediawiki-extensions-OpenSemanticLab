@@ -1,0 +1,8 @@
+<!-- 
+Hint: 'Space' works here, because it's the default delimiter - otherwise it would need '<nowiki> </nowiki>' instead. Nowiki-tags around the param prevent parsing the wiki as wikicode 
+-->
+<includeonly>{{#subobject:
+|Display title of={{#explode:{{{value|}}}|<nowiki> </nowiki>|0}}
+|HasHazardStatement={{#explode:{{{value|}}}|<nowiki> </nowiki>|0}}
+|HasHazardStatementComment={{#explode:{{#replace:{{#explode:{{{value|}}}|(|1}}|):|,}}|[|0}}
+}}</includeonly>

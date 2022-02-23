@@ -1,0 +1,11 @@
+<noinclude>
+Create a reference from a form to a (similar named) template or vice-versa.
+if param 'form' or param 'template' is not set, the pagename is used and similar name assumed.
+</noinclude>
+<includeonly>
+{{#if: {{{form|}}}{{{template|}}}|
+{{#if: {{{form|}}}|Related form: [[Form:{{{form}}}]]|}}{{#if: {{{template|}}}|Related template: [[OslTemplate:{{{template}}}]]|}}
+|
+{{#ifeq: {{NAMESPACE}}|OslTemplate|Related form: [[Form:{{PAGENAME}}]]|}}{{#ifeq: {{NAMESPACE}}|Vorlage|Related form: [[Form:{{PAGENAME}}]]|}}<!--
+-->{{#ifeq: {{NAMESPACE}}|Form|Related template: [[OslTemplate:{{PAGENAME}}]]|}}{{#ifeq: {{NAMESPACE}}|Formular|Related template: [[OslTemplate:{{PAGENAME}}]]|}}
+|}}</includeonly>

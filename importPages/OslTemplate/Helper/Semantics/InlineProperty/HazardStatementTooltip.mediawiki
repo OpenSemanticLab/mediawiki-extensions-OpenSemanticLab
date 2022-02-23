@@ -1,0 +1,1 @@
+<includeonly>{{#explode:{{{value|}}}| |0}}&nbsp;{{#info:{{#explode:{{#replace:{{#explode:{{{value|}}}|(|1}}|):|,}}|[|0}} }}</includeonly>

@@ -1,0 +1,2 @@
+strings for template params
+{{#subpagelist: }}

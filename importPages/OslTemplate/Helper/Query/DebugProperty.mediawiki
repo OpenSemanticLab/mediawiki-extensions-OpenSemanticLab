@@ -1,0 +1,1 @@
+<includeonly>{{#ask: [[{{FULLPAGENAME}}]] |?Debug= |mainlabel=- |link=none |format=plain}}</includeonly>
