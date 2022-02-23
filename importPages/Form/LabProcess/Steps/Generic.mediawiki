@@ -1,44 +1,44 @@
 <noinclude>
-{{LabProcess/Step/Form/Header}}
+{{OslTemplate:LabProcess/Step/Form/Header}}
 </noinclude><includeonly>
-{{LabProcess/Step/Form/Param/Common}}
-{{LabProcess/Step/Form/Param/Specific/Header
-   |process_step_template=LabProcess/Steps/Generic/Subpage}}
-   {{LabProcess/Step/Form/Param/Device/Fields
+{{OslTemplate:LabProcess/Step/Form/Param/Common}}
+{{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
+   |process_step_template=OslTemplate:LabProcess/Steps/Generic/Subpage}}
+   {{OslTemplate:LabProcess/Step/Form/Param/Device/Fields
       |name_in_form=Geräte
       |template_parameter=device
       |category_input_type=tree
    }}
-   {{LabProcess/Step/Form/Param/MultiObject/Rows
-      |template=LabProcess/Steps/Generic/Subpage
+   {{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Rows
+      |template=OslTemplate:LabProcess/Steps/Generic/Subpage
       |name_in_form=Objekt
       |template_parameter=object
       |category_input_type=tree
    }}
-   {{LabProcess/Step/Form/Param/MultiQuantitative/Rows
-      |template=LabProcess/Steps/Generic/Subpage
+   {{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Rows
+      |template=OslTemplate:LabProcess/Steps/Generic/Subpage
    }}
-   {{LabProcess/Step/Form/Param/MultiFile/Rows
-      |template=LabProcess/Steps/Generic/Subpage
+   {{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Rows
+      |template=OslTemplate:LabProcess/Steps/Generic/Subpage
       |name_in_form=Datei
       |template_parameter=file
       |category_input_type=tree
    }}
-{{LabProcess/Step/Form/Param/Specific/Footer}}
-{{LabProcess/Step/Form/Param/MultiObject/Fields
-   |template=LabProcess/Steps/Generic/Subpage
+{{OslTemplate:LabProcess/Step/Form/Param/Specific/Footer}}
+{{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Fields
+   |template=OslTemplate:LabProcess/Steps/Generic/Subpage
    |name_in_form=Objekt
    |template_parameter=object
    |category_input_type=tree
 }}
-{{LabProcess/Step/Form/Param/MultiQuantitative/Fields
-   |template=LabProcess/Steps/Generic/Subpage
+{{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Fields
+   |template=OslTemplate:LabProcess/Steps/Generic/Subpage
 }}
-{{LabProcess/Step/Form/Param/MultiFile/Fields
-   |template=LabProcess/Steps/Generic/Subpage
+{{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Fields
+   |template=OslTemplate:LabProcess/Steps/Generic/Subpage
    |name_in_form=File
    |template_parameter=file
    |category_input_type=tree
 }}
-{{LabProcess/Step/Form/Footer}}
+{{OslTemplate:LabProcess/Step/Form/Footer}}
 </includeonly>

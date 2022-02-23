@@ -1,12 +1,14 @@
 <noinclude>Forms for Lab Process Instances
 
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 
 </noinclude>
 <includeonly>
-{{{info|page name=LabObject:<LabProcess/Instance[short_timestamp]>-<LabProcess/Instance[creator_abbreviation]>-<unique number;start=01>00-<LabProcess/Instance[type_symbol]>}}}
+{{{info|page name=LabObject:<OslTemplate:LabProcess/Instance[short_timestamp]>-<OslTemplate:LabProcess/Instance[creator_abbreviation]>-<unique number;start=01>00-<OslTemplate:LabProcess/Instance[type_symbol]>}}}
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
-{{{for template|LabProcess/Instance}}}
+{{{for template|OslTemplate:LabProcess/Instance}}}
+== Automatisch erfasste Angaben ==
+<div class="mw-collapsible mw-collapsed">
 {| class="formtable"
 ! Vorlage: 
 | {{{field|template}}}
@@ -18,7 +20,7 @@
 | {{{field|short_timestamp}}}
 |-
 ! Erstelldatum: 
-| {{{field|timestamp|input type=datetime|default=now}}}
+| {{{field|timestamp|input type=datetimepicker|default=now}}}
 |-
 ! Erstellerkuerzel: 
 | {{{field|creator_abbreviation}}}
@@ -31,18 +33,21 @@
 |-
 ! Vollständiger Name: 
 | {{{field|full_name}}} 
-|-
+|}
+</div>
+== Manuell erfasste Angaben ==
+{| class="formtable"
 ! Produkt Kategorie (z. B. Material Kategorie): 
 | {{{field|output_category|input type=tree|top category=Material|height=500|width=400|depth=1}}} 
 <!-- {{{field|material category2|input type=combobox|default=Category:Material|values from concept=MaterialCategory}}} -->
 |-
-! Produkt Typ:
+! Produkt Typ{{#info:Kann offen gelassen werden, falls verschiedene Produkte gleichzeitig hergestellt werden}}:
 | {{{field|output_type|input type=SF_Select|query=((Category:@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=output_category|label|mandatory}}}
 |-
-! Projekt(e): 
+! Projekt(e){{#info:Projekt, denen der Versuch zugeordnet wird}}: 
 | {{{field|projects|values from category=Projekt|input type=tokens}}}
 |-
-! Weitere IDs: 
+! Weitere IDs{{#info:z. B. intern genutzte Bezeichnungen}}: 
 | {{{field|additional_ids|input type=tokens}}}
 |-
 ! Status{{#info:Gibt den Bearbeitungszustand an}}: 

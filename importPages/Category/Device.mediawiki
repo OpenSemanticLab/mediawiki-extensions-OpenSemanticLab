@@ -1,4 +1,4 @@
-{{LIMS/Device/Category
+{{OslTemplate:LIMS/Device/Category
 |uuid=53f1ec90-cbdf-480a-b352-644c540a8a31
 |type_symbol=dc
 |short_timestamp=211125

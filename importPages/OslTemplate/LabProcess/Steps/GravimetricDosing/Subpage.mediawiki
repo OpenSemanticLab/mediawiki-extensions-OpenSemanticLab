@@ -1,7 +1,7 @@
 <noinclude>
-{{LabProcess/Step/Subpage/Template
+{{OslTemplate:LabProcess/Step/Subpage/Template
   |form=Form:{{BASEPAGENAME}}
-  |template=Template:{{BASEPAGENAME}}
+  |template=OslTemplate:{{BASEPAGENAME}}
   |status=Complete
   |version=3.0
 }}
@@ -9,7 +9,7 @@
 Vorlage für einen Gravimetrischen Dosierschritt
 
 <pre>
-{{LabProcess/Steps/GravimetricDosing/Subpage
+{{OslTemplate:LabProcess/Steps/GravimetricDosing/Subpage
   |educt_category=Edukt Kategory, z.B. Ormocere
   |nominal_educt=Edukt (Stoff), z.B. Ormocer, 200721_sist_0001_m
   |nominal_educt batch=Edukt Charge/Ansatz
@@ -35,32 +35,32 @@ Seite bearbeiten um den Quelltext zu sehen.
 </noinclude>
 <includeonly>
 <!-- PARAMETER -->
-{{LabProcess/Parameter
+{{OslTemplate:LabProcess/Parameter
    |name=Einwaage |type=Sollwert |property=Masse 
    |value={{#if: {{{nominal_mass|}}} | {{{nominal_mass|}}}{{{nominal_mass_unit|}}} }}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=Einwaage 
    |type=Istwert 
    |property=Masse
    |value={{#if: {{{actual_mass|}}} | {{{actual_mass|}}}{{{actual_mass_unit|}}} }}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=Edukt |type=Sollwert |property=Edukt Kategorie |value={{{educt_category|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=Edukt |type=Sollwert |property=Edukt |value={{{nominal_educt|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=Edukt |type=Istwert |property=Edukt |value={{{actual_educt|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=Edukt Charge |type=Sollwert |property=Edukt Charge |value={{{nominal_educt_batch|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=Edukt Charge |type=Istwert |property=Edukt Charge |value={{{actual_educt_batch|}}}
 }}<!--
--->{{LabProcess/Parameter/Device
+-->{{OslTemplate:LabProcess/Parameter/Device
 |prefix=
 |suffix=
 |device_category={{{device_category|}}}
@@ -72,12 +72,12 @@ Seite bearbeiten um den Quelltext zu sehen.
 |actual_device_setup={{{actual_device_setup|}}}
 }}<!--
 --><!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
-Von {{#if: {{{nominal_educt|}}}|[[{{{nominal_educt}}}]]|{{Message/NotDefined}}}} 
-(Stoffklasse: {{#if: {{{educt_category|}}}|[[:{{{educt_category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal_educt_batch|}}}|[[{{{nominal_educt_batch}}}]]|{{Message/NotDefined}}}}) 
+Von {{#if: {{{nominal_educt|}}}|[[{{{nominal_educt}}}]]|{{OslTemplate:Message/NotDefined}}}} 
+(Stoffklasse: {{#if: {{{educt_category|}}}|[[:{{{educt_category}}}]]|{{OslTemplate:Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal_educt_batch|}}}|[[{{{nominal_educt_batch}}}]]|{{OslTemplate:Message/NotDefined}}}}) 
 sollen
-{{#if: {{{nominal_mass|}}}|{{{nominal_mass}}} {{{nominal_mass unit}}}|{{Message/NotDefined}}}} 
+{{#if: {{{nominal_mass|}}}|{{{nominal_mass}}} {{{nominal_mass unit}}}|{{OslTemplate:Message/NotDefined}}}} 
 eingewogen werden.
-{{LabProcess/Query/DeviceParam
+{{OslTemplate:LabProcess/Query/DeviceParam
 |intro=Als Gerät soll
 |outro=verwendet werden.
 |prefix=
@@ -91,21 +91,21 @@ eingewogen werden.
 |nominal_device_setup={{{nominal_device_setup|}}}
 |actual_device_setup={{{actual_device_setup|}}}
 }}
-{{LabProcess/Query/GenericParam
+{{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name|}}}
 |parameter_name=Einwaage
 |parameter_unit={{{actual_mass_unit|{{{nominal_mass_unit}}}}}}
 |exists_intro_msg=Die tatsächliche [[Einwaage]] betrug
 |exists_outro_msg=.
 |exists_not_msg=Die tatsächliche [[Einwaage]] muss noch dokumentiert werden.}}
-{{LabProcess/Query/GenericParam
+{{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name|}}}
 |parameter_name=Edukt Charge
 |exists_intro_msg=Die tatsächliche verwendete [[Edukt Charge]] war
 |exists_outro_msg=.
 |exists_not_msg=Die tatsächliche [[Edukt Charge]] muss noch dokumentiert werden.}}
 <!--
--->{{LabProcess/Step/Footer
-|specific_template=Template:LabProcess/Steps/GravimetricDosing/Subpage
+-->{{OslTemplate:LabProcess/Step/Footer
+|specific_template=OslTemplate:LabProcess/Steps/GravimetricDosing/Subpage
 }}
 </includeonly>

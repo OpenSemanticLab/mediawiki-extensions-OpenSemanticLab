@@ -1,4 +1,4 @@
-<includeonly>{{LabProcess/Step
+<includeonly>{{OslTemplate:LabProcess/Step
 |id={{{id|}}}
 |name={{{name|}}}
 |required={{{required|}}}
@@ -7,9 +7,9 @@
 |input_objects={{{input_objects|}}}
 |output_objects={{{output_objects|}}}
 |form=LabProcess/Steps/GravimetricDosing
-|specific_template=LabProcess/Steps/GravimetricDosing/Subpage
+|specific_template=OslTemplate:LabProcess/Steps/GravimetricDosing/Subpage
 |link_type={{{link_type|}}}
-|popup={{{popup|{{{Helper/Strings/No}}}}}}
+|popup={{{popup|{{{OslTemplate:Helper/Strings/No}}}}}}
 |parameters=
    {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
    {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}
@@ -39,12 +39,12 @@
 }}
 
 <!-- BESCHREIBUNG -->
-Von {{#if: {{{nominal_educt|}}}|[[{{{nominal_educt}}}]]|{{Message/NotDefined}}}} 
-(Stoffklasse: {{#if: {{{nominal_educt_category|}}}|[[:{{{nominal_educt_category}}}]]|{{Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal_educt_batch|}}}|[[{{{nominal_educt_batch}}}]]|{{Message/NotDefined}}}}) 
+Von {{#if: {{{nominal_educt|}}}|[[{{{nominal_educt}}}]]|{{OslTemplate:Message/NotDefined}}}} 
+(Stoffklasse: {{#if: {{{nominal_educt_category|}}}|[[:{{{nominal_educt_category}}}]]|{{OslTemplate:Message/NotDefined}}}}, Charge/Ansatz: {{#if: {{{nominal_educt_batch|}}}|[[{{{nominal_educt_batch}}}]]|{{OslTemplate:Message/NotDefined}}}}) 
 sollen
-{{#if: {{{nominal_mass|}}}|{{{nominal_mass}}} {{{nominal_mass_unit}}}|{{Message/NotDefined}}}} 
+{{#if: {{{nominal_mass|}}}|{{{nominal_mass}}} {{{nominal_mass_unit}}}|{{OslTemplate:Message/NotDefined}}}} 
 eingewogen werden.
-{{LabProcess/Query/DeviceParam
+{{OslTemplate:LabProcess/Query/DeviceParam
 |intro=Als Gerät soll
 |outro=verwendet werden.
 |prefix=
@@ -58,14 +58,14 @@ eingewogen werden.
 |nominal_device_setup={{{nominal_device_setup|}}}
 |actual_device_setup={{{actual_device_setup|}}}
 }}
-{{LabProcess/Query/GenericParam
+{{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name}}}
 |parameter_name=Einwaage
 |parameter_unit={{{actual_mass_unit|{{{nominal_mass_unit}}}}}}
 |exists_intro_msg=Die tatsächliche [[Einwaage]] betrug
 |exists_outro_msg=.
 |exists_not_msg=Die tatsächliche [[Einwaage]] muss noch dokumentiert werden.}}
-{{LabProcess/Query/GenericParam
+{{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name|}}}
 |parameter_name=Edukt Charge
 |exists_intro_msg=Die tatsächliche verwendete [[Edukt Charge]] war

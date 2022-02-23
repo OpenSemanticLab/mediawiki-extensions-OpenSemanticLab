@@ -1,7 +1,7 @@
 <noinclude>
 Header for category forms
 </noinclude>
-<includeonly>{{LIMS/Form/Common/Header}}
+<includeonly>{{OslTemplate:LIMS/Form/Common/Header}}
 |-
 ! Übergeordnete Kategorien: 
 | <nowiki>{{{field|sub_category_of|input type=tokens|property=IsA|values from concept=LIMS/</nowiki>{{{category_group_name}}}<nowiki>/Category|default=Category:</nowiki>{{{category_group_name}}}<nowiki>|list}}}</nowiki>

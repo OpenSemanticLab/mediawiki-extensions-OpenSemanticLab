@@ -1,9 +1,9 @@
 <noinclude>
-{{Helper/Docu/FormTemplate}}
-{{LIMS/Common/Template |id_postfix=mi}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=mi}}
 </noinclude>
 <includeonly>
-{{LIMS/Common |Material|Instance|name={{{display_name|}}}}}
+{{OslTemplate:LIMS/Common |Material|Instance|name={{{display_name|}}}}}
 
 {{#declare:
  |HasUuid=uuid
@@ -13,9 +13,9 @@
  |HasName=display_name
  |HasFullName=full_name
  |HasDescription=description
- |HasVendor=vendor
- |HasVendorTypeId=vendor_type_id
- |HasVendorInstanceId=vendor_instance_id
+ |HasManufacturer=manufacturer
+ |HasManufacturerTypeId=manufacturer_type_id
+ |HasManufacturerInstanceId=manufacturer_instance_id
 }}
 
 {{#ask: [[{{FULLPAGENAME}}]]
@@ -27,9 +27,9 @@
  |?HasName=Name
  |?HasFullName=Voller Name
  |?HasDescription=Beschreibung
- |?HasVendor=Herstller
- |?HasVendorTypeId=Produkt ID
- |?HasVendorInstanceId=Chargen ID
+ |?HasManufacturer=Hersteller
+ |?HasManufacturerTypeId=Produkt ID
+ |?HasManufacturerInstanceId=Chargen ID
  |format=table
  |transpose=true
 }}

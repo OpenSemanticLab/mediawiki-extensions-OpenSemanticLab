@@ -1,5 +1,5 @@
-<includeonly><nowiki>{{{for template|LabProcess/Parameter/MultiFile/File|label=|multiple|add button text=Datei hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[files]|display=NOTspreadsheet}}} </nowiki>
-{{LabProcess/Step/Form/Param/Multi/Header}}
+<includeonly><nowiki>{{{for template|OslTemplate:LabProcess/Parameter/MultiFile/File|label=|multiple|add button text=Datei hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[files]|display=NOTspreadsheet}}} </nowiki>
+{{OslTemplate:LabProcess/Step/Form/Param/Multi/Header}}
 <!-- NOMINAL TYPE-->
 |-
 | '''Typ:'''
@@ -13,7 +13,7 @@
 <!-- NOMINAL INSTANCE -->
 <!-- | '''Soll''' | -->
 | <div class=PageFormsExtensions_field_preview_link><nowiki>{{{field|</nowiki>nominal_instance<nowiki>|hidden}}}</nowiki></div>
-<!-- | {{#if: {{#urlget:{{{template|}}}[nominal_instance]|}} | [[Media:{{#urlget:{{{template|}}}[nominal_instance]|}}]] | {{Message/NotDefined}}}} -->
+<!-- | {{#if: {{#urlget:{{{template|}}}[nominal_instance]|}} | [[Media:{{#urlget:{{{template|}}}[nominal_instance]|}}]] | {{OslTemplate:Message/NotDefined}}}} -->
 <!-- ACTUAL INSTANCE -->
 <!-- | '''Ist''' | -->
 | <nowiki>{{{field|</nowiki>actual_instance<nowiki>|combobox|values from namespace=File|uploadable|default filename=File_{{#time:Y-m-d_H-i-s}}|NOimage preview|mandatory}}}</nowiki>

@@ -1,4 +1,4 @@
-{{LIMS/Material/Category
+{{OslTemplate:LIMS/Material/Category
 |uuid=3d1de11a-a96d-4728-aa91-708257a05c46
 |type_symbol=mc
 |short_timestamp=211112

@@ -1,8 +1,8 @@
 <includeonly><!-- SHARED WITH ANY OTHER LIMS OBJECT
--->{{LabProcess/Step/Form/Param/Object/Fields
+-->{{OslTemplate:LabProcess/Step/Form/Param/Object/Fields
       |name_in_form={{{name_in_form|Material}}}
       |template_parameter={{{template_parameter|material}}}
-      |concept={{{concept|LIMS/Material/Category}}}
+      |concept={{{concept|OslTemplate:LIMS/Material/Category}}}
       |category={{{category|Material}}}
       |category_input_type={{{category_input_type|combobox}}}
 }}<!-- SPECIFIC

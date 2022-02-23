@@ -12,9 +12,9 @@
  |?=file 
  |?HasOtsFile=proof
  |format=plainlist
- |introtemplate=ELN/Attachment/Verification/TableHeader
- |template=ELN/Attachment/Verification/TableBody
- |outrotemplate=ELN/Attachment/Verification/TableFooter
+ |introtemplate=OslTemplate:ELN/Attachment/Verification/TableHeader
+ |template=OslTemplate:ELN/Attachment/Verification/TableBody
+ |outrotemplate=OslTemplate:ELN/Attachment/Verification/TableFooter
  |searchlabel=
  |named args=yes
  |limit=1

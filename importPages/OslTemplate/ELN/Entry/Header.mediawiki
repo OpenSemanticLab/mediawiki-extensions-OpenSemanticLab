@@ -1,7 +1,7 @@
 <includeonly> 
 == Stammdaten ==
-{{Helper/UI/VE/Visible |content=Stammdaten bearbeiten}}
-{{Helper/UI/VE/Hidden|content={{#formlink:form=ELN/Entry|link text=Stammdaten bearbeiten|link type=post button|target={{FULLPAGENAME}}}}}}
+{{OslTemplate:Helper/UI/VE/Visible |content=Stammdaten bearbeiten}}
+{{OslTemplate:Helper/UI/VE/Hidden|content={{#formlink:form=ELN/Entry|link text=Stammdaten bearbeiten|link type=post button|target={{FULLPAGENAME}}}}}}
 
 <!-- <div style="float:right">
 {{#ask: [[{{FULLPAGENAME}}]]
@@ -54,7 +54,7 @@
 |transpose=true
 }}
 == Inhalt ==
-{{Helper/UI/VE/EditButton}}
+{{OslTemplate:Helper/UI/VE/EditButton}}
 <!-- <inputbox>
 type=create
 default={{FULLPAGENAME}}

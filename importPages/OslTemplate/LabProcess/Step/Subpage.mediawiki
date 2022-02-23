@@ -1,7 +1,7 @@
 <noinclude>
-Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Template:LabProcess/Step/Form/Param/Common]]
+Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[OslTemplate:LabProcess/Step/Form/Param/Common]]
 <pre>
-{{LabProcess/Step/Subpage
+{{OslTemplate:LabProcess/Step/Subpage
 |name=Geläufige Bezeichnung
 |agent=Ausführende Person oder Maschine
 |predecessor=Vorgänger

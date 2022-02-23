@@ -14,7 +14,7 @@
 Backward: LabObject.-IsRelatedTo.Has subobject.HasValue.-Has subobject -->
 {{#ask: [[-IsRelatedTo.Has subobject.HasValue.-Has subobject::{{FULLPAGENAME}}]]
 |?HasCreationDate=Datum
-|?IsDefinedIn=Vorschrift
+|?IsInstanceOf=Vorschrift
 |?HasCreator=Ersteller
 }}
 </includeonly>

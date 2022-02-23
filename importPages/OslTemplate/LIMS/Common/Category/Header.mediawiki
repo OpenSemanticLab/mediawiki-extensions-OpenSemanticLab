@@ -24,7 +24,7 @@
 <th>IRIs</th>
 <td>{{#arraymap:{{{ontology_iri|}}}|,|x|[[HasOntologyIri::x]]|\n}}</td>
 </tr>
-</table>{{LIMS/Common |{{{category_group_name}}}|Category|name={{{display_name|}}}}}
+</table>{{OslTemplate:LIMS/Common |{{{category_group_name}}}|Category|name={{{display_name|}}}}}
 
 == Beschreibung ==
 {{{description|}}}

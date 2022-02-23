@@ -1,26 +1,20 @@
-<noinclude>{{Helper/Docu/FormTemplate}}
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}
 
-{{LIMS/Common/Template |id_postfix=mt}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=mt}}
 </noinclude>
 <includeonly>
-{{LIMS/Common |Material|Type|name={{{display_name|}}}}}
+{{OslTemplate:LIMS/Common |Material|Type|name={{{display_name|}}}}}
 
-PubChem-ID: {{#if: {{{pubchem_cid|}}} | [[Has pubchem cid::{{{pubchem_cid}}}]] | {{Message/NotDefined}}}} </br>
+PubChem-ID: {{#if: {{{pubchem_cid|}}} | [[Has pubchem cid::{{{pubchem_cid}}}]] | {{OslTemplate:Message/NotDefined}}}} </br>
 <!-- Needs ExternalData > v2.2 ? -->
 <!-- {{#if: {{{pubchem cid|}}} |
 {{#get_web_data:url=https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/{{{pubchem cid}}}/XML?heading=GHS+Classification|format=xml|use xpath|data=tox=/Record/Section/Section/Section/Information[./ReferenceNumber=//Record/Reference[./SourceName="European Chemicals Agency (ECHA)"]/ReferenceNumber][./Name="Pictogram(s)"]//Markup//Extra}}
 GHS classification, according to [https://pubchem.ncbi.nlm.nih.gov/compound/{{{pubchem cid}}} pubchem/ECHA]: {{#for_external_table:[[HasGhsClassification::{{{tox}}}]], }}
 </br>|}} -->
 
-{{#arraymap:{{#replace:{{{category|}}}|Category:|}}|;|x|[[Category:x]]|\s}}</br>
-Materialkategorien:
-<!-- {{#arraymap:{{#replace:{{{category|}}}|Category:|}}|;|x|[[:Category:x]]|}} -->
-{{#ask: [[{{FULLPAGENAME}}]]
-|?Category=
-|mainlabel=-
-|format=plain
-}}
-</br>
+Materialkategorien: {{#arraymap:{{#replace:{{{category|}}}|Category:|}}|;|x|[[Category:x]][[IsA::Category:x]]|\s}}</br>
+
+Vorgängermaterialien: {{#arraymap:{{{predecessor|}}}|;|x|[[HasPredecessor::x]]|\s}}</br>
 
 == Beschreibung ==
 {{{description|}}}

@@ -1,5 +1,5 @@
 <includeonly><!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    <!-- |related_to={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}} -->
    |process={{FULLPAGENAME}}
    |object={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}}

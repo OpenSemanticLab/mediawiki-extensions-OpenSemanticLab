@@ -11,7 +11,7 @@
 
 == Erstellte Instanzen ==
 
-{{#ask: [[Category:LabObject]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+{{#ask: <!-- [[Category:LabObject]] --> [[IsInstanceOf::{{FULLPAGENAME}}]]
 |?HasCreationDate=Datum
 |?HasProject=Projekt
 |?HasCreator=Ersteller

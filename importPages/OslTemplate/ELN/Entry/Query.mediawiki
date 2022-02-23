@@ -1,5 +1,5 @@
 <noinclude>
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 </noinclude>
 <includeonly>
 == Ergebnisse ==

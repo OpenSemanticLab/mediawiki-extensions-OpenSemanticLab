@@ -8,16 +8,22 @@ if a page with that name already exists, you will be sent to a form to edit that
 </noinclude><includeonly>
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 [[Form:Property/Quantity]]
-{{{for template|Property/Quantity|label=Quantity property}}}
+{{{for template|OslTemplate:Property/Quantity|label=Quantity property}}}
 {| class="formtable"
 ! Description: 
 | {{{field|description|input type=textarea}}}
 |-
+! Ontology IRI(s) (e. g. from [http://www.qudt.org/doc/DOC_VOCAB-QUANTITY-KINDS.html]): 
+| {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}
+|-
 ! Main unit: 
 | {{{field|main_unit|mandatory}}}
 |-
+! Main unit ontology IRI(s) (e. g. from [http://www.qudt.org/doc/DOC_VOCAB-UNITS.html]): 
+| {{{field|main_unit_ontology_iri|input type=tokens|list|delimiter=;}}}
+|-
 ! Alternative name for main unit: 
-| {{{field|alternative_names|input type=tokens}}}
+| {{{field|alternative_names|input type=tokens|list|delimiter=;}}}
 |-
 ! Alternative units: 
 | {{{field|alternative_units|holds template}}}
@@ -37,7 +43,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 </div>
 {{{end template}}}
 
-{{{for template|Property/Quantity/Unit|multiple|minimum instances=0|add button text=Add alternative unit|embed in field=Property/Quantity[alternative_units]}}}
+{{{for template|OslTemplate:Property/Quantity/Unit|multiple|minimum instances=0|add button text=Add alternative unit|embed in field=OslTemplate:Property/Quantity[alternative_units]}}}
 {| class="formtable"
 ! Unit (e. g. kg): 
 | {{{field|unit|mandatory}}}
@@ -46,17 +52,20 @@ if a page with that name already exists, you will be sent to a form to edit that
 | {{{field|factor|mandatory}}}
 |-
 ! Alternative names (e. g. kilogram): 
-| {{{field|alternative_names|input type=tokens|list|delimiter=,}}}
+| {{{field|alternative_names|input type=tokens|list|delimiter=;}}}
 |-
 ! Use as display unit{{#info: adds unit to the conversation tooltip}}: 
 | {{{field|use_as_display_unit|input type=checkbox|default=yes}}}
 |-
 ! Use as input unit{{#info: makes this unit selectable in input forms}}: 
 | {{{field|use_as_input_unit|input type=checkbox|default=yes}}}
+|-
+! Ontology IRI (e. g. from [http://www.qudt.org/doc/DOC_VOCAB-UNITS.html]): 
+| {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}
 |}
 {{{end template}}}
 
-<!-- {{{for template|Property/Quantity/DisplayUnit|label=Display units|multiple|minimum instances=0|add button text=Add display unit|embed in field=Property/Quantity[display_units]}}}
+<!-- {{{for template|OslTemplate:Property/Quantity/DisplayUnit|label=Display units|multiple|minimum instances=0|add button text=Add display unit|embed in field=Property/Quantity[display_units]}}}
 {| class="formtable"
 ! Unit (e. g. kg): 
 | {{{field|unit|mandatory}}}

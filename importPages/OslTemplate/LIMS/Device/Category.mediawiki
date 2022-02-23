@@ -1,8 +1,8 @@
 <noinclude>Template of all device categories 
-{{LIMS/Common/Template |id_postfix=dc}}
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=dc}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 </noinclude><includeonly><!-- 
--->{{LIMS/Common/Category/Header
+-->{{OslTemplate:LIMS/Common/Category/Header
   |category_group_name=Device
   |display_name={{{display_name|}}}
   |ontology_iri={{{ontology_iri|}}}
@@ -10,5 +10,5 @@
   |category_type={{{category_type|}}}
   |description={{{description|}}}
 }}
-{{LIMS/Common/Category/Footer}}
+{{OslTemplate:LIMS/Common/Category/Footer}}
 </includeonly>

@@ -1,6 +1,6 @@
 <noinclude>Template um einen vollen Geräteparametersatz (Kategorie Soll/Ist, Typ Soll/Ist, Instanz Soll/Ist, Setup Soll/Ist) anzuzeigen und abzufragen.
 <pre>
-{{LabProcess/Query/DeviceParam
+{{OslTemplate:LabProcess/Query/DeviceParam
 |intro=Einleitender Halbsatz, Standard: "Das Laborprodukt soll mit dem Gerät"
 |outro=Ausleitender Halbsatz, Standard: "bearbeitet werden."
 |prefix=Präfix für die Verwendung mehrer Geräte (optional)
@@ -19,18 +19,18 @@
 </noinclude><includeonly><!--
 
 -->{{{intro|Das Laborprodukt soll mit dem Werkzeug}}}  
-{{#if: {{{nominal_device_type|}}}|[[{{{nominal_device_type}}}]]|{{Message/NotDefined}}}} 
-(Geräteklasse: {{#if: {{{nominal_device_category|}}}|[[:{{{nominal_device_category}}}]]|{{Message/NotDefined}}}}, Exemplar/Instanz: 
-{{#if: {{{nominal_device_instance|}}}|[[{{{nominal_device_instance}}}]]|{{Message/NotDefined}}}}) mit Setup 
-{{#if: {{{nominal_device_setup|}}}|[[{{{nominal_device_setup}}}]]|{{Message/NotDefined}}}}
+{{#if: {{{nominal_device_type|}}}|[[{{{nominal_device_type}}}]]|{{OslTemplate:Message/NotDefined}}}} 
+(Geräteklasse: {{#if: {{{nominal_device_category|}}}|[[:{{{nominal_device_category}}}]]|{{OslTemplate:Message/NotDefined}}}}, Exemplar/Instanz: 
+{{#if: {{{nominal_device_instance|}}}|[[{{{nominal_device_instance}}}]]|{{OslTemplate:Message/NotDefined}}}}) mit Setup 
+{{#if: {{{nominal_device_setup|}}}|[[{{{nominal_device_setup}}}]]|{{OslTemplate:Message/NotDefined}}}}
 {{{outro|vereinzelt werden.}}}
-{{LabProcess/Query/GenericParam
+{{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{process_step_name|}}}
 |parameter_name={{{prefix|}}}DeviceInstance{{{suffix|}}}
 |exists_intro_msg=Als Gerät wurde verwendet: 
 |exists_outro_msg=.
 |exists_not_msg=Das benutzte Gerät muss noch dokumentiert werden.}}
-{{LabProcess/Query/GenericParam
+{{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{process_step_name|}}}
 |parameter_name={{{prefix|}}}DeviceSetup{{{suffix|}}}
 |exists_intro_msg=Als Gerätesetup wurde verwendet: 

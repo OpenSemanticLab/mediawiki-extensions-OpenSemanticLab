@@ -1,4 +1,4 @@
-<includeonly>{{LabProcess/Step
+<includeonly>{{OslTemplate:LabProcess/Step
 |id={{{id|}}}
 |name={{{name|}}}
 |required={{{required|}}}
@@ -9,7 +9,7 @@
 |link_type={{{link_type|}}}
 |popup={{{popup|}}}
 |form=LabProcess/Steps/MultiObjectSelection
-|specific_template=LabProcess/Steps/MultiObjectSelection/Subpage
+|specific_template=OslTemplate:LabProcess/Steps/MultiObjectSelection/Subpage
 |parameters=
    {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
    {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}
@@ -19,10 +19,10 @@
 |specific_parameters=
    [nominal_object_category]={{#replace:{{{nominal_object_category|Category:Object}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [actual_object_category]={{#replace:{{{actual_object_category|{{{nominal_object_category|Category:Object}}}}}}|Category:|}} <!-- Tree input expects no namespace -->
-|additional_template_1=LabProcess/Parameter/MultiObject/Object
+|additional_template_1=OslTemplate:LabProcess/Parameter/MultiObject/Object
 |additional_parameters_1={{{objects|}}}
 }}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
-Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{Message/NotDefined}}}}) ausgewählt werden.
+Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{OslTemplate:Message/NotDefined}}}}) ausgewählt werden.
 {{{description|}}}
 
 ====Parameter====

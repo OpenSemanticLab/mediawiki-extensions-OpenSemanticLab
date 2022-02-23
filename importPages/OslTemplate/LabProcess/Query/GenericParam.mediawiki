@@ -1,4 +1,4 @@
-<includeonly>{{LabProcess/Query/GenericParam/SubQuery
+<includeonly>{{OslTemplate:LabProcess/Query/GenericParam/SubQuery
 |process_step_name={{{process_step_name}}}
 |parameter_name={{{parameter_name}}}
 |type={{{type|Istwert}}}
@@ -7,5 +7,5 @@
 |exists_intro_msg={{{exists_intro_msg|}}}
 |exists_outro_msg={{{exists_outro_msg|}}}
 |exists_not_msg={{{exists_not_msg|-Nicht angegeben-}}}
-|link={{{link|{{Helper/Strings/Yes}}}}}
+|link={{{link|{{OslTemplate:Helper/Strings/Yes}}}}}
 }}</includeonly>

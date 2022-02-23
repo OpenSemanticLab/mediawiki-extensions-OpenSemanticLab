@@ -1,7 +1,7 @@
 <noinclude>
-{{LabProcess/Step/Subpage/Template
+{{OslTemplate:LabProcess/Step/Subpage/Template
   |form=Form:{{BASEPAGENAME}}
-  |template=Template:{{BASEPAGENAME}}
+  |template=OslTemplate:{{BASEPAGENAME}}
   |status=Complete
   |version=3.0
 }}
@@ -10,7 +10,7 @@
 Vorlage für einen Prozessschritt zur Objektauswahl
 
 <pre>
-{{LabProcess/Steps/ObjectSelection/Subpage
+{{OslTemplate:LabProcess/Steps/ObjectSelection/Subpage
   | nominal_object_category=Objekt Kategory, z.B. Folie
   | actual_object_category=Tatsächliche Objekt Kategory, z.B. Folie
   | nominal_object_type=Objekttyp, z.B. Siliconfolie
@@ -24,38 +24,38 @@ Seite bearbeiten um den Quelltext zu sehen.
 </noinclude>
 <includeonly>
 <!-- PARAMETER
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=ObjectCategory |type=Nominal |property=HasObjectCategory |value={{{nominal_object_category|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=ObjectCategory |type=Actual |property=HasObjectCategory |value={{{actual_object_category|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=ObjectTyp |type=Nominal |property=HasObjectType |value={{{nominal_object_type|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=ObjectType |type=Actual |property=HasObjectType |value={{{actual_object_type|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=ObjectInstance |type=Nominal |property=HasObjectInstance |value={{{nominal_object_instance|}}}
 }}<!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |name=ObjectInstance |type=Actual |property=HasObjectInstance |value={{{actual_object_instance|}}}
 }}<!--
 --><!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
 Für den nächsten Prozessschritt muss zunächst eine konkretes Laborobjekt vom Typ 
-{{#if: {{{nominal_object_type|}}}|[[{{{nominal_object_type}}}]]|{{Message/NotDefined}}}} 
-(Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{Message/NotDefined}}}}) 
+{{#if: {{{nominal_object_type|}}}|[[{{{nominal_object_type}}}]]|{{OslTemplate:Message/NotDefined}}}} 
+(Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{OslTemplate:Message/NotDefined}}}}) 
 ausgewählt werden.
 
-{{LabProcess/Query/GenericParam
+{{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name|}}}
 |parameter_name=Objektinstanz
 |exists_intro_msg=Ausgewählt wurde 
 |exists_outro_msg=.
 |exists_not_msg=Die Auswahl muss noch getroffen werden.}}
 <!--
--->{{LabProcess/Step/Footer
-|specific_template=Template:LabProcess/Steps/ObjectSelection/Subpage
+-->{{OslTemplate:LabProcess/Step/Footer
+|specific_template=OslTemplate:LabProcess/Steps/ObjectSelection/Subpage
 }}
 </includeonly>

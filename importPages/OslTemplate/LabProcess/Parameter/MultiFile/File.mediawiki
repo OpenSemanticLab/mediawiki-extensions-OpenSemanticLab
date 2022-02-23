@@ -1,5 +1,5 @@
 <includeonly><!--
--->{{LabProcess/Parameter
+-->{{OslTemplate:LabProcess/Parameter
    |process={{FULLPAGENAME}}
    |object={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}}
    |name={{{name|}}} |type=Actual |property=HasDataFile

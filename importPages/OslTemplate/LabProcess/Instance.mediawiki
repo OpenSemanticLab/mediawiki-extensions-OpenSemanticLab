@@ -1,7 +1,7 @@
 <noinclude>
 Wrapper for custom instances
 
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 </noinclude>
 <includeonly>{{#default_form:LabProcess/Instance}}
 {{{{{template}}}

@@ -1,8 +1,8 @@
-<includeonly>{{Helper/UI/VE/Visible
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
 |icon=highlight
 |content=Sketch ''{{{file_name}}}''
 }}
-{{Helper/UI/VE/Hidden 
+{{OslTemplate:Helper/UI/VE/Hidden 
 |content=<div class="SvgEdit" style="width: {{{width|100%}}}; height: 500px;">{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.svg</div>
 }}</includeonly><noinclude>
 <templatedata>

@@ -1,5 +1,5 @@
-<includeonly><nowiki>{{{for template|LabProcess/Parameter/MultiQuantitative/Quantitative|label=|multiple|add button text=Quantitativen Parameter hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[quantitatives]|display=NOTspreadsheet}}}</nowiki>
-{{LabProcess/Step/Form/Param/Multi/Header}}
+<includeonly><nowiki>{{{for template|OslTemplate:LabProcess/Parameter/MultiQuantitative/Quantitative|label=|multiple|add button text=Quantitativen Parameter hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[quantitatives]|display=NOTspreadsheet}}}</nowiki>
+{{OslTemplate:LabProcess/Step/Form/Param/Multi/Header}}
 |-
 | '''Größe:'''
 <!-- Update Trigger not working reliable --><!-- | <nowiki>{{{field|nominal_quantity|values from category=Property/Quantitative|input type=combobox|restricted}}}</nowiki>
@@ -8,7 +8,7 @@
 | <div><nowiki>{{{field|</nowiki>actual_quantity<nowiki>|input type=SF_Select|query=</nowiki>((Category:Property/Quantitative))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div> 
 |-
 | '''Wert:'''
-| <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>nominal_unit<nowiki>|input type=SF_Select|query=((Category:UnitDefinition))((-Has subobject::@@@@))((IsInputUnit::true));?HasUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=nominal_quantity|mandatory}}}</nowiki></div> 
-| <div class='tiny-input'><nowiki>{{{field|</nowiki>actual_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>actual_unit<nowiki>|input type=SF_Select|query=((Category:UnitDefinition))((-Has subobject::@@@@))((IsInputUnit::true));?HasUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=actual_quantity|mandatory}}}</nowiki></div> 
+| <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>nominal_unit<nowiki>|input type=SF_Select|query=((@@@@));?HasInputUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=nominal_quantity|mandatory}}}</nowiki></div> 
+| <div class='tiny-input'><nowiki>{{{field|</nowiki>actual_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>actual_unit<nowiki>|input type=SF_Select|query=((@@@@));?HasInputUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=actual_quantity|mandatory}}}</nowiki></div> 
 |}
 <nowiki>{{{end template}}}</nowiki></includeonly>

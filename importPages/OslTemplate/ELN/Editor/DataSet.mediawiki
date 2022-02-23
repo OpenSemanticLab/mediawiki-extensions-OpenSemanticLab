@@ -1,9 +1,9 @@
 <noinclude>
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 
-like [[Template:LabProcess/Steps/Generic]] but without process aspects
+like [[OslTemplate:LabProcess/Steps/Generic]] but without process aspects
 </noinclude>
-<includeonly>{{ELN/Editor/DataSet/Link
+<includeonly>{{OslTemplate:ELN/Editor/DataSet/Link
 |id={{{id|}}}
 |name={{{name|}}}
 |required={{{required|}}}
@@ -14,8 +14,8 @@ like [[Template:LabProcess/Steps/Generic]] but without process aspects
 |link_type={{{link_type|}}}
 |popup={{{popup|}}}
 |form=ELN/Editor/DataSet
-|template=ELN/Editor/DataSet/Subpage
-|specific_template=ELN/Editor/DataSet/Subpage
+|template=OslTemplate:ELN/Editor/DataSet/Subpage
+|specific_template=OslTemplate:ELN/Editor/DataSet/Subpage
 |parameters=<!--    
    {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
    {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}} -->
@@ -35,11 +35,11 @@ like [[Template:LabProcess/Steps/Generic]] but without process aspects
    [actual_object_category]={{#replace:{{{actual_object_category|{{{nominal_object_category|Category:Object}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [nominal_file_category]={{#replace:{{{nominal_file_category|Category:File}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [actual_file_category]={{#replace:{{{actual_file_category|{{{nominal_file_category|Category:File}}}}}}|Category:|}} <!-- Tree input expects no namespace -->
-|additional_template_1=LabProcess/Parameter/MultiObject/Object
+|additional_template_1=OslTemplate:LabProcess/Parameter/MultiObject/Object
 |additional_parameters_1={{{objects|}}}
-|additional_template_2=LabProcess/Parameter/MultiQuantitative/Quantitative
+|additional_template_2=OslTemplate:LabProcess/Parameter/MultiQuantitative/Quantitative
 |additional_parameters_2={{{quantitatives|}}}
-|additional_template_3=LabProcess/Parameter/MultiFile/File
+|additional_template_3=OslTemplate:LabProcess/Parameter/MultiFile/File
 |additional_parameters_3={{{files|}}}
 }}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
 <!-- Generischer Prozessschritt -->

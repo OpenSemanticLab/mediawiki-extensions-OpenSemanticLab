@@ -1,3 +1,3 @@
-Forms for Lab Processes (templates see [[Template:LabProcess]])
+Forms for Lab Processes (templates see [[OslTemplate:LabProcess]])
 
 {{#subpagelist:}}

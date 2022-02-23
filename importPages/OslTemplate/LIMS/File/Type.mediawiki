@@ -1,8 +1,8 @@
-<noinclude>{{Helper/Docu/FormTemplate}}
-{{LIMS/Common/Template |id_postfix=ft}}
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=ft}}
 </noinclude>
 <includeonly>
-{{LIMS/Common |File|Type|name={{{display_name|}}}}}
+{{OslTemplate:LIMS/Common |File|Type|name={{{display_name|}}}}}
 
 {{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}</br>
 Kategorien:

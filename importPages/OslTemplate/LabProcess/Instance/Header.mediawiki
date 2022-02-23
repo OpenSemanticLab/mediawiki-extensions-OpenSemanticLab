@@ -1,4 +1,4 @@
-<includeonly>{{#set: Debug={{{debug|{{Helper/Strings/No}}}}}}}<!-- 
+<includeonly>{{#set: Debug={{{debug|{{OslTemplate:Helper/Strings/No}}}}}}}<!-- 
 
 -->{{DISPLAYTITLE:{{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}}}}<!-- 
 

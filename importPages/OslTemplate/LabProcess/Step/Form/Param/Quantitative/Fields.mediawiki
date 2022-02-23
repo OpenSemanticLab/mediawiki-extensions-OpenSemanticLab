@@ -1,8 +1,8 @@
 <includeonly>|-
 ! {{{name_in_form}}}
-| <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_unit<nowiki>|input type=SF_Select|query=((Category:UnitDefinition))((-Has subobject::</nowiki>{{{quantity}}}<nowiki>));?HasUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~
+| <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_unit<nowiki>|input type=SF_Select|query=((</nowiki>{{{quantity}}}<nowiki>));?HasInputUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~
 200|sametemplate|field=quantity|mandatory}}}</nowiki></div> 
-| <div class='tiny-input'><nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_unit<nowiki>|input type=SF_Select|query=((Category:UnitDefinition))((-Has subobject::</nowiki>{{{quantity}}}<nowiki>));?HasUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=quantity|mandatory}}}</nowiki></div></includeonly>
+| <div class='tiny-input'><nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_unit<nowiki>|input type=SF_Select|query=((</nowiki>{{{quantity}}}<nowiki>));?HasInputUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=quantity|mandatory}}}</nowiki></div></includeonly>
 <!-- 
 | {{{name_in_form}}} Wert
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}<nowiki>}}}</nowiki></div> 

@@ -1,7 +1,7 @@
 <noinclude>
 Formular zur Suche nach Laborbucheinträgen
 
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 
 {{#queryformlink:form={{PAGENAME}}}}
 
@@ -10,7 +10,7 @@ Formular zur Suche nach Laborbucheinträgen
 </noinclude>
 <includeonly>
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
-{{{for template|ELN/Entry/Query}}}
+{{{for template|OslTemplate:ELN/Entry/Query}}}
 {| class="formtable"
 ! ID{{#info:IDs können sowohl vollständig als auch teilweise mit * eingegeben werden}}: 
 | {{{field|id|values from property=HasID}}}

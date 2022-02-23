@@ -1,5 +1,5 @@
-<noinclude>{{Helper/Docu/FormTemplate}}
-{{LIMS/Common/Template |id_postfix=dt}}
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=dt}}
 </noinclude>
 <includeonly><table class="info_box">
 <tr>
@@ -30,7 +30,7 @@
 </tr>
 <tr>
 <th>Typenbezeichnung</th>
-<td>[[HasDeviceTypeName::{{{manufacturer_type_id|}}}]]</td>
+<td>[[HasManufacturerTypeId::{{{manufacturer_type_id|}}}]]</td>
 </tr>
 </table>
 <!-- {{#ask: [[{{FULLPAGENAME}}]]
@@ -38,7 +38,7 @@
 |mainlabel=-
 |format=plain
 }} -->
-{{LIMS/Common |Device|Type|name={{{display_name|}}}}}{{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}
+{{OslTemplate:LIMS/Common |Device|Type|name={{{display_name|}}}}}{{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}
 {{#declare:
  |HasUuid=uuid
  |HasCreator=creator

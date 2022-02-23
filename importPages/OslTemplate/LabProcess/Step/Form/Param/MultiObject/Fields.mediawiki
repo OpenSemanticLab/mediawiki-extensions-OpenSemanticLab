@@ -1,5 +1,5 @@
-<includeonly><nowiki>{{{for template|LabProcess/Parameter/MultiObject/Object|label=|multiple|add button text=Objekt hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[objects]|display=NOTspreadsheet}}} </nowiki>
-{{LabProcess/Step/Form/Param/Multi/Header}}
+<includeonly><nowiki>{{{for template|OslTemplate:LabProcess/Parameter/MultiObject/Object|label=|multiple|add button text=Objekt hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[objects]|display=NOTspreadsheet}}} </nowiki>
+{{OslTemplate:LabProcess/Step/Form/Param/Multi/Header}}
 <!-- NOMINAL TYPE-->
 |-
 | '''Typ:'''

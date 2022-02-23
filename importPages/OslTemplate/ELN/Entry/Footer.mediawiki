@@ -6,13 +6,13 @@
 |?Modification date=Zuletzt geändert 
 |format=datatable <!-- With format=table chem and math formular fail to render on page!?! -->
 }} 
-{{Helper/UI/VE/Visible 
+{{OslTemplate:Helper/UI/VE/Visible 
 |content=Upload-Area
 }}
-{{Helper/UI/VE/Hidden
+{{OslTemplate:Helper/UI/VE/Hidden
 |content={{#batchupload:ELN/Attachment|{{FULLPAGENAME}}}}
 }}
 
-{{ELN/Attachment/Verification}}
+{{OslTemplate:ELN/Attachment/Verification}}
 [[Category:LabNote]]
 </includeonly>

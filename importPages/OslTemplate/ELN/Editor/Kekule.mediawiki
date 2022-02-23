@@ -1,8 +1,8 @@
-<includeonly>{{Helper/UI/VE/Visible
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
 |icon=labFlask
 |content=ChemEditor
 }}
-{{Helper/UI/VE/Hidden 
+{{OslTemplate:Helper/UI/VE/Hidden 
 |content=<div class="div_kekule_view_edit" id="chemViewEdit_{{{file_name}}}" style="width:{{{width|99}}}%;height:{{{height|500}}}px;border:1px solid black;">{{FULLPAGENAME}}/{{{file_name}}}</div>
 }}</includeonly>
 <noinclude>

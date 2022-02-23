@@ -1,8 +1,8 @@
 <noinclude>Template of all material categories
-{{LIMS/Common/Template |id_postfix=mc}}
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=mc}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 </noinclude><includeonly><!-- 
--->{{LIMS/Common/Category/Header
+-->{{OslTemplate:LIMS/Common/Category/Header
   |category_group_name=Material
   |display_name={{{display_name|}}}
   |ontology_iri={{{ontology_iri|}}}
@@ -10,5 +10,5 @@
   |category_type={{{category_type|}}}
   |description={{{description|}}}
 }}
-{{LIMS/Common/Category/Footer}}
+{{OslTemplate:LIMS/Common/Category/Footer}}
 </includeonly>

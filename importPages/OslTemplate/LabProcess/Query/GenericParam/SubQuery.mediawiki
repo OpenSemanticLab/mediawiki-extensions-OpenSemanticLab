@@ -9,7 +9,7 @@ Query for Parameter
     [[HasName::{{{parameter_name}}}]] 
     |?{{{parameter_property}}} {{#if: {{{parameter_unit|}}}|#_{{{parameter_unit}}}|}} = 
     |mainlabel=- 
-    |link={{#ifeq:{{{link|}}}|{{Helper/Strings/Yes}}|NOTnone|none}}
+    |link={{#ifeq:{{{link|}}}|{{OslTemplate:Helper/Strings/Yes}}|NOTnone|none}}
 }}}}<!--
 Embedd result if present
 -->{{#if: {{#var:{{#var:varname}}}} | {{{exists_intro_msg}}} {{#var:{{#var:varname}}}}{{{exists_outro_msg}}}| {{{exists_not_msg}}}}}</includeonly>

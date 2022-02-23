@@ -1,9 +1,9 @@
 
-<includeonly>{{Helper/UI/VE/Visible
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
 |icon=die
 |content=Wellplate Editor
 }}
-{{Helper/UI/VE/Hidden 
+{{OslTemplate:Helper/UI/VE/Hidden 
 |content=<div class="WellplateViewer">{{FULLPAGENAME}}/{{{file_name}}}</div>
 }}</includeonly>
 <noinclude>

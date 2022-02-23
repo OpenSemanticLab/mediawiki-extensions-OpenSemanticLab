@@ -1,6 +1,6 @@
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 
 For lab objects like samples, parts, drafts, measurements, etc.
 See also [[LabProcess]]
-
+=List of subpages=
 {{#subpagelist: }}

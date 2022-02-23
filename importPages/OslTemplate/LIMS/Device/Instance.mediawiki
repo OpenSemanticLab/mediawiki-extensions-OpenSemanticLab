@@ -1,46 +1,97 @@
 <noinclude>
-{{Helper/Docu/FormTemplate}}
-{{LIMS/Common/Template |id_postfix=di}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=di}}
 </noinclude>
-<includeonly>
-{{LIMS/Common |Device|Instance|name={{{display_name|}}}}}
+<includeonly><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{{display_name|}}}</th>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasName::{{{display_name|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasFullName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>Gerätetyp</th>
+<td>[[IsInstanceOf::{{{type|}}}]]</td>
+</tr>
+<tr>
+<th>Seriennummer</th>
+<td>[[HasManufacturerInstanceId::{{{manufacturer_instance_id|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Organisation</td>
+</tr>
+<tr>
+<th>Geräteverantwortlicher</th>
+<td>{{#arraymap:{{{responsible_person|}}}|;|x|[[HasResponsiblePerson::x]]}}</td>
+</tr>
+<tr>
+<th>Standort</th>
+<td>[[IsLocatedIn::{{{location|}}}]]</td>
+</tr>
+<tr>
+<th>OE</th>
+<td>{{#arraymap:{{{department|}}}|;|x|[[HasDepartment::x]]}}</td>
+</tr>
+</table>
+<table class="info_box">
+<tr>
+<th class="heading" colspan="2">Gerätetyp [[{{{type|}}}]]</th>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasDisplayName= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasName= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Hersteller</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasManufacturer= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Typenbezeichnung</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasManufacturerTypeId= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Gerätekategorie</th>
+<td>{{#ask: [[{{{type|}}}]] |?Category= |mainlabel=-}}</td>
+</tr>
+</table>{{OslTemplate:LIMS/Common |Device|Instance|name={{{display_name|}}}}}<!--
+ -->{{#set:
+|HasUuid={{{uuid|}}}
+|HasCreator={{{creator|}}}
+|HasCreationDate={{{creation_date|}}}
+|HasAccessory={{{accessory|}}}|+sep=; <!-- contains removeable components like sensors -->
+}}{{{subdevices|}}}<!-- contains unremoveable components like channels -->
 
-{{#declare:
- |HasUuid=uuid
- |IsInstanceOf=type
- |HasCreator=creator
- |HasCreationDate=creation_date
- |HasName=display_name
- |HasFullName=full_name
- |HasDescription=description
- |HasVendor=vendor
- |HasVendorTypeId=vendor_type_id
- |HasVendorInstanceId=vendor_instance_id
+== Beschreibung ==
+{{{description|}}}
+
+== Dokumente des Gerätetyps == 
+{{#tag:gallery|
+File:{{#ask: [[{{{type|}}}]] |?HasDatasheet= |mainlabel=-}}{{!}}Datenblatt
+File:{{#ask: [[{{{type|}}}]] |?HasManual= |mainlabel=-}}{{!}}Bedienungsableitung
+File:{{#ask: [[{{{type|}}}]] |?HasRiskAssessment= |mainlabel=-}}{{!}}Gefährdungsbeurteilung
+File:{{#ask: [[{{{type|}}}]] |?HasAdditionalDocument= |mainlabel=-}}{{!}}Sonstige Dokumente
+|mode="traditional"
 }}
-{{#set:
-<!-- |Organisationseinheit={{{ou|}}}|+sep=;
-|Geräteverantwortlicher={{{device manager|}}}|+sep=; -->
-|HasSubdevice={{{subdevices|}}}|+sep=; 
-}}
+<br>
 
+== Zubehör ==
 
-{{#ask: [[{{FULLPAGENAME}}]]
- |?HasUuid=uuid
+{{#ask: [[-HasAccessory::{{FULLPAGENAME}}]]
  |?HasId=ID
  |?IsInstanceOf=Type
- |?HasCreator=Ersteller
- |?HasCreationDate=Erstelldatum
  |?HasName=Name
- |?HasFullName=Voller Name
- |?HasDescription=Beschreibung
- |?HasVendor=Herstller
- |?HasVendorTypeId=Produkt ID
- |?HasVendorInstanceId=Chargen ID
- |?HasSubdevice=Untergeräte
  |format=table
- |transpose=true
+<!--  |transpose=true -->
 }}
-
 
 [[Category:LabObject]][[Category:LIMS/Device/Instance]]
 </includeonly>

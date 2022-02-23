@@ -1,4 +1,4 @@
-<includeonly>{{LabProcess/Step
+<includeonly>{{OslTemplate:LabProcess/Step
 |id={{{id|}}}
 |name={{{name|}}}
 |required={{{required|}}}
@@ -7,7 +7,7 @@
 |input_objects={{{input_objects|}}}
 |output_objects={{{output_objects|}}}
 |form=LabProcess/Steps/ObjectSelection
-|specific_template=LabProcess/Steps/ObjectSelection/Subpage
+|specific_template=OslTemplate:LabProcess/Steps/ObjectSelection/Subpage
 |link_type={{{link_type|}}}
 |popup={{{popup|}}}
 |parameters=
@@ -25,9 +25,9 @@
    [actual_object_instance]={{{actual_object_instance|}}}
 }}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
 Für den nächsten Prozessschritt muss zunächst eine konkretes Laborobjekt vom Typ 
-{{#if: {{{nominal_object_type|}}}|[[{{{nominal_object_type}}}]]|{{Message/NotDefined}}}} 
-(Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{Message/NotDefined}}}}) 
-ausgewählt werden. {{LabProcess/Query/GenericParam
+{{#if: {{{nominal_object_type|}}}|[[{{{nominal_object_type}}}]]|{{OslTemplate:Message/NotDefined}}}} 
+(Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{OslTemplate:Message/NotDefined}}}}) 
+ausgewählt werden. {{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name|}}}
 |parameter_name=Objektinstanz
 |exists_intro_msg=Ausgewählt wurde 

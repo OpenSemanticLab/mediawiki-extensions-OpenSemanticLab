@@ -1,13 +1,13 @@
 <noinclude>
-{{LabProcess/Header
+{{OslTemplate:LabProcess/Header
 |name=Demo 2 Template
 |output_category=Category:Feststoff
 |output_type=
-|debug={{Helper/Strings/No}}
+|debug={{OslTemplate:Helper/Strings/No}}
 }}
 </noinclude>
 <includeonly>
-{{LabProcess/Instance/Header
+{{OslTemplate:LabProcess/Instance/Header
 |name=Demo 2 Instance
 |output_category={{{output_category}}}
 |output_type={{{output_type}}}
@@ -19,11 +19,11 @@
 |projects={{{projects}}}
 |additional_ids={{{additional_ids}}}
 |template={{{template}}}
-|debug={{Helper/Strings/No}}
+|debug={{OslTemplate:Helper/Strings/No}}
 }}
 </includeonly>
 
-{{LabProcess/Steps/GravimetricDosing
+{{OslTemplate:LabProcess/Steps/GravimetricDosing
 | name=Stoff 1 einwiegen
 | predecessor=
 | input objects=Mischbecher
@@ -40,7 +40,7 @@
 | nominal device instance=Test
 }}
 
-{{LabProcess/Steps/GravimetricDosing
+{{OslTemplate:LabProcess/Steps/GravimetricDosing
 | name=Silicon 2 einwiegen
 | predecessor=Silicon einwiegen
 | input objects=Mischbecher+Stoff1
@@ -55,12 +55,12 @@
 | nominal device category=
 | nominal device type=
 | nominal device instance=
-| popup={{{Helper/Strings/Yes}}}
+| popup={{{OslTemplate:Helper/Strings/Yes}}}
 }}
 
 <includeonly>
-{{LabProcess/Instance/Footer}}
+{{OslTemplate:LabProcess/Instance/Footer}}
 </includeonly>
 <noinclude>
-{{LabProcess/Footer}}
+{{OslTemplate:LabProcess/Footer}}
 </noinclude>

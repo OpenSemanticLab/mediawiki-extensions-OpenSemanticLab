@@ -1,8 +1,8 @@
-<includeonly>{{Helper/UI/VE/Visible
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
 |icon=browser
 |content=DrawIO Editor
 }}
-{{Helper/UI/VE/Hidden 
+{{OslTemplate:Helper/UI/VE/Hidden 
 |content={{#drawio:{{{file_name}}}|type={{{type|svg}}}|max-width={{{width|500px}}}}}
 }}</includeonly><noinclude>
 <templatedata>

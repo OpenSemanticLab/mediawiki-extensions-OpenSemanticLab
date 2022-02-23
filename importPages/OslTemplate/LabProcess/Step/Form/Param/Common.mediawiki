@@ -1,6 +1,6 @@
 <includeonly>
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
-<nowiki>{{{for template|LabProcess/Step/Subpage}}}</nowiki>
+<nowiki>{{{for template|OslTemplate:LabProcess/Step/Subpage}}}</nowiki>
 == Allgemeine Angaben ==
 {| class="formtable"
 ! Name: 

@@ -1,13 +1,13 @@
 <includeonly><!-- SHARED WITH ANY OTHER LIMS OBJECT
--->{{LabProcess/Step/Form/Param/Object/Fields
+-->{{OslTemplate:LabProcess/Step/Form/Param/Object/Fields
       |name_in_form={{{name_in_form|Gerät}}}
       |template_parameter={{{template_parameter|device}}}
-      |concept={{{concept|LIMS/Device/Category}}}
+      |concept={{{concept|OslTemplate:LIMS/Device/Category}}}
       |category={{{category|Device}}}
       |category_input_type={{{category_input_type|combobox}}}
 }}
 |-<!-- SPECIFIC FOR DEVICE--><!-- SETUP -->
 ! {{{name_in_form}}} Setup
-| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_setup<nowiki>|input type=SF_Select|query=((-HasSubdevice::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>nominal_{{{template_parameter}}}_instance<nowiki>|label|list}}}</nowiki></div>
-| <nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_setup<nowiki>|input type=SF_Select|query=((-HasSubdevice::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_{{{template_parameter}}}_instance<nowiki>|label|list}}}</nowiki>
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_setup<nowiki>|input type=SF_Select|query=((-HasAccessory::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>nominal_{{{template_parameter}}}_instance<nowiki>|label|list}}}</nowiki></div>
+| <nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_setup<nowiki>|input type=SF_Select|query=((-HasAccessory::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_{{{template_parameter}}}_instance<nowiki>|label|list}}}</nowiki>
 </includeonly>

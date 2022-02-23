@@ -1,20 +1,20 @@
 <noinclude>
-{{LabProcess/Step/Form/Header}}
+{{OslTemplate:LabProcess/Step/Form/Header}}
 </noinclude><includeonly>
-{{LabProcess/Step/Form/Param/Common}}
-{{LabProcess/Step/Form/Param/Specific/Header
-|process_step_template=LabProcess/Steps/MultiObjectSelection/Subpage}}
-   {{LabProcess/Step/Form/Param/MultiObject/Rows
-      |template=LabProcess/Steps/MultiObjectSelection/Subpage
+{{OslTemplate:LabProcess/Step/Form/Param/Common}}
+{{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
+|process_step_template=OslTemplate:LabProcess/Steps/MultiObjectSelection/Subpage}}
+   {{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Rows
+      |template=OslTemplate:LabProcess/Steps/MultiObjectSelection/Subpage
       |name_in_form=Objekt
       |template_parameter=object
       |category_input_type=tree
    }}
-{{LabProcess/Step/Form/Param/Specific/Footer}}
-{{LabProcess/Step/Form/Param/MultiObject/Fields
-   |template=LabProcess/Steps/MultiObjectSelection/Subpage
+{{OslTemplate:LabProcess/Step/Form/Param/Specific/Footer}}
+{{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Fields
+   |template=OslTemplate:LabProcess/Steps/MultiObjectSelection/Subpage
    |name_in_form=Objekt
    |template_parameter=object
    |category_input_type=tree
 }}
-{{LabProcess/Step/Form/Footer}}
+{{OslTemplate:LabProcess/Step/Form/Footer}}

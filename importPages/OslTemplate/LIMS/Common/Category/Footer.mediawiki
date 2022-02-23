@@ -1,4 +1,4 @@
 <noinclude>Footer template of all object categories 
 
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 </noinclude><includeonly></includeonly>

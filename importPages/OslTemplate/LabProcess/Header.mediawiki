@@ -1,12 +1,20 @@
-<includeonly>{{#set: Debug={{{debug|{{Helper/Strings/No}}}}}}}
+<includeonly>{{#set: Debug={{{debug|{{OslTemplate:Helper/Strings/No}}}}}}}
 <!-- {{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}} -->
 {{DISPLAYTITLE:{{#replace:{{{name}}}|_|<nowiki/> <nowiki/>}}}}
 [[Category:LabProcess/Template]]
-Von {{#if: {{{output_type|}}}|[[{{{output_type}}}]]|{{Message/NotDefined}}}} 
-(Stoffklasse: {{#if: {{{output_category|}}}|[[:{{{output_category}}}]]|{{Message/NotDefined}}}}
+Zur Erstellung von {{#if: {{{output_type|}}}|[[{{{output_type}}}]]|{{OslTemplate:Message/NotDefined}}}} 
+(Stoffklasse: {{#if: {{{output_category|}}}|[[:{{{output_category}}}]]|{{OslTemplate:Message/NotDefined}}}})
 
 <span style="color:red">Dies ist nur die Vorlage. Zum Ausfüllen zunächst einen Kopie mit folgendem Button erstellen!</span>
-{{LabProcess/CreateInstanceLink |output_category={{{output_category|}}} |output_type={{{output_type|}}}}}
+{{OslTemplate:LabProcess/CreateInstanceLink |output_category={{{output_category|}}} |output_type={{{output_type|}}}}}
+{{#ifeq:{{{io_mappings|}}}|{{{io_mappings}}}| 
+== IO-Mapping ==
+{{{io_mappings}}}
+=== Categories ===
+{{#ask: [[-Has subobject::{{FULLPAGENAME}}]] [[Category:LabProcess/Template/IoMapping]] |?HasInput=Input |?HasOutput=Output |mainlabel=- |format=table}} 
+=== Materials ===
+{{#ask: [[IsA.-HasInput.-Has subobject::{{FULLPAGENAME}}]] [[Category:LIMS/Material/Type]] |?-HasPredecessor=Output |mainlabel=Input |format=table}} 
+|}}
 
 == Vorschrift ==
 <!-- Version 1

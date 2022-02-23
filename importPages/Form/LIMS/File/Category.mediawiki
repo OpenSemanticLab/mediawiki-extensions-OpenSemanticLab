@@ -1,12 +1,12 @@
 <noinclude>
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 
-<div class=dynamic-page-form-link>{{#formlink:form=LIMS/File/Category|link text=Neue Datei-Kategorie erstellen|link type=post button|query string=LIMS/File/Category[short_timestamp]=${short_timestamp}&LIMS/File/Category[creator_abbreviation]=${user_abbreviation}&LIMS/File/Category[type_symbol]=mc|tooltip=|new window}}</div>
+<div class=dynamic-page-form-link>{{#formlink:form=LIMS/File/Category|link text=Neue Datei-Kategorie erstellen|link type=post button|query string=OslTemplate:LIMS/File/Category[short_timestamp]=${short_timestamp}&OslTemplate:LIMS/File/Category[creator_abbreviation]=${user_abbreviation}&OslTemplate:LIMS/File/Category[type_symbol]=mc|tooltip=|new window}}</div>
 
 </noinclude><includeonly>
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
-{{{info|page name=Category:<LIMS/File/Category[short_timestamp]>-<LIMS/File/Category[creator_abbreviation]>-<unique number;start=0001>-<LIMS/File/Category[type_symbol]>}}}
-{{{for template|LIMS/File/Category}}}
-{{LIMS/Form/Common/Category/Header |category_group_name=File}}
-{{LIMS/Form/Common/Footer}}
+{{{info|page name=Category:<OslTemplate:LIMS/File/Category[short_timestamp]>-<OslTemplate:LIMS/File/Category[creator_abbreviation]>-<unique number;start=0001>-<OslTemplate:LIMS/File/Category[type_symbol]>}}}
+{{{for template|OslTemplate:LIMS/File/Category}}}
+{{OslTemplate:LIMS/Form/Common/Category/Header |category_group_name=File}}
+{{OslTemplate:LIMS/Form/Common/Footer}}
 </includeonly>

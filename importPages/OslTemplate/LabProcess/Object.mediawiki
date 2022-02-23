@@ -2,14 +2,14 @@
 |@category=LabProcessObject
 |Display title of={{#explode:{{{1}}}|###|0}}
 |HasName={{#explode:{{{1}}}|###|0}}
-}}<!-- Subobject for products 
+}}{{#set: HasObject={{FULLPAGENAME}}#{{#explode:{{{1}}}|###|0}}}}<!-- Subobject for products 
 -->{{#if:{{#explode:{{{1}}}|###|1}}|{{#subobject: {{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}} 
 |@category=LabProcessOutput|+sep=;
 |HasId={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
 |HasWikiId={{FULLPAGENAME}}#{{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
 |Display title of={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
-|HasProcessObject=<!-- {{FULLPAGENAME}}# -->{{#explode:{{{1}}}|###|0}}
+|HasProcessObject={{FULLPAGENAME}}#{{#explode:{{{1}}}|###|0}}
 |IsInstanceOf={{#if:{{#explode:{{{1}}}|###|2}}|{{#explode:{{{1}}}|###|2}}|
 {{#ask: [[{{FULLPAGENAME}}]] |?HasOutputType= |mainlabel=- |link=none |format=plain}}}}
-}}
+}}{{#set: HasOutput={{FULLPAGENAME}}#{{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}}}
 |}}</includeonly>

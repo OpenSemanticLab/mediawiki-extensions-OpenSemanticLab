@@ -1,4 +1,4 @@
 <noinclude>
-{{Helper/Docu/FormTemplate}}
+{{OslTemplate:Helper/Docu/FormTemplate}}
 {{#subpagelist: }}
 </noinclude>

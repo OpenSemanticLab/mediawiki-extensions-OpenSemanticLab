@@ -3,7 +3,7 @@
 == Snippets ==
 
 <syntaxhighlight line="1">
-<includeonly>{{LabProcess/Step
+<includeonly>{{OslTemplate:LabProcess/Step
 |id={{{id|}}}
 |name={{{name|}}}
 |required={{{required|}}}
