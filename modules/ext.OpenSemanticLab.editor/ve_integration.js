@@ -77,7 +77,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
-		template: { target: {href: 'OslTemplate:ELN/Viewer/Wellplate', wt: 'OslTemplate:ELN/Viewer/Wellplate'}, params: {'file_name': {wt: `wellplate-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
+		template: { target: {href: 'OslTemplate:ELN/Editor/Wellplate', wt: 'OslTemplate:ELN/Editor/Wellplate'}, params: {'file_name': {wt: `wellplate-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
 	},
         {
                 group: 'insert',
