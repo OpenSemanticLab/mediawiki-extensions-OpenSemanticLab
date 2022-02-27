@@ -27,7 +27,8 @@
 	                "localBasePath": "modules/ext.OpenSemanticLab.editor",
         	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
       			"scripts": [
-				"ve_integration.js"
+				"ve_integration.js",
+				"IdNameTooltip.js"
       			],
 			"position": "bottom"
 		},
