@@ -1,0 +1,45 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=die
+|content=Wellplate ''{{{file_name}}}''
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content=<div class="WellplateEditor" style="display:hide;">{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.wellplate.svg</div>
+}}</includeonly>
+<noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"file_name": {
+			"label": {
+				"en": "Name",
+				"de": "Name"
+			},
+			"description": {
+				"en": "Wellplate name",
+				"de": "Name der Wellplatte, muss eindeutig auf dieser Seite sein"
+			},
+			"type": "string",
+			"required": true,
+			"autovalue": "wellplate-01",
+			"suggested": true
+		},
+		"page_name": {
+			"label": {
+				"en": "Page name",
+				"de": "Seitename"
+			},
+			"description": {
+				"en": "is filled in automatically",
+				"de": "wird automatisch ausgefüllt"
+			},
+			"type": "wiki-page-name",
+			"autovalue": "{{subst:FULLPAGENAME}}"
+		}
+	},
+	"description": {
+		"en": "Adds a wellplate editor",
+		"de": "Fügt einen Wellplatten-Editor hinzu "
+	}
+}
+</templatedata>
+</noinclude>

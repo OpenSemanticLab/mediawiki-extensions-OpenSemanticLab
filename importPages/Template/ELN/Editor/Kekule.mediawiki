@@ -1,0 +1,57 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=labFlask
+|content=ChemEditor ''{{{file_name}}}''
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content=<div class="div_kekule_view_edit" id="chemViewEdit_{{{file_name}}}" style="width:{{{width|100%}}};height:{{{height|500px}}};border:1px solid black;">{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.kekule.json</div>
+}}</includeonly>
+<noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"file_name": {
+			"label": {
+				"en": "Name",
+				"de": "Name"
+			},
+			"description": {
+				"en": "ChemDoc name",
+				"de": "Name des Dokuments, muss eindeutig auf dieser Seite sein"
+			},
+			"type": "string",
+			"required": true,
+			"autovalue": "chemdoc-01",
+			"suggested": true
+		},
+		"width": {
+			"label": "Breite",
+			"description": "Breite des Dokuments in Pixeln oder Prozent",
+			"type": "string",
+			"autovalue": "100%"
+		},
+		"height": {
+			"label": "Höhe",
+			"description": "Breite der Dokuments oder Prozent",
+			"type": "string",
+			"autovalue": "500px"
+		},
+		"page_name": {
+			"label": {
+				"en": "Page name",
+				"de": "Seitename"
+			},
+			"description": {
+				"en": "is filled in automatically",
+				"de": "wird automatisch ausgefüllt"
+			},
+			"type": "wiki-page-name",
+			"autovalue": "{{subst:FULLPAGENAME}}"
+		}
+	},
+	"description": {
+		"en": "Adds a ChemEditor",
+		"de": "Erstellt ein Chemie-Editor (Kekule Composer Widget) zum bearbeiten der angegebenen Unterseite"
+	}
+}
+</templatedata>
+</noinclude>

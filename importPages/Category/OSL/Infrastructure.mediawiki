@@ -1,0 +1,3 @@
+non-content pages (template, forms, categories, concepts) for OpenSemanticLab
+
+[[Category:OSL]]

@@ -1,0 +1,3 @@
+Templates for OpenSemanticLab
+
+[[Category:OSL/Infrastructure]]

@@ -1,0 +1,60 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=highlight
+|content=Sketch ''{{{file_name}}}''
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content=<div class="SvgEdit" style="width: {{{width|100%}}}; height: 500px;">{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.svg</div>
+}}</includeonly><noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"file_name": {
+			"label": {
+				"en": "Name",
+				"de": "Name"
+			},
+			"description": {
+				"en": "Sketch name",
+				"de": "Name der Zeichnung"
+			},
+			"type": "string",
+			"required": true,
+			"autovalue": "sketch-01",
+			"suggested": true
+		},
+		"width": {
+			"label": {
+				"en": "Breite",
+				"de": "Breite"
+			},
+			"description": {
+				"en": "Width of the graphic",
+				"de": "Breite der Graphik"
+			},
+			"type": "string",
+			"autovalue": "100%",
+			"example": {
+				"en": "600px or 100%",
+				"de": "600px oder 100%"
+			}
+		},
+		"page_name": {
+			"label": {
+				"en": "Page name",
+				"de": "Seitename"
+			},
+			"description": {
+				"en": "is filled in automatically",
+				"de": "wird automatisch ausgefüllt"
+			},
+			"type": "wiki-page-name",
+			"autovalue": "{{subst:FULLPAGENAME}}"
+		}
+	},
+	"description": {
+		"en": "Adds a freehand graphic editor",
+		"de": "Fügt einen Freihand-Grafik-Editor hinzu"
+	}
+}
+</templatedata>
+</noinclude>

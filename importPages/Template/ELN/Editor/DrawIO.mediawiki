@@ -1,0 +1,49 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=browser
+|content=Diagram ''{{{file_name}}}''
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content={{#drawio:{{#if: {{{page_name|}}}|{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-|}}{{{file_name}}}|type={{{type|svg}}}|max-width={{{width|500px}}}}}
+}}</includeonly><noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"file_name": {
+			"label": "Name",
+			"description": "Name der Zeichnung",
+			"type": "wiki-file-name",
+			"required": true
+		},
+		"type": {
+			"label": "Dateiformat",
+			"description": "Die Zeichnung kann als Vektor- oder Rastergraphik gespeichert werden",
+			"example": "svg oder png",
+			"type": "string",
+			"autovalue": "svg"
+		},
+		"width": {
+			"label": "Breite",
+			"description": "Breite der Graphik in Pixeln",
+			"type": "string",
+			"autovalue": "600px"
+		},
+		"page_name": {
+			"label": {
+				"en": "Page name",
+				"de": "Seitename"
+			},
+			"description": {
+				"en": "is filled in automatically",
+				"de": "wird automatisch ausgefüllt"
+			},
+			"type": "wiki-page-name",
+			"autovalue": "{{subst:FULLPAGENAME}}"
+		}
+	},
+	"description": {
+		"en": "Adds a MS-Visio-like diagram editor",
+		"de": "Fügt einen MS Visio ähnlichen Graphikeditor ein"
+	}
+}
+</templatedata>
+</noinclude>

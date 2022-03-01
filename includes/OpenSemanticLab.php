@@ -189,6 +189,15 @@ class OpenSemanticLab {
 				"Category:File" => "Category/File.mediawiki",
 				"Category:Device" => "Category/Device.mediawiki",
 				"Category:Material" => "Category/Material.mediawiki",
+				"Category:OSL" => "Category/OSL.mediawiki",
+				"Category:OSL/Infrastructure" => "Category/OSL/Infrastructure.mediawiki",
+				"Category:OSL/Infrastructure/Template" => "Category/OSL/Infrastructure/Template.mediawiki",
+				"Category:OSL/Infrastructure/Template/User" => "Category/OSL/Infrastructure/Template/User.mediawiki",
+				"Template:ELN/Editor/DrawIO" => "Template/ELN/Editor/DrawIO.mediawiki",
+				"Template:ELN/Editor/Kekule" => "Template/ELN/Editor/Kekule.mediawiki",
+				"Template:ELN/Editor/SvgEdit" => "Template/ELN/Editor/SvgEdit.mediawiki",
+				"Template:ELN/Editor/Wellplate" => "Template/ELN/Editor/Wellplate.mediawiki",
+				"Template:ELN/Viewer/Kekule" => "Template/ELN/Viewer/Kekule.mediawiki",
 			],
 
 			// base dir for imported pages

@@ -29,7 +29,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{S}',
 		shortcut: 'ctrl+alt+s',
-		template: { target: {href: 'OslTemplate:ELN/Editor/SvgEdit', wt: 'OslTemplate:ELN/Editor/SvgEdit'}, params: {'file_name': {wt: `sketch-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
+		template: { target: {href: 'Template:ELN/Editor/SvgEdit', wt: 'Template:ELN/Editor/SvgEdit'}, params: {'file_name': {wt: `sketch-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
 	},
 	{
 		group: 'insert',
@@ -41,7 +41,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{D}',
 		shortcut: 'ctrl+alt+d',
-		template: { target: {href: 'OslTemplate:ELN/Editor/DrawIO', wt: 'OslTemplate:ELN/Editor/DrawIO'}, params: {'file_name':  {wt: `diagram-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}}
+		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'Template:ELN/Editor/DrawIO'}, params: {'file_name':  {wt: `diagram-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}}
 	},
 	{
 		group: 'insert',
@@ -53,7 +53,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{V}',
 		shortcut: 'ctrl+alt+v',
-		template: { target: {href: 'OslTemplate:ELN/Viewer/Kekule', wt: 'OslTemplate:ELN/Viewer/Kekule'}, params: {'cid': {wt: '2244'}, 'mode': {wt: '2d'}}}  
+		template: { target: {href: 'Template:ELN/Viewer/Kekule', wt: 'Template:ELN/Viewer/Kekule'}, params: {'cid': {wt: '2244'}, 'mode': {wt: '2d'}}}  
 	},
 	{
 		group: 'insert',
@@ -65,7 +65,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{C}',
 		shortcut: 'ctrl+alt+c',
-		template: { target: {href: 'OslTemplate:ELN/Editor/Kekule', wt: 'OslTemplate:ELN/Editor/Kekule'}, params: {'file_name': {wt: `chemdoc-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
+		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'Template:ELN/Editor/Kekule'}, params: {'file_name': {wt: `chemdoc-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
 	},
 	{
 		group: 'insert',
@@ -77,7 +77,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
-		template: { target: {href: 'OslTemplate:ELN/Editor/Wellplate', wt: 'OslTemplate:ELN/Editor/Wellplate'}, params: {'file_name': {wt: `wellplate-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
+		template: { target: {href: 'Template:ELN/Editor/Wellplate', wt: 'Template:ELN/Editor/Wellplate'}, params: {'file_name': {wt: `wellplate-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
 	},
         {
                 group: 'insert',

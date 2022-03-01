@@ -1,0 +1,3 @@
+Templates on the user level (for integration with Visual Editor). They always have a technical counterpart, withs redirects to them,
+e. g. [[OslTemplate:ELN/Editor/Wellplate]] -> [[Template:ELN/Editor/Wellplate]]
+[[Category:OSL/Infrastructure/Template]]
