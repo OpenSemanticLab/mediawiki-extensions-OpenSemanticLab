@@ -53,7 +53,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{V}',
 		shortcut: 'ctrl+alt+v',
-		template: { target: {href: 'Template:ELN/Viewer/Kekule', wt: 'Template:ELN/Viewer/Kekule'}, params: {'cid': {wt: '2244'}, 'mode': {wt: '2d'}}}  
+		template: { target: {href: 'Template:ELN/Viewer/Kekule', wt: 'Template:ELN/Viewer/Kekule'}, params: {'cid': {wt: '2244'}, 'mode': {wt: '2D'}}}  
 	},
 	{
 		group: 'insert',
@@ -65,7 +65,7 @@ var template_tools = [
                 dialog_type: 'template',
 		sequence: '{C}',
 		shortcut: 'ctrl+alt+c',
-		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'Template:ELN/Editor/Kekule'}, params: {'file_name': {wt: `chemdoc-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}} 
+		template: { target: {href: 'Template:ELN/Editor/Kekule', wt: 'Template:ELN/Editor/Kekule'}, params: {'file_name': {wt: `chemdoc-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}, 'format': {wt: 'json'}}} 
 	},
 	{
 		group: 'insert',
