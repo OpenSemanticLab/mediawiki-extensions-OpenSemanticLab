@@ -226,7 +226,7 @@ class OpenSemanticLab {
       		$links['views']['subpage'] = array(
 			'class' => false, // false or 'selected', defines whether the tab should be highlighted
 			'text' => wfMessage('open-semantic-lab-create-subpage'), // what the tab says
-			'href' => "https://$_SERVER[HTTP_HOST]/wiki/CreatePage?superpage=" . $skin->getTitle()->getDBkey(),
+			'href' => "https://$_SERVER[HTTP_HOST]/wiki/CreatePage?superpage=" . $skin->getTitle()->getFullText(),
 		);
 
 		//not placed properly with Skin:Timeless -> use javascript
