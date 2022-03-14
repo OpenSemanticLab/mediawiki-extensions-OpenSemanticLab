@@ -1,0 +1,111 @@
+<noinclude>
+Dies ist die Vorlage „OslTemplate:LIMS/Location/Site“ - „Standort“.
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+Sie hat die folgende Struktur:
+<pre>
+{{OslTemplate:LIMS/Location/Site
+|name=
+|abbreviation=
+|description=
+|city=
+|postal_code=
+|street=
+|house_number=
+|coordinates=
+|image=
+}}
+</pre>
+Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
+</noinclude>
+<includeonly><!--
+-->[[Category:LIMS/Location/Site]]<!--
+-->{{DISPLAYTITLE: {{PAGENAME}}}}<!-- 
+-->
+<table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{PAGENAME}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|800x200px]] {{#set:|HasImage={{{image}}}}} |}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Info</td>
+</tr>
+<tr>
+<th>Name</th>
+<td>[[HasName::{{{name|}}}]]</td>
+</tr>
+<tr>
+<th>Kurzname</th>
+<td>[[HasAbbreviation::{{{abbreviation|}}}]]</td>
+</tr>
+<tr>
+<th>Beschreibung</th>
+<td>[[HasDescription::{{{description|}}}]]</td>
+</tr>
+<tr>
+<th>Gebäude am Standort</th>
+<td>{{#ask: [[Category:LIMS/Location/Building]][[IsLocatedIn::{{FULLPAGENAME}}]]}}</td> <!-- Display {{SUBPAGENAME}} -->
+</tr>
+<tr>
+<td class="subheading" colspan="2">Lage</td>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{coordinates|}}} | {{#display_map:{{{coordinates|}}}}} |}}</td>
+</tr>
+<tr>
+<th>Stadt</th>
+<td>[[IsLocatedIn::{{{city|}}}]] {{#set:|IsLocatedIn={{{city|}}} }}</td>
+</tr>
+<tr>
+<th>Postleitzahl</th>
+<td>[[HasPostalCode::{{{postal_code|}}}]]</td>
+</tr>
+<tr>
+<th>Straße</th>
+<td>[[HasStreet::{{{street_name|}}}]]</td>
+</tr>
+<tr>
+<th>Hausnummer</th>
+<td>[[HasHouseNumber::{{{house_number|}}}]]</td>
+</tr>
+<tr>
+<th>Koordinaten</th>
+<td>[[HasCoordinates::{{{coordinates|}}}]]</td>
+</tr>
+</table>
+
+== Gebäude ==
+{{#ask:  [[IsLocatedIn::{{FULLPAGENAME}}]]
+ 
+ 
+ 
+ 
+ 
+ |?HasImage
+|?HasName
+ |format=gallery
+ |imageproperty=HasImage
+ |captionproperty=HasName
+|redirects=-<!-- links to pages, not images -->
+}}
+{{#tag: display_map
+|{{#ask: [[IsLocatedIn::{{FULLPAGENAME}}]][[HasCoordinates::+]]
+  |?HasCoordinates=location
+  |?HasImage=marker
+  <!-- |?HasName=label -->
+|format=plainlist
+|mainlabel=page
+  |template=OslTemplate:Helper/Location/CustomMarker
+ |named args=yes
+|link=none
+|userparam=100 <!-- size -->
+|import-annotation=true<!--  prevents [[SMW::on]] and [[SMW::off]] tags -->
+}}
+|service=leaflet
+|height=400px
+<!--|zoom=18 -->
+}}
+</includeonly>

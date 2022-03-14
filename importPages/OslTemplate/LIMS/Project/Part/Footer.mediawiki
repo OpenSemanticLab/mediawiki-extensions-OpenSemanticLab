@@ -1,0 +1,35 @@
+<includeonly>
+== Zugriffsrechte ==
+{{#formlink:form=LIMS/ACL|link text=Zugriffsbeschränkungen verwalten|link type=NOTpost button|target={{FULLPAGENAME}}/_acl|tooltip=|NOTpopup|NOTreload|NOTnew window|returnto={{FULLPAGENAME}}}}
+{{#ask: [[{{FULLPAGENAME}}/_acl]]
+|?IsViewRestricted
+|?IsEditRestricted
+|?Visible to
+|?Visible to user
+|?Visible to group
+|?Editable by
+|?Editable by user
+|?Editable by group
+|format=plainlist
+|introtemplate=
+|template=OslTemplate:LIMS/ACL/Display
+|outrotemplate=
+|named args=yes
+}}
+
+== Zugeordnete Elemente ==
+{{#tree:
+{{#ask:
+ [[Category:LabNote]] [[HasProject::{{FULLPAGENAME}}]]
+ OR [[Category:LabNote]] [[IsPartOf.HasProject::{{FULLPAGENAME}}]]
+ OR [[Category:LabNote]] [[IsPartOf.IsPartOf.HasProject::{{FULLPAGENAME}}]]
+ OR [[Category:LabNote]] [[IsPartOf.IsPartOf.IsPartOf.HasProject::{{FULLPAGENAME}}]]
+ |format=tree
+ |parent=IsPartOf
+}}
+}}
+<!-- {{#ask: [[HasProject::{{FULLPAGENAME}}]] [[Category:LabNote]]
+|format=table
+|?HasCreationDate=Erstelldatum
+}} -->
+</includeonly>

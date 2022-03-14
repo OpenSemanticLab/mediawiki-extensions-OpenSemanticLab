@@ -1,0 +1,72 @@
+<noinclude>
+Dies ist das Formular „Ou“ - „organizational unit“.
+Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen in das Eingabefeld unten ein.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wirst du automatisch zum Bearbeitungsformular der Seite weitergeleitet.
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#forminput:form=LIMS/Ou |query string=namespace=OU}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Ou}}}
+{| class="formtable"
+<!-- ! Geschlecht: 
+| {{{field|gender|class=Gender|property=HasGender|size=25}}}
+|- -->
+! (Gruppen-)Bild: 
+| {{{field|image|uploadable|size=25}}}
+|-
+! SAP-OE-Name{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|ou_name|property=HasOuName|input type=text|size=25|mandatory|restricted}}}
+|-
+! SAP-OE-Nummer{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|ou_number|property=HasOuNumber|size=25|mandatory|restricted}}}
+|-
+! Langname: 
+| {{{field|long_name|property=HasLongName|input type=text|size=25}}}
+|-
+! Kurzname: 
+| {{{field|abbreviation|property=HasAbbreviation|input type=text|size=25}}}
+|-
+! Leitung: 
+| {{{field|ou_head|property=HasOuHead|values from category=LIMS/Person/User|existing values only|input type=tokens|mapping property=Display title of|list|size=38|mandatory}}}
+|-
+! Stellv. Leitung: 
+| {{{field|ou_head_deputy|property=HasOuHeadDeputy|values from category=LIMS/Person/User|input type=tokens|mapping property=Display title of|size=38}}}
+|-
+! Sekretariat: 
+| {{{field|ou_secretary|property=HasSecretary|values from category=LIMS/Person/User|input type=tokens|mapping property=Display title of|size=38}}}
+|-
+! Übergeordnete OE: 
+| {{{field|superordinate_ou|property=HasSuperordinateOu|values from category=LIMS/Ou|input type=tokens|size=38}}}
+|-
+! Untergeordnete OE{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|subordinate_ou|property=HasSubordinateOu|delimiter=;|values from category=LIMS/Ou|input type=tokens|size=38|restricted}}}
+|-
+! E-Mail-Veteiler{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|mailing_list|property=HasMailingList|input type=tokens|delimiter=;|size=45|restricted}}}
+|-
+! Themenfelder: 
+| {{{field|topic|property=HasTopic|input type=tokens|values from category=Topic|delimiter=;|size=38}}}
+|-
+! Kompetenzen: 
+| {{{field|competence|property=HasCompetence|input type=tokens|values from category=Competence|delimiter=;|size=38}}}
+|-
+! Ehemalige SIGMA-OE{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|sigma_ou|property=HasSigmaOu|size=25|restricted}}}
+|-
+! Ehemalige SIGMA-Kostenstelle{{#info:Wird automatisch aktualisiert}}:
+| {{{field|sigma_cost_center|property=HasSigmaCostCenter|size=25|restricted}}}
+|}
+{{{end template}}}
+<!-- '''Freitext:'''
+
+{{{standard input|free text|rows=10}}}
+
+
+{{{standard input|summary}}}
+
+{{{standard input|minor edit}}} {{{standard input|watch}}} -->
+{{{standard input|save}}} <!-- {{{standard input|preview}}} {{{standard input|changes}}} --> {{{standard input|cancel}}}
+</includeonly>

@@ -1,0 +1,69 @@
+<noinclude>
+Dies ist das Formular „User“.
+Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen in das Eingabefeld unten ein.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wirst du automatisch zum Bearbeitungsformular der Seite weitergeleitet.
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#forminput:form=LIMS/Person/User |query string=namespace=User}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Person/User}}}
+{| class="formtable"
+<!-- ! Geschlecht: 
+| {{{field|gender|class=Gender|property=HasGender|size=25}}}
+|- -->
+! Bild: 
+| {{{field|image|uploadable|size=25}}}
+|-
+! Vorname{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|first_name|mandatory|property=HasFirstName|input type=text|restricted|size=25}}}
+|-
+! Nachname{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|surname|mandatory|property=HasSurname|restricted|size=25}}}
+|-
+! Username{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|username|mandatory|property=HasUsername|restricted|size=25}}}
+|-
+! Kürzel{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|abbreviation|mandatory|property=HasAbbreviation|restricted|size=25}}}
+|-
+! Funktion(en){{#info:Wird automatisch aktualisiert}}: 
+| {{{field|person_position|property=HasRole|values from category=Role|input type=tokens|list|delimiter=;|restricted|size=38}}}
+|-
+! E-Mail{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|email|mandatory|property=HasEmail|placeholder=example@example.de|restricted|size=25}}}
+|-
+! Telefon-Nummer(n){{#info:Wird automatisch aktualisiert}}: 
+| {{{field|phone_number|property=HasPhoneNumber|placeholder=+49|input type=tokens|list|delimiter=;|restricted|size=38}}}
+|-
+! Fax{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|fax_number|property=HasFaxNumber|placeholder=+49|restricted|size=25}}}
+|-
+! Abteilung{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|department|property=HasDepartment|values from category=LIMS/Ou|existing values only|input type=tokens|max values=1|restricted|size=38}}}
+|-
+! Raum{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|room|property=HasRoom|values from category=LIMS/Location/Room|existing values only|input type=tokens|max values=1|restricted|size=38}}}
+|-
+! Standort{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|located_in|property=IsLocatedIn|restricted|size=25}}}
+|-
+! Kompetenz(en):
+| {{{field|competence|property=HasCompetence|values from category=Competence|input type=tokens|list|delimiter=;|size=38}}}
+|-
+! Themenfeld(er):
+| {{{field|topic|property=HasTopic|values from category=Topic|input type=tokens|list|delimiter=;|size=38}}}
+|}
+{{{end template}}}
+<!-- '''Freitext:'''
+
+{{{standard input|free text|rows=10}}}
+
+
+{{{standard input|summary}}}
+
+{{{standard input|minor edit}}} {{{standard input|watch}}} -->
+{{{standard input|save}}} <!-- {{{standard input|preview}}} {{{standard input|changes}}} --> {{{standard input|cancel}}}
+</includeonly>

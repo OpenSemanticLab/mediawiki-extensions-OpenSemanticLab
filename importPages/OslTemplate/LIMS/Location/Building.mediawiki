@@ -1,0 +1,91 @@
+<noinclude>
+Dies ist die Vorlage „OslTemplate:LIMS/Location/Building“ - „Gebäude“.
+
+Sie hat die folgende Struktur:
+<pre>
+{{OslTemplate:LIMS/Location/Building
+|name=
+|abbreviation=
+|description=
+|construction_year=
+|building_function=
+|image=
+|length=
+|width=
+|height=
+|coordinates=
+|responsible_person=
+|located_in=
+|is_building=
+}}
+</pre>
+Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
+</noinclude>
+<includeonly><!--
+-->[[Category:LIMS/Location/Building]]<!--
+-->{{DISPLAYTITLE: {{{name|}}}}}<!-- {{DISPLAYTITLE: {{SUBPAGENAME}}}}
+--><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{SUBPAGENAME}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|800x200px]] {{#set:|HasImage=File:{{{image}}}}} |}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Info</td>
+</tr>
+<tr>
+<th>Name</th>
+<td>[[HasName::{{{name|}}}]]</td>
+</tr>
+<tr>
+<th>Kurzname</th>
+<td>[[HasAbbreviation::{{{abbreviation|}}}]]</td>
+</tr>
+<tr>
+<th>Beschreibung</th>
+<td>[[HasDescription::{{{description|}}}]]</td>
+</tr>
+<tr>
+<th>Standort</th>
+<td>[[IsLocatedIn::{{{located_in|}}}]]</td>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{coordinates|}}} | {{#set: HasCoordinates={{{coordinates|}}}}}{{#display_map:{{{coordinates|}}} |zoom=18}} |}}</td>
+</tr>
+<tr>
+<th>Baujahr</th>
+<td>[[HasConstructionYear::{{{construction_year|}}}]]</td>
+</tr>
+<tr>
+<th>Funktion</th>
+<td>[[HasBuildingFunction::{{{building_function|}}}]]</td>
+</tr>
+<tr>
+<th>Stockwerke</th>
+<td>{{#ask: [[Category:LIMS/Location/Floor]][[IsLocatedIn::{{FULLPAGENAME}}]]}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Gebäude Abmessungen</td>
+</tr>
+<tr>
+<th>Länge</th>
+<td>[[HasLength::{{{length|}}}]]</td>
+</tr>
+<tr>
+<th>Breite</th>
+<td>[[HasWidth::{{{width|}}}]]</td>
+</tr>
+<tr>
+<th>Höhe</th>
+<td>[[HasHeight::{{{height|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Verantwortung</td>
+</tr>
+<tr>
+<th>Verantwortliche Person</th>
+<td>{{#arraymap:{{{responsible_person|}}}|;|x|[[HasResponsiblePerson::x]]}}</td>
+</tr>
+</table>
+</includeonly>

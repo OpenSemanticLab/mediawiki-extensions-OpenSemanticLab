@@ -1,0 +1,111 @@
+<noinclude>
+Dies ist die Vorlage „OslTemplate:LIMS/Location/Room“ - „Raum“.
+
+Sie hat die folgende Struktur:
+<pre>
+{{OslTemplate:LIMS/Location/Room
+|number=
+|name=
+|function=
+|usage_type=
+|abbreviation=
+|description=
+|length=
+|width=
+|height=
+|area=
+|door_width=
+|door_height=
+|responsible_person=
+|located_in=
+|image=
+}}
+</pre>
+Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
+</noinclude>
+<includeonly><!--
+-->[[Category:LIMS/Location/Room]]<!--
+-->{{#default_form:LIMS/Location/Room}}<!-- 
+-->{{DISPLAYTITLE: {{SUBPAGENAME}}}}<!-- 
+{{DISPLAYTITLE: {{SUBPAGENAME}} {{#if: {{{name|}}} | ({{#replace: {{#replace: {{{name|}}} |(|}} |)|}})|}} }}<!-- remove braces within name
+--><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{SUBPAGENAME}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|600x600px]] {{#set:|HasImage=File:{{{image}}}}} |}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Info</td>
+</tr>
+<tr>
+<th>Raumnummer</th>
+<td>[[HasRoomNumber::{{{number|}}}]]</td>
+</tr>
+<tr>
+<th>Bezeichnung</th>
+<td>[[HasName::{{{name|}}}]]</td>
+</tr>
+<tr>
+<th>Funktion</th>
+<td>{{#arraymap:{{{function|}}}|;|x|[[HasRoomFunction::x]]}}</td>
+</tr>
+<tr>
+<th>Raumnutzung-Flächentyp</th>
+<td>{{#arraymap:{{{usage_type|}}}|;|x|[[HasRoomUsageType::x]]}}</td>
+</tr>
+<tr>
+<th>Stockwerk</th>
+<td>[[IsLocatedIn::{{{located_in|}}}]]</td>
+</tr>
+{{#if: {{#pos: {{{function|}}} |Büro}}|<!-- show people, other options: Büroarbeit, Büro-->
+<tr>
+<th>Belegung</th>
+<td>{{#ask: [[Category:LIMS/Person/User]][[HasRoom::{{FULLPAGENAME}}]]}}</td>
+</tr>
+ |<!-- else show nothing -->}}
+<tr>
+<td class="subheading" colspan="2">Raum Abmessungen</td>
+</tr>
+<tr>
+<th>Fläche</th>
+<td>[[HasArea::{{{area|}}}]]</td>
+</tr>
+<tr>
+<th>Länge</th>
+<td>[[HasLength::{{{length|}}}]]</td>
+</tr>
+<tr>
+<th>Breite</th>
+<td>[[HasWidth::{{{width|}}}]]</td>
+</tr>
+<tr>
+<th>Höhe</th>
+<td>[[HasHeight::{{{height|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Tür Abmessungen</td>
+</tr>
+<tr>
+<th>Breite</th>
+<td>[[HasDoorWidth::{{{door_width|}}}]]</td>
+</tr>
+<tr>
+<th>Höhe</th>
+<td>[[HasDoorHeight::{{{door_height|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Verantwortung</td>
+</tr>
+<tr>
+<th>Raumverantwortung</th>
+<td>{{#arraymap:{{{responsible_person|}}}|;|x|[[HasResponsiblePerson::x]]}}</td>
+</tr>
+</table>
+== Beschreibung ==
+
+== Geräte im Raum ==
+{{#ask: [[Category:LIMS/Device/Instance]][[IsLocatedIn::{{FULLPAGENAME}}]]|?IsInstanceOf|?HasResponsiblePerson}}
+== Unterweisungsinhalte ==
+== Dokumentation ==
+</includeonly>

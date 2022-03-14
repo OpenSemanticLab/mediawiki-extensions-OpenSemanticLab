@@ -1,0 +1,108 @@
+
+<noinclude>
+Dies ist die Vorlage „Ou“ - „organizational unit“.
+
+Sie hat die folgende Struktur:
+<pre>
+{{OslTemplate:LIMS/Ou
+|ou_name=
+|ou_number=
+|long_name=
+|abbreviation=
+|ou_head=
+|ou_head_deputy=
+|ou_secretary=
+|superordinate_ou=
+|subordinate_ou=
+|mailing_list=
+|sigma_ou=
+|sigma_cost_center=
+|competence=
+|topic=
+|image=
+}}
+</pre>
+Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
+</noinclude>
+<includeonly><!--
+-->[[Category:LIMS/Ou]]<!--
+-->{{#default_form:LIMS/Ou}}<!--
+-->{{DISPLAYTITLE: {{{ou_name|}}}}}<!--
+--><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{PAGENAME}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|800x200px]] {{#set:|HasImage={{{image}}}}} |}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Info</td>
+</tr>
+<tr>
+<th>SAP-OE-Name</th>
+<td>[[HasOuName::{{{ou_name|}}}]]</td>
+</tr>
+<tr>
+<th>SAP-OE-Nummer</th>
+<td>[[HasOuNumber::{{{ou_number|}}}]]</td>
+</tr>
+<tr>
+<th>Langname</th>
+<td>[[HasLongName::{{{long_name|}}}]]</td>
+</tr>
+<tr>
+<th>Kurzname</th>
+<td>[[HasAbbreviation::{{{abbreviation|}}}]]</td>
+</tr>
+<tr>
+<th>Übergeordnete OE</th>
+<td>[[HasSuperordinateOu::{{{superordinate_ou|}}}]]</td>
+</tr>
+<tr>
+<th>Untergeordnete OE(s)</th>
+<td>{{#ask:[[Category:LIMS/Ou]][[HasSuperordinateOu::{{FULLPAGENAME}}]]}}</td><!-- 
+<td>[[HasSubordinateOu::{{{subordinate_ou|}}}]]</td>-->
+</tr>
+<tr>
+<td class="subheading" colspan="2">Kontakt</td>
+</tr>
+<tr>
+<th>Leitung</th>
+<td>[[HasOuHead::{{{ou_head|}}}]]</td>
+</tr>
+<tr>
+<th>Stellv. Leitung</th>
+<td>[[HasOuHeadDeputy::{{{ou_head_deputy|}}}]]</td>
+</tr>
+<tr>
+<th>Sekretariat</th>
+<td>[[HasSecretary::{{{ou_secretary|}}}]]</td>
+</tr>
+<tr>
+<th>E-Mail-Veteiler</th>
+<td>{{#arraymap:{{{mailing_list|}}}|;|x|[[HasMailingList::x]]}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Schnittstellen</td>
+</tr>
+<tr>
+<th>Kompetenz(en)</th>
+<td>{{#arraymap:{{{competence|}}}|;|x|[[HasCompetence::x]]}}</td>
+</tr>
+<tr>
+<th>Themenfeld(er)</th>
+<td>{{#arraymap:{{{topic|}}}|;|x|[[HasTopic::x]]}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Legacy-Info</td>
+</tr>
+<tr>
+<th>SIGMA-OE(s)</th>
+<td>{{#arraymap:{{{sigma_ou|}}}|;|x|[[HasSigmaOu::x]]}}</td>
+</tr>
+<tr>
+<th>SIGMA-Kostenstelle</th>
+<td>[[HasSigmaCostCenter::{{{sigma_cost_center|}}}]]</td>
+</tr>
+</table>
+</includeonly>

@@ -1,0 +1,53 @@
+<noinclude>
+Dies ist die Vorlage „OslTemplate:LIMS/Location/Floor“ - „Stockwerk“.
+
+Sie hat die folgende Struktur:
+<pre>
+{{OslTemplate:LIMS/Location/Floor
+|name=
+|description=
+|located_in=
+|image=
+}}
+</pre>
+Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
+</noinclude>
+<includeonly><!--
+-->[[Category:LIMS/Location/Floor]]<!--
+-->{{DISPLAYTITLE: {{#if: {{#show: {{{located_in}}} |?HasAbbreviation}}|{{#show: {{{located_in}}} |?HasAbbreviation}}|{{#show: {{{located_in}}} |?Display title of}}}} - {{SUBPAGENAME}}}}<!-- select building name with floor name to make them distinguishable
+--><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{PAGENAME}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|800x200px]] {{#set:|HasImage={{{image}}}}} |}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Info</td>
+</tr>
+<tr>
+<th>Bezeichnung</th>
+<td>[[HasName::{{{name|}}}]]</td> <!-- IsFloor -->
+</tr>
+<tr>
+<th>Beschreibung</th>
+<td>[[HasDescription::{{{description|}}}]]</td>
+</tr>
+<tr>
+<th>Gebäude</th>
+<td>[[IsLocatedIn::{{{located_in|}}}]]</td> 
+</tr>
+<tr>
+<th>Räume</th>
+<td>{{#ask: [[Category:LIMS/Location/Room]][[IsLocatedIn::{{FULLPAGENAME}}]]}}</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<div class="picture">{{#ifexist: File:{{{image}}}/ImageMap|{{File:{{{image}}}/ImageMap}} |[[File:{{{image}}}|1000x2000px]] }}</div>
+<table class="device">
+
+</table>
+
+</includeonly>

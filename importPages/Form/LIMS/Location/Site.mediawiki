@@ -1,0 +1,42 @@
+<noinclude>
+Form {{PAGENAME}}
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#forminput:form={{PAGENAME}} |query string=namespace=Location}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Location/Site}}}
+{| class="formtable"
+! Bild: 
+| {{{field|image|property=HasImage|uploadable|size=25}}}
+|-
+! Name: 
+| {{{field|name|mandatory|property=HasName|input type=text|size=25}}}
+|-
+! Kurzname: 
+| {{{field|abbreviation|property=HasAbbreviation|size=25}}}
+|-
+! Beschreibung: 
+| {{{field|description|property=HasDescription|textarea|editor=visualeditor|class=toolbarOnTop}}}
+|-
+! Straße: 
+| {{{field|street_name|mandatory|property=HasStreet|size=25|feeds to map=OslTemplate:LIMS/Location/Site[coordinates]}}}
+|-
+! Hausnummer: 
+| {{{field|house_number|mandatory|property=HasHouseNumber|size=25|feeds to map=OslTemplate:LIMS/Location/Site[coordinates]}}}
+|-
+! Postleitzahl: 
+| {{{field|postal_code|mandatory|property=HasPostalCode|size=25|feeds to map=OslTemplate:LIMS/Location/Site[coordinates]}}}
+|-
+! Stadt: 
+| {{{field|city|mandatory|property=HasCity|size=25|feeds to map=OslTemplate:LIMS/Location/Site[coordinates]}}}
+|-
+! Standort: 
+| {{{field|coordinates|property=HasCoordinates|input type=leaflet|size=25}}}
+|}
+{{{end template}}}
+
+{{{standard input|save}}} {{{standard input|cancel}}}
+</includeonly>

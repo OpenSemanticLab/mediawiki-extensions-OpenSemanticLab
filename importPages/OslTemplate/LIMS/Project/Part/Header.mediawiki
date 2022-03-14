@@ -1,0 +1,222 @@
+<noinclude>
+Dies ist die Vorlage „Projekt“.
+
+Sie hat die folgende Struktur:
+<pre>
+{{Projekt
+|IsPartOf=
+|HasDisplayName=
+|HasName=
+|HasTopic=
+|HasType=
+|HasGrantor=
+|HasStartDate=
+|HasEndDate=
+|HasBudget=
+|HasInstitution=
+|HasBusinessUnit=
+|HasManager=
+|HasMember=
+|HasImage=
+|HasProposal=
+|HasReport=
+|HasAdditionalDocument=
+|HasAbstract=
+|HasDescription=
+|HasSubType
+}}
+</pre>
+Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
+</noinclude><includeonly>{{DISPLAYTITLE: {{{HasDisplayName|{{PAGENAME}}}}} }}<div style:"display:none">{{ {{FULLPAGENAME}}/_acl }}</div><!-- {{#ifexist: {{FULLPAGENAME}}/_acl |{{ {{FULLPAGENAME}}/_acl }} }} --><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{{HasDisplayName|}}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#ifexist: File:{{{HasImage}}} | [[File:{{{HasImage}}}|200x800px]] | {{#ifexist: File:{{#ask: [[{{#if: {{{IsPartOf|}}} | {{{IsPartOf|}}} | ""}}]] 
+|?HasImage=
+|mainlabel=-
+}}|[[File:{{#ask: [[{{#if: {{{IsPartOf|}}} | {{{IsPartOf|}}} | ""}}]] 
+|?HasImage=
+|mainlabel=-
+}}|200x800px]]|}}
+}}
+</td>
+</tr>
+<tr>
+<th>Übergeordnetes Verbundprojekt</th>
+<td>[[IsPartOf::{{{IsPartOf|}}}]]</td>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasDisplayName::{{{HasDisplayName|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasName::{{{HasName|}}}]]</td>
+</tr>
+<tr>
+<th>Typ</th>
+<td>[[HasType::{{{HasType|}}}]]</td>
+</tr>
+<tr>
+<th>Förder- bzw. Auftraggeber</th>
+<td>{{#if: {{{HasGrantor|}}} | [[HasGrantor::{{{HasGrantor|}}}]] | {{#ask: [[{{#if: {{{IsPartOf|}}} | {{{IsPartOf|}}} | ""}}]] 
+|?HasGrantor=
+|mainlabel=-
+}}
+}}</td>
+</tr>
+<tr>
+<th>Beginn</th>
+<td>{{#if: {{{HasStartDate|}}} | [[HasStartDate::{{{HasStartDate|}}}]] | {{#ask: [[{{#if: {{{IsPartOf|}}} | {{{IsPartOf|}}} | ""}}]] 
+|?HasStartDate=
+|mainlabel=-
+}}
+}}
+</td>
+</tr>
+<tr>
+<th>Ende</th>
+<td>{{#if: {{{HasEndDate|}}} | [[HasEndDate::{{{HasEndDate|}}}]] | {{#ask: [[{{#if: {{{IsPartOf|}}} | {{{IsPartOf|}}} | ""}}]] 
+|?HasEndDate=
+|mainlabel=-
+}}
+}}
+</td>
+</tr>
+<tr>
+<th>Budget</th>
+<td>[[HasBudget::{{#ask:
+ [[-has subobject::{{FULLPAGENAME}}]]
+ |?HasBudget
+ |format=sum
+}}]]</td>
+</tr>
+<tr>
+<th>Institution</th>
+<td>{{#arraymap:{{{HasInstitution|}}}|,|x|[[HasInstitution::x]]}}</td>
+</tr>
+<tr>
+<th>OE</th>
+<td>[[HasBusinessUnit::{{{HasBusinessUnit|}}}]]</td>
+</tr>
+<tr>
+<th>Projektleiter</th>
+<td>{{#arraymap:{{{HasManager|}}}|,|x|[[HasManager::x]]}}</td>
+</tr>
+<tr>
+<th>Mitarbeiter</th>
+<td>{{#arraymap:{{{HasMember|}}}|,|x|[[HasMember::x]]}}</td>
+</tr>
+</table>{{#set:
+|HasImage={{{HasImage}}}
+|HasProposal={{{HasProposal|}}}
+|HasReport={{{HasReport}}}
+|HasTopic={{{HasTopic|}}}|+sep=,
+}}<!-- 
+
+{{#ask:
+ [[Category:Projekt]]
+ |?HasTopic
+ |format=tagcloud
+ |limit=250
+ |link=all
+ |headers=show
+ |tagorder=alphabetical
+ |increase=log
+ |widget=wordcloud
+}} -->
+
+== Abstract == 
+{{{HasAbstract|}}}
+
+== Dokumente ==
+
+{{#tag:gallery|
+{{#ifexist: File:{{{HasProposal}}} | File:{{{HasProposal}}} | {{#ifexist: File:{{#ask: [[{{#if: {{{IsPartOf|}}} | {{{IsPartOf|}}} | ""}}]] 
+|?HasProposal=
+|mainlabel=-
+}}|File:{{#ask: [[{{#if: {{{IsPartOf|}}} | {{{IsPartOf|}}} | ""}}]] 
+|?HasProposal=
+|mainlabel=-
+}}|}}
+}}{{!}}Antrag
+File:{{{HasReport|}}}{{!}}Bericht
+{{#arraymap:{{{HasAdditionalDocument|}}}|,|x|File:x{{!}}Sonstige Dokumente|\n}}
+|mode="traditional"
+}}
+
+<!-- <table class="device">
+<tr>
+<th>Abstract</th>
+</tr>
+<tr>
+<td>[[HasAbstract::{{{HasAbstract|}}}]]</td>
+</tr>
+</table> 
+<table class="device">
+<tr>
+<th>Beschreibung</th>
+</tr>
+<tr>
+<td>[[HasDescription::{{{HasDescription|}}}]]</td>
+</tr>
+</table>  -->
+
+== Beschreibung ==
+{{{HasDescription|}}}
+
+== Finanzen == 
+<div style="display: table;"><div style="float:left;">
+{{#ask:[[-has subobject::{{FULLPAGENAME}}]]
+|?HasYearLabel
+|?HasBudget
+|format=jqplotchart
+|headers=show
+|charttitle='''Budget pro Jahr'''
+|mainlabel=-
+|distributionsort=none
+|direction=vertical
+|numbersaxislabel='''Euro'''
+|height=400
+|width=400
+|valueformat=%d
+|ticklabels=1
+|theme=simple
+|filling=1
+|chartlegend=none
+|datalabels=percent
+|charttype=bar
+|sort=HasYear
+|order=asc
+}}
+</div>
+<div style="float:left;">
+{{#ask:[[-has subobject::{{FULLPAGENAME}}]]
+|?HasType
+|?HasBudget
+|width=400
+|format=jqplotchart
+|charttype=pie
+|direction=horizontal
+|mainlabel=-
+|limit=20
+|link=all
+|headers=show
+|charttitle='''Budget nach Typ'''
+|highlighter=yes
+|datalabels=value
+|valueformat=%d
+|theme=simple
+|colorscheme=rdbu
+|chartcolor=#6dbfa9,#179c7d,#b4dcd3
+|chartlegend=ne
+|sort=HasYear
+|order=asc
+}}
+</div></div>
+
+[[Category:Projekt]][[Category:LIMS/Project/Part]]
+
+{{OslTemplate:LIMS/Project/Part/Footer}}
+</includeonly>

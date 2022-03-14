@@ -1,0 +1,54 @@
+<noinclude>
+Dies ist das Formular „LIMS/Location/Room“ - „Raum“.
+Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen in das Eingabefeld unten ein.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wirst du automatisch zum Bearbeitungsformular der Seite weitergeleitet.
+
+{{#forminput:form=LIMS/Location/Room}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA; max-width=200px"></div>
+{{{for template|OslTemplate:LIMS/Location/Room}}}
+{| class="formtable"
+! Funktion: 
+| {{{field|function|input type=combobox|mandatory|property=HasRoomFunction|values=Labor;Büro;Lagerraum;Konferenzraum;Pausenraum;Technologische Labor|delimiter=;|size=38}}}
+|-
+! Stockwerk: 
+| {{{field|floor|input type=combobox|mandatory|property=HasFloor|existing values only|values from category=LIMS/Location/Floor|size=38}}}
+|-
+! Flächenplan: 
+| {{{field|image|property=HasImage|uploadable|size=25}}}
+|-
+! Raumlänge: 
+| {{{field|room_length|property=HasLength|size=25}}}
+|-
+! Raumbreite: 
+| {{{field|room_width|property=HasWidth|size=25}}}
+|-
+! Raumhöhe: 
+| {{{field|room_height|property=HasHeight|size=25}}}
+|-
+! Türbreite: 
+| {{{field|door_width|property=HasDoorWidth|size=25}}}
+|-
+! Türhöhe: 
+| {{{field|door_height|property=HasDoorHeight|size=25}}}
+|-
+! Raumverantwortung:
+| {{{field|responsible_person|input type=tokens|property=HasResponsiblePerson|values from category=LIMS/Person/User|existing values only|mapping property=Display title of|list|delimiter=;|size=38}}}
+|-
+! Beschreibung:
+|{{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
+|}
+{{{end template}}}
+<!-- 
+'''Freitext:'''
+
+{{{standard input|free text|rows=10}}} -->
+
+
+{{{standard input|summary}}}
+
+{{{standard input|minor edit}}} {{{standard input|watch}}}
+
+{{{standard input|save}}} {{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}
+</includeonly>
