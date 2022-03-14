@@ -10,12 +10,14 @@
 {{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
 {{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
 {{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
+{{#if: {{{project|}}} | [[HasProject::{{{project|}}}]] |}}
 |sort=HasCreationDate
 |order=desc
 |?HasID=ID
 |?HasName=Name
 |?HasCreationDate=Datum 
 |?HasCreator=Ersteller  
+|?HasProject=Projekt
 |?HasKeyword=Keywords 
 |?HasDescription=Beschreibung 
 |format=table 

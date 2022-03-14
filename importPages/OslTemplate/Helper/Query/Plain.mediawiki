@@ -1,0 +1,4 @@
+<noinclude>Queries for a page (default: current page) or a property of this page formated as plain text</noinclude>
+<includeonly>{{#if:{{{property|}}}
+|{{#ask: {{{query|[[{{FULLPAGENAME}}]]}}} |?{{{property|}}}= |mainlabel=- |link=none |format=plain}}|{{#ask: {{{query|[[{{FULLPAGENAME}}]]}}} |link=none |format=plain}}|
+}}</includeonly>

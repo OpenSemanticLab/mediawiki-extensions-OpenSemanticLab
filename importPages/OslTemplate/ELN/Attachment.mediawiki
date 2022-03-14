@@ -2,4 +2,7 @@
 Dateianhang für [[IsFileAttachmentOf::{{{1}}}]]
 
 {{#set: |HasName={{PAGENAME}} |HasUrl={{filepath:{{PAGENAME}}}} }}
+{{OslTemplate:LIMS/File/Instance
+|creation_page={{{1}}}
+}}
 </includeonly>

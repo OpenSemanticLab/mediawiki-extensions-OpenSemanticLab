@@ -1,0 +1,8 @@
+<includeonly>{{#if: {{{Visible to user|}}}|<br/>
+Das Einsehen der Projektinhalte ist auf folgende Nutzer beschränkt: {{#arraymap: {{{Visible to user|}}}|,|x|[[x]]}}. |<br/>
+Die Projektinhalte sind für alle sichtbar.
+}}{{#if: {{{Editable by user|}}}|<br/>
+Das Bearbeiten der Projektinhalte ist auf folgende Nutzer beschränkt: {{#arraymap: {{{Editable by user|}}}|,|x|[[x]]}}. |<br/>
+Die Projektinhalte sind von allen bearbeitbar.
+}}
+</includeonly>

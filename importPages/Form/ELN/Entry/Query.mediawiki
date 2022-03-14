@@ -18,6 +18,9 @@ Formular zur Suche nach Laborbucheinträgen
 ! Ersteller: 
 | {{{field|creator|values from concept=ELN/Entry/Creator|input type=dropdown|default=current user}}}
 |-
+! Projekt: 
+| {{{field|project|values from category=LIMS/Project/Part|input type=combobox}}}
+|-
 ! Älter als: 
 | {{{field|date_to|input type=datepicker}}}
 |-

@@ -11,7 +11,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 {{{for template|OslTemplate:Property/Quantity|label=Quantity property}}}
 {| class="formtable"
 ! Description: 
-| {{{field|description|input type=textarea}}}
+| {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
 |-
 ! Ontology IRI(s) (e. g. from [http://www.qudt.org/doc/DOC_VOCAB-QUANTITY-KINDS.html]): 
 | {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}

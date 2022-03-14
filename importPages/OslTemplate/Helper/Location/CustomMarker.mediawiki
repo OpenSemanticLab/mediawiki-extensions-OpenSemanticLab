@@ -1,0 +1,2 @@
+<includeonly>
+{{{location}}}~{{#if: {{{page|}}}|[[{{{page}}}]]|{{{label|}}}}}~{{{description|}}}~{{#if: {{{marker|}}}|/w/index.php?title=Special:Redirect/file/{{#replace:{{{marker|}}}|File:|}}&width={{{size|200}}}&height={{{size|{{{userparam|200}}}}}}|}}<includeonly>

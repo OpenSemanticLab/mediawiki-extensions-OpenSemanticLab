@@ -5,7 +5,7 @@
 {{DISPLAYTITLE: {{#replace:{{PAGENAME}}|Has|}}}}
 {{#if: {{{main_unit|}}} | {{#default_form:Property/Quantity}}{{#formlink:form=Property/Quantity|target={{FULLPAGENAME}}|link type=post button|link text=Edit this quantity}} |}}
 {{#if: {{{subquantity_of|}}} | {{#default_form:Property/Subquantity}}{{#formlink:form=Property/Subquantity|target={{FULLPAGENAME}}|link type=post button|link text=Edit this quantity}} |}}
-This is a property of type [[Has type::Quantity]] {{#if: {{{main_unit|}}} |with main unit [[Corresponds to::1 {{{main_unit}}}{{#if:{{{alternative_names|}}}|,{{#arraymap:{{{alternative_names|}}}|;|x|x|,}}|}}]] and main display unit [[Display units::{{{main_unit}}}]]|}} {{#if:{{{subquantity_of|}}}|with display units {{#arraymap:{{{display_units|}}}|;|x|[[Display units::x]]}} and input units {{#arraymap:{{{input_units|}}}|;|x|[[HasInputUnitSymbol::x]]}}, is a subquantity of [[Subproperty of::{{{subquantity_of}}}]]|}}{{#if:{{{base_quantity|}}}|<nowiki> </nowiki> and has base quantity [[HasBaseQuantity::{{{base_quantity}}}]]|}}. 
+This is a property of type [[Has type::Quantity]] {{#if: {{{main_unit|}}} |with main unit 1 {{{main_unit}}}{{#if:{{{alternative_names|}}}|,{{#arraymap:{{{alternative_names|}}}|;|x|x|,}}|}} and main display unit [[Display units::{{{main_unit}}}]]|}} {{#if:{{{subquantity_of|}}}|with display units {{#arraymap:{{{display_units|}}}|;|x|[[Display units::x]]}} and input units {{#arraymap:{{{input_units|}}}|;|x|[[HasInputUnitSymbol::x]]}}, is a subquantity of [[Subproperty of::{{{subquantity_of}}}]]|}}{{#if:{{{base_quantity|}}}|<nowiki> </nowiki> and has base quantity [[HasBaseQuantity::{{{base_quantity}}}]]|}}. 
 {{#if: {{{main_unit|}}} | {{#subobject: 
 |@category=UnitDefinition
 |HasUnitSymbol={{{main_unit}}}
@@ -15,8 +15,11 @@ This is a property of type [[Has type::Quantity]] {{#if: {{{main_unit|}}} |with 
 |IsMainUnit=True
 |HasOntologyUri={{{main_unit_ontology_uri|}}}|+sep=;
 }}<!--
--->{{#set: |HasUnitDefinition=1 {{{main_unit}}}{{#if:{{{alternative_names|}}}|,{{#arraymap:{{{alternative_names|}}}|;|x|x|,}}|}}}}<!--
--->{{#set: |HasUnitSymbol={{{main_unit}}}}}
+-->{{#set: 
+|Corresponds to=1 {{{main_unit}}}{{#if:{{{alternative_names|}}}|,{{#arraymap:{{{alternative_names|}}}|;|x|x|,}}|}}
+|HasUnitDefinition=1 {{{main_unit}}}{{#if:{{{alternative_names|}}}|,{{#arraymap:{{{alternative_names|}}}|;|x|x|,}}|}}
+|HasUnitSymbol={{{main_unit}}}
+}}
 |}}
 <!-- {{#ask: [[{{{base_quantity}}}]] |?HasUnitDefinition |format=template |template=Quantity_property/Store_corresponds_to}} -->
 {{#ask: [[{{FULLPAGENAME}}]] |?Corresponds to|format=table}}

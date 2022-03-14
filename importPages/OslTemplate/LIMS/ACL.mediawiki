@@ -1,0 +1,8 @@
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}</noinclude><includeonly>{{#ifeq: {{{restrict|}}}|Yes|{{#set: 
+|Visible to=whitelist
+|Visible to user=User:{{{user}}};{{{user_read|}}}|+sep=;
+|Visible to group={{{group_read|}}}|+sep=;
+|Editable by=whitelist
+|Editable by user=User:{{{user}}};{{{user_write|{{{user_read|}}}}}}|+sep=;
+|Editable by group={{{group_write|{{{group_read|}}}}}}|+sep=;
+}}|}}</includeonly>

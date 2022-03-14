@@ -1,10 +1,8 @@
-<includeonly>
-{{OslTemplate:Helper/UI/VE/Visible
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
 |icon=labFlask
-|content=Chem Viewer
-}}
-{{OslTemplate:Helper/UI/VE/Hidden 
-|content=<div class="div_kekule_view div_kekule_view_{{{mode}}} div_kekule_format_sdf div_kekule_source_pubchem" id="chemViewer_{{{cid}}}_{{{mode}}}" style="width:300px;height:300px;border:1px solid black">{{{cid}}}</div>
+|content=ChemView ''CID#{{{cid}}}''
+}}{{OslTemplate:Helper/UI/VE/Hidden 
+|content=<div class="div_kekule_view div_kekule_view_{{#replace:{{{mode}}}|D|d}} div_kekule_format_sdf div_kekule_source_pubchem" id="chemViewer_{{{cid}}}_{{#replace:{{{mode}}}|D|d}}" style="width:300px;height:300px;border:1px solid black">{{{cid}}}</div>
 }}</includeonly>
 <noinclude>[[Category:OSL/Infrastructure/Template/User]]
 <templatedata>

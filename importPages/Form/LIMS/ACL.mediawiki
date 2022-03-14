@@ -1,0 +1,23 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#forminput:form={{PAGENAME}}|link text=Create new permission page|link type=NOTpost button|tooltip=|new window}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+== Zugriffsrechte ==
+{{{for template|OslTemplate:LIMS/ACL}}}
+{| class="formtable"
+! Zugriffrechte beschränken{{#info: Die Standard-Einstellung ist offen, d.h. jeder kann Projektdaten lesen und schreiben}}:
+| {{{field|restrict|input type=checkbox}}}
+|-
+! Ersteller{{#info: Der Ersteller hat immer Lese- und Schreibrechte}}:
+| {{{field|user|restricted|default=current user}}}
+|-
+! Personen mit Lese- und Schreibrechten: 
+| {{{field|user_read|input type=tokens|list|values from category=LIMS/Person/User|existing values only|mapping property=Display title of|delimiter=;}}}
+|}
+{{{end template}}}
+
+{{{standard input|save|label=Speichern}}} {{{standard input|cancel|label=Abbrechen}}}
+</includeonly>

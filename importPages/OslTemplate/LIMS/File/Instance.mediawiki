@@ -1,0 +1,17 @@
+<includeonly><div class="acl-permission-includes" style="display:none">{{#if: {{{creation_page|}}}| {{{{#ask: [[{{{creation_page|}}}]] |?HasProject |format=plain |headers=hide |mainlabel=- |link=none}}/_acl}} }}<!-- inherit permissions from creation page 
+-->{{#if:{{{project|}}}|{{{{{project|}}}/_acl}}}}<!-- inherit permissions from project
+--></div>{{#set:
+|HasProject={{{project|}}}
+|HasCreationPage={{{creation_page|}}}<!-- wiki page within this file was created -->
+|HasEditPage={{{edit_page|}}}|+sep=;<!-- wiki page within this file was edited-->
+|HasCreator={{{creator|}}}
+|HasEditor={{{editor|}}}|+sep=;
+}}<!-- {{#ask: [[{{FULLPAGENAME}}]]
+|?HasProject
+|?HasCreationPage
+|?HasEditPage
+|?HasCreator
+|?HasEditor
+|mainlabel=-
+|transpose=yes
+}} --></includeonly>

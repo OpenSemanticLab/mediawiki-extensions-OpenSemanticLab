@@ -4,12 +4,19 @@
 
 </noinclude>
 <includeonly>
-<div id="pdf-converter"></div>
+== Verifizierte Versionen ==
+{{OslTemplate:Helper/UI/VE/Visible 
+|content=Blockchain-Signatur
+|icon=signature
+}}
+{{OslTemplate:Helper/UI/Div/VE-Hidden}}
+<div id="pdf-converter"></div> (Dienstleister: [https://opentimestamps.org/ opentimestamps.org])
 
 {{#ask:
 [[Category:ELN/Attachment/TimeStampedDoc]] 
 [[IsRelatedTo::{{FULLPAGENAME}}]] 
  |?=file 
+ |?Modification date=date
  |?HasOtsFile=proof
  |format=plainlist
  |introtemplate=OslTemplate:ELN/Attachment/Verification/TableHeader
@@ -18,4 +25,7 @@
  |searchlabel=
  |named args=yes
  |limit=1
-}}</includeonly>
+ |sort=Modification date
+ |order=desc
+ |link=none
+}}{{OslTemplate:Helper/UI/Div/Closing}}</includeonly>

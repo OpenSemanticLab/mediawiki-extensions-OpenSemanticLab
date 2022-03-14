@@ -2,7 +2,7 @@
 {{OslTemplate:LabProcess/Step/Form/Header}}
 </noinclude><includeonly>
 {{OslTemplate:LabProcess/Step/Form/Param/Common}}
-{{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
+<div class="dyntable dyntable-hideable-column-1-nested-hidden">{{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
    |process_step_template=OslTemplate:LabProcess/Steps/Generic/Subpage}}
    {{OslTemplate:LabProcess/Step/Form/Param/Device/Fields
       |name_in_form=Geräte
@@ -24,7 +24,7 @@
       |template_parameter=file
       |category_input_type=tree
    }}
-{{OslTemplate:LabProcess/Step/Form/Param/Specific/Footer}}
+{{OslTemplate:LabProcess/Step/Form/Param/Specific/Footer}}</div>
 {{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Fields
    |template=OslTemplate:LabProcess/Steps/Generic/Subpage
    |name_in_form=Objekt

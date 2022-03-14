@@ -1,16 +1,17 @@
-<includeonly>{{#declare:
- |IsRelatedTo=page
- |HasSha256=sha256
- |HasOtsFile=ots
- |HasCreator=user
- |HasOtsHex=ots_hex
+<includeonly>{{OslTemplate:LIMS/File/Instance
+|creation_page={{{creation_page|{{{page|}}}}}}
+|creator={{{creator|{{{user|}}}}}}
+}}{{#set:
+ |IsRelatedTo={{{creation_page|{{{page|}}}}}}
+ |HasSha256={{{sha256|}}}
+ |HasOtsFile={{{ots|}}}
+ |HasOtsHex={{{ots_hex|}}}
+ |HasOtsBase64={{{ots_base64|}}}
 }}[[Category:ELN/Attachment/TimeStampedDoc]]
 
 {{#ask: [[{{FULLPAGENAME}}]]
- |?IsRelatedTo=Page
  |?HasSha256=SHA256
- |?HasOtsFile=OTS
- |?HasCreator=User
+ |?HasOtsBase64=OTS (Base64)
  |transpose=true
 }}
 </includeonly>

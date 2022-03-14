@@ -3,7 +3,7 @@
 |content=ChemEditor ''{{{file_name}}}''
 }}
 {{OslTemplate:Helper/UI/VE/Hidden 
-|content=<div class="div_kekule_view_edit" id="chemViewEdit_{{{file_name}}}" style="width:{{{width|100%}}};height:{{{height|500px}}};border:1px solid black;">{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.kekule.json</div>
+|content=<div class="div_kekule_view_edit" id="chemViewEdit_{{{file_name}}}" style="width:{{{width|600px}}};height:{{{height|500px}}};border:1px solid black;">{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.kekule.{{{format|json}}}</div>
 }}</includeonly>
 <noinclude>[[Category:OSL/Infrastructure/Template/User]]
 <templatedata>
@@ -23,11 +23,25 @@
 			"autovalue": "chemdoc-01",
 			"suggested": true
 		},
+		"format": {
+			"label": {
+				"en": "File format",
+				"de": "Dateiformat"
+			},
+			"description": {
+				"en": "Storage format for the document (currently only json available)",
+				"de": "Format in dem das Dokument gespeichert wird (aktuell nur json möglich)"
+			},
+			"type": "string",
+			"required": false,
+			"autovalue": "json",
+			"suggested": false
+		},
 		"width": {
 			"label": "Breite",
 			"description": "Breite des Dokuments in Pixeln oder Prozent",
 			"type": "string",
-			"autovalue": "100%"
+			"autovalue": "600px"
 		},
 		"height": {
 			"label": "Höhe",

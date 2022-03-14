@@ -1,5 +1,5 @@
 <includeonly>
- | {{{file}}} || style="text-align: right" | {{{proof}}} || style="text-align: right" | 
+ | {{#timel: d.m.Y H:i:s | {{{date|}}} }} || [[Media:{{#replace:{{{file}}}|File:|}}]] || style="text-align: right" | {{#replace:{{{proof}}}|File:|}} || style="text-align: right" | 
 <div class="timestamp-validator">{{#replace:{{{file}}}|File:|}};{{#replace:{{{proof}}}|File:|}}</div>
  |-
 </includeonly>

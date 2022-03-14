@@ -1,7 +1,5 @@
 <includeonly>
-== Verifizierte Versionen ==
-
 {| class="smwtable-clean sortable"
- ! File !! Proof !! Status
+ ! Date (CET) !! File !! Proof !! Status
  |-
 </includeonly>
