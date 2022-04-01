@@ -1,0 +1,6 @@
+{{#ask: [[Has parent page::{{FULLPAGENAME}}]] 
+|format=plainlist
+|mainlabel=page
+|template=OslTemplate:Helper/Query/List/SubPageName
+|named args=yes
+|link=none}}

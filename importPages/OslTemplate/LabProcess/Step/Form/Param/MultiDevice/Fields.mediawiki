@@ -1,0 +1,31 @@
+
+<includeonly><nowiki>{{{for template|OslTemplate:LabProcess/Parameter/MultiDevice/Device|label=|multiple|add button text=Gerät hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[devices]|display=NOTspreadsheet}}} </nowiki>
+{{OslTemplate:LabProcess/Step/Form/Param/Multi/Header}}
+<!-- NOMINAL Category-->
+|-
+| '''Kategorie:'''
+<!-- NOMINAL CATEGORY:SFS Combobox-->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
+<!-- ACTUAL CATEGORY:SFS Combobox-->
+| <div class='PageFormsExtensions_sync-field PageFormsExtensions_sync-field-nested PageFormsExtensions_sync-field-src_{{{template}}}[actual_{{{template_parameter}}}_category]'><nowiki>{{{field|</nowiki>actual_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}} {{{field|actual_category_sync_active|input type=checkbox|label=Tree|default=yes}}}</nowiki>{{#info: Nutzt den Kategoriebaum für die Eingabe}}</div>
+|-
+| '''Typ:'''
+<!-- | '''Soll''' | -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_type<nowiki>|restricted|input type=SF_Select|query=</nowiki>((Category:{{{category|Device}}}))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
+<!-- ACTUAL TYPE-->
+<!-- | '''Ist''' | -->
+| <nowiki>{{{field|</nowiki>actual_type<nowiki>|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=actual_category|label|mandatory}}}</nowiki>
+|-
+| '''Instanz:'''
+<!-- NOMINAL INSTANCE -->
+<!-- | '''Soll''' | -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_instance<nowiki>|input type=SF_Select|query=((Category:LabObject));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
+<!-- INSTANCE -->
+<!-- | '''Ist''' | -->
+| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|mandatory}}}</nowiki>
+|-<!-- SPECIFIC FOR DEVICE--><!-- SETUP -->
+| '''Setup:'''
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_setup<nowiki>|input type=SF_Select|query=((-HasAccessory::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>nominal_instance<nowiki>|label|list}}}</nowiki></div>
+| <nowiki>{{{field|</nowiki>actual_setup<nowiki>|input type=SF_Select|query=((-HasAccessory::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_instance<nowiki>|label|list}}}</nowiki>
+|}
+<nowiki>{{{end template}}}</nowiki></includeonly>

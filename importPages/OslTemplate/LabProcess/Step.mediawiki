@@ -2,7 +2,17 @@
 ==={{{name}}}{{#ifeq: {{{required|{{OslTemplate:Helper/Strings/Yes}}}}}|{{OslTemplate:Helper/Strings/No}}|<nowiki> </nowiki>(optional)|}}===
 {{#ifexist:{{FULLPAGENAME}}/{{{id}}}|([[{{FULLPAGENAME}}/{{{id}}}|Details]])|}}
 {{OslTemplate:Helper/UI/VE/Visible |content=Prozessschritt {{{name}}} erstellen oder bearbeiten |icon=doubleChevronEnd}}
-{{OslTemplate:Helper/UI/Div/VE-Hidden}}{{#formlink:form={{{form}}}|query string=super_page={{FULLPAGENAME}}&{{{template|OslTemplate:LabProcess/Step/Subpage}}}[related_to]={{FULLPAGENAME}}&{{#arraymap:{{{parameters|}}}|{{{sep|;}}}|__GEN_PARAMS__|{{{template|OslTemplate:LabProcess/Step/Subpage}}}__GEN_PARAMS__|&}}&{{#arraymap:{{{specific_parameters|}}}|{{{sep|;}}}|__SPEC_PARAMS__|{{{specific_template|{{{form}}}}}}__SPEC_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_1|}}}|{{{sep|;}}}|__ADD_1_PARAMS__|{{{additional_template_1|{{{form}}}}}}__ADD_1_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_2|}}}|{{{sep|;}}}|__ADD_2_PARAMS__|{{{additional_template_2|{{{form}}}}}}__ADD_2_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_3|}}}|{{{sep|;}}}|__ADD_3_PARAMS__|{{{additional_template_3|{{{form}}}}}}__ADD_3_PARAMS__|&}}&{{#arraymap:{{{additional_parameters_4|}}}|{{{sep|;}}}|__ADD_4_PARAMS__|{{{additional_template_4|{{{form}}}}}}__ADD_4_PARAMS__|&}}&returnto={{FULLPAGENAME}}|target={{FULLPAGENAME}}/{{{id}}}|link text=Prozessschritt {{{name}}} erstellen oder bearbeiten|tooltip=Prozessschritt {{{name}}} erstellen oder bearbeiten|link type={{{link_type|post button}}}|returntoNOT={{FULLPAGENAME}}|reload|{{#ifeq: {{{popup|}}}|{{{OslTemplate:Helper/Strings/Yes}}}|popup|}}}}{{OslTemplate:Helper/UI/Div/Closing}}<!--
+{{OslTemplate:Helper/UI/Div/VE-Hidden}}<!-- 
+-->{{#formlink:form={{{form}}}|query string=super_page={{FULLPAGENAME}}&{{{template|OslTemplate:LabProcess/Step/Subpage}}}[related_to]={{FULLPAGENAME}}<!-- 
+-->&{{#arraymap:{{{parameters|}}}|{{{sep|;}}}|__GEN_PARAMS__|{{{template|OslTemplate:LabProcess/Step/Subpage}}}__GEN_PARAMS__|&}}<!-- 
+-->&{{#arraymap:{{{specific_parameters|}}}|{{{sep|;}}}|__SPEC_PARAMS__|{{{specific_template|{{{form}}}}}}__SPEC_PARAMS__|&}}<!-- 
+-->&{{#arraymap:{{{additional_parameters_1|}}}|{{{sep|;}}}|__ADD_1_PARAMS__|{{{additional_template_1|{{{form}}}}}}__ADD_1_PARAMS__|&}}<!-- 
+-->&{{#arraymap:{{{additional_parameters_2|}}}|{{{sep|;}}}|__ADD_2_PARAMS__|{{{additional_template_2|{{{form}}}}}}__ADD_2_PARAMS__|&}}<!-- 
+-->&{{#arraymap:{{{additional_parameters_3|}}}|{{{sep|;}}}|__ADD_3_PARAMS__|{{{additional_template_3|{{{form}}}}}}__ADD_3_PARAMS__|&}}<!-- 
+-->&{{#arraymap:{{{additional_parameters_4|}}}|{{{sep|;}}}|__ADD_4_PARAMS__|{{{additional_template_4|{{{form}}}}}}__ADD_4_PARAMS__|&}}<!-- 
+-->&{{#arraymap:{{{additional_parameters_5|}}}|{{{sep|;}}}|__ADD_5_PARAMS__|{{{additional_template_5|{{{form}}}}}}__ADD_5_PARAMS__|&}}<!-- 
+-->&{{#arraymap:{{{additional_parameters_6|}}}|{{{sep|;}}}|__ADD_6_PARAMS__|{{{additional_template_6|{{{form}}}}}}__ADD_6_PARAMS__|&}}<!-- 
+-->&returnto={{FULLPAGENAME}}|target={{FULLPAGENAME}}/{{{id}}}|link text=Prozessschritt {{{name}}} erstellen oder bearbeiten|tooltip=Prozessschritt {{{name}}} erstellen oder bearbeiten|link type={{{link_type|post button}}}|returntoNOT={{FULLPAGENAME}}|reload|{{#ifeq: {{{popup|}}}|{{{OslTemplate:Helper/Strings/Yes}}}|popup|}}}}{{OslTemplate:Helper/UI/Div/Closing}}<!--
 -->{{OslTemplate:LabProcess/Step/Descriptor
 |id={{{id}}}
 |name={{{name}}}

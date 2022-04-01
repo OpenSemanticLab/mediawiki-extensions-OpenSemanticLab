@@ -19,22 +19,18 @@
 |specific_parameters=
    [nominal_device_category]={{#replace:{{{nominal_device_category|Category:Device}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [actual_device_category]={{#replace:{{{actual_device_category|{{{nominal_device_category|Category:Device}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
-   [nominal_device_type]={{{nominal_device_type|}}};
-   [actual_device_type]={{{actual_device_type|}}};
-   [nominal_device_instance]={{{nominal_device_instance|}}};
-   [actual_device_instance]={{{actual_device_instance|}}};
-   [nominal_device_setup]={{{nominal_device_setup|}}};
-   [actual_device_setup]={{{actual_device_setup|}}};
    [nominal_object_category]={{#replace:{{{nominal_object_category|Category:Object}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [actual_object_category]={{#replace:{{{actual_object_category|{{{nominal_object_category|Category:Object}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [nominal_file_category]={{#replace:{{{nominal_file_category|Category:File}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [actual_file_category]={{#replace:{{{actual_file_category|{{{nominal_file_category|Category:File}}}}}}|Category:|}} <!-- Tree input expects no namespace -->
-|additional_template_1=OslTemplate:LabProcess/Parameter/MultiObject/Object
-|additional_parameters_1={{{objects|}}}
-|additional_template_2=OslTemplate:LabProcess/Parameter/MultiQuantitative/Quantitative
-|additional_parameters_2={{{quantitatives|}}}
-|additional_template_3=OslTemplate:LabProcess/Parameter/MultiFile/File
-|additional_parameters_3={{{files|}}}
+|additional_template_1=OslTemplate:LabProcess/Parameter/MultiDevice/Device
+|additional_parameters_1={{{devices|}}}
+|additional_template_2=OslTemplate:LabProcess/Parameter/MultiObject/Object
+|additional_parameters_2={{{objects|}}}
+|additional_template_3=OslTemplate:LabProcess/Parameter/MultiQuantitative/Quantitative
+|additional_parameters_3={{{quantitatives|}}}
+|additional_template_4=OslTemplate:LabProcess/Parameter/MultiFile/File
+|additional_parameters_4={{{files|}}}
 }}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
 Generischer Prozessschritt
 {{{description|}}}

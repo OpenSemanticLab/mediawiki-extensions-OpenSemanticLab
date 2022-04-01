@@ -1,0 +1,16 @@
+<includeonly><!--
+-->{{OslTemplate:LabProcess/Parameter
+ <!--   |related_to={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}} -->
+   |process={{FULLPAGENAME}}
+   |object={{#if:{{{id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}}|}}
+   |name={{{name|}}} |type=Actual |property=HasDevice
+   |value={{{actual_instance|}}}
+}}<!--
+-->{{OslTemplate:LabProcess/Parameter
+ <!--   |related_to={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}} -->
+   |process={{FULLPAGENAME}}
+   |object={{#if:{{{id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}}|}}
+   |name={{{name|}}} |type=Actual |property=HasDeviceSetup
+   |value={{{actual_setup|}}}
+}}<!--
+--></includeonly>
