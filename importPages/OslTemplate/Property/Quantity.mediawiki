@@ -2,16 +2,24 @@
 {{OslTemplate:Helper/Docu/FormTemplate}}
 </noinclude>
 <includeonly>
-{{DISPLAYTITLE: {{#replace:{{PAGENAME}}|Has|}}}}
-{{#if: {{{main_unit|}}} | {{#default_form:Property/Quantity}}{{#formlink:form=Property/Quantity|target={{FULLPAGENAME}}|link type=post button|link text=Edit this quantity}} |}}
-{{#if: {{{subquantity_of|}}} | {{#default_form:Property/Subquantity}}{{#formlink:form=Property/Subquantity|target={{FULLPAGENAME}}|link type=post button|link text=Edit this quantity}} |}}
-This is a property of type [[Has type::Quantity]] {{#if: {{{main_unit|}}} |with main unit 1 {{{main_unit}}}{{#if:{{{alternative_names|}}}|,{{#arraymap:{{{alternative_names|}}}|;|x|x|,}}|}} and main display unit [[Display units::{{{main_unit}}}]]|}} {{#if:{{{subquantity_of|}}}|with display units {{#arraymap:{{{display_units|}}}|;|x|[[Display units::x]]}} and input units {{#arraymap:{{{input_units|}}}|;|x|[[HasInputUnitSymbol::x]]}}, is a subquantity of [[Subproperty of::{{{subquantity_of}}}]]|}}{{#if:{{{base_quantity|}}}|<nowiki> </nowiki> and has base quantity [[HasBaseQuantity::{{{base_quantity}}}]]|}}. 
+{{DISPLAYTITLE: {{#replace:{{PAGENAME}}|Has|}}}}{{#set: |Has preferred property label={{{label|}}}|+sep=; |HasLabel={{{label|}}}|+sep=;}}
+{{#if: {{{main_unit|}}} 
+| {{#default_form:Property/Quantity}}{{#formlink:form=Property/Quantity|target={{FULLPAGENAME}}|link type=post button|link text=Edit this quantity}} |
+}}
+{{#if: {{{subquantity_of|}}} 
+| {{#default_form:Property/Subquantity}}{{#formlink:form=Property/Subquantity|target={{FULLPAGENAME}}|link type=post button|link text=Edit this quantity}} |
+}}
+This is a property of type [[Has type::Quantity]] {{#if: {{{main_unit|}}} 
+|with main unit 1 {{{main_unit}}}{{#if:{{{alternative_names|}}}|,{{#arraymap:{{{alternative_names|}}}|;|x|x|,}}|}} and main display unit [[Display units::{{{main_unit}}}]]|}} {{#if:{{{subquantity_of|}}}
+|with display units {{#arraymap:{{{display_units|}}}|;|x|x}}{{#set: |Display units={{{display_units|}}}|+sep=; }} and input units {{#arraymap:{{{input_units|}}}|;|x|x}}{{#set: |HasInputUnitSymbol={{{input_units|}}}|+sep=; }}, is a subquantity of [[Subproperty of::{{{subquantity_of}}}]]|}}{{#if:{{{base_quantity|}}}
+|<nowiki> </nowiki> and has base quantity [[HasBaseQuantity::{{{base_quantity}}}]]|}}. 
 {{#if: {{{main_unit|}}} | {{#subobject: 
 |@category=UnitDefinition
 |HasUnitSymbol={{{main_unit}}}
 |HasAlternativeNames={{{alternative_names|}}}|+sep=;
 |HasConversionFactor=1
 |IsDisplayUnit=True
+|IsInputUnit=True
 |IsMainUnit=True
 |HasOntologyUri={{{main_unit_ontology_uri|}}}|+sep=;
 }}<!--

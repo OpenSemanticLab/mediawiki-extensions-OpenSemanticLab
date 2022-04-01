@@ -17,10 +17,10 @@ if a page with that name already exists, you will be sent to a form to edit that
 | {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}
 |-
 ! Display units (e.g. m for length but µm for wavelength){{#info:Units of the base quantity usually used for the display}}: 
-| {{{field|display_units|input type=SF_Select|query=((@@@@));?HasUnitSymbol;format~plain;sep~,;link~none;headers~hide;mainlabel~-;limit~1000|sametemplate|field=base_quantity|mandatory|list}}}
+| {{{field|display_units|input type=SF_Select|query=((@@@@));?HasUnitSymbol;format~plainlist;sep~,;link~none;headers~hide;mainlabel~-;limit~1000|sametemplate|field=base_quantity|mandatory|list|sep=;|delimiter=;}}}
 |-
 ! Input units (e.g. m for length but µm for wavelength){{#info:Units of the base quantity usually used for input forms}}: 
-| {{{field|input_units|input type=SF_Select|query=((@@@@));?HasUnitSymbol;format~plain;sep~,;link~none;headers~hide;mainlabel~-;limit~1000|sametemplate|field=base_quantity|mandatory|list}}}
+| {{{field|input_units|input type=SF_Select|query=((@@@@));?HasUnitSymbol;format~plainlist;sep~,;link~none;headers~hide;mainlabel~-;limit~1000|sametemplate|field=base_quantity|mandatory|list|sep=;|delimiter=;}}}
 |}
 == Automatically generated entries ==
 <div class="mw-collapsible mw-collapsed">
