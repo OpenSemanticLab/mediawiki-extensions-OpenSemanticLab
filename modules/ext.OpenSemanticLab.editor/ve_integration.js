@@ -43,6 +43,18 @@ var template_tools = [
 		shortcut: 'ctrl+alt+d',
 		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'Template:ELN/Editor/DrawIO'}, params: {'file_name':  {wt: `diagram-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}}
 	},
+        {
+                group: 'insert',
+                custom_group: false,
+                title: 'Spreadsheet',
+                icon: 'table',
+                name: 'spreadsheet_editor',
+                dialog: true,
+                dialog_type: 'template',
+                sequence: '{E}',
+                shortcut: 'ctrl+alt+e',
+                template: { target: {href: 'Template:ELN/Editor/Spreadsheet', wt: 'Template:ELN/Editor/Spreadsheet'}, params: {'file_name':  {wt: `spreadsheet-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}}
+        },
 	{
 		group: 'insert',
 		custom_group: false, 
