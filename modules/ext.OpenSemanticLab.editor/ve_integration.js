@@ -19,6 +19,19 @@ mw.loader.using( [ 'ext.visualEditor.core', 'ext.visualEditor.mwtransclusion' ] 
 //const VeExt_id = (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "").substring(0, 4);
 var tool_groups = [];//[{name: 'labnote', label: 'LabNote'}];
 var template_tools = [
+        {
+                group: 'textStyle', //built in: format, textStyle, cite, insert
+                custom_group: false,
+                title: 'Annotation',
+                icon: 'error', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
+                name: 'annoation',
+                dialog: true,
+                dialog_type: 'template',
+                transclusion_type: 'mwTransclusionInline', //default: mwTransclusionBlock
+                sequence: '{A}',
+                shortcut: 'ctrl+alt+a',
+                template: { target: {href: 'Template:ELN/Decoration/Annotation', wt: 'Template:ELN/Decoration/Annotation'}, params: {'text': {wt: ''}, 'info': {wt: '1'}, 'question': {wt: '0'}, 'warning': {wt: '0'}, 'error': {wt: '0'}}}
+        },
 	{
 		group: 'insert', //built in: insert
 		custom_group: false, 
@@ -246,8 +259,8 @@ function VeExtensions_create() {
     template_tools.forEach(function (template_tool) {
         //Create and register command
         template_tool.command_name = template_tool.name + '_command';
-
-	var custom_template = [ {type: 'mwTransclusionBlock', attributes: {mw: {parts: [ {template: template_tool.template} ]}}}, {type: '/mwTransclusionBlock'} ];
+        if (!('transclusion_type' in template_tool)) template_tool.transclusion_type = 'mwTransclusionBlock';
+	var custom_template = [ {type: template_tool.transclusion_type, attributes: {mw: {parts: [ {template: template_tool.template} ]}}}, {type: '/' + template_tool.transclusion_type} ];
 
 	if (template_tool.dialog) {
 		//Insert template and open dialog
