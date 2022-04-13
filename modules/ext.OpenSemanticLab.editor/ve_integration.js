@@ -29,7 +29,6 @@ var template_tools = [
                 dialog_type: 'template',
                 transclusion_type: 'mwTransclusionInline', //default: mwTransclusionBlock
                 sequence: '{A}',
-                shortcut: 'ctrl+alt+a',
                 template: { target: {href: 'Template:ELN/Decoration/Annotation', wt: 'Template:ELN/Decoration/Annotation'}, params: {'text': {wt: ''}, 'info': {wt: '1'}, 'question': {wt: '0'}, 'warning': {wt: '0'}, 'error': {wt: '0'}}}
         },
 	{
@@ -341,13 +340,15 @@ function VeExtensions_create() {
 	ve.ui.toolFactory.register( CustomTool );
 
 	//Register keyboard shortcut
-	ve.ui.triggerRegistry.register(template_tool.command_name, {
-        	mac: new ve.ui.Trigger(template_tool.shortcut.replace('ctrl','cmd')),
-        	pc: new ve.ui.Trigger(template_tool.shortcut)
-        });
+	if ('shortcut' in template_tool) {
+		ve.ui.triggerRegistry.register(template_tool.command_name, {
+        		mac: new ve.ui.Trigger(template_tool.shortcut.replace('ctrl','cmd')),
+        		pc: new ve.ui.Trigger(template_tool.shortcut)
+        	});
+	}
    
         //Register input sequence
-        if (template_tool.sequence != null){
+        if (('sequence' in template_tool) &&  (template_tool.sequence != null)){
 		ve.ui.sequenceRegistry.register(new ve.ui.Sequence(template_tool.name + '_sequence', template_tool.command_name, template_tool.sequence, template_tool.sequence.length));
         }
     });
