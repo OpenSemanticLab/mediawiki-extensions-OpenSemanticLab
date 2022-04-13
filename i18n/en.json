@@ -4,5 +4,7 @@
 	},
 	"open-semantic-lab-desc": "An Open and Semantic Lab Information and Management System based on Semantic MediaWiki",
 	"open-semantic-lab-name": "OpenSemanticLab",
-        "open-semantic-lab-create-subpage": "Create subpage"
+        "open-semantic-lab-create-subpage": "Create subpage",
+        "visualeditor-tool-annotation-toolname": "Annotation",
+        "spreadsheet-editor-spreadsheet" : "Spreadsheet"
 }

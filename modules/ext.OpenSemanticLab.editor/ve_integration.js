@@ -22,7 +22,7 @@ var template_tools = [
         {
                 group: 'textStyle', //built in: format, textStyle, cite, insert
                 custom_group: false,
-                title: 'Annotation',
+                title_msg: 'visualeditor-tool-annotation-toolname', //'Annotation',
                 icon: 'error', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
                 name: 'annoation',
                 dialog: true,
@@ -59,7 +59,7 @@ var template_tools = [
         {
                 group: 'insert',
                 custom_group: false,
-                title: 'Spreadsheet',
+                title_msg: 'spreadsheet-editor-spreadsheet',
                 icon: 'table',
                 name: 'spreadsheet_editor',
                 dialog: true,
@@ -326,6 +326,7 @@ function VeExtensions_create() {
 		CustomTool.parent.apply( this, arguments );
 	}
 	OO.inheritClass( CustomTool, ve.ui.MWTransclusionDialogTool );
+	//OO.inheritClass( CustomTool, ve.ui.Tool );
 
 	CustomTool.static.name =  template_tool.name;
 	CustomTool.static.group =  template_tool.group;
@@ -333,7 +334,8 @@ function VeExtensions_create() {
 		CustomTool.static.autoAddToCatchall = false;
 		CustomTool.static.autoAddToGroup = true;
 	}
-	CustomTool.static.title =  template_tool.title;
+	if ('title_msg' in template_tool) CustomTool.static.title = OO.ui.deferMsg(template_tool.title_msg);
+	else CustomTool.static.title =  template_tool.title;
 	CustomTool.static.icon =  template_tool.icon;
 	CustomTool.static.commandName = template_tool.command_name;
 	ve.ui.toolFactory.register( CustomTool );

@@ -30,7 +30,11 @@
 				"ve_integration.js",
 				"IdNameTooltip.js"
       			],
-			"position": "bottom"
+			"position": "bottom",
+			"messages": [
+				"visualeditor-tool-annotation-toolname",
+				"spreadsheet-editor-spreadsheet"
+			]
 		},
 		"ext.OpenSemanticLab.LIMS.styles": {
 	                "localBasePath": "modules/ext.OpenSemanticLab.LIMS",

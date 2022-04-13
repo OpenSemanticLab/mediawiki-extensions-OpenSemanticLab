@@ -4,5 +4,7 @@
 	},
 	"open-semantic-lab-desc": "Ein offenes und semantisches Laborinformations- und managementsystem basierend auf Semantic MediaWiki",
 	"open-semantic-lab-name": "OpenSemanticLab",
-	"open-semantic-lab-create-subpage": "Unterseite erstellen"
+	"open-semantic-lab-create-subpage": "Unterseite erstellen",
+        "visualeditor-tool-annotation-toolname": "Anmerkung",
+        "spreadsheet-editor-spreadsheet" : "Kalkulationstabelle"
 }
