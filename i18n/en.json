@@ -6,5 +6,6 @@
 	"open-semantic-lab-name": "OpenSemanticLab",
         "open-semantic-lab-create-subpage": "Create subpage",
         "visualeditor-tool-annotation-toolname": "Annotation",
+        "visualeditor-tool-coloredtext-toolname" : "Colored Text",
         "spreadsheet-editor-spreadsheet" : "Spreadsheet"
 }

@@ -31,6 +31,17 @@ var template_tools = [
                 sequence: '{A}',
                 template: { target: {href: 'Template:ELN/Decoration/Annotation', wt: 'Template:ELN/Decoration/Annotation'}, params: {'text': {wt: ''}, 'info': {wt: '1'}, 'question': {wt: '0'}, 'warning': {wt: '0'}, 'error': {wt: '0'}}}
         },
+        {
+                group: 'textStyle', //built in: format, textStyle, cite, insert
+                custom_group: false,
+                title_msg: 'visualeditor-tool-coloredtext-toolname',
+                icon: 'highlight', 
+                name: 'coloredtext',
+                dialog: true,
+                dialog_type: 'template',
+                transclusion_type: 'mwTransclusionInline', //default: mwTransclusionBlock
+                template: { target: {href: 'Template:ELN/Decoration/ColoredText', wt: 'Template:ELN/Decoration/ColoredText'}, params: {'text': {wt: ''}, 'red': {wt: '1'}, 'blue': {wt: '0'}, 'green': {wt: '0'}, 'black': {wt: '0'}}}
+        },
 	{
 		group: 'insert', //built in: insert
 		custom_group: false, 
