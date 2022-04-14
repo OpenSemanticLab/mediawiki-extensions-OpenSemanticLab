@@ -1,0 +1,81 @@
+<includeonly><span style="color:{{{color| {{#ifeq: {{{black|}}}|1|black| {{#ifeq: {{{blue|}}}|1|blue| {{#ifeq: {{{green|}}}|1|green| {{#ifeq: {{{red|}}}|1|red|red<!-- default value -->}} }} }} }} }}}">{{{text|}}}</span></includeonly>
+<noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"text": {
+			"label": {
+				"de": "Text der Anmerkung"
+			},
+			"type": "string",
+			"required": true,
+			"suggested": true
+		},
+		"black": {
+			"type": "boolean",
+			"autovalue": "0",
+			"suggested": true,
+			"label": {
+				"de": "schwarz"
+			},
+			"description": {
+				"de": "Textfarbe Schwarz"
+			}
+		},
+		"blue": {
+			"type": "boolean",
+			"suggested": true,
+			"label": {
+				"de": "blau"
+			},
+			"description": {
+				"de": "Textfarbe Blau"
+			},
+			"autovalue": "0"
+		},
+		"green": {
+			"type": "boolean",
+			"suggested": true,
+			"label": {
+				"de": "Grün"
+			},
+			"description": {
+				"de": "Textfarbe Grün"
+			},
+			"autovalue": "0"
+		},
+		"red": {
+			"type": "boolean",
+			"autovalue": "1",
+			"suggested": true,
+			"label": {
+				"de": "Rot"
+			},
+			"description": {
+				"de": "Textfarbe Rot"
+			}
+		}
+	},
+	"description": {
+		"de": "Fügt einen farbigen Text ein",
+		"en": "Adds a colored text"
+	},
+	"format": "inline",
+	"paramOrder": [
+		"text",
+		"red",
+		"blue",
+		"green",
+		"black"
+	]
+}
+</templatedata>
+
+== Test ==
+*{{Template:ELN/Decoration/ColoredText|text=Default red}} 
+*{{Template:ELN/Decoration/ColoredText|text=black|black=1}}
+*{{Template:ELN/Decoration/ColoredText|text=blue|blue=1}}
+*{{Template:ELN/Decoration/ColoredText|text=green|green=1}}
+*{{Template:ELN/Decoration/ColoredText|text=red|red=1}}
+*{{Template:ELN/Decoration/ColoredText|text=Explicit blue|color=blue}}
+</noinclude>

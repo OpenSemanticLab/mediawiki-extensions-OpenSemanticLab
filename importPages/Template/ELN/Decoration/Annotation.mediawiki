@@ -1,0 +1,81 @@
+<includeonly>{{#info: {{{text|}}} |{{{type| {{#ifeq: {{{error|}}}|1|error| {{#ifeq: {{{warning|}}}|1|warning| {{#ifeq: {{{question|}}}|1|note| {{#ifeq: {{{info|}}}|1|info|info<!-- default value -->}} }} }} }} }}} |max-width= |theme= }}</includeonly>
+<noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"text": {
+			"label": {
+				"de": "Text der Anmerkung"
+			},
+			"type": "string",
+			"required": true,
+			"suggested": true
+		},
+		"error": {
+			"type": "boolean",
+			"autovalue": "0",
+			"suggested": true,
+			"label": {
+				"de": "Fehler"
+			},
+			"description": {
+				"de": "Wird als rotes Symbol dargestellt"
+			}
+		},
+		"warning": {
+			"type": "boolean",
+			"suggested": true,
+			"label": {
+				"de": "Warnung"
+			},
+			"description": {
+				"de": "Wird als orangenes Ausrufezeichen dargestellt"
+			},
+			"autovalue": "0"
+		},
+		"question": {
+			"type": "boolean",
+			"suggested": true,
+			"label": {
+				"de": "Frage"
+			},
+			"description": {
+				"de": "Wird als blaues Fragezeichen dargestellt"
+			},
+			"autovalue": "0"
+		},
+		"info": {
+			"type": "boolean",
+			"autovalue": "1",
+			"suggested": true,
+			"label": {
+				"de": "Information"
+			},
+			"description": {
+				"de": "Wird als blaues \"i\" dargestellt"
+			}
+		}
+	},
+	"description": {
+		"de": "Fügt eine Anmerkung in den Text ein",
+		"en": "Adds a text annotation"
+	},
+	"format": "inline",
+	"paramOrder": [
+		"text",
+		"info",
+		"question",
+		"warning",
+		"error"
+	]
+}
+</templatedata>
+
+== Test ==
+*{{Template:ELN/Decoration/Annotation|text=Default Info}} 
+*{{Template:ELN/Decoration/Annotation|text=Error|error=1}}
+*{{Template:ELN/Decoration/Annotation|text=Warning|warning=1}}
+*{{Template:ELN/Decoration/Annotation|text=Question|question=1}}
+*{{Template:ELN/Decoration/Annotation|text=Info|info=1}}
+*{{Template:ELN/Decoration/Annotation|text=Explicit Warning|type=warning}}
+</noinclude>

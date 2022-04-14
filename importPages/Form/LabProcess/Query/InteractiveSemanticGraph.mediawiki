@@ -1,0 +1,18 @@
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#queryformlink:form={{PAGENAME}}}}
+
+{{Special:RunQuery/{{PAGENAME}}}}
+
+</noinclude>
+<includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LabProcess/Query/InteractiveSemanticGraph}}}
+{| class="formtable"
+! Root{{#info:Page or subobject to start with}}: 
+| {{{field|root|mandatory}}}
+|}
+{{{end template}}}
+
+{{{standard input|run query}}}
+</includeonly>

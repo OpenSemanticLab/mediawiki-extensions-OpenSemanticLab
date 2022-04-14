@@ -1,0 +1,71 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=table
+|content=Spreadsheet ''{{{file_name}}}''
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content=<div class="SpreadsheetEditor" style="width:{{{width|100%}}};height:{{{height|500px}}}; max-width:100%;" data-filename="{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.luckysheet.{{{format|json}}}">{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-{{{file_name}}}.luckysheet.{{{format|json}}}</div>
+}}</includeonly>
+<noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"file_name": {
+			"label": {
+				"en": "Name",
+				"de": "Name"
+			},
+			"description": {
+				"en": "Spreadsheet name",
+				"de": "Name des Dokuments, muss eindeutig auf dieser Seite sein"
+			},
+			"type": "string",
+			"required": true,
+			"autovalue": "spreadsheet-01",
+			"suggested": true
+		},
+		"format": {
+			"label": {
+				"en": "File format",
+				"de": "Dateiformat"
+			},
+			"description": {
+				"en": "Storage format for the document (currently only json available)",
+				"de": "Format in dem das Dokument gespeichert wird (aktuell nur json möglich)"
+			},
+			"type": "string",
+			"required": false,
+			"autovalue": "json",
+			"suggested": false
+		},
+		"width": {
+			"label": "Breite",
+			"description": "Breite des Dokuments in Pixeln oder Prozent",
+			"type": "string",
+			"autovalue": "100%"
+		},
+		"height": {
+			"label": "Höhe",
+			"description": "Höhe des Dokuments oder Prozent",
+			"type": "string",
+			"autovalue": "500px"
+		},
+		"page_name": {
+			"label": {
+				"en": "Page name",
+				"de": "Seitename"
+			},
+			"description": {
+				"en": "is filled in automatically",
+				"de": "wird automatisch ausgefüllt"
+			},
+			"type": "wiki-page-name",
+			"autovalue": "{{subst:FULLPAGENAME}}"
+		}
+	},
+	"description": {
+		"en": "Adds a SpreadsheetEditor",
+		"de": "Erstellt ein MS-Excel-ähnlichen Editor"
+	}
+}
+</templatedata>
+</noinclude>
