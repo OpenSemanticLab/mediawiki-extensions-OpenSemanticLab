@@ -7,7 +7,7 @@
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_type<nowiki>|restricted|input type=SF_Select|query=</nowiki>((Category:{{{category|Object}}}))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
 <!-- ACTUAL TYPE-->
 <!-- | '''Ist''' | -->
-| <nowiki>{{{field|</nowiki>actual_type<nowiki>|input type=SF_Select|query=((</nowiki>{{#ifeq: {{{category_input_type|tree}}}|tree|Category:}}<nowiki>@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|template=</nowiki>{{{template}}}<nowiki>|field=</nowiki>actual_{{{template_parameter}}}_category<nowiki>|label|mandatory}}}</nowiki>
+| <nowiki>{{{field|</nowiki>actual_type<nowiki>|input type=SF_Select|query=((</nowiki>{{#ifeq: {{{category_input_type|tree}}}|tree|Category:}}<nowiki>@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|template=</nowiki>{{{template}}}<nowiki>|field=</nowiki>actual_{{{template_parameter}}}_category<nowiki>|label|<!--mandatory-->}}}</nowiki>
 |-
 | '''Instanz:'''
 <!-- NOMINAL INSTANCE -->
@@ -15,7 +15,7 @@
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_instance<nowiki>|input type=SF_Select|query=((Category:LabObject));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
 <!-- INSTANCE -->
 <!-- | '''Ist''' | -->
-| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|mandatory}}}</nowiki>
+| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|<!--mandatory-->}}}</nowiki>
 |}
 <nowiki>{{{end template}}}</nowiki></includeonly><!-- 
 

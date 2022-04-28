@@ -1,5 +1,6 @@
-<includeonly>|- style="display: none" |
-! {{{name_in_form}}} Kategorie
+<includeonly>{{OslTemplate:LabProcess/Step/Form/Param/Multi/SectionHeader |label=Geräteauswahl |id=devices}} 
+|- class="generic-hide"|
+! Kategorie
 <!-- NOMINAL CATEGORY:SFS Combobox-->
 | {{#ifeq: {{{category_input_type|tree}}}|combobox| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|OslTemplate:LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>}}<!-- 
 NOMINAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|tree}}}|tree|
@@ -8,6 +9,5 @@ NOMINAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|tree}}}|tree|
 | {{#ifeq: {{{category_input_type|tree}}}|combobox|<nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|OslTemplate:LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki>}}<!-- 
 ACTUAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|tree}}}|tree|
 <nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_category<nowiki>|input type=tree|restricted|top category=</nowiki>{{{category|Device}}}<nowiki>|height=250|width=400|depth=1}}}</nowiki>}}
-{{OslTemplate:LabProcess/Step/Form/Param/Multi/SectionHeader |label=Geräteauswahl}}
 |-
 | colspan="3" | <nowiki>{{{field|devices|mandatory|holds template}}}</nowiki></includeonly>

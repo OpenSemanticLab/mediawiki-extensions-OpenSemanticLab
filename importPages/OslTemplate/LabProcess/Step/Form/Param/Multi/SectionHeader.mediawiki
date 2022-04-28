@@ -3,5 +3,5 @@
 ! style="width: 470px" | Sollwert 
 ! style="width: 470px" | Istwert
 |} -->
-<includeonly>|-
-! {{{label|}}} || || </includeonly>
+<includeonly>|- class="dyntable-section dyntable-section-autocollapse" id="dyntable-section-{{{id|}}}" |
+! colspan="3" | {{{label|}}}</includeonly>
