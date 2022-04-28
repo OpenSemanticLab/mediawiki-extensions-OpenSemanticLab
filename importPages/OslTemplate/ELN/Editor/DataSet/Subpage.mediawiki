@@ -20,7 +20,7 @@ Like [[OslTemplate:LabProcess/Step/Subpage]] + [[OslTemplate:LabProcess/Steps/Ge
 Seite bearbeiten um den Quelltext zu sehen.
 </noinclude>
 <includeonly><!-- from Template:LabProcess/Step/Subpage -->
-{{#set: HasName={{{name}}} |HasID={{SUBPAGENAME}} |IsRelatedTo={{{related_to}}} }}
+{{#set: HasName={{{name}}} |HasID={{SUBPAGENAME}} |IsSubprocessOf={{{process}}} }}
 === Datensatz {{{name}}} ===
 <!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
 {{{description|}}}

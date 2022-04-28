@@ -12,5 +12,15 @@ actual_instance = Ist-Dateiinstanz
 </noinclude>
 <includeonly>{{#vardefine: i | {{{start|1}}} }}{{#while:
  | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_files|{{{count}}}}} + {{{start|1}}} - 1}} | true }}
- | [{{#var: i }}][id]={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{type|mi}}};[{{#var: i }}][name]={{{param_name|File}}} {{#var: i }};[{{#var: i }}][nominal_type]={{{nominal_type|}}};[{{#var: i }}][nominal_instance]={{{nominal_instance|}}};[{{#var: i }}][actual_type]={{{actual_type|}}};[{{#var: i }}][actual_instance]={{{actual_instance|}}};{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
+ |<!-- Shared with other param arrays
+-->[{{#var: i }}][id]={{{id|}}};<!--
+-->[{{#var: i }}][type]={{{param_type|}}};<!--
+-->[{{#var: i }}][name]={{{param_name|File}}}{{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}};<!--
+-->[{{#var: i }}][label]={{{label_name|File}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}};<!--
+-->[{{#var: i }}][object_id]={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{object_id_postfix|mi}}};<!-- individual section (shared with objects)
+-->[{{#var: i }}][nominal_type]={{{nominal_type|}}};<!--
+-->[{{#var: i }}][nominal_instance]={{{nominal_instance|}}};<!--
+-->[{{#var: i }}][actual_type]={{{actual_type|}}};<!--
+-->[{{#var: i }}][actual_instance]={{{actual_instance|}}};<!--
+-->{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
 }}</includeonly>

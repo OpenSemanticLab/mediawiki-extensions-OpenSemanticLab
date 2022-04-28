@@ -46,12 +46,14 @@ like [[OslTemplate:LabProcess/Steps/Generic]] but without process aspects
 {{{description|}}}
 
 <!-- ====Parameter==== -->
-{{#ask: [[Category:ProcessParameter]] [[-Has subobject::{{FULLPAGENAME}}/{{{id|}}}]]
- |?HasName
- |?HasParameterTyp
- |?HasProperty
- |?HasValue
- |sort=Name
+{{#ask: [[IsProcessParameterOf::{{FULLPAGENAME}}/{{{id}}}]]
+<!--  |?IsProcessParameterOf=Prozess
+ |?IsObjectParameterOf=Objekt -->
+ |?HasName=Name
+<!--  |?IsInstanceOf=Typ -->
+ |?HasProperty=Attribut
+ |?HasValue=Wert
+ |sort=HasName
  }}
 </includeonly>
 <noinclude>

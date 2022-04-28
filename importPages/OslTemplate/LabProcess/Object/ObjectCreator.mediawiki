@@ -1,13 +1,14 @@
 <noinclude><pre>
 count_source_name = Name des Prozessschrittes, aus dem die Anzahl stammt
 count = Fixe Anzahl (alternativ zu count_source_name)
-objectname = Name / Prefix der generierten Objecte (Default: Objekt)
-class = konkreter Typ/Material der generierten Object oder 'from_mapping' um automatisch vom Vorgängermaterial abzuleiten (optional)
-type = Typkürzel (Default: mi)
+name = Name / Prefix der generierten Objecte (Default: Objekt)
+type = konkreter Typ/Material der generierten Object oder 'from_mapping' um automatisch vom Vorgängermaterial abzuleiten (optional)
+id_postfix = Typkürzel (Default: mi)
 start = Startwert für die ID (Default: 01)
+name_start = Startwert für die Bennenung (Default: start,1)
 </pre>
 </noinclude>
 <includeonly>{{#vardefine: i | {{{start|1}}} }}{{#while:
- | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{sourcename|}}}_actual_number_of_objects|{{{count|0}}}}} + {{{start|1}}} - 1}} | true }}
- | {{#vardefine: id_postfix | {{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{type|mi}}} }}{{#vardefine: class | {{#ifeq: {{{class|}}}|from_mapping|{{#ask: [[IsObjectParameterOf::{{FULLPAGENAME}}#{{#replace: {{PAGENAME}}|00-pi|{{#var: id_postfix }}}}]] |?HasPredecessor.IsInstanceOf.-HasPredecessor |mainlabel=- |link=none |headers=hide |format=plain}}|{{{class|}}} }} }}{{{objectname|Objekt}}} {{#var: i }}###{{#var: id_postfix  }}{{#if:  {{#var: class }} |<nowiki />###{{#var: class }}|}};{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
+ | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_objects|{{{count|0}}}}} + {{{start|1}}} - 1}} | true }}
+ | {{#vardefine: id_postfix | {{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{id_postfix|mi}}} }}{{#vardefine: type | {{#ifeq: {{{type|}}}|from_mapping|{{#ask: [[IsObjectParameterOf::{{FULLPAGENAME}}#{{#replace: {{PAGENAME}}|00-pi|{{#var: id_postfix }}}}]] |?HasPredecessor.IsInstanceOf.-HasPredecessor |mainlabel=- |link=none |headers=hide |format=plain}}|{{{type|}}} }} }}{{{name|Objekt}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}###{{#var: id_postfix  }}{{#if:  {{#var: type }} |<nowiki />###{{#var: type }}|}};{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
 }}</includeonly>

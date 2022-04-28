@@ -1,8 +1,12 @@
 <includeonly><!--
 -->{{OslTemplate:LabProcess/Parameter
+   |id={{{id|}}}
+   |type=Term:Parameter/Actual;Term:Parameter/File{{#if:{{{type|}}}|;{{{type}}}|}} 
+   |name={{{name|{{{label|}}}}}} 
+   |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}}
-   |name={{{name|}}} |type=Actual |property=HasDataFile
-   |value=File:{{{actual_instance|}}}
+   |object={{#if: {{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}}
+   |property=HasFile
+   |value={{#if: {{{actual_instance|}}}|File:{{{actual_instance|}}}|}}
 }}<!--
 --></includeonly>

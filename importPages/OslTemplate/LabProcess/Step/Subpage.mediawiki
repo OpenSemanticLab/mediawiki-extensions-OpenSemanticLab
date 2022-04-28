@@ -8,7 +8,7 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Os
 |concurrent=Parallelprozess
 |start_date=Beginn
 |end_date=Ende
-|related_to=Zugehöriger Prozess bzw. Laborprodukt
+|process=Zugehöriger Prozess bzw. Laborprodukt
 |precondition=Allgemeine Vorbedingung, die vor Beginn des Prozess erfüllt werden muss
 |precondition_fulfilled=Vorbedingung ist erfüllt
 |postcondition=Nachbedingung vor entgültigem Abschluss des Prozessschrittes
@@ -20,12 +20,12 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Os
 <includeonly>{{#set: HasName={{{name}}} |HasID={{SUBPAGENAME}}}}
 === Prozessschritt {{{name}}} ===
 {{#if: {{{start_date|}}} |
-Prozessschritt {{{name}}} des Laborproduktes [[IsRelatedTo::{{{related_to}}}]] wurde von [[HasAgent::{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartTimeAndDate::{{{start_date}}}]] begonnen und am [[HasEndTimeAndDate::{{{end_date}}}]] beendet.
+Prozessschritt {{{name}}} des Laborprozesses [[IsSubprocessOf::{{{process}}}]] wurde von [[HasAgent::{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartDateAndTime::{{{start_date}}}]] begonnen und am [[HasEndDateAndTime::{{{end_date}}}]] beendet.
 |
 Der Prozessschritt wurde noch nicht begonnen
 }}{{#if: {{{status|}}}| (Status: [[HasStatus::{{{status|}}}]])|}}
 
-{{#if: {{{precondition|}}}|Die Vorbedingung ''{{{precondition|}}}'' wurde {{#ifeq: {{{precondition_fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}
-{{#if: {{{postcondition|}}}|Die Nachbedingung ''{{{postcondition|}}}'' wurde {{#ifeq: {{{postcondition_fulfilled|}}}|Ja|erfüllt|noch nicht erfüllt}}.|}}
+{{#if: {{{precondition|}}}|Die Vorbedingung ''{{{precondition|}}}'' wurde {{#ifeq: {{{precondition_fulfilled|}}}|yes|erfüllt|noch nicht erfüllt}}.|}}
+{{#if: {{{postcondition|}}}|Die Nachbedingung ''{{{postcondition|}}}'' wurde {{#ifeq: {{{postcondition_fulfilled|}}}|yes|erfüllt|noch nicht erfüllt}}.|}}
 
 [[Category:ProcessStepInstance]]</includeonly>

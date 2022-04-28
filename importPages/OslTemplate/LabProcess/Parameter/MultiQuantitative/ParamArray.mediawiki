@@ -14,9 +14,12 @@ actual_unit= Ist-Einheit
 </noinclude>
 <includeonly>{{#vardefine: i | {{{start|1}}} }}{{#while:
  | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_objects|{{{count}}}}} + {{{start|1}}} - 1}} | true }}
- | <!--
--->[{{#var: i }}][id]={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{type|mi}}};<!--
--->[{{#var: i }}][name]={{{param_name|Parameter}}} {{#var: i }};<!--
+ | <!-- Shared with other param arrays
+-->[{{#var: i }}][id]={{{id|}}};<!--
+-->[{{#var: i }}][type]={{{param_type|}}};<!--
+-->[{{#var: i }}][name]={{{param_name|Parameter}}}{{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}};<!--
+-->[{{#var: i }}][label]={{{label_name|Parameter}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}};<!--
+-->[{{#var: i }}][object_id]={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{object_id_postfix|mi}}};<!-- individual section
 -->[{{#var: i }}][nominal_quantity]={{{nominal_quantity|}}};<!--
 -->[{{#var: i }}][nominal_value]={{{nominal_value|}}};<!--
 -->[{{#var: i }}][nominal_unit]={{{nominal_unit|}}};<!--

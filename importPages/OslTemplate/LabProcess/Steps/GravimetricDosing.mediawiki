@@ -9,7 +9,7 @@
 |form=LabProcess/Steps/GravimetricDosing
 |specific_template=OslTemplate:LabProcess/Steps/GravimetricDosing/Subpage
 |link_type={{{link_type|}}}
-|popup={{{popup|{{{OslTemplate:Helper/Strings/No}}}}}}
+|popup={{{popup|{{OslTemplate:Helper/Strings/No}}}}}
 |parameters=
    {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
    {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}

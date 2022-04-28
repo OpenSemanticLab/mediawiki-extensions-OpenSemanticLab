@@ -1,20 +1,25 @@
 <includeonly>
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 <nowiki>{{{for template|OslTemplate:LabProcess/Step/Subpage}}}</nowiki>
-== Allgemeine Angaben ==
+== Automatisch generierte Angaben ==
+<div class="mw-collapsible mw-collapsed">
 {| class="formtable"
 ! Name: 
 | <nowiki>{{{field|name|restricted}}}</nowiki>
 |-
-! Gehört zu Laborprodukt: 
-| <nowiki>{{{field|related_to|mandatory|restricted}}}</nowiki>
+! Gehört zu Laborprozess: 
+| <nowiki>{{{field|process|mandatory|restricted}}}</nowiki>
 |-
 ! Vorgängerschritt: 
 | <nowiki>{{{field|predecessor|restricted}}}</nowiki>
 |-
 ! Ausführende Person: 
 | <nowiki>{{{field|agent|default=current user}}}</nowiki>
-|-
+|}
+</div>
+
+== Allgemeine Angaben ==
+{| class="formtable"
 ! Startzeitpunkt: 
 | <nowiki>{{{field|start_date|input type=datetimepicker|mandatory|default=now}}}</nowiki>
 |-
@@ -22,7 +27,7 @@
 | <nowiki>{{{field|end_date|input type=datetimepicker|default=now}}}</nowiki>
 |-
 ! Status{{#info:Gibt den Bearbeitungszustand für u. a. für die automatisierte Verarbeitung an}}: 
-| <nowiki>{{{field|status|input type=dropdown|default=Completed|values=Pending,In Work,Completed}}}</nowiki>
+| <nowiki>{{{field|status|input type=dropdown|default=Term:Completed|values=Term:Pending,Term:InWork,Term:Completed}}}</nowiki>
 |-
 ! Kommentar: 
 | <nowiki>{{{field|comment|input type=textarea|autogrow}}}</nowiki>

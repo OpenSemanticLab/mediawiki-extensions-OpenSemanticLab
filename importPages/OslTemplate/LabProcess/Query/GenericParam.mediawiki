@@ -1,8 +1,8 @@
 <includeonly>{{OslTemplate:LabProcess/Query/GenericParam/SubQuery
 |process_step_name={{{process_step_name}}}
 |parameter_name={{{parameter_name}}}
-|type={{{type|Istwert}}}
-|parameter_property={{#replace:{{#replace:{{#ask: [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process_step_name|}}}|/{{{process_step_name}}}|}}]] [[HasParameterType::{{{type|Istwert}}}]][[HasName::{{{parameter_name}}}]] |?HasProperty= |mainlabel=- |link=none}}|Attribut:|}}|Property:|}}
+|type={{{type|Term:Parameter/Actual}}}
+|parameter_property={{#replace:{{#replace:{{{parameter_property|{{#ask: [[IsProcessParameterOf::{{FULLPAGENAME}}{{#if: {{{process_step_name|}}}|/{{{process_step_name}}}|}}]] [[IsInstanceOf::{{{type|Term:Parameter/Actual}}}]][[HasName::{{{parameter_name}}}]] |?HasProperty= |mainlabel=- |link=none}}}}}|Attribut:|}}|Property:|}}
 |parameter_unit={{{parameter_unit|}}}
 |exists_intro_msg={{{exists_intro_msg|}}}
 |exists_outro_msg={{{exists_outro_msg|}}}

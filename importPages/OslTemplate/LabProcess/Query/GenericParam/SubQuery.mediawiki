@@ -4,8 +4,8 @@ Create variable name
 Query for Parameter
 -->{{#vardefine:{{#var:varname}}
   |{{#ask: 
-    [[-Has subobject::{{FULLPAGENAME}}{{#if: {{{process_step_name|}}}|/{{{process_step_name}}}|}}]] 
-    [[HasParameterType::{{{type|Istwert}}}]]
+    [[IsProcessParameterOf::{{FULLPAGENAME}}{{#if: {{{process_step_name|}}}|/{{{process_step_name}}}|}}]] 
+    [[IsInstanceOf::{{{type|Term:Parameter/Actual}}}]]
     [[HasName::{{{parameter_name}}}]] 
     |?{{{parameter_property}}} {{#if: {{{parameter_unit|}}}|#_{{{parameter_unit}}}|}} = 
     |mainlabel=- 

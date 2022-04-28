@@ -1,16 +1,32 @@
+<noinclude><pre>
+type = Parameterklasse (Mehrfachzuordnung möglich, z. B. Term:ActualParameter; Term:DryingTemperature)  
+name = Label / Anzeigename
+process = Prozesskontext, default: {{FULLPAGENAME}}
+object = Referenziertes Objekt innerhalb des Prozesses, default: {{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}
+object_id = (siehe object)
+property = Attribut / Größe
+value = Wert von Property
+</pre>
+</noinclude>
 <includeonly><!--
 -->{{OslTemplate:LabProcess/Parameter
- <!--   |related_to={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}} -->
+   |id={{{id|}}}
+   |type=Term:Parameter/Actual;Term:Parameter/DeviceUsed{{#if:{{{type|}}}|;{{{type}}}|}}
+   |name={{{name|{{{label|}}}}}} 
+   |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{#if:{{{id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}}|}}
-   |name={{{name|}}} |type=Actual |property=HasDevice
+   |object={{#if:{{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}}
+   |property=HasDevice<!--  or more general HasParticipant -->
    |value={{{actual_instance|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
- <!--   |related_to={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}} -->
+   |id={{{id|}}}
+   |type=Term:Parameter/Actual;Term:Parameter/DeviceSetupUsed 
+   |name={{{name|{{{label|}}}}}}
+   |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{#if:{{{id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{id}}}|}}
-   |name={{{name|}}} |type=Actual |property=HasDeviceSetup
+   |object={{#if:{{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}} <!-- or the actual device? -->
+   |property=HasDeviceSetup
    |value={{{actual_setup|}}}
 }}<!--
 --></includeonly>

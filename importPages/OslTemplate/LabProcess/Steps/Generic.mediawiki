@@ -8,6 +8,7 @@
 |output_objects={{{output_objects|}}}
 |link_type={{{link_type|}}}
 |popup={{{popup|}}}
+|purge={{{purge|}}}
 |form=LabProcess/Steps/Generic
 |specific_template=OslTemplate:LabProcess/Steps/Generic/Subpage
 |parameters=
@@ -36,12 +37,14 @@ Generischer Prozessschritt
 {{{description|}}}
 
 ====Parameter====
-{{#ask: [[Category:ProcessParameter]] [[-Has subobject::{{FULLPAGENAME}}/{{{id|}}}]]
- |?HasName
- |?HasParameterTyp
- |?HasProperty
- |?HasValue
- |sort=Name
+{{#ask: [[IsProcessParameterOf::{{FULLPAGENAME}}/{{{id}}}]]
+<!--  |?IsProcessParameterOf=Prozess -->
+ |?IsObjectParameterOf=Objekt
+ |?HasName=Name
+<!--  |?IsInstanceOf=Typ
+ |?HasProperty=Attribut -->
+ |?HasValue=Wert
+ |sort=HasName
  }}
 </includeonly>
 <noinclude>

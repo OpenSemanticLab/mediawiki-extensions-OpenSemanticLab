@@ -26,12 +26,14 @@ Für den nächsten Prozessschritt müssen mehrere Objekte aus der Kategorie: {{#
 {{{description|}}}
 
 ====Parameter====
-{{#ask: [[Category:ProcessParameter]] [[-Has subobject::{{FULLPAGENAME}}/{{{id|}}}]]
- |?HasName
- |?HasParameterTyp
- |?HasProperty
- |?HasValue
- |sort=Name
+{{#ask: [[IsProcessParameterOf::{{FULLPAGENAME}}/{{{id}}}]]
+<!--  |?IsProcessParameterOf=Prozess -->
+ |?IsObjectParameterOf=Objekt
+ |?HasName=Name
+<!--  |?IsInstanceOf=Typ
+ |?HasProperty=Attribut -->
+ |?HasValue=Wert
+ |sort=HasName
  }}
 </includeonly>
 <noinclude>

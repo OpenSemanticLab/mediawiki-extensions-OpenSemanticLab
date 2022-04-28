@@ -11,8 +11,8 @@ like [[Form:LabProcess/Steps/Generic]] but without process aspects
 ! Name: 
 | {{{field|name|restricted}}}
 |-
-! Gehört zu Laborprodukt: 
-| {{{field|related_to|mandatory|restricted}}}
+! Gehört zu Laborprozess: 
+| {{{field|process|mandatory|restricted}}}
 |-
 ! Kommentar: 
 | {{{field|comment|input type=textarea|autogrow}}}

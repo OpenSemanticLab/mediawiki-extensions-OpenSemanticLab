@@ -1,9 +1,9 @@
 <includeonly>===Prozessparameter===
-{{#ask: [[Category:ProcessParameter]] [[-Has subobject::{{FULLPAGENAME}}]]
+{{#ask: [[IsProcessParameterOf::{{FULLPAGENAME}}]]
  |?IsProcessParameterOf=Prozess
  |?IsObjectParameterOf=Objekt
  |?HasName=Name
- |?HasParameterType
+ |?IsInstanceOf=Typ
  |?HasProperty=Attribut
  |?HasValue=Wert
  |sort=HasName

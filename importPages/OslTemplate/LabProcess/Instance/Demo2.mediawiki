@@ -55,7 +55,7 @@
 | nominal device category=
 | nominal device type=
 | nominal device instance=
-| popup={{{OslTemplate:Helper/Strings/Yes}}}
+| popup={{OslTemplate:Helper/Strings/Yes}}
 }}
 
 <includeonly>

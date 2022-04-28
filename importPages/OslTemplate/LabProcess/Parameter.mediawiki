@@ -1,12 +1,10 @@
-<includeonly>{{#subobject:
- |@category=Parameter
- |@category=ProcessParameter
- |Display title of={{{name}}} ({{{type}}})
- |IsRelatedTo={{{related_to|{{FULLPAGENAME}}}}}<!-- should get replaced with IsProcessParameterOf={{{process|}}} -->
- |IsProcessParameterOf={{{process|}}}
+<includeonly>{{#subobject: {{{id|}}}
+ |@category=LabProcess/Parameter/Instance
+ |Display title of={{{label|{{{name|}}}}}}
+ |IsProcessParameterOf={{{process|{{FULLPAGENAME}}}}}
  |IsObjectParameterOf={{{object|}}}
- |HasName={{{name}}}
- |HasParameterType={{{type}}}
+ |HasName={{{name|}}}
+ |IsInstanceOf={{{type|}}}|+sep={{{sep|;}}}
  |HasProperty=Property:{{#replace:{{#replace:{{{property}}}|Attribut:|}}|Property:|}}
  |{{#replace:{{#replace:{{{property}}}|Attribut:|}}|Property:|}}={{{value|}}}|+sep={{{sep|;}}}
  |HasValue={{{value|}}}

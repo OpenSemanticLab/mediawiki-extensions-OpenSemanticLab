@@ -6,13 +6,12 @@
 |?IsInstanceOf=Typ
 |?HasProcessObject=Prozessobjekt
 |mainlabel=-
-|@deferred
+<!-- |@deferred -->
 }}
 
 == Weitere Verwendung ==
-<!-- Forward: LabObject.Has subobject.-HasValue.-Has subobject.IsRelatedTo.LabObject
-Backward: LabObject.-IsRelatedTo.Has subobject.HasValue.-Has subobject -->
-{{#ask: [[-IsRelatedTo.Has subobject.HasValue.-Has subobject::{{FULLPAGENAME}}]]
+<!-- SuccessorProcess.-IsSubprocessOf.-IsProcessParameterOf.HasValue.-HasOutput.ThisProcess -->
+{{#ask: [[-IsSubprocessOf.-IsProcessParameterOf.HasValue.-HasOutput::{{FULLPAGENAME}}]]
 |?HasCreationDate=Datum
 |?IsInstanceOf=Vorschrift
 |?HasCreator=Ersteller

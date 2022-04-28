@@ -58,7 +58,7 @@
 | nominal_device_category=
 | nominal_device_type=
 | nominal_device_instance=
-| popup={{{OslTemplate:Helper/Strings/Yes}}}
+| popup={{OslTemplate:Helper/Strings/Yes}}
 }}
 
 {{OslTemplate:LabProcess/Steps/ObjectSelection
@@ -75,14 +75,14 @@
 | actual_object_type=
 | actual_object_instance=
 | link_type=link
-| popup={{{OslTemplate:Helper/Strings/No}}}
+| popup={{OslTemplate:Helper/Strings/No}}
 }}
 
 {{OslTemplate:LabProcess/Steps/MultiObjectSelection
 | id=0040
 | name=Probe 2 auswählen
 | link_type=link
-| popup={{{OslTemplate:Helper/Strings/No}}}
+| popup={{OslTemplate:Helper/Strings/No}}
 | required=Nein
 | predecessor=0030
 | precondition=
@@ -96,7 +96,7 @@
 | id=0050
 | name=Bild und Gewicht erfassen
 | link_type=link
-| popup={{{OslTemplate:Helper/Strings/No}}}
+| popup={{OslTemplate:Helper/Strings/No}}
 | required=Nein
 | predecessor=0040
 | precondition=
@@ -107,11 +107,11 @@
 | nominal_object_category=Category:211112-sist-0002-mc
 | objects={{OslTemplate:LabProcess/Parameter/MultiObject/ParamArray |count=3 |nominal_type=Material:211121-sist-0001-mt |actual_type=Material:211121-sist-0001-mt}}
 | quantitatives={{OslTemplate:LabProcess/Parameter/MultiQuantitative/ParamArray |count=3 |nominal_quantity=Property:Mass |nominal_unit=g |actual_quantity=Property:Mass |actual_unit=g}}
-   <!-- [1][id]=TestID;[1][name]=Test;[1][nominal_quantity]=Property:Mass;[1][nominal_unit]=g;[1][actual_quantity]=Property:Mass;[1][actual_unit]=g -->
+   <!-- [1][object_id]=TestID;[1][name]=Test;[1][nominal_quantity]=Property:Mass;[1][nominal_unit]=g;[1][actual_quantity]=Property:Mass;[1][actual_unit]=g -->
 <!-- | nominal_file_category=Category:File -->
 | files={{OslTemplate:LabProcess/Parameter/MultiFile/ParamArray |count=3 |nominal_type=FileType:220122-sist-0001-ft |actual_type=FileType:220122-sist-0001-ft}}
-<!-- | files=[1][id]=TestID;[1][name]=Test;[1][nominal_type]=FileType:220122-sist-0001-ft;[1][nominal_instance]=Test1.pdf;[1][actual_type]=FileType:220122-sist-0001-ft;
-        [2][id]=TestID;[2][name]=Test;[2][nominal_type]=FileType:220122-sist-0001-ft;[2][nominal_instance]=Wiki1.jpg;[2][actual_type]=FileType:220122-sist-0001-ft -->
+<!-- | files=[1][object_id]=TestID;[1][name]=Test;[1][nominal_type]=FileType:220122-sist-0001-ft;[1][nominal_instance]=Test1.pdf;[1][actual_type]=FileType:220122-sist-0001-ft;
+        [2][object_id]=TestID;[2][name]=Test;[2][nominal_type]=FileType:220122-sist-0001-ft;[2][nominal_instance]=Wiki1.jpg;[2][actual_type]=FileType:220122-sist-0001-ft -->
 }}
 
 {{OslTemplate:LabProcess/Object/ObjectCreator |count=3}}
