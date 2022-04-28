@@ -9,6 +9,8 @@
 {{{for template|OslTemplate:ELN/Entry/Header}}}
 {| class="formtable"
 | {{{field|collection|input type=checkbox|label=Experiment/Versuchsreihe{{#info:Stellt eine Sammlung von Laborbucheintragen dar}}}}}
+|-
+| {{{field|display_id|input type=checkbox|label=ID im Namen anzeigen{{#info:ID hinter dem Namen einblenden. Falls kein Name vorhanden ist wird immer die ID angezeigt.}}}}}
 |}
 == Stammdaten ==
 {| class="formtable"

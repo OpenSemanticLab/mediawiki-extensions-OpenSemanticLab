@@ -24,7 +24,7 @@
 |maxsize=220
 |maxtags=1000
 }}
-</div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} ({{PAGENAME}}) | {{PAGENAME}} }}
+</div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} {{#ifeq: {{{display_id|No}}}|Yes|({{PAGENAME}})}} | {{PAGENAME}} }}
 }}{{#set:
 |HasID={{PAGENAME}}
 |HasName={{{name|}}}
