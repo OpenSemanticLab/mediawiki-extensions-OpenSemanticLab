@@ -1,0 +1,4 @@
+{{#concept:
+ [[-HasCreator::<q>[[Category:LabNote]]</q>]]
+ |Ersteller von Laborbucheinträgen
+}}
