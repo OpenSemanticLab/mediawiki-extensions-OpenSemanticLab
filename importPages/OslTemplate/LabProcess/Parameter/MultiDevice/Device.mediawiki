@@ -11,6 +11,16 @@ value = Wert von Property
 <includeonly><!--
 -->{{OslTemplate:LabProcess/Parameter
    |id={{{id|}}}
+   |type=Term:Parameter/Actual;Term:Parameter/DeviceTypeUsed
+   |name={{{name|{{{label|}}}}}}
+   |label={{{label|{{{name|}}}}}} 
+   |process={{FULLPAGENAME}}
+   |object={{#if:{{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}} <!-- or the actual device? -->
+   |property=HasDeviceType
+   |value={{{actual_type|}}}
+}}<!--
+-->{{OslTemplate:LabProcess/Parameter
+   |id={{{id|}}}
    |type=Term:Parameter/Actual;Term:Parameter/DeviceUsed{{#if:{{{type|}}}|;{{{type}}}|}}
    |name={{{name|{{{label|}}}}}} 
    |label={{{label|{{{name|}}}}}} 

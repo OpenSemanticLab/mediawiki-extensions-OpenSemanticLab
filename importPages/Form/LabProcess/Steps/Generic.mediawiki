@@ -14,6 +14,7 @@
       |name_in_form=Gerät
       |template_parameter=device
       |category_input_type=tree
+      |category=Object <!-- Allow also Software -->
    }}
    {{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Rows
       |template=OslTemplate:LabProcess/Steps/Generic/Subpage
@@ -36,6 +37,7 @@
    |name_in_form=Gerät
    |template_parameter=device
    |category_input_type=tree
+   |category=Object <!-- Allow also Software -->
 }}
 {{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Fields
    |template=OslTemplate:LabProcess/Steps/Generic/Subpage

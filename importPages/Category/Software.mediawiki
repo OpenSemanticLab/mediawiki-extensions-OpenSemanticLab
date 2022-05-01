@@ -1,0 +1,10 @@
+{{OslTemplate:LIMS/Device/Category
+|uuid=0ce11d8a-9038-4af5-aaa0-78c2f969d768
+|type_symbol=dc
+|short_timestamp=220428
+|timestamp=2022-04-28T07:53:15.000Z
+|creator_abbreviation=sist
+|creator=Simon Stier
+|display_name=Software
+|sub_category_of=Object
+}}

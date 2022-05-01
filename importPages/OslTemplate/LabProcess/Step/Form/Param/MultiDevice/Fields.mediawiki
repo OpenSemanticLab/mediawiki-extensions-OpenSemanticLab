@@ -14,7 +14,7 @@
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_type<nowiki>|restricted|input type=SF_Select|query=</nowiki>((Category:{{{category|Device}}}))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
 <!-- ACTUAL TYPE-->
 <!-- | '''Ist''' | -->
-| <nowiki>{{{field|</nowiki>actual_type<nowiki>|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=actual_category|label|mandatory}}}</nowiki>
+| <nowiki>{{{field|</nowiki>actual_type<nowiki>|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=actual_category|label|<!-- mandatory -->}}}</nowiki>
 |-
 | '''Instanz:'''
 <!-- NOMINAL INSTANCE -->
@@ -22,7 +22,7 @@
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_instance<nowiki>|input type=SF_Select|query=((Category:LabObject));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
 <!-- INSTANCE -->
 <!-- | '''Ist''' | -->
-| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|mandatory}}}</nowiki>
+| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|<!-- mandatory -->}}}</nowiki>
 |-<!-- SPECIFIC FOR DEVICE--><!-- SETUP -->
 | '''Setup:'''
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_setup<nowiki>|input type=SF_Select|query=((-HasAccessory::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>nominal_instance<nowiki>|label|list}}}</nowiki></div>

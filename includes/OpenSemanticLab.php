@@ -15,6 +15,8 @@ class OpenSemanticLab {
 				"Category:OSL/Infrastructure" => "Category/OSL/Infrastructure.mediawiki",
 				"Category:OSL/Infrastructure/Template" => "Category/OSL/Infrastructure/Template.mediawiki",
 				"Category:OSL/Infrastructure/Template/User" => "Category/OSL/Infrastructure/Template/User.mediawiki",
+				"Category:Software" => "Category/Software.mediawiki",
+				"Concept:ELN/Entry/Creator" => "Concept/ELN/Entry/Creator.mediawiki",
 				"Concept:LIMS/Device/Category" => "Concept/LIMS/Device/Category.mediawiki",
 				"Concept:LIMS/File/Category" => "Concept/LIMS/File/Category.mediawiki",
 				"Concept:LIMS/Material/Category" => "Concept/LIMS/Material/Category.mediawiki",
