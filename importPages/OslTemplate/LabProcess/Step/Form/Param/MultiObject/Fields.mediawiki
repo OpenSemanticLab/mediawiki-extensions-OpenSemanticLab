@@ -16,7 +16,7 @@
 <!-- INSTANCE -->
 <!-- | '''Ist''' | -->
 | <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|<!--mandatory-->}}}</nowiki>
-|}
+|}<nowiki>{{{field|actual_instance_static|hidden|class=hide-instance-when-filled}}}</nowiki>
 <nowiki>{{{end template}}}</nowiki></includeonly><!-- 
 
 | <nowiki>{{{field|nominal_type|values from category=Physikalische Größe|class=physical_quantity|input type=combobox}}} 
