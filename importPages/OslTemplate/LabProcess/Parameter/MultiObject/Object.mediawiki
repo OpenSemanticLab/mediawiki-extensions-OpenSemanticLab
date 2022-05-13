@@ -5,8 +5,8 @@
    |name={{{name|{{{label|}}}}}}
    |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}
+   |object={{#if:{{{object_id|}}}|{{#if: {{#pos:{{{object_id}}}|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}{{{object_id}}}|}}
    |property=HasPredecessor
-   |value={{{actual_instance|}}}
+   |value={{{actual_instance|{{{actual_instance_static|}}}}}}
 }}<!--
 --></includeonly>

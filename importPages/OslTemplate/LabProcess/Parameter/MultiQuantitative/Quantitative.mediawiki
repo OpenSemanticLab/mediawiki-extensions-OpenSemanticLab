@@ -5,7 +5,7 @@
    |name={{{name|{{{label|}}}}}} 
    |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{#if:{{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}}
+   |object={{#if:{{{object_id|}}}|{{#if: {{#pos:{{{object_id}}}|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}{{{object_id}}}|}}
    |property={{{actual_quantity|}}}
    |value={{#if:{{{actual_value|}}}|{{{actual_value|}}} {{{actual_unit|}}}|}}
 }}<!--

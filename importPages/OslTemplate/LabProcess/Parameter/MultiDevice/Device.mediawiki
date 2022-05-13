@@ -15,7 +15,7 @@ value = Wert von Property
    |name={{{name|{{{label|}}}}}}
    |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{#if:{{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}} <!-- or the actual device? -->
+   |object={{#if:{{{object_id|}}}|{{#if: {{#pos:{{{object_id}}}|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}{{{object_id}}}|}} <!-- or the actual device? -->
    |property=HasDeviceType
    |value={{{actual_type|}}}
 }}<!--
@@ -25,7 +25,7 @@ value = Wert von Property
    |name={{{name|{{{label|}}}}}} 
    |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{#if:{{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}}
+   |object={{#if:{{{object_id|}}}|{{#if: {{#pos:{{{object_id}}}|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}{{{object_id}}}|}}
    |property=HasDevice<!--  or more general HasParticipant -->
    |value={{{actual_instance|}}}
 }}<!--
@@ -35,7 +35,7 @@ value = Wert von Property
    |name={{{name|{{{label|}}}}}}
    |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{#if:{{{object_id|}}}|{{NAMESPACE}}:{{ROOTPAGENAME}}#{{{object_id}}}|}} <!-- or the actual device? -->
+   |object={{#if:{{{object_id|}}}|{{#if: {{#pos:{{{object_id}}}|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}{{{object_id}}}|}} <!-- or the actual device? -->
    |property=HasDeviceSetup
    |value={{{actual_setup|}}}
 }}<!--
