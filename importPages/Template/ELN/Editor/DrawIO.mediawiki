@@ -3,7 +3,7 @@
 |content=Diagram ''{{{file_name}}}''
 }}
 {{OslTemplate:Helper/UI/VE/Hidden 
-|content={{#drawio:{{#if: {{{page_name|}}}|{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-|}}{{{file_name}}}|type={{{type|svg}}}|max-width={{{width|500px}}}}}
+|content={{#drawio:{{#if: {{{page_name|}}}|{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-|}}{{{file_name}}}|type={{{type|svg}}}|max-width={{#ifeq: {{{full_width|0}}}|1|100%| {{{width|500px}}} }}}}
 }}</includeonly><noinclude>[[Category:OSL/Infrastructure/Template/User]]
 <templatedata>
 {
@@ -38,6 +38,19 @@
 			},
 			"type": "wiki-page-name",
 			"autovalue": "{{subst:FULLPAGENAME}}"
+		},
+		"full_width": {
+			"label": {
+				"en": "Full width",
+				"de": "Gesamte Seitenbreite"
+			},
+			"description": {
+				"en": "Used the full page width to display the diagram",
+				"de": "Nutzt die gesamte Seitenbreite zur Darstellung des Diagramms"
+			},
+			"type": "boolean",
+			"autovalue": "0",
+			"suggested": true
 		}
 	},
 	"description": {
