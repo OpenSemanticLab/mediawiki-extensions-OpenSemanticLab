@@ -38,11 +38,11 @@
 == Manuell erfasste Angaben ==
 {| class="formtable"
 ! Produkt Kategorie (z. B. Material Kategorie): 
-| {{{field|output_category|input type=tree|top category=Material|height=500|width=400|depth=1}}} 
+| {{{field|output_category|input type=tree|top category=Object|height=500|width=400|depth=1}}} 
 <!-- {{{field|material category2|input type=combobox|default=Category:Material|values from concept=MaterialCategory}}} -->
 |-
 ! Produkt Typ{{#info:Kann offen gelassen werden, falls verschiedene Produkte gleichzeitig hergestellt werden}}:
-| {{{field|output_type|input type=SF_Select|query=((Category:@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=output_category|label|mandatory}}}
+| {{{field|output_type|input type=SF_Select|query=((Category:@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=output_category|label}}}
 |-
 ! Projekt(e){{#info:Projekt, denen der Versuch zugeordnet wird}}: 
 | {{{field|projects|values from category=Projekt|input type=tokens}}}
