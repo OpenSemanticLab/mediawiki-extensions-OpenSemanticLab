@@ -1,0 +1,1 @@
+<includeonly>{{FULLPAGENAME}}#{{{name|{{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{{id_postfix}}}}}}</includeonly>

@@ -1,15 +1,21 @@
-<includeonly>{{#subobject: {{#explode:{{{1}}}|###|0}}
-|@category=LabProcessObject
-|Display title of={{#explode:{{{1}}}|###|0}}
-|HasName={{#explode:{{{1}}}|###|0}}
-}}{{#set: HasObject={{FULLPAGENAME}}#{{#explode:{{{1}}}|###|0}}}}<!-- Subobject for products 
--->{{#if:{{#explode:{{{1}}}|###|1}}|{{#subobject: {{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}} 
-|@category=LabProcessOutput|+sep=;
-|HasId={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
-|HasWikiId={{FULLPAGENAME}}#{{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
-|Display title of={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}
-|HasProcessObject={{FULLPAGENAME}}#{{#explode:{{{1}}}|###|0}}
-|IsInstanceOf={{#if:{{#explode:{{{1}}}|###|2}}|{{#explode:{{{1}}}|###|2}}|
-{{#ask: [[{{FULLPAGENAME}}]] |?HasOutputType= |mainlabel=- |link=none |format=plain}}}}
-}}{{#set: HasOutput={{FULLPAGENAME}}#{{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#explode:{{{1}}}|###|1}}}}
-|}}</includeonly>
+<includeonly><!-- print out the identifier for inline declaration -->{{{name|{{{id|}}}}}};<!-- 
+create object, identified by name (if specified) or id => e.g. #ObjectName or #220504-sist-0010-mi
+-->{{#subobject: {{{name|{{{id|}}}}}}
+|@category=LabProcess/Object;LabProcessObject{{#if: {{{global|}}} |;LabProcessOutput;LabProcess/GlobalObject|}}|+sep=;
+|HasName={{{name|}}}
+|HasDisplayName={{{label|}}}
+|Display title of={{#if: {{{global|}}} | {{{id}}} | {{{label|{{{name|}}}}}} }}<!-- use id for global object -->
+|HasId={{{id|}}}
+|HasWikiId={{FULLPAGENAME}}#{{{name|{{{id|}}}}}}
+<!-- |IsInstanceOf=Term:Process/Object/Global;-->
+|IsInstanceOf=<!-- Term:Process/Object/Local; --><!--
+-->{{#if: {{{global|}}} | {{#if:{{{type|}}}| {{{type}}} | {{#ifeq:{{NAMESPACE}}|LabObject
+    | <!-- only for process instances, not types--> {{#ask: [[{{FULLPAGENAME}}]] |?HasOutputType= |mainlabel=- |link=none |format=plain}} }} 
+   }} |}}|+sep=;
+}}<!-- 
+-->{{#set: HasObject={{FULLPAGENAME}}#{{{name|{{{id|}}}}}} }}<!-- 
+-->{{#ifeq:{{NAMESPACE}}|LabObject| <!-- only for process instances, not types
+  -->{{#if: {{{global|}}}|<!--
+    -->{{#set: HasOutput={{FULLPAGENAME}}#{{{name|{{{id|}}}}}} }}<!--   
+  -->}}<!--
+-->}}</includeonly>

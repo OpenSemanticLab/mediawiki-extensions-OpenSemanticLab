@@ -1,0 +1,29 @@
+<noinclude>Create a quantitative config url param list
+
+Test:
+{{{{FULLPAGENAME}}
+|index=1
+|param_name=TestName
+|param_type=SomeType
+|actual_quantity=Property:HasMass
+|actual_value=1
+|actual_unit=kg
+}}</noinclude>
+<includeonly><!-- 
+Shared with other params
+-->{{#if: {{{id|}}}|[{{{index}}}][id]={{{id}}};|}}<!--
+-->{{#if: {{{param_type|}}}|[{{{index}}}][type]={{{param_type}}};|}}<!--
+-->{{#if: {{{param_name|}}}|[{{{index}}}][name]={{{param_name}}};|}}<!--
+-->{{#if: {{{param_label|}}}|[{{{index}}}][label]={{{param_label}}};|}}<!--
+-->{{#if: {{{object_id|}}}|[{{{index}}}][object_id]={{{object_id}}};|}}<!--
+-->{{#if: {{{nominal_category|}}}|[{{{index}}}][nominal_category]={{{nominal_category}}};|}}<!--
+-->{{#if: {{{actual_category|}}}|[{{{index}}}][actual_category]={{{actual_category}}};|}}<!--
+-->{{#if: {{{actual_category_sync_active|}}}|[{{{index}}}][actual_category_sync_active]={{{actual_category_sync_active}}};|}}<!-- 
+individual
+-->{{#if: {{{nominal_quantity|}}}|[{{{index}}}][nominal_quantity]={{{nominal_quantity}}};|}}<!--
+-->{{#if: {{{actual_quantity|}}}|[{{{index}}}][actual_quantity]={{{actual_quantity}}};|}}<!--
+-->{{#if: {{{nominal_value|}}}|[{{{index}}}][nominal_value]={{{nominal_value}}};|}}<!--
+-->{{#if: {{{actual_value|}}}|[{{{index}}}][actual_value]={{{actual_value}}};|}}<!--
+-->{{#if: {{{nominal_unit|}}}|[{{{index}}}][nominal_unit]={{{nominal_unit}}};|}}<!--
+-->{{#if: {{{actual_unit|}}}|[{{{index}}}][actual_unit]={{{actual_unit}}};|}}<!--
+--></includeonly>

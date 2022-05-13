@@ -1,0 +1,29 @@
+<noinclude>Create a tool/device/software config url param list, e.g. [1][name]=Camera;[1][nominal_category]=;[1][actual_category]=;[1][nominal_type]=;[1][actual_type]=;[1][actual_category_sync_active]=Yes;
+
+Test:
+{{{{FULLPAGENAME}}
+|index=1
+|param_name=TestName
+|param_type=SomeType
+|actual_instance=SomeInstance
+}}</noinclude>
+<includeonly><!-- 
+Shared with other params
+-->{{#if: {{{id|}}}|[{{{index}}}][id]={{{id}}};|}}<!--
+-->{{#if: {{{param_type|}}}|[{{{index}}}][type]={{{param_type}}};|}}<!--
+-->{{#if: {{{param_name|}}}|[{{{index}}}][name]={{{param_name}}};|}}<!--
+-->{{#if: {{{param_label|}}}|[{{{index}}}][label]={{{param_label}}};|}}<!--
+-->{{#if: {{{object_id|}}}|[{{{index}}}][object_id]={{{object_id}}};|}}<!--
+-->{{#if: {{{nominal_category|}}}|[{{{index}}}][nominal_category]={{{nominal_category}}};|}}<!--
+-->{{#if: {{{actual_category|}}}|[{{{index}}}][actual_category]={{{actual_category}}};|}}<!--
+-->{{#if: {{{actual_category_sync_active|}}}|[{{{index}}}][actual_category_sync_active]={{{actual_category_sync_active}}};|}}<!--
+shared with object, files
+-->{{#if: {{{nominal_type|}}}|[{{{index}}}][nominal_type]={{{nominal_type}}};|}}<!--
+-->{{#if: {{{actual_type|}}}|[{{{index}}}][actual_type]={{{actual_type}}};|}}<!--
+-->{{#if: {{{nominal_instance|}}}|[{{{index}}}][nominal_instance]={{{nominal_instance}}};|}}<!--
+-->{{#if: {{{actual_instance|}}}|[{{{index}}}][actual_instance]={{{actual_instance}}};|}}<!--
+-->{{#if: {{{actual_instance_static|}}}|[{{{index}}}][actual_instance_static]={{{actual_instance_static}}};|}}<!--
+individual
+-->{{#if: {{{nominal_setup|}}}|[{{{index}}}][nominal_setup]={{{nominal_setup}}};|}}<!--
+-->{{#if: {{{actual_setup|}}}|[{{{index}}}][actual_setup]={{{actual_setup}}};|}}<!--
+--></includeonly>

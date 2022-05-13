@@ -15,6 +15,12 @@
 |-
 ! Ausführende Person: 
 | <nowiki>{{{field|agent|default=current user}}}</nowiki>
+|-
+! Eingangsobjekte: 
+| <nowiki>{{{field|input_objects|input type=tokens|list|<!-- hidden -->}}}</nowiki>
+|-
+! Ausgangsobjekte: 
+| <nowiki>{{{field|output_objects|input type=tokens|list|<!-- hidden -->}}}</nowiki>
 |}
 </div>
 

@@ -35,7 +35,7 @@ Zur Erstellung von {{#if: {{{output_type|}}}|[[{{{output_type}}}]]|{{OslTemplate
 
 <!-- Version 2 -->
 {{#ask: [[Category:LabProcessDescriptor]] [[-Has subobject::{{FULLPAGENAME}}]]
-  |?NOThas label=haslabel
+<!--   |?NOThas label=haslabel -->
   |?Display title of=haslabel
 <!--   |?has OrSuccessor=hasorsuccessor  -->
   |?-HasPredecessor=hassuccessor 

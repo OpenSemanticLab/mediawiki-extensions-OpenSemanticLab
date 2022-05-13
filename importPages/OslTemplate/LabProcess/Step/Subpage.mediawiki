@@ -14,6 +14,8 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Os
 |postcondition=Nachbedingung vor entgültigem Abschluss des Prozessschrittes
 |postcondition_fulfilled=Nachbedingung ist erfüllt
 |status=Bearbeitungsstatus
+|input_objects=Eingangsobjekte
+|output_objects=Ausgangsobjekte
 }}
 </pre>
 </noinclude>
@@ -24,6 +26,10 @@ Prozessschritt {{{name}}} des Laborprozesses [[IsSubprocessOf::{{{process}}}]] w
 |
 Der Prozessschritt wurde noch nicht begonnen
 }}{{#if: {{{status|}}}| (Status: [[HasStatus::{{{status|}}}]])|}}
+
+Eingangsobjekte: {{{input_objects|}}}{{#arraymap:{{{input_objects|}}}|{{{input_objects_sep|,}}}|__INPUT_OBJECT__|[[HasInput::__INPUT_OBJECT__]]|,}}.
+
+Ausgangsobjekte: {{{output_objects|}}}{{#arraymap:{{{output_objects|}}}|{{{output_objects_sep|,}}}|__OUTPUT_OBJECT__|[[HasOutput::__OUTPUT_OBJECT__]]|,}}.
 
 {{#if: {{{precondition|}}}|Die Vorbedingung ''{{{precondition|}}}'' wurde {{#ifeq: {{{precondition_fulfilled|}}}|yes|erfüllt|noch nicht erfüllt}}.|}}
 {{#if: {{{postcondition|}}}|Die Nachbedingung ''{{{postcondition|}}}'' wurde {{#ifeq: {{{postcondition_fulfilled|}}}|yes|erfüllt|noch nicht erfüllt}}.|}}
