@@ -10,5 +10,17 @@ name_start = Startwert für die Bennenung (Default: start,1)
 </noinclude>
 <includeonly>{{#vardefine: i | {{{start|1}}} }}{{#while:
  | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_objects|{{{count|0}}}}} + {{{start|1}}} - 1}} | true }}
- | {{#vardefine: id_postfix | {{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{id_postfix|mi}}} }}{{#vardefine: type | {{#ifeq: {{{type|}}}|from_mapping|{{#ask: [[IsObjectParameterOf::{{FULLPAGENAME}}#{{#replace: {{PAGENAME}}|00-pi|{{#var: id_postfix }}}}]] |?HasPredecessor.IsInstanceOf.-HasPredecessor |mainlabel=- |link=none |headers=hide |format=plain}}|{{{type|}}} }} }}{{{name|Objekt}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}###{{#var: id_postfix  }}{{#if:  {{#var: type }} |<nowiki />###{{#var: type }}|}};{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
+ | {{#vardefine: id_postfix | {{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{id_postfix|mi}}} }}<!-- 
+-->{{#vardefine: type | <!-- set object type
+  -->{{#ifeq: {{{type|}}}|from_mapping|<!-- query the asigned predecessing (material) type and asign it successor
+    -->{{#ask: [[IsObjectParameterOf::{{FULLPAGENAME}}#{{#replace: {{PAGENAME}}|00-pi|{{#var: id_postfix }}}}]] |?HasPredecessor.IsInstanceOf.-HasPredecessor |mainlabel=- |link=none |headers=hide |format=plain}}|<!-- else use specified type
+  -->{{{type|}}} }}<!--  
+-->}}<!-- create object
+-->{{OslTemplate:LabProcess/Object/ById 
+     |id_postfix={{#var: id_postfix }}
+     |label={{{name|Object}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}} 
+     |type={{#var: type }} 
+     |global={{{global|}}}
+   }};<!-- 
+-->{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
 }}</includeonly>

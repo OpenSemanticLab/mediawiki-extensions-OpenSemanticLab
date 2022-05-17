@@ -5,7 +5,10 @@
    |name={{{name|{{{label|}}}}}} 
    |label={{{label|{{{name|}}}}}} 
    |process={{FULLPAGENAME}}
-   |object={{#if:{{{object_id|}}}|{{#if: {{#pos:{{{object_id}}}|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}{{{object_id}}}|}}
+   |object=<!-- 
+  -->{{#arraymap: {{{object_id|}}} | {{{sep|;}}} |__OBJECT_ID__|<!-- 
+    -->{{#if: {{#pos:__OBJECT_ID__|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}__OBJECT_ID__<!--  
+  -->| {{{sep|;}}} }}
    |property={{{actual_quantity|}}}
    |value={{#if:{{{actual_value|}}}|{{{actual_value|}}} {{{actual_unit|}}}|}}
 }}<!--

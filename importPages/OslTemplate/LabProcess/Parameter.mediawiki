@@ -2,7 +2,7 @@
  |@category=LabProcess/Parameter/Instance
  |Display title of={{{label|{{{name|}}}}}}
  |IsProcessParameterOf={{{process|{{FULLPAGENAME}}}}}
- |IsObjectParameterOf={{{object|}}}
+ |IsObjectParameterOf={{{object|}}}|+sep={{{sep|;}}}
  |HasName={{{name|}}}
  |IsInstanceOf={{{type|}}}|+sep={{{sep|;}}}
  |HasProperty=Property:{{#replace:{{#replace:{{{property}}}|Attribut:|}}|Property:|}}

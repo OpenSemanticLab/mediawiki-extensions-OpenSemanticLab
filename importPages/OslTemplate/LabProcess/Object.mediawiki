@@ -4,7 +4,11 @@ create object, identified by name (if specified) or id => e.g. #ObjectName or #2
 |@category=LabProcess/Object;LabProcessObject{{#if: {{{global|}}} |;LabProcessOutput;LabProcess/GlobalObject|}}|+sep=;
 |HasName={{{name|}}}
 |HasDisplayName={{{label|}}}
-|Display title of={{#if: {{{global|}}} | {{{id}}} | {{{label|{{{name|}}}}}} }}<!-- use id for global object -->
+|Display title of=<!-- 
+-->{{#ifeq:{{NAMESPACE}}|LabObject<!--
+  -->|{{#if: {{{global|}}} | {{{id}}} | {{{label|{{{name|}}}}}} }}<!-- use id for global object 
+  -->|{{{label|{{{name|}}}}}}<!-- always use label/name in process templates
+-->}}
 |HasId={{{id|}}}
 |HasWikiId={{FULLPAGENAME}}#{{{name|{{{id|}}}}}}
 <!-- |IsInstanceOf=Term:Process/Object/Global;-->

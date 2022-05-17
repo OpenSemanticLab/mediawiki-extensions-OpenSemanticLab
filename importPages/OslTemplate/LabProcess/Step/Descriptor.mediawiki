@@ -6,6 +6,6 @@
 |HasPredecessor={{{predecessor|}}}|+sep=;
 |IsConcurrentTo={{{concurrent_to|}}}|+sep=;
 |HasSubpage{{#ifexist:{{FULLPAGENAME}}/{{{id}}} |={{#ask:[[{{FULLPAGENAME}}/{{{id}}}]]|link=none}}|NULL=}}
-|HasInput={{{input_objects|}}}|+sep=;
-|HasOutput={{{output_objects|}}}|+sep=;
+|HasInput={{#arraymaptemplate: {{{input_objects|}}} | OslTemplate:Helper/Id/Subobject | ; | ; }}|+sep=;
+|HasOutput={{#arraymaptemplate: {{{output_objects|}}} | OslTemplate:Helper/Id/Subobject | ; | ; }}|+sep=;
 }}</includeonly>
