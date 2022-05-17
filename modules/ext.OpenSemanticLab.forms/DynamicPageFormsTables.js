@@ -1,7 +1,7 @@
 /* 
 dynamic table layout for pageforms
-DEV: MediaWiki:DynPageFormsTables.js
-REL: modules/ext.OpenSemanticLab.forms/DynPageFormsTables.js
+DEV: MediaWiki:DynamicPageFormsTables.js
+REL: modules/ext.OpenSemanticLab.forms/DynamicPageFormsTables.js
 */
 
 $(document).ready(function() {
