@@ -51,7 +51,7 @@
 | {{{field|additional_ids|input type=tokens}}}
 |-
 ! Status{{#info:Gibt den Bearbeitungszustand an}}: 
-| {{{field|status|input type=dropdown|default=Term:Pending|values=Term:Pending,Term:InWork,Term:Completed}}}
+| {{{field|status|input type=dropdown|default=Term:Completed|values=Term:Pending,Term:InWork,Term:Completed}}}
 |-
 ! Beschreibung: 
 | {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}} 
