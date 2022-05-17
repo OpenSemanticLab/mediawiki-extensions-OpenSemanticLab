@@ -23,6 +23,14 @@
 	},
 	"manifest_version": 2,
 	"ResourceModules": {
+		"ext.OpenSemanticLab": {
+	                "localBasePath": "modules/ext.OpenSemanticLab",
+        	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
+			"styles": [
+				"SkinOverwrites.css"
+      			],
+			"position": "top"
+		},
 		"ext.OpenSemanticLab.editor": {
 	                "localBasePath": "modules/ext.OpenSemanticLab.editor",
         	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
@@ -45,7 +53,10 @@
 				"DynamicFormLinks.js",
 				"DynamicPageFormsTables.js"
       			],
-			"position": "bottom"
+			"styles": [
+				"DynamicPageFormsTables.css"
+      			],
+			"position": "top"
 		},
 		"ext.OpenSemanticLab.LIMS.styles": {
 	                "localBasePath": "modules/ext.OpenSemanticLab.LIMS",
