@@ -1,0 +1,16 @@
+
+<noinclude>
+normalizes <subobjectname> to <nowiki>{{FULLPAGENAME}}</nowiki>#<subobjectname> but keeps <anypagename>#<subobjectname> as it is
+Test:
+
+{{{{FULLPAGENAME}} |subobjectname}}
+
+{{{{FULLPAGENAME}} |anypagename#subobjectname}}
+
+</noinclude>
+<includeonly><!--
+-->{{#if: {{#pos:{{{1}}}|#}}<!-- check if param is already a full subobject path 
+  -->|<!-- do nothing 
+  -->| {{FULLPAGENAME}}#<!-- add prefix
+-->}}<!--
+-->{{{1}}}</includeonly>

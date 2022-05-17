@@ -1,6 +1,6 @@
 <noinclude>Template um einen vollen Geräteparametersatz (Kategorie, Typ Soll/Ist, Instanz Soll/Ist, Setup Soll/Ist) zu speichern.
 <pre>
-{{OslTemplate:LabProcess/Parameter/Device
+{{OslTemplate:LabProcess/Parameter/Tool
 |prefix=Präfix für die Verwendung mehrer Geräte (optional)
 |suffix=Suffix für die Verwendung mehrer Geräte (optional)
 |nominal_device_category=Zu verwendende Gerätekategorie

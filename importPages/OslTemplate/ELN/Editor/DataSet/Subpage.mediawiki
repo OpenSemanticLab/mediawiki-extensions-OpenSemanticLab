@@ -32,7 +32,7 @@ Seite bearbeiten um den Quelltext zu sehen.
 {{#if: {{{quantitatives|}}}
 | Für den diesen Prozessschritt müssen ein oder mehrere Parameter angegeben werden. |}} -->
 
-{{{devices|}}}{{{objects|}}}{{{quantitatives|}}}{{{files|}}}
+{{{tools|}}}{{{objects|}}}{{{quantitatives|}}}{{{files|}}}
 
 <!--
 -->{{OslTemplate:LabProcess/Step/Footer

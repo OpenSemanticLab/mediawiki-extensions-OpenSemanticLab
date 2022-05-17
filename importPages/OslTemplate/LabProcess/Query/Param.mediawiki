@@ -1,0 +1,12 @@
+<includeonly>{{#ask: 
+    {{#if: {{{process_step_id|}}}
+      |[[IsProcessParameterOf::{{{process|{{FULLPAGENAME}}}}}/{{{process_step_id}}}]]
+      |[[IsProcessParameterOf.IsSubprocessOf::{{{process|{{FULLPAGENAME}}}}}]]
+    }}
+    [[IsInstanceOf::{{{param_type|Term:Parameter/Actual}}}]]
+    [[HasName::{{{param_name}}}]] 
+    |?{{{param_property|HasValue}}} {{#if: {{{parameter_unit|}}}|#_{{{parameter_unit}}}|}} = 
+    |mainlabel=- 
+    |link={{#ifeq:{{{link|}}}|{{OslTemplate:Helper/Strings/Yes}}|NOTnone|none}}
+    |default={{{default|}}}
+}}</includeonly>

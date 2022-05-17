@@ -6,6 +6,6 @@
 |creator_abbreviation=sist
 |creator=Simon Stier
 |display_name=Gerät
+|sub_category_of=Category:Tool
 |category_type=Anwendungsdefinierte Gerätekategorie
-|sub_category_of=Object
 }}

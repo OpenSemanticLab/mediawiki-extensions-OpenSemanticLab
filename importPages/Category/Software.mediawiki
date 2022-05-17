@@ -6,5 +6,5 @@
 |creator_abbreviation=sist
 |creator=Simon Stier
 |display_name=Software
-|sub_category_of=Object
+|sub_category_of=Category:Tool
 }}

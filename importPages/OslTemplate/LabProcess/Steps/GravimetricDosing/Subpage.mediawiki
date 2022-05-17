@@ -60,7 +60,7 @@ Seite bearbeiten um den Quelltext zu sehen.
 -->{{OslTemplate:LabProcess/Parameter
    |name=Edukt Charge |type=Istwert |property=Edukt Charge |value={{{actual_educt_batch|}}}
 }}<!--
--->{{OslTemplate:LabProcess/Parameter/Device
+-->{{OslTemplate:LabProcess/Parameter/Tool
 |prefix=
 |suffix=
 |device_category={{{device_category|}}}

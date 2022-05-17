@@ -22,7 +22,7 @@ like [[Form:LabProcess/Steps/Generic]] but without process aspects
 {{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
   |process_step_template=OslTemplate:ELN/Editor/DataSet/Subpage
   |hide_heading=true}}
-   {{OslTemplate:LabProcess/Step/Form/Param/Device/Fields
+   {{OslTemplate:LabProcess/Step/Form/Param/Tool/Fields
       |name_in_form=Geräte
       |template_parameter=device
       |category_input_type=tree

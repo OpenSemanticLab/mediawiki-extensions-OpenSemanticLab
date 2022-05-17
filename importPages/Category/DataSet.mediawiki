@@ -1,0 +1,11 @@
+{{OslTemplate:LIMS/Device/Category
+|uuid=db9e1dc1-ed71-4317-823b-434e0de100d9
+|type_symbol=dc
+|short_timestamp=220506
+|timestamp=2022-05-06T05:36:13.000Z
+|creator_abbreviation=sist
+|creator=Simon Stier
+|display_name=DataSet
+|sub_category_of=Category:Data
+|category_type=Anwendungsdefinierte Gerätekategorie
+}}

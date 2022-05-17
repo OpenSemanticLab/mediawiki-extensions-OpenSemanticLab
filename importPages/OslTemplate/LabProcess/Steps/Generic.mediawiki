@@ -15,6 +15,7 @@
    {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
    {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}}
    [name]={{{name|}}};
+   [status]={{{status|}}};
    [precondition]={{{precondition|}}};
    [postcondition]={{{postcondition|}}};
    [input_objects]={{{input_objects|}}};
@@ -26,8 +27,8 @@
    [actual_object_category]={{#replace:{{{actual_object_category|{{{nominal_object_category|Category:Object}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [nominal_file_category]={{#replace:{{{nominal_file_category|Category:File}}}|Category:|}}; <!-- Tree input expects no namespace -->
    [actual_file_category]={{#replace:{{{actual_file_category|{{{nominal_file_category|Category:File}}}}}}|Category:|}} <!-- Tree input expects no namespace -->
-|additional_template_1=OslTemplate:LabProcess/Parameter/MultiDevice/Device
-|additional_parameters_1={{{devices|}}}
+|additional_template_1=OslTemplate:LabProcess/Parameter/MultiTool/Tool
+|additional_parameters_1={{{tools|}}}
 |additional_template_2=OslTemplate:LabProcess/Parameter/MultiObject/Object
 |additional_parameters_2={{{objects|}}}
 |additional_template_3=OslTemplate:LabProcess/Parameter/MultiQuantitative/Quantitative

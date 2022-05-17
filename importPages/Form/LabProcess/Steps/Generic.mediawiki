@@ -4,12 +4,12 @@
 {{OslTemplate:LabProcess/Step/Form/Param/Common}}
 <div class="dyntable dyntable-hideable-column-1-nested">{{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
    |process_step_template=OslTemplate:LabProcess/Steps/Generic/Subpage}}
-<!--   {{OslTemplate:LabProcess/Step/Form/Param/Device/Fields
+<!--   {{OslTemplate:LabProcess/Step/Form/Param/Tool/Fields
       |name_in_form=Geräte
       |template_parameter=device
       |category_input_type=tree
    }}
--->   {{OslTemplate:LabProcess/Step/Form/Param/MultiDevice/Rows
+-->   {{OslTemplate:LabProcess/Step/Form/Param/MultiTool/Rows
       |template=OslTemplate:LabProcess/Steps/Generic/Subpage
       |name_in_form=Gerät
       |template_parameter=device
@@ -32,7 +32,7 @@
       |category_input_type=tree
    }}
 {{OslTemplate:LabProcess/Step/Form/Param/Specific/Footer}}</div>
-{{OslTemplate:LabProcess/Step/Form/Param/MultiDevice/Fields
+{{OslTemplate:LabProcess/Step/Form/Param/MultiTool/Fields
    |template=OslTemplate:LabProcess/Steps/Generic/Subpage
    |name_in_form=Gerät
    |template_parameter=device

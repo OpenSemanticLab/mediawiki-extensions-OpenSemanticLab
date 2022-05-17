@@ -4,7 +4,7 @@
 {{OslTemplate:LabProcess/Step/Form/Param/Common}}
 {{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
    |process_step_template=OslTemplate:LabProcess/Steps/GravimetricDosing/Subpage}}
-   {{OslTemplate:LabProcess/Step/Form/Param/Device/Fields
+   {{OslTemplate:LabProcess/Step/Form/Param/Tool/Fields
       |name_in_form=Gerät
       |template_parameter=device
       |category_input_type=tree

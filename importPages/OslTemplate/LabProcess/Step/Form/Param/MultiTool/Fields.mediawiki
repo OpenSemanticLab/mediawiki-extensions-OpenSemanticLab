@@ -1,5 +1,5 @@
 
-<includeonly><nowiki>{{{for template|OslTemplate:LabProcess/Parameter/MultiDevice/Device|label=|multiple|add button text=Gerät hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[devices]|display=NOTspreadsheet}}} </nowiki>
+<includeonly><nowiki>{{{for template|OslTemplate:LabProcess/Parameter/MultiTool/Tool|label=|multiple|add button text=Gerät hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[devices]|display=NOTspreadsheet}}} </nowiki>
 {{OslTemplate:LabProcess/Step/Form/Param/Multi/Header}}
 <!-- NOMINAL Category-->
 |-
