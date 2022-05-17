@@ -1,0 +1,97 @@
+/* 
+modifies styles for core mediawiki, visual editor, pageforms (ToDo: split file)
+DEV: MediaWiki:SkinOverwrites.css
+REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
+*/
+
+/* Indefinite content width for Skin:Timeless, see https://www.mediawiki.org/wiki/Skin:Timeless */
+@media screen and (min-width: 851px) {
+    .color-middle-container,
+    .ts-inner { max-width: none; }
+}
+
+/* Skin:Timeless, ULS Languages are not fully visible */
+.row.uls-language-block {
+	min-width: 600px !important;
+}
+
+/*Prevents skin-chameleon from overwriting the info_box class when using {{#ask:}}.*/
+.skin-chameleon table th {
+  text-align: left
+}
+
+/* hide Export-PDF https://www.mediawiki.org/wiki/Manual:FAQ#How_do_I_remove_a_tab_on_all_pages */
+#ca-mpdf {
+  display: none !important;
+}
+
+/* datetime input misaligned, see https://github.com/wikimedia/mediawiki-skins-Timeless/blob/078fc93ce1a7f33466213c7aaafb81909fb6057c/resources/forms.less#L7 */
+.mw-widgets-datetime-dateTimeInputWidget-editField {
+	vertical-align: middle !important;
+	padding: 0 !important;
+}
+.mw-widgets-datetime-dateTimeInputWidget-field {
+	vertical-align: middle !important;
+	padding: 0 !important;
+}
+
+/*Both select styles are used to give them the same size as the input fields in the forms.*/
+#pfForm select {
+    max-width: 100%;
+    width: 227px !important;
+}
+
+/* generic classes to hide elements, used by PageForms_Extensions */
+.generic-hide {
+	display: none;
+}
+.generic-hide-force {
+	display: none !important;
+}
+
+.select2-container--default {
+ width: 227px !important;
+}
+
+/*smaller multi instance template forms*/
+.multipleTemplateWrapper {width: 1100px;}
+
+/*PF simple upload form buttons misaligned*/
+.oo-ui-selectFileInputWidget {
+	width: auto !important;
+	padding-bottom: 15px;
+}
+
+/* VE editor: gaps unter headings in edit mode
+ interferes with CodeMirror, so only apply in visual edit mode */
+.ve-ui-surface-visual .ve-ce-contentBranchNode {
+	white-space: inherit !important;
+}
+
+/* fix vor VEForAll, see https://www.mediawiki.org/w/index.php?title=Topic:W1y9hyi4png1fpbo&topic_showPostId=w59ol98lmpj1gk17#flow-post-w59ol98lmpj1gk17 */
+/*.mw-parser-output table {border-collapse: inherit;} */
+
+/* hide section edit links, see https://www.mediawiki.org/wiki/Manual:Section_editing */
+.mw-editsection { display:none; }
+/* hide only  source edit links
+.mw-editsection a:nth-of-type(2) { display:none!important; }
+.mw-editsection>a[href*="section=T-"] { display:none!important; }
+.mw-editsection>a[href*="veaction=editsource"] { display:none!important; }*/
+/*.mw-editsection a:not(.mw-editsection-visualeditor) { display:none; }*/
+/* also hide section edit links within header-tabs / pageforms */
+.ht-editsection { display:none!important; }
+
+/* hide / display element in VE editor */
+div.ve-visible.ve-ce-leafNode.ve-ce-mwTransclusionNode { display:block!important; }
+div.ve-hidden.ve-ce-leafNode.ve-ce-mwTransclusionNode { display:none!important; }
+/* hide oo-ui button elements in visual editor*/
+.ve-ce-leafNode .oo-ui-image-progressive { display:none!important; }
+/* hide SimpleBatchUploader elements globally */
+.fileupload-container label { display:none!important; }
+.fileupload-container textarea { display:none!important; }
+/* alterative / partially solution:
+https://www.mediawiki.org/wiki/Topic:W3nu90pl5m3trwiz
+https://github.com/wikimedia/parsoid/blob/master/src/Config/WikitextConstants.php#L86-L113
+/var/lib/parsoid/lib/config/WikitextConstants.js
+->  TagWhiteList: new Set([... 'A', 'BUTTON' , 'FORM', 'LABEL', 'TEXTAREA'])
+*/
