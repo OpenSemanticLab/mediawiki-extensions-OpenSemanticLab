@@ -14,17 +14,17 @@ actual_instance = Ist-Dateiinstanz
  | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_files|{{{count}}}}} + {{{start|1}}} - 1}} | true }}
  |<!-- Shared with other param arrays
 -->{{OslTemplate:LabProcess/Parameter/MultiFile/Config
-|index={{#var: i }}
+|index={{#expr: {{{index_start|0}}} + {{#var: i }} }}
 |id={{{id|}}}
 |param_type={{{param_type|}}}
 |param_name={{{param_name|File}}}{{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}
-|param_label={{{label_name|File}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}
+|param_label={{{param_label|File}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}
 |object_id={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{object_id_postfix|mi}}}<!-- 
 individual section (shared with objects) -->
 |nominal_type={{{nominal_type|}}}
 |nominal_instance={{{nominal_instance|}}}
-|actual_type={{{actual_type|}}}
-|actual_instance={{{actual_instance|}}}
+|actual_type{{#if:{{{actual_type|}}}||NULL}}={{{actual_type|}}}
+|actual_instance{{#if:{{{actual_instance|}}}||NULL}}={{{actual_instance|}}}
 }}<!--
 -->{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
 }}</includeonly>

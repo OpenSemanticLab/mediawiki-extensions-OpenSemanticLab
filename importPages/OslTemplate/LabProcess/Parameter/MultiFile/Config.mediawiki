@@ -15,12 +15,12 @@ Shared with other params
 -->{{#if: {{{param_label|}}}|[{{{index}}}][label]={{{param_label}}};|}}<!--
 -->{{#if: {{{object_id|}}}|[{{{index}}}][object_id]={{{object_id}}};|}}<!--
 -->{{#if: {{{nominal_category|}}}|[{{{index}}}][nominal_category]={{{nominal_category}}};|}}<!--
--->{{#if: {{{actual_category|}}}|[{{{index}}}][actual_category]={{{actual_category}}};|}}<!--
+-->{{#if: {{{actual_category|{{{nominal_category|}}}}}}|[{{{index}}}][actual_category]={{{actual_category|{{{nominal_category}}}}}};|}}<!--
 -->{{#if: {{{actual_category_sync_active|}}}|[{{{index}}}][actual_category_sync_active]={{{actual_category_sync_active}}};|}}<!--
 shared with objects, devices
 -->{{#if: {{{nominal_type|}}}|[{{{index}}}][nominal_type]={{{nominal_type}}};|}}<!--
--->{{#if: {{{actual_type|}}}|[{{{index}}}][actual_type]={{{actual_type}}};|}}<!--
+-->{{#if: {{{actual_type|{{{nominal_type|}}}}}}|[{{{index}}}][actual_type]={{{actual_type|{{{nominal_type}}}}}};|}}<!--
 -->{{#if: {{{nominal_instance|}}}|[{{{index}}}][nominal_instance]={{{nominal_instance}}};|}}<!--
--->{{#if: {{{actual_instance|}}}|[{{{index}}}][actual_instance]={{{actual_instance}}};|}}<!--
+-->{{#if: {{{actual_instance|{{{nominal_instance|}}}}}}|[{{{index}}}][actual_instance]={{{actual_instance|{{{nominal_instance}}}}}};|}}<!--
 -->{{#if: {{{actual_instance_static|}}}|[{{{index}}}][actual_instance_static]={{{actual_instance_static}}};|}}<!--
 --></includeonly>

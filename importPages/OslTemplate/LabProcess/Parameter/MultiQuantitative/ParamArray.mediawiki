@@ -16,19 +16,19 @@ actual_unit= Ist-Einheit
  | {{#ifexpr: {{#var: i }} <= {{#expr:{{#var: {{{count_source_name|}}}_actual_number_of_objects|{{{count}}}}} + {{{start|1}}} - 1}} | true }}
  | <!-- Shared with other param arrays
 -->{{OslTemplate:LabProcess/Parameter/MultiQuantitative/Config
-|index={{#var: i }}
+|index={{#expr: {{{index_start|0}}} + {{#var: i }} }}
 |id={{{id|}}}
 |param_type={{{param_type|}}}
 |param_name={{{param_name|Parameter}}}{{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}
-|param_label={{{label_name|Parameter}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}
+|param_label={{{param_label|Parameter}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}
 |object_id={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{object_id_postfix|mi}}}<!-- individual section
 -->
 |nominal_quantity={{{nominal_quantity|}}}
 |nominal_value={{{nominal_value|}}}
 |nominal_unit={{{nominal_unit|}}}
-|actual_quantity={{{actual_quantity|}}}
-|actual_value={{{actual_value|}}}
-|actual_unit={{{actual_unit|}}}
+|actual_quantity{{#if:{{{actual_quantity|}}}||NULL}}={{{actual_quantity|}}}<!-- don't pass empty param so nominal value will default actual -->
+|actual_value{{#if:{{{actual_value|}}}||NULL}}={{{actual_value|}}}<!-- don't pass empty param so nominal value will default actual -->
+|actual_unit{{#if:{{{actual_unit|}}}||NULL}}={{{actual_unit|}}}<!-- don't pass empty param so nominal value will default actual -->
 }}<!--
 -->{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
 }}</includeonly>
