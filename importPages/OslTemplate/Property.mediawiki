@@ -1,3 +1,12 @@
-Templates for semantic properties
+<noinclude>Templates for semantic properties 
 
 {{#subpagelist:}}
+
+Form for this template: [[Form:Property]]
+</noinclude>
+<includeonly>This is a property of type [[Has type::{{{data_type|Page}}}]]. 
+{{#if: {{{allowed_value|}}} | Allowed values: 
+{{#arraymap: {{{allowed_value}}} | ; | __VALUE__ | *__VALUE__ | \n }} |}}
+{{#if: {{{subproperty_of|}}} | It's a subproperty of [[Property:{{#replace: {{{subproperty_of}}} | Property: | }}]] |}}.
+[[Category:LIMS/Property]] {{#arraymap: {{{category}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}
+</includeonly>
