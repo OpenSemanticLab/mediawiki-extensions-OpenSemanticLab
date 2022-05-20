@@ -1,7 +1,10 @@
 <includeonly><!-- print out the identifier for inline declaration -->{{{name|{{{id|}}}}}};<!-- 
 create object, identified by name (if specified) or id => e.g. #ObjectName or #220504-sist-0010-mi
 -->{{#subobject: {{{name|{{{id|}}}}}}
-|@category=LabProcess/Object;LabProcessObject{{#if: {{{global|}}} |;LabProcessOutput;LabProcess/GlobalObject|}}|+sep=;
+|@category=LabProcess/Object;LabProcessObject<!-- 
+-->{{#if: {{{global|}}} |<!-- 
+  -->;LabProcessOutput;LabProcess/GlobalObject<!--
+-->|}}|+sep=;
 |HasName={{{name|}}}
 |HasDisplayName={{{label|}}}
 |Display title of=<!-- 
@@ -12,14 +15,14 @@ create object, identified by name (if specified) or id => e.g. #ObjectName or #2
 |HasId={{{id|}}}
 |HasWikiId={{FULLPAGENAME}}#{{{name|{{{id|}}}}}}
 <!-- |IsInstanceOf=Term:Process/Object/Global;-->
-|IsInstanceOf=<!-- Term:Process/Object/Local; --><!--
--->{{#if: {{{global|}}} | {{#if:{{{type|}}}| {{{type}}} | {{#ifeq:{{NAMESPACE}}|LabObject
-    | <!-- only for process instances, not types--> {{#ask: [[{{FULLPAGENAME}}]] |?HasOutputType= |mainlabel=- |link=none |format=plain}} }} 
-   }} |}}|+sep=;
+|{{#ifeq:{{NAMESPACE}}|LabObject|IsInstanceOf|IsA}}=<!--process type->abstract object, process instance->object instance
+-->{{#if: {{{global|}}} | <!-- 
+  -->{{#if:{{{type|}}} | {{{type}}} | {{#ask: [[{{FULLPAGENAME}}]] |?HasOutputType= |mainlabel=- |link=none |format=plain}} }} <!-- 
+-->|}}|+sep=;
 }}<!-- 
 -->{{#set: HasObject={{FULLPAGENAME}}#{{{name|{{{id|}}}}}} }}<!-- 
--->{{#ifeq:{{NAMESPACE}}|LabObject| <!-- only for process instances, not types
+--><!-- {{#ifeq:{{NAMESPACE}}|LabObject|  --><!-- only for process instances, not types
   -->{{#if: {{{global|}}}|<!--
     -->{{#set: HasOutput={{FULLPAGENAME}}#{{{name|{{{id|}}}}}} }}<!--   
   -->}}<!--
--->}}</includeonly>
+--><!-- }} --></includeonly>

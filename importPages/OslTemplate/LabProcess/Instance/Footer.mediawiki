@@ -4,7 +4,6 @@
 <!-- |?HasWikiId=Wiki ID -->
 |?HasId=ID
 |?IsInstanceOf=Typ
-|?HasProcessObject=Prozessobjekt
 |mainlabel=-
 <!-- |@deferred -->
 }}

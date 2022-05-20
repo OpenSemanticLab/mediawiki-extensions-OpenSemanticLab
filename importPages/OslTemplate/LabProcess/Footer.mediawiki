@@ -1,10 +1,10 @@
 <includeonly>
 
 == Produkte ==
-{{#ask: [[Category:LabProcessOutput]] [[-has subobject::{{FULLPAGENAME}}]]
+{{#ask: [[-HasOutput::{{FULLPAGENAME}}]]
 <!-- |?wiki id=Wiki ID-->
 |?HasId=ID
-|?HasProcessObject=Prozessobjekt
+|?IsA=Typ
 <!-- |mainlabel=- -->
 }}
 
