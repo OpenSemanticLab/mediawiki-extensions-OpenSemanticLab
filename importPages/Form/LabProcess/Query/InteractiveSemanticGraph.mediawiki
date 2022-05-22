@@ -11,6 +11,9 @@
 {| class="formtable"
 ! Root{{#info:Page or subobject to start with}}: 
 | {{{field|root|mandatory}}}
+|-
+! Properties{{#info:Page or subobject to start with}}: 
+| {{{field|properties|input type=tokens|list|delimiter=;|default=-HasOutput;IsInstanceOf;-IsObjectParameterOf;HasPredecessor;HasObject;HasProcessObject;}}}
 |}
 {{{end template}}}
 
