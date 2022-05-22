@@ -26,7 +26,7 @@
 }}
 </div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} {{#ifeq: {{{display_id|No}}}|Yes|({{PAGENAME}})}} | {{PAGENAME}} }}
 }}{{#set:
-|HasID={{PAGENAME}}
+|HasId={{PAGENAME}}
 |HasName={{{name|}}}
 |HasCreator=User:{{{creator|}}}
 |HasAgent={{{agents|}}}|+sep=;

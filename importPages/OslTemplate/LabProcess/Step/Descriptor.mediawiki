@@ -1,6 +1,6 @@
 <includeonly>{{#subobject:{{{id}}}
 |@category=LabProcessDescriptor
-|HasID={{{id}}}
+|HasId={{{id}}}
 |HasName={{{name}}}
 |Display title of={{{name}}}
 |HasPredecessor={{{predecessor|}}}|+sep=;

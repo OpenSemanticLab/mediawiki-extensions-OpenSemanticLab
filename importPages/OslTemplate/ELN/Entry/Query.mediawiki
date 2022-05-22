@@ -5,7 +5,7 @@
 == Ergebnisse ==
 {{#ask: 
 [[Category:LabNote]]
-{{#if: {{{id|}}} | [[HasID::~*{{{id|}}}*]] | [[HasID::+]]}}
+{{#if: {{{id|}}} | [[HasId::~*{{{id|}}}*]] | [[HasId::+]]}}
 {{#if: {{{date_from|}}} | [[HasCreationDate::>{{{date_from|}}}]] |}}
 {{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
 {{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
@@ -13,7 +13,7 @@
 {{#if: {{{project|}}} | [[HasProject::{{{project|}}}]] |}}
 |sort=HasCreationDate
 |order=desc
-|?HasID=ID
+|?HasId=ID
 |?HasName=Name
 |?HasCreationDate=Datum 
 |?HasCreator=Ersteller  

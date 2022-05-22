@@ -13,7 +13,7 @@ Formular zur Suche nach Laborbucheinträgen
 {{{for template|OslTemplate:ELN/Entry/Query}}}
 {| class="formtable"
 ! ID{{#info:IDs können sowohl vollständig als auch teilweise mit * eingegeben werden}}: 
-| {{{field|id|values from property=HasID}}}
+| {{{field|id|values from property=HasId}}}
 |-
 ! Ersteller: 
 | {{{field|creator|values from concept=ELN/Entry/Creator|input type=dropdown|default=current user}}}
