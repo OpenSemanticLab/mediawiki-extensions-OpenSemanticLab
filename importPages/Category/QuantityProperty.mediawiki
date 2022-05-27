@@ -1,0 +1,2 @@
+Properties derivated from a physical quantity. 
+[[Category:Property]]

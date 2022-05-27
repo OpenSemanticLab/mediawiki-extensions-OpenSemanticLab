@@ -8,5 +8,7 @@ Form for this template: [[Form:Property]]
 {{#if: {{{allowed_value|}}} | Allowed values: 
 {{#arraymap: {{{allowed_value}}} | ; | __VALUE__ | *__VALUE__ | \n }} |}}
 {{#if: {{{subproperty_of|}}} | It's a subproperty of [[Property:{{#replace: {{{subproperty_of}}} | Property: | }}]] |}}.
-[[Category:LIMS/Property]] {{#arraymap: {{{category}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}
-</includeonly>
+[[Category:LIMS/Property]]<!--
+-->{{#ifeq:{{{data_type|Page}}}|Page|[[Category:ObjectProperty]]|[[Category:DataProperty]]}}<!--
+-->{{#arraymap: {{{category}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}<!--
+--></includeonly>

@@ -1,0 +1,4 @@
+{{#concept:
+ [[IsA::{{PAGENAME}}]] OR [[Subcategory of::Property]]
+ |Categories for properties
+}}

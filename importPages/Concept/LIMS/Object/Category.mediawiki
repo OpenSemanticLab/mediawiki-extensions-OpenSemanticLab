@@ -1,4 +1,4 @@
 {{#concept:
- [[IsA::MaterialCategory]] OR [[IsA::DeviceCategory]]
- |Kategorien für Objekte
+ [[IsA::LIMS/Device/Category]] OR [[IsA::LIMS/Material/Category]]
+ |Categories for Objects
 }}

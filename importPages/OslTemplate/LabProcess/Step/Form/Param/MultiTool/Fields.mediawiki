@@ -4,9 +4,9 @@
 |-
 | '''Kategorie:'''
 <!-- NOMINAL CATEGORY:SFS Combobox-->
-| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label|default=Category:Device}}}</nowiki></div>
 <!-- ACTUAL CATEGORY:SFS Combobox-->
-| <div class='PageFormsExtensions_sync-field PageFormsExtensions_sync-field-nested PageFormsExtensions_sync-field-src_{{{template}}}[actual_{{{template_parameter}}}_category]'><nowiki>{{{field|</nowiki>actual_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}} {{{field|actual_category_sync_active|input type=checkbox|label=Tree|default=yes}}}</nowiki>{{#info: Nutzt den Kategoriebaum für die Eingabe}}</div>
+| <div class='PageFormsExtensions_sync-field PageFormsExtensions_sync-field-nested PageFormsExtensions_sync-field-src_{{{template}}}[actual_{{{template_parameter}}}_category]'><nowiki>{{{field|</nowiki>actual_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label|default=Category:Device}}} {{{field|actual_category_sync_active|input type=checkbox|label=Tree|default=yes}}}</nowiki>{{#info: Nutzt den Kategoriebaum für die Eingabe}}</div>
 <!-- NOMINAL TYPE-->
 |-
 | '''Typ:'''

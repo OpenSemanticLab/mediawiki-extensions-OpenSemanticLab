@@ -1,0 +1,32 @@
+<noinclude>
+This is the "Property" form.
+To create a page with this form, enter the page name below;
+if a page with that name already exists, you will be sent to a form to edit that page.
+
+{{#forminput:form=Property|query string=namespace=Property}}
+
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+[[Form:Property]]
+{{{for template|OslTemplate:Property|label=Property}}}
+{| class="formtable"
+! Description: 
+| {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
+|-
+! Ontology IRI(s) (e. g. from [http://www.qudt.org/doc/DOC_VOCAB-QUANTITY-KINDS.html]): 
+| {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}
+|-
+! Allowed values: 
+| {{{field|allowed_value|input type=tokens|list|delimiter=;}}}
+|-
+! Subproperty of: 
+| {{{field|subproperty_of|input type=combobox|values from category=LIMS/Property}}}
+<!-- | {{{field|subproperty_of|input type=combobox|values from namespace=Property}}} -->
+|-
+! Category: 
+| {{{field|category|input type=combobox|values from namespace=Category}}}
+|}
+{{{end template}}}
+
+{{{standard input|save}}} {{{standard input|cancel}}}
+</includeonly>

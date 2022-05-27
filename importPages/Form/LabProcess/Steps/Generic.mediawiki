@@ -24,6 +24,9 @@
    }}
    {{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Rows
       |template=OslTemplate:LabProcess/Steps/Generic/Subpage
+      |name_in_form=Größe
+      |template_parameter=property
+      |category_input_type=tree
    }}
    {{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Rows
       |template=OslTemplate:LabProcess/Steps/Generic/Subpage
@@ -47,6 +50,9 @@
 }}
 {{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Fields
    |template=OslTemplate:LabProcess/Steps/Generic/Subpage
+   |name_in_form=Größe
+   |template_parameter=property
+   |category_input_type=tree
 }}
 {{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Fields
    |template=OslTemplate:LabProcess/Steps/Generic/Subpage
