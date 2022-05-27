@@ -1,5 +1,12 @@
 <includeonly><nowiki>{{{for template|OslTemplate:LabProcess/Parameter/MultiFile/File|label=|multiple|add button text=Datei hinzufügen|embed in field=</nowiki>{{{template}}}<nowiki>[files]|display=NOTspreadsheet}}} </nowiki>
 {{OslTemplate:LabProcess/Step/Form/Param/Multi/Header}}
+<!-- NOMINAL Category-->
+|-
+| '''Kategorie:'''
+<!-- NOMINAL CATEGORY:SFS Combobox-->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/File/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label|default=Category:File}}}</nowiki></div>
+<!-- ACTUAL CATEGORY:SFS Combobox-->
+| <div class='PageFormsExtensions_sync-field PageFormsExtensions_sync-field-nested PageFormsExtensions_sync-field-src_{{{template}}}[actual_{{{template_parameter}}}_category]'><nowiki>{{{field|</nowiki>actual_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/File/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label|default=Category:File}}} {{{field|actual_category_sync_active|input type=checkbox|label=Tree|default=yes}}}</nowiki>{{#info: Nutzt den Kategoriebaum für die Eingabe}}</div>
 <!-- NOMINAL TYPE-->
 |-
 | '''Typ:'''
@@ -7,7 +14,7 @@
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_type<nowiki>|restricted|input type=SF_Select|query=</nowiki>((Category:{{{category|File}}}))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
 <!-- ACTUAL TYPE-->
 <!-- | '''Ist''' | -->
-| <nowiki>{{{field|</nowiki>actual_type<nowiki>|input type=SF_Select|query=((</nowiki>{{#ifeq: {{{category_input_type|tree}}}|tree|Category:}}<nowiki>@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|template=</nowiki>{{{template}}}<nowiki>|field=</nowiki>actual_{{{template_parameter}}}_category<nowiki>|label|<!--mandatory-->}}}</nowiki>
+| <nowiki>{{{field|</nowiki>actual_type<nowiki>|input type=SF_Select|query=((@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=actual_category|label|<!-- mandatory -->}}}</nowiki>
 |-
 | '''Instanz:'''
 <!-- NOMINAL INSTANCE -->

@@ -1,6 +1,6 @@
 <includeonly>{{OslTemplate:LabProcess/Step/Form/Param/Multi/SectionHeader |label=Geräteauswahl |id=devices}} 
 |- class="generic-hide"|
-! Kategorie
+! Kategorie-Baum
 <!-- NOMINAL CATEGORY:SFS Combobox-->
 | {{#ifeq: {{{category_input_type|tree}}}|combobox| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_{{{template_parameter}}}_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|OslTemplate:LIMS/Device/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>}}<!-- 
 NOMINAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|tree}}}|tree|
