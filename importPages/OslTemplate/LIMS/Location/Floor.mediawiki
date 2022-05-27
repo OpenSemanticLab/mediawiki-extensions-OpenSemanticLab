@@ -20,7 +20,7 @@ Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
 <th class="heading" colspan="2">{{PAGENAME}}</th>
 </tr>
 <tr>
-<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|800x200px]] {{#set:|HasImage={{{image}}}}} |}}</td>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|800x200px]] {{#set:|HasImage=File:{{{image}}}}} |}}</td>
 </tr>
 <tr>
 <td class="subheading" colspan="2">Info</td>
