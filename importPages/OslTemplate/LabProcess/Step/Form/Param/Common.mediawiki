@@ -27,10 +27,10 @@
 == Allgemeine Angaben ==
 {| class="formtable"
 ! Startzeitpunkt: 
-| <nowiki>{{{field|start_date|input type=datetimepicker|mandatory|default=now}}}</nowiki>
+| <nowiki>{{{field|start_date|input type=datetimeflatpicker|format=d.m.Y H:i|mandatory|default=now}}}</nowiki>
 |-
 ! Endzeitpunkt: 
-| <nowiki>{{{field|end_date|input type=datetimepicker|default=now}}}</nowiki>
+| <nowiki>{{{field|end_date|input type=datetimeflatpicker|format=d.m.Y H:i|default=now}}}</nowiki>
 |-
 ! Status{{#info:Gibt den Bearbeitungszustand für u. a. für die automatisierte Verarbeitung an}}: 
 | <nowiki>{{{field|status|input type=dropdown|default=Term:Completed|values=Term:Pending,Term:InWork,Term:Completed}}}</nowiki>

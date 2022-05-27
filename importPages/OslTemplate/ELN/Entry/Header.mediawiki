@@ -81,11 +81,11 @@
 </tr>
 <tr>
 <th>Begonnen</th>
-<td>{{#if: {{{start_date|}}} |{{#timel: d.m.Y H:i:s | {{{start_date|}}} }} (CET)|}}</td>
+<td>{{#if: {{{start_date|}}} |{{#timel: d.m.Y H:i:s | {{{start_date|}}} }} |}}</td>
 </tr>
 <tr>
 <th>Beendet</th>
-<td>{{#if: {{{end_date|}}} |{{#timel: d.m.Y H:i:s | {{{end_date|}}} }} (CET)|}}</td><!-- {{#timel: d. F Y, H:i:s | {{{end_date|}}} | de}} -->
+<td>{{#if: {{{end_date|}}} |{{#timel: d.m.Y H:i:s | {{{end_date|}}} }} |}}</td><!-- {{#timel: d. F Y, H:i:s | {{{end_date|}}} | de}} -->
 </tr>
 <tr>
 <th>Beschreibung</th>

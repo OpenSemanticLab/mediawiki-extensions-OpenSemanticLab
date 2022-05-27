@@ -20,7 +20,7 @@
 | {{{field|short_timestamp}}}
 |-
 ! Erstelldatum: 
-| {{{field|timestamp|input type=datetimepicker|default=now}}}
+| {{{field|timestamp|input type=datetimeflatpicker|format=d.m.Y H:i|default=now}}}
 |-
 ! Erstellerkuerzel: 
 | {{{field|creator_abbreviation}}}

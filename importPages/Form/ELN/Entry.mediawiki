@@ -29,13 +29,13 @@
 | {{{field|creator|hidden|default=current user}}}
 | {{{field|creator_abbreviation|hidden}}}
 |-
-! Startzeitpunkt (UTC){{#info:Zeitpunkt, zu dem das Experiment begonnen wurde}}: 
-| {{{field|start_date|input type=datetimepicker|mandatory|default=now}}}
+! Startzeitpunkt{{#info:Zeitpunkt, zu dem das Experiment begonnen wurde}}: 
+| {{{field|start_date|input type=datetimeflatpicker|format=d.m.Y H:i|mandatory|default=now}}}
 | {{{field|creation_date|hidden|input type=datetimepicker|value=now}}}
 | {{{field|short_timestamp|hidden|input type=datetimepicker}}}
 |-
-! Endzeitpunkt (UTC){{#info:Zeitpunkt, zu dem das Experiment beendet wurde}}: 
-| {{{field|end_date|input type=datetimepicker|default=NOTnow}}}
+! Endzeitpunkt{{#info:Zeitpunkt, zu dem das Experiment beendet wurde}}: 
+| {{{field|end_date|input type=datetimeflatpicker|format=d.m.Y H:i}}}
 |-
 ! Beschreibung{{#info:Kurzer Beschreibungstext. Die ausführliche Beschreibung kann nach dem Speichern der Stammdaten erfolgen.}}: 
 | {{{field|description|input type=textarea|editor=NOTvisualeditor|class=toolbarOnTop}}}
