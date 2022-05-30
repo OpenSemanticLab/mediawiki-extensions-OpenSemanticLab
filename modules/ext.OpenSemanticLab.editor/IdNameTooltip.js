@@ -34,25 +34,26 @@ mw.hook( 've.activationComplete' ).add( function() {
 
 var IdNameTooltip_updateTooltip = function(context) {
     return function() {
-		const regex = /[0-9]{6}-[A-Za-z]+-[0-9]{4}-[a-z]{2}/gm;
+		const regex_short_id = /[0-9]{6}-[A-Za-z]+-[0-9]{4}-[a-z]{2}/gm;
+		const regex_uuid = /([A-Z]*)(_|-| |){1}([a-f0-9]{8})(_|-| |){1}([a-f0-9]{4})(_|-| |){1}([a-f0-9]{4})(_|-| |){1}([a-f0-9]{4})(_|-| |){1}([a-f0-9]{12})/gm;
+		var regex_expr = [
+			{property: 'HasId', regex: regex_short_id, map: (match) => {return match;} },
+			{property: 'HasUuid', regex: regex_uuid, map: (match) => {return match.replace(regex_uuid, `$3-$5-$7-$9-$11`);} }
+		];
 		const str = $(context.element).text();
 		let m;
 		var query = `/w/api.php?action=ask&query=`;
-        var count = 0;
-		while ((m = regex.exec(str)) !== null) {
-		    // This is necessary to avoid infinite loops with zero-width matches
-		    if (m.index === regex.lastIndex) {
-		        regex.lastIndex++;
-		    }
-		    
-		    // The result can be accessed through the `m`-variable.
-		    m.forEach((match, groupIndex) => {
-		        if (context.debug) console.log(`Found match, group ${groupIndex}: ${match}`);
-		        if (count > 0) query += "OR";
-		        query += `[[HasId::${match}]]`;
-		        count += 1;
-		    });
-		}
+		var count = 0;
+		regex_expr.forEach((item) => {
+			const matches = str.matchAll(item.regex);
+			for (const match of matches) {
+				var match_str = match[0];//.toString();
+				if (context.debug) console.log(`Found match ${match_str}`);
+				if (count > 0) query += "OR";
+				query += `[[${item.property}::${item.map(match_str)}]]`;
+				count += 1;
+			}
+		});
 		query += `&format=json`;
 		if (count > 0){
 			$.ajax({
