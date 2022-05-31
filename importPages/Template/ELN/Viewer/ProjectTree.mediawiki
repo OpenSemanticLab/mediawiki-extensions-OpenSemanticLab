@@ -1,0 +1,18 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=browser
+|content=ProjectTree
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content={{#tree:
+{{#ask:
+ [[Category:LIMS/Project/Part]] [[HasMember::{{NAMESPACE}}:{{ROOTPAGENAME}}]]
+ OR [[Category:LabNote]] [[IsPartOf.HasMember::{{NAMESPACE}}:{{ROOTPAGENAME}}]]<!-- HasProject subproperty of IsPartOf -->
+ OR [[Category:LabNote]] [[IsPartOf.IsPartOf.HasMember::{{NAMESPACE}}:{{ROOTPAGENAME}}]]
+ OR [[Category:LabNote]] [[IsPartOf.IsPartOf.IsPartOf.HasMember::{{NAMESPACE}}:{{ROOTPAGENAME}}]]
+ OR [[Category:LabNote]] [[IsPartOf.IsPartOf.IsPartOf.IsPartOf.HasMember::{{NAMESPACE}}:{{ROOTPAGENAME}}]]
+ <!-- |?HasProject=IsPartOf -->
+ |format=tree
+ |parent=IsPartOf
+}}
+}}
+}}</includeonly><noinclude>[[Category:OSL/Infrastructure/Template/User]]</noinclude>

@@ -91,6 +91,7 @@ class OpenSemanticLab {
 				"OslTemplate:ELN/Entry/Query" => "OslTemplate/ELN/Entry/Query.mediawiki",
 				"OslTemplate:ELN/Viewer" => "OslTemplate/ELN/Viewer.mediawiki",
 				"OslTemplate:ELN/Viewer/Kekule" => "OslTemplate/ELN/Viewer/Kekule.mediawiki",
+				"OslTemplate:ELN/Viewer/ProjectTree" => "OslTemplate/ELN/Viewer/ProjectTree.mediawiki",
 				"OslTemplate:ELN/Viewer/Wellplate" => "OslTemplate/ELN/Viewer/Wellplate.mediawiki",
 				"OslTemplate:Helper" => "OslTemplate/Helper.mediawiki",
 				"OslTemplate:Helper/Docu/FormTemplate" => "OslTemplate/Helper/Docu/FormTemplate.mediawiki",
@@ -262,6 +263,7 @@ class OpenSemanticLab {
 				"Template:ELN/Editor/SvgEdit" => "Template/ELN/Editor/SvgEdit.mediawiki",
 				"Template:ELN/Editor/Wellplate" => "Template/ELN/Editor/Wellplate.mediawiki",
 				"Template:ELN/Viewer/Kekule" => "Template/ELN/Viewer/Kekule.mediawiki",
+				"Template:ELN/Viewer/ProjectTree" => "Template/ELN/Viewer/ProjectTree.mediawiki",
 			],
 
 			// base dir for imported pages
