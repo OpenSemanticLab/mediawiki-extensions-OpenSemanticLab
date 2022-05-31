@@ -1,6 +1,6 @@
 /* 
 DEV: MediaWiki:Sandbox.js 
-REL: modules/ext.OpenSemanticLab/DynamicSitebar.js
+REL: modules/ext.OpenSemanticLab/DynamicSidebar.js
 */
 
 //dynamic sitebar content from user subpage
