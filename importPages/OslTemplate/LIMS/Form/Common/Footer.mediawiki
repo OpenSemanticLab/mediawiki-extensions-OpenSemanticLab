@@ -3,6 +3,6 @@
 <includeonly>
 |}
 <nowiki>{{{end template}}}</nowiki>
-
+{{OslTemplate:Common/Form/Label/Instances |template={{{template}}}}}
 <nowiki>{{{standard input|save}}}</nowiki><nowiki>{{{standard input|cancel}}}</nowiki>
 </includeonly>

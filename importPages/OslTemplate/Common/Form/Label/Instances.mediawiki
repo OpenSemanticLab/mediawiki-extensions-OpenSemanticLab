@@ -1,0 +1,12 @@
+<includeonly><nowiki>{{{for template|OslTemplate:Common/Label|multiple|minimum instances=0|add button text=Add label|embed in field=</nowiki>{{{template}}}<nowiki>[alternative_labels]}}}</nowiki>
+{| class="formtable"
+! Label: 
+| <nowiki>{{{field|label|mandatory}}}</nowiki>
+|-
+! Language:
+| <nowiki>{{{field|label_lang_code|input type=dropdown|values=en,de|mandatory}}}</nowiki>
+<!-- |-
+! Prefered {{#info: use this label as preferred label}}: 
+| <nowiki>{{{field|preferred|input type=checkbox|default=no}}}</nowiki> -->
+|}
+<nowiki>{{{end template}}}</nowiki></includeonly>

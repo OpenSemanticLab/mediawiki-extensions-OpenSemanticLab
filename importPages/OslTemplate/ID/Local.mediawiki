@@ -1,0 +1,5 @@
+<noinclude>Does not work with pageforms passing parameters
+<!-- {{{info|page name={{OslTemplate:ID/Local |namespace=Category |short_timestamp=<OslTemplate:LIMS/Device/Category[short_timestamp]> |creator_abbreviation=<OslTemplate:LIMS/Device/Category[creator_abbreviation]> |unique_number=<unique number;start=0001> |type_symbol=<OslTemplate:LIMS/Device/Category[type_symbol]>}}}}} -->
+
+Test: {{OslTemplate:ID/Local |namespace=Category |short_timestamp=short_timestamp |creator_abbreviation=creator_abbreviation |unique_number=unique number |type_symbol=type_symbol}}</noinclude>
+<includeonly>{{{namespace}}}:{{{short_timestamp}}}-{{{creator_abbreviation}}}-{{{unique_number}}}-{{{type_symbol}}}_TEST</includeonly>

@@ -1,4 +1,4 @@
-<includeonly>{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} <{{{id|{{PAGENAME}}}}}> | {{{id|{{PAGENAME}}}}} }}}}{{#set:HasId={{{id|{{PAGENAME}}}}}}}
+<includeonly>{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} <{{#explode:{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}|-|0}}> | {{{id|{{PAGENAMEE}}}}} }}}}<!-- {{#set:HasId={{{id|{{PAGENAME}}}}}}} -->
 {{OslTemplate:LIMS/Common/Link |Edit|{{{1}}}|{{{2}}}}}
 {{OslTemplate:LIMS/Common/Link |Create|{{{1}}}|{{{2}}}}}
 </includeonly>

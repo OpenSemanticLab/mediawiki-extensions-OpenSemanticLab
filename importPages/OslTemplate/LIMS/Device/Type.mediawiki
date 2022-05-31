@@ -10,7 +10,11 @@
 </tr>
 <tr>
 <th>ID</th>
-<td>[[HasId::{{{id|{{PAGENAME}}}}}]]</td>
+<td>[[HasId::{{{id|{{PAGENAMEE}}}}}]]</td>
+</tr>
+<tr>
+<th>UUID</th>
+<td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
 </tr>
 <tr>
 <th>Anzeigename</th>

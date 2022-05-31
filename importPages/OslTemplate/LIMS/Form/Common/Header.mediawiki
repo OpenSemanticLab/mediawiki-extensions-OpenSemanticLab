@@ -7,21 +7,21 @@
 </noinclude>
 <includeonly>
 {| class="formtable"
-! UUID: 
+<!-- ! UUID: 
 | <nowiki>{{{field|uuid|default=uuid}}}</nowiki>
-|-
-! Type: 
+|- -->
+<!-- ! Type: 
 | <nowiki>{{{field|type_symbol}}}</nowiki>
 |-
 ! Zeitstempel: 
 | <nowiki>{{{field|short_timestamp}}}</nowiki>
-|-
+|- -->
 ! Erstelldatum: 
-| <nowiki>{{{field|timestamp|input type=datetimepicker|default=now}}}</nowiki>
+| <nowiki>{{{field|timestamp|input type=datetimeflatpicker|format=d.m.Y H:i|default=now}}}</nowiki>
 |-
-! Erstellerkuerzel: 
+<!-- ! Erstellerkuerzel: 
 | <nowiki>{{{field|creator_abbreviation}}}</nowiki>
-|-
+|- -->
 ! Ersteller: 
 | <nowiki>{{{field|creator|default=current user}}}</nowiki>
 |-
@@ -30,6 +30,15 @@
 |-
 ! Vollständiger Name: 
 | <nowiki>{{{field|full_name}}}</nowiki>
+|-
+! Language:
+| <nowiki>{{{field|label_lang_code|input type=dropdown|values=en,de|default=en|mandatory}}}</nowiki>
+|-
+! Labels: 
+| <nowiki>{{{field|alternative_labels|holds template}}}</nowiki>
+|-
+! Ontology IRI: 
+| <nowiki>{{{field|ontology_iri|input type=tokens|list|delimiter=;}}}</nowiki>
 |-
 ! Beschreibung: 
 | <nowiki>{{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}</nowiki></includeonly>

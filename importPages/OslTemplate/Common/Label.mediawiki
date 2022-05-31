@@ -1,0 +1,3 @@
+<includeonly>{{#set:
+ |HasLabel={{{label}}}@{{{label_lang_code}}}
+}}<includeonly>

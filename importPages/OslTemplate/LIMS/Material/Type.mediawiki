@@ -3,7 +3,9 @@
 {{OslTemplate:LIMS/Common/Template |id_postfix=mt}}
 </noinclude>
 <includeonly>
-{{OslTemplate:LIMS/Common |Material|Type|name={{{display_name|}}}}}
+{{OslTemplate:LIMS/Common |Material|Type|name={{{display_name|}}}}}{{#set: HasId={{PAGENAME}}}}
+
+UUID: [[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]
 
 PubChem-ID: {{#if: {{{pubchem_cid|}}} | [[Has pubchem cid::{{{pubchem_cid}}}]] | {{OslTemplate:Message/NotDefined}}}} </br>
 <!-- Needs ExternalData > v2.2 ? -->

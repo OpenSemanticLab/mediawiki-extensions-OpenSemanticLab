@@ -1,0 +1,15 @@
+<noinclude>
+Formats a condensed UUID in normal form, e. g. OSLa88e409a039f4e81bd8a1fa4c7f14295 -> a88e409a-039f-4e81-bd8a-1fa4c7f14295
+
+Test:
+{{{{FULLPAGENAME}} |OSLa88e409a039f4e81bd8a1fa4c7f14295}}
+
+{{{{FULLPAGENAME}} |OSLa88e409a039f4e81bd8a1fa4c7f14295 |keep_prefix=yes |sep=_}}
+
+{{{{FULLPAGENAME}} |OSL-a88e409a_039f-4e81-bd8a 1fa4c7f14295}}
+</noinclude>
+<includeonly>{{OslTemplate:ID/UUID/Format/Normal/Process 
+|{{#replace:{{#replace:{{#replace:{{{1}}}|<nowiki> </nowiki>|}}|-|}}|_|}}<!-- remove ' ', '-' and '_' --> 
+|keep_prefix{{#if:{{{keep_prefix|}}}||NULL}}={{{keep_prefix|}}}
+|sep{{#if:{{{sep|}}}||NULL}}={{{sep|}}}
+}}<includeonly>

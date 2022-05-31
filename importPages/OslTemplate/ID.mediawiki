@@ -1,0 +1,7 @@
+<noinclude>Default ID for new elements
+Test: {{ {{FULLPAGENAME}} |namespace=TestNameSpace }}
+
+All options:
+{{#subpagelist: }}
+</noinclude>
+<includeonly>{{OslTemplate:ID/UUID |namespace={{{namespace|}}}}}</includeonly>

@@ -1,13 +1,7 @@
 <noinclude>
 {{OslTemplate:Helper/Docu/FormTemplate}}
 
-<div class=dynamic-page-form-link>{{#formlink:form=LIMS/Device/Instance
-|link text=Neues Gerät (Instanz) erstellen
-|link type=post button
-|query string=OslTemplate:LIMS/Device/Instance[short_timestamp]=${short_timestamp}&OslTemplate:LIMS/Device/Instance[creator_abbreviation]=${user_abbreviation}&OslTemplate:LIMS/Device/Instance[type_symbol]=mi
-|tooltip=
-|new window
-}}</div>
+{{OslTemplate:LIMS/Common/Link |Create|Device|Instance}}
 
 </noinclude><includeonly>
 Neue Gerätetypen müssen zuerst hier erstellt werden: [[Form:LIMS/Device/Type]]
@@ -15,7 +9,19 @@ Neue Gerätetypen müssen zuerst hier erstellt werden: [[Form:LIMS/Device/Type]]
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 {{{for template|OslTemplate:LIMS/Device/Instance}}}
 {{OslTemplate:LIMS/Form/Common/Header}}
+|-<!-- uuid, type_symbol, timestamp, abbr removed from OslTemplate:LIMS/Form/Common/Header -->
+! UUID:
+| {{{field|uuid|default=uuid}}}
 |-
+! Type: 
+| {{{field|type_symbol}}}
+|-
+! Zeitstempel: 
+| {{{field|short_timestamp}}}
+|- 
+! Erstellerkuerzel: 
+| {{{field|creator_abbreviation}}}
+|- 
 ! Gerätetyp: 
 | {{{field|type|input type=combobox|values from category=LIMS/Device/Type|required}}} 
 |-
@@ -39,5 +45,5 @@ Neue Gerätetypen müssen zuerst hier erstellt werden: [[Form:LIMS/Device/Type]]
 |-
 ! Ansprechpartner / Geräteverantwortlicher: 
 | {{{field|responsible_person|list|delimiter=;|input type=tokens|values from namespace=User}}}
-{{OslTemplate:LIMS/Form/Common/Footer}}
+{{OslTemplate:LIMS/Form/Common/Footer |template=OslTemplate:LIMS/Device/Instance}}
 </includeonly>
