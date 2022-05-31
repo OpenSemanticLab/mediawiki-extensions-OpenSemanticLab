@@ -23,12 +23,15 @@ actual_unit= Ist-Einheit
 |param_label={{{param_label|Parameter}}} {{#expr:{{#var: i }}+{{{name_start|{{{start|1}}}}}}-{{{start|1}}}}}
 |object_id={{#replace:{{#replace:{{PAGENAME}}|00-pi|}}|00-pt|}}{{#ifexpr: {{#var: i }} <= 9 |0|}}{{#var: i }}-{{{object_id_postfix|mi}}}<!-- individual section
 -->
+|nominal_category={{{nominal_category|}}}
 |nominal_quantity={{{nominal_quantity|}}}
 |nominal_value={{{nominal_value|}}}
 |nominal_unit={{{nominal_unit|}}}
+|actual_category{{#if:{{{actual_category|}}}||NULL}}={{{actual_category|}}}<!-- don't pass empty param so nominal value will default actual -->
 |actual_quantity{{#if:{{{actual_quantity|}}}||NULL}}={{{actual_quantity|}}}<!-- don't pass empty param so nominal value will default actual -->
 |actual_value{{#if:{{{actual_value|}}}||NULL}}={{{actual_value|}}}<!-- don't pass empty param so nominal value will default actual -->
 |actual_unit{{#if:{{{actual_unit|}}}||NULL}}={{{actual_unit|}}}<!-- don't pass empty param so nominal value will default actual -->
+|actual_category_sync_active={{{actual_category_sync_active|}}}
 }}<!--
 -->{{#vardefine: i | {{#expr: {{#var: i }} + 1 }} }}
 }}</includeonly>

@@ -19,6 +19,7 @@ class OpenSemanticLab {
 				"Category:OSL/Infrastructure" => "Category/OSL/Infrastructure.mediawiki",
 				"Category:OSL/Infrastructure/Template" => "Category/OSL/Infrastructure/Template.mediawiki",
 				"Category:OSL/Infrastructure/Template/User" => "Category/OSL/Infrastructure/Template/User.mediawiki",
+				"Category:OSL/Property" => "Category/OSL/Property.mediawiki",
 				"Category:QuantityProperty" => "Category/QuantityProperty.mediawiki",
 				"Category:Software" => "Category/Software.mediawiki",
 				"Category:Tool" => "Category/Tool.mediawiki",
