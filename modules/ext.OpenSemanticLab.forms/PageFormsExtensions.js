@@ -154,14 +154,14 @@ $(document).ready(function() {
 //PageForms extension does purge the target page in PF_AutoeditAPI.php:564, but that seems not no be enough for some cases => execute second purge via Api
 //mw.hook( 'wikipage.content' ).add( function() {
 $(document).ready(function() { //earlier?
-	console.log('wikipage.content');
+	//console.log('wikipage.content');
 	var url = window.location.href;
-	console.log(url);
+	//console.log(url);
 	if (url.includes('#_purge')) {
 		if (url.indexOf('?') > 0 &&  (url.indexOf('?') <  url.indexOf('#')) ) return; //# in url param
-		console.log('Purge request');
+		//console.log('Purge request');
 		url = url.replaceAll('#_purge','');
-		console.log(url);
+		//console.log(url);
 		//window.location.href = url; //get request redirects to purge form
 		var postArgs = {
 	        action: 'purge',
@@ -177,4 +177,87 @@ $(document).ready(function() { //earlier?
 	        });
     	});
 	}
+});
+
+//set auto-increment value for unique fields
+$(document).ready(function() {
+	if( $('.uniquePatternedField').length === 0) return;
+	//mw.loader.using( 'mw.api').done( function () {
+		$('.uniquePatternedField').each(function(i) {
+			//$('[name=wpSave]').prop("disabled",true);
+			
+			var context = {};
+			context.debug = false;
+			context.date = new Date();
+			context.element = $(this);
+			context.pattern = $(this).data('pattern');
+			context.field = $(this).find(".uniqueField");
+			context.fieldVal = context.field.val();
+			context.fieldOrigVal = context.field.prop("defaultValue");
+			
+			var propertyFieldName = context.field.prop("id") + "_unique_property";
+			var $propertyField = $("[name=" + propertyFieldName + "]");
+			context.property = $propertyField.val();
+			if (context.debug) console.log(context);
+			
+			context.timestamp_YYMMDD = ("" + context.date.getFullYear()).slice(-2) + ("0" + (context.date.getMonth() + 1)).slice(-2) + ("0" + context.date.getDate()).slice(-2);
+			context.userName = mw.config.get("wgUserName");
+			var prequeries = [];
+	
+			var query = `/w/api.php?action=ask&query=[[User:${context.userName}]]|?HasAbbreviation&format=json`;
+			var receiveUserAbbreviationQuery = $.ajax({url : query, dataType: "json", cache: false,
+				success : function(data){
+    				for (var key in data.query.results) {
+	    				if (data.query.results[key].printouts['HasAbbreviation'][0] !== undefined) {
+	    					context.HasAbbreviation = data.query.results[key].printouts['HasAbbreviation'][0];
+	    					if (context.debug) console.log("HasAbbreviation:" + context.HasAbbreviation);
+	    					
+
+	    				}
+    				}
+				}
+			});
+			
+			prequeries.push(receiveUserAbbreviationQuery);
+			
+			$.when.apply($, prequeries).done(function(){
+				if (context.debug) console.log("all pre-queries done");
+				context.value = context.pattern;
+				context.value = context.value.replace("${short_timestamp}", context.timestamp_YYMMDD);
+				context.value = context.value.replace("${user_abbreviation}", context.HasAbbreviation);
+				context.value = context.value.replace("${unique_number}", "*");
+				
+				var postqueries = [];
+				//retriev the existing property value with the highest value for the unique number
+				query = `/w/api.php?action=ask&query=[[${context.property}::~${context.value}]]|?${context.property}|sort=${context.property}|order=desc|limit=1&format=json`;
+				var receiveHighestExistingValuesQuery = $.ajax({url : query, dataType: "json", cache: false,
+					success : function(data){
+						var number_pattern = "0000";
+						var number_start = 1;
+						context.unique_number_string = "" + number_start;
+						for (var key in data.query.results) {
+
+							if (data.query.results[key].printouts[context.property][0] !== undefined) {
+								context.highestExistingValue = data.query.results[key].printouts[context.property][0];
+							    if (context.debug) console.log("highestExistingValue:" + context.highestExistingValue);
+							    var regex = new RegExp(context.value.replace("*","([0-9]*)"), "g");
+							    context.unique_number_string = regex.exec(context.highestExistingValue)[1];
+							    context.unique_number_string = "" + (parseInt(context.unique_number_string) + 1);
+							}
+						}
+						context.unique_number_string = (number_pattern + context.unique_number_string).substr(-number_pattern.length);
+						context.value = context.value.replace("*", context.unique_number_string);
+						$(context.field).val(context.value);
+					}
+				});
+				postqueries.push(receiveHighestExistingValuesQuery);
+				
+				$.when.apply($, postqueries).done(function(){
+					if (context.debug) console.log("all post-queries done");
+					//$('[name=wpSave]').prop("disabled",false);
+				})
+			
+			})
+		});
+	//});
 });
