@@ -2,38 +2,68 @@
 {{OslTemplate:Helper/Docu/FormTemplate}}
 {{OslTemplate:LIMS/Common/Template |id_postfix=mi}}
 </noinclude>
-<includeonly>
+<includeonly><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasId::{{{id|{{PAGENAMEE}}}}}]]</td>
+</tr>
+<tr>
+<th>UUID</th>
+<td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasDisplayName::{{{display_name|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>Materialtyp</th>
+<td>[[IsInstanceOf::{{{type|}}}]]</td>
+</tr>
+<tr>
+<th>Hersteller</th>
+<td>[[HasManufacturer::{{{manufacturer|}}}]]</td>
+</tr>
+<tr>
+<th>Typenbezeichnung</th>
+<td>[[HasManufacturerTypeId::{{{manufacturer_type_id|}}}]]</td>
+</tr>
+<tr>
+<th>Cargennummer</th>
+<td>[[HasManufacturerInstanceId::{{{manufacturer_instance_id|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Organisation</td>
+</tr>
+<tr>
+<th>Verantwortlicher</th>
+<td>{{#arraymap:{{{responsible_person|}}}|;|x|[[HasResponsiblePerson::x]]}}</td>
+</tr>
+<tr>
+<th>Standort</th>
+<td>[[IsLocatedIn::{{{location|}}}]]</td>
+</tr>
+<tr>
+<th>OE</th>
+<td>{{#arraymap:{{{department|}}}|;|x|[[HasDepartment::x]]}}</td>
+</tr>
+</table>
 {{OslTemplate:LIMS/Common |Material|Instance|name={{{display_name|}}}}}
 
 {{#declare:
- |HasUuid=uuid
- |IsInstanceOf=type
  |HasCreator=creator
  |HasCreationDate=creation_date
- |HasName=display_name
- |HasFullName=full_name
  |HasDescription=description
- |HasManufacturer=manufacturer
- |HasManufacturerTypeId=manufacturer_type_id
- |HasManufacturerInstanceId=manufacturer_instance_id
 }}
-
-{{#ask: [[{{FULLPAGENAME}}]]
- |?HasUuid=uuid
- |?HasId=ID
- |?IsInstanceOf=Type
- |?HasCreator=Ersteller
- |?HasCreationDate=Erstelldatum
- |?HasName=Name
- |?HasFullName=Voller Name
- |?HasDescription=Beschreibung
- |?HasManufacturer=Hersteller
- |?HasManufacturerTypeId=Produkt ID
- |?HasManufacturerInstanceId=Chargen ID
- |format=table
- |transpose=true
-}}
-
 
 [[Category:LabObject]]
 [[Category:LIMS/Material/Instance]]
