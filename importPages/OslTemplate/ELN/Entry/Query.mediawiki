@@ -6,6 +6,7 @@
 {{#ask: 
 [[Category:LabNote]]
 {{#if: {{{id|}}} | [[HasId::~*{{{id|}}}*]] | [[HasId::+]]}}
+{{#if: {{{name|}}} | [[HasName::~*{{{name|}}}*]] | [[HasName::+]]}}
 {{#if: {{{date_from|}}} | [[HasCreationDate::>{{{date_from|}}}]] |}}
 {{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
 {{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}

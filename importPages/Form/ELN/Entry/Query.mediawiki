@@ -15,6 +15,9 @@ Formular zur Suche nach Laborbucheinträgen
 ! ID{{#info:IDs können sowohl vollständig als auch teilweise mit * eingegeben werden}}: 
 | {{{field|id|values from property=HasId}}}
 |-
+! Name{{#info:Name des Eintrages (oder ein Teil davon)}}: 
+| {{{field|name|input type=combobox|values from property=HasName}}}
+|-
 ! Ersteller: 
 | {{{field|creator|values from concept=ELN/Entry/Creator|input type=dropdown|default=current user}}}
 |-
