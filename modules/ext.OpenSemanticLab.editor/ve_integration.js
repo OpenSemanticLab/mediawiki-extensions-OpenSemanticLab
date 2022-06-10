@@ -117,6 +117,18 @@ var template_tools = [
         {
                 group: 'insert',
                 custom_group: false,
+                title: 'ParamSet',
+                icon: 'table',
+                name: 'parameter_set',
+                dialog: true,
+                dialog_type: 'template',
+                sequence: '{P}',
+                shortcut: 'ctrl+alt+p',
+                template: { target: {href: 'Template:ELN/Editor/ParamSet', wt: 'Template:ELN/Editor/ParamSet'}, params: {'name': {wt: `ParamSet 1`}, 'id': {wt: `0001`}}}
+        },
+        {
+                group: 'insert',
+                custom_group: false,
                 title: 'Building Block',
                 icon: 'puzzle',
                 name: 'building_block',
