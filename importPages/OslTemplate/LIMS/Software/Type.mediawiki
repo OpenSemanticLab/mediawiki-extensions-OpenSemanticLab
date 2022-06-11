@@ -1,0 +1,77 @@
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template}}
+</noinclude>
+<includeonly><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasId::{{{id|{{PAGENAMEE}}}}}]]</td>
+</tr>
+<tr>
+<th>UUID</th>
+<td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasDisplayName::{{{display_name|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>Softwarekategorie</th>
+<td>{{#arraymap:{{{category|}}}|;|x|[[x]][[:x]]|\n}}</td>
+</tr>
+<tr>
+<th>Hersteller</th>
+<td>[[HasManufacturer::{{{manufacturer|}}}]]</td>
+</tr>
+<tr>
+<th>Typenbezeichnung</th>
+<td>[[HasManufacturerTypeId::{{{manufacturer_type_id|}}}]]</td>
+</tr>
+<tr>
+<th>Repository</th>
+<td>[[HasUrl::{{{repository|}}}]]</td>
+</tr>
+</table>
+<!-- {{#ask: [[{{FULLPAGENAME}}]]
+|?Category=
+|mainlabel=-
+|format=plain
+}} -->
+{{OslTemplate:LIMS/Common |Software|Type|name={{{display_name|}}}}}
+{{#declare:
+ |HasCreator=creator
+ |HasCreationDate=creation_date
+ |HasDescription=description
+ |HasImage=image
+ |HasDatasheet=datasheet
+ |HasManual=manual
+}}
+
+== Beschreibung ==
+{{{description|}}}
+
+== Dokumente ==
+{{#tag:gallery|
+File:{{{datasheet}}}{{!}}Datenblatt{{!}}link=[[Special:Redirect/file/{{{datasheet}}}]]
+File:{{{manual}}}{{!}}Bedienungsableitung{{!}}link=[[Special:Redirect/file/{{{manual}}}]]
+{{#arraymap:{{{additional_documents|}}}|,|x|File:x{{!}}Sonstige Dokumente|\n}}
+|mode="traditional"
+}}
+
+== Instanzen ==
+{{#ask: [[Category:LIMS/Software/Instance]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?HasCreationDate=Datum
+|?HasManufacturerInstanceId=Version
+}}
+
+[[Category:LIMS/Software/Type]]{{#default_form:LIMS/Software/Type}}
+</includeonly>

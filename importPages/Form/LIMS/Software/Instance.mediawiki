@@ -1,0 +1,33 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{OslTemplate:LIMS/Common/Link |Create|Software|Instance}}
+</noinclude><includeonly>
+Neue Gerätetypen müssen zuerst hier erstellt werden: [[Form:LIMS/Software/Type]]
+{{{info|page name={{OslTemplate:ID/UUID |namespace=LabObject}} }}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Software/Instance}}}
+{{OslTemplate:LIMS/Form/Common/Header}}
+|-
+! Weitere IDs{{#info:z. B. intern genutzte Bezeichnungen}}: 
+| {{{field|additional_ids|input type=tokens}}}
+|- 
+! Softwaretyp: 
+| {{{field|type|input type=combobox|values from category=LIMS/Software/Type|required}}} 
+|- 
+! Branch: 
+| {{{field|branch}}} 
+|-
+! Version: 
+| {{{field|manufacturer_instance_id}}} 
+|-
+! Build-Number: 
+| {{{field|build_number}}}
+|-
+! Commit-Hash: 
+| {{{field|commit_hash}}}
+|-
+! Bild: 
+| {{{field|image|uploadable|image preview}}} 
+{{OslTemplate:LIMS/Form/Common/Footer |template=OslTemplate:LIMS/Software/Instance}}
+</includeonly>
