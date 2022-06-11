@@ -2,7 +2,9 @@
 {{OslTemplate:LIMS/Common/Template |id_postfix=ft}}
 </noinclude>
 <includeonly>
-{{OslTemplate:LIMS/Common |File|Type|name={{{display_name|}}}}}
+{{OslTemplate:LIMS/Common |File|Type|name={{{display_name|}}}}}{{#set: HasId={{PAGENAME}}}}
+
+UUID: [[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]
 
 {{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}</br>
 Kategorien:

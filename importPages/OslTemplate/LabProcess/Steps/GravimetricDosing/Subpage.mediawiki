@@ -19,15 +19,15 @@ Vorlage für einen Gravimetrischen Dosierschritt
   |nominal_mass_unit=Einheit der Massenvorgabe
   |actual_mass=Tatsächliche Masse
   |actual_mass_unit=Einheit der tatsächlichen Masse
-  |nominal_device=Vorgabe für verwendetes Gerät
-  |actual_device=Tätsächlich verwendetes Gerät
-  |device_category=Gerätekategorie
-  |nominal_device_type=Zu verwendender Gerätetyp
-  |actual_device_type=Tatsächlich verwendeter Gerättyp
-  |nominal_device_instance=Zu verwendende Gerätinstanz
-  |actual_device_instance=Tatsächlich verwendete Gerätinstanz
-  |nominal_device_setup=Zu verwendendes Setup
-  |actual_device_setup=Tatsächlich verwendetes Setup
+  |nominal_tool=Vorgabe für verwendetes Gerät
+  |actual_tool=Tätsächlich verwendetes Gerät
+  |tool_category=Gerätekategorie
+  |nominal_tool_type=Zu verwendender Gerätetyp
+  |actual_tool_type=Tatsächlich verwendeter Gerättyp
+  |nominal_tool_instance=Zu verwendende Gerätinstanz
+  |actual_tool_instance=Tatsächlich verwendete Gerätinstanz
+  |nominal_tool_setup=Zu verwendendes Setup
+  |actual_tool_setup=Tatsächlich verwendetes Setup
 }}
 
 </pre>
@@ -63,13 +63,13 @@ Seite bearbeiten um den Quelltext zu sehen.
 -->{{OslTemplate:LabProcess/Parameter/Tool
 |prefix=
 |suffix=
-|device_category={{{device_category|}}}
-|nominal_device_type={{{nominal_device_type|}}}
-|actual_device_type={{{actual_device_type|}}}
-|nominal_device_instance={{{nominal_device_instance|{{{nominal_device|}}}}}}
-|actual_device_instance={{{actual_device_instance|{{{actual_device|}}}}}}
-|nominal_device_setup={{{nominal_device_setup|}}}
-|actual_device_setup={{{actual_device_setup|}}}
+|tool_category={{{tool_category|}}}
+|nominal_tool_type={{{nominal_tool_type|}}}
+|actual_tool_type={{{actual_tool_type|}}}
+|nominal_tool_instance={{{nominal_tool_instance|{{{nominal_tool|}}}}}}
+|actual_tool_instance={{{actual_tool_instance|{{{actual_tool|}}}}}}
+|nominal_tool_setup={{{nominal_tool_setup|}}}
+|actual_tool_setup={{{actual_tool_setup|}}}
 }}<!--
 --><!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
 Von {{#if: {{{nominal_educt|}}}|[[{{{nominal_educt}}}]]|{{OslTemplate:Message/NotDefined}}}} 
@@ -83,13 +83,13 @@ eingewogen werden.
 |prefix=
 |suffix=
 |process_step_name={{{name|}}}
-|device_category={{{device_category|}}}
-|nominal_device_type={{{nominal_device_type|}}}
-|actual_device_type={{{actual_device_type|}}}
-|nominal_device_instance={{{nominal_device_instance|{{{nominal_device|}}}}}}
-|actual_device_instance={{{actual_device_instance|{{{actual_device|}}}}}}
-|nominal_device_setup={{{nominal_device_setup|}}}
-|actual_device_setup={{{actual_device_setup|}}}
+|tool_category={{{tool_category|}}}
+|nominal_tool_type={{{nominal_tool_type|}}}
+|actual_tool_type={{{actual_tool_type|}}}
+|nominal_tool_instance={{{nominal_tool_instance|{{{nominal_tool|}}}}}}
+|actual_tool_instance={{{actual_tool_instance|{{{actual_tool|}}}}}}
+|nominal_tool_setup={{{nominal_tool_setup|}}}
+|actual_tool_setup={{{actual_tool_setup|}}}
 }}
 {{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name|}}}

@@ -102,7 +102,7 @@ File:{{#ask: [[{{{type|}}}]] |?HasAdditionalDocument= |mainlabel=-}}{{!}}Sonstig
 }}
 
 == Inhalt ==
-{{Template:ELN/Viewer/LocationTree |skip_root=Yes}}
+{{Template:LIMS/Common/Viewer/LocationTree |skip_root={{OslTemplate:Helper/Strings/Yes}}}}
 
 [[Category:LabObject]][[Category:LIMS/Device/Instance]]
 </includeonly>

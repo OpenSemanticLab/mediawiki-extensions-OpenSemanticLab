@@ -1,1 +1,1 @@
-<includeonly>{{#set:HasIdPostfix={{{id_postfix}}}}}</includeonly>
+<includeonly>{{#set:HasIdPostfix={{{id_postfix|}}}}}</includeonly>
