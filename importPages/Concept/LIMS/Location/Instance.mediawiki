@@ -1,0 +1,4 @@
+{{#concept:
+ [[IsInstanceOf::<q>[[Category:OSL6a900f9aa0b34417815ecd5525c3fcc1]]</q>]] OR [[Category:LIMS/Location/Room]]
+ |Rooms or storage devices
+}}
