@@ -1,0 +1,60 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+Templates for Knowledge Base Terms
+{{#subpagelist: }}
+</noinclude>
+<includeonly>{{DISPLAYTITLE:{{{label}}} <{{#explode:{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}|-|0}}> }}<!-- 
+-->[[Category:KB/Term]]{{#arraymap: {{{category|}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}<!--
+-->{{#set: 
+<!-- |HasUuid={{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}  -->
+|HasLabel={{{label}}}@{{{label_lang_code}}}
+}}<!--
+-->{{{alternative_labels|}}}<!--
+--><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasId::{{{id|{{PAGENAMEE}}}}}]]</td>
+</tr>
+<tr>
+<th>UUID</th>
+<td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Relations (Outgoing)</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+{{{relations|}}}
+</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Relations (Incoming)</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+{{#ask: [[Category:KB/Relation]] [[HasValue::{{FULLPAGENAME}}]] 
+|?HasProperty=property
+|format=table
+|mainlabel=subject
+|format=plainlist
+|template=OslTemplate:KB/Relation/ReverseListFormat
+|named args=yes
+|@deferred
+}}
+</td>
+</tr>
+</table>
+{{#formlink:form=KB/Term|target={{FULLPAGENAME}}|link text=Edit this entry|link type=post button}}
+{{#formlink:form=KB/Term|link text=Create new entry|link type=post button}}
+=== Short description ===
+{{{description|}}}
+
+<div id="custom-ve-add-first-section-link"></div>
+</includeonly>

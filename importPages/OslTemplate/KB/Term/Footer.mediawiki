@@ -1,0 +1,20 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/SectionSeparator |label=Anhang}}
+<div id="custom-ve-new-section-prepend-anchor"></div>
+{{OslTemplate:Helper/UI/VE/Visible 
+|content=Upload-Area
+|icon=upload
+}}
+{{OslTemplate:Helper/UI/Div/VE-Hidden}}
+{{#ask: [[IsFileAttachmentOf::{{FULLPAGENAME}}]] 
+<!-- |?HasName #=Name 
+|?HasUrl=Link 
+|?Modification date=Zuletzt geändert  -->
+|?HasUrl
+|format=gallery
+|redirects=HasUrl<!-- Links direct to download -->
+}} <!-- With format=table chem and math formular fail to render on page!?! -->
+<!-- With format=datatable VE page safe fails!?! -->
+<div class="fileupload-auto-reload">{{#batchupload:OslTemplate:KB/Attachment|{{FULLPAGENAME}}|{{REVISIONUSER}}}}</div>
+{{OslTemplate:Helper/UI/Div/Closing}}
+
+</includeonly>
