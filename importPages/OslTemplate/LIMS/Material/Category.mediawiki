@@ -4,7 +4,10 @@
 </noinclude><includeonly><!-- 
 -->{{OslTemplate:LIMS/Common/Category/Header
   |category_group_name=Material
+  |uuid={{{uuid|}}}
   |display_name={{{display_name|}}}
+  |label_lang_code={{{label_lang_code|}}}
+  |alternative_labels={{{alternative_labels|}}}
   |ontology_iri={{{ontology_iri|}}}
   |sub_category_of={{{sub_category_of|}}}
   |category_type={{{category_type|}}}
