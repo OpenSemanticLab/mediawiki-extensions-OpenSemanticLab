@@ -1,3 +1,3 @@
-Parameter wrapper for multiple devices
+Parameter wrapper for multiple tools
 
 {{#subpagelist:}}

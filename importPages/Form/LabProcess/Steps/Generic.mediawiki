@@ -6,13 +6,13 @@
    |process_step_template=OslTemplate:LabProcess/Steps/Generic/Subpage}}
 <!--   {{OslTemplate:LabProcess/Step/Form/Param/Tool/Fields
       |name_in_form=Geräte
-      |template_parameter=device
+      |template_parameter=tool
       |category_input_type=tree
    }}
 -->   {{OslTemplate:LabProcess/Step/Form/Param/MultiTool/Rows
       |template=OslTemplate:LabProcess/Steps/Generic/Subpage
-      |name_in_form=Gerät
-      |template_parameter=device
+      |name_in_form=Tool
+      |template_parameter=tool
       |category_input_type=tree
       |category=Object <!-- Allow also Software -->
    }}
@@ -25,7 +25,7 @@
    {{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Rows
       |template=OslTemplate:LabProcess/Steps/Generic/Subpage
       |name_in_form=Größe
-      |template_parameter=property
+      |template_parameter=quantitative
       |category_input_type=tree
    }}
    {{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Rows
@@ -37,8 +37,8 @@
 {{OslTemplate:LabProcess/Step/Form/Param/Specific/Footer}}</div>
 {{OslTemplate:LabProcess/Step/Form/Param/MultiTool/Fields
    |template=OslTemplate:LabProcess/Steps/Generic/Subpage
-   |name_in_form=Gerät
-   |template_parameter=device
+   |name_in_form=Tool
+   |template_parameter=tool
    |category_input_type=tree
    |category=Object <!-- Allow also Software -->
 }}
@@ -51,7 +51,7 @@
 {{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Fields
    |template=OslTemplate:LabProcess/Steps/Generic/Subpage
    |name_in_form=Größe
-   |template_parameter=property
+   |template_parameter=quantitative
    |category_input_type=tree
 }}
 {{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Fields

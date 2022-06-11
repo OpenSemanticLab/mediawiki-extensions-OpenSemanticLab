@@ -18,7 +18,7 @@ value = Wert von Property
    |object=<!-- 
   -->{{#arraymap: {{{object_id|}}} | {{{sep|;}}} |__OBJECT_ID__|<!-- 
     -->{{#if: {{#pos:__OBJECT_ID__|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}__OBJECT_ID__<!--  
-  -->| {{{sep|;}}} }} <!-- or the actual device? -->
+  -->| {{{sep|;}}} }} <!-- or the actual tool? -->
    |property=HasDeviceType
    |value={{{actual_type|}}}
 }}<!--
@@ -44,7 +44,7 @@ value = Wert von Property
    |object=<!-- 
   -->{{#arraymap: {{{object_id|}}} | {{{sep|;}}} |__OBJECT_ID__|<!-- 
     -->{{#if: {{#pos:__OBJECT_ID__|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}__OBJECT_ID__<!--  
-  -->| {{{sep|;}}} }} <!-- or the actual device? -->
+  -->| {{{sep|;}}} }} <!-- or the actual tool? -->
    |property=HasDeviceSetup
    |value={{{actual_setup|}}}
 }}<!--

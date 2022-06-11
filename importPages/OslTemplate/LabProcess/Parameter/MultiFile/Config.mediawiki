@@ -17,7 +17,7 @@ Shared with other params
 -->{{#if: {{{nominal_category|}}}|[{{{index}}}][nominal_category]={{{nominal_category}}};|}}<!--
 -->{{#if: {{{actual_category|{{{nominal_category|}}}}}}|[{{{index}}}][actual_category]={{{actual_category|{{{nominal_category}}}}}};|}}<!--
 -->{{#if: {{{actual_category_sync_active|}}}|[{{{index}}}][actual_category_sync_active]={{{actual_category_sync_active}}};|}}<!--
-shared with objects, devices
+shared with objects, tools
 -->{{#if: {{{nominal_type|}}}|[{{{index}}}][nominal_type]={{{nominal_type}}};|}}<!--
 -->{{#if: {{{actual_type|{{{nominal_type|}}}}}}|[{{{index}}}][actual_type]={{{actual_type|{{{nominal_type}}}}}};|}}<!--
 -->{{#if: {{{nominal_instance|}}}|[{{{index}}}][nominal_instance]={{{nominal_instance}}};|}}<!--

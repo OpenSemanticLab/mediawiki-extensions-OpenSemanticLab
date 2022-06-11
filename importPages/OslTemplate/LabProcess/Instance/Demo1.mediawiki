@@ -36,10 +36,10 @@
 | actual_educt=
 | nominal_mass=1
 | nominal_mass_unit=g 
-| nominal_device_category=Category:OSLefbb17cf2ca24aba9390027ea09bae79
-| nominal_device_type=
-| nominal_device_instance=
-| actual_device_type=
+| nominal_tool_category=Category:OSLefbb17cf2ca24aba9390027ea09bae79
+| nominal_tool_type=
+| nominal_tool_instance=
+| actual_tool_type=
 }}
 
 {{OslTemplate:LabProcess/Steps/GravimetricDosing
@@ -55,9 +55,9 @@
 | actual_educt=
 | nominal_mass=
 | nominal_mass unit=g 
-| nominal_device_category=
-| nominal_device_type=
-| nominal_device_instance=
+| nominal_tool_category=
+| nominal_tool_type=
+| nominal_tool_instance=
 | popup={{OslTemplate:Helper/Strings/Yes}}
 }}
 
@@ -103,15 +103,15 @@
 | input_objects={{OslTemplate:LabProcess/Object/ObjectCreator |count=3}}
 | output_objects=
 | description=Zur Erfassung von Gewicht und Bild von mehreren Objekten
-| nominal_device_category=Category:OSLefbb17cf2ca24aba9390027ea09bae79
+| nominal_tool_category=Category:OSLefbb17cf2ca24aba9390027ea09bae79
 | nominal_object_category=Category:OSL905ace803972428ab2ad53d04c87624e
 | objects={{OslTemplate:LabProcess/Parameter/MultiObject/ParamArray |count=3 |nominal_type=Material:OSL1570a2fe8f55486ca76156e8425b2c69 |actual_type=Material:OSL1570a2fe8f55486ca76156e8425b2c69}}
 | quantitatives={{OslTemplate:LabProcess/Parameter/MultiQuantitative/ParamArray |count=3 |nominal_quantity=Property:Mass |nominal_unit=g |actual_quantity=Property:Mass |actual_unit=g}}
    <!-- [1][object_id]=TestID;[1][name]=Test;[1][nominal_quantity]=Property:Mass;[1][nominal_unit]=g;[1][actual_quantity]=Property:Mass;[1][actual_unit]=g -->
 <!-- | nominal_file_category=Category:File -->
-| files={{OslTemplate:LabProcess/Parameter/MultiFile/ParamArray |count=3 |nominal_type=FileType:220122-sist-0001-ft |actual_type=FileType:220122-sist-0001-ft}}
-<!-- | files=[1][object_id]=TestID;[1][name]=Test;[1][nominal_type]=FileType:220122-sist-0001-ft;[1][nominal_instance]=Test1.pdf;[1][actual_type]=FileType:220122-sist-0001-ft;
-        [2][object_id]=TestID;[2][name]=Test;[2][nominal_type]=FileType:220122-sist-0001-ft;[2][nominal_instance]=Wiki1.jpg;[2][actual_type]=FileType:220122-sist-0001-ft -->
+| files={{OslTemplate:LabProcess/Parameter/MultiFile/ParamArray |count=3 |nominal_type=FileType:OSL719bf31d92ad4d64bdfb0c15bf1e8f51 |actual_type=FileType:OSL719bf31d92ad4d64bdfb0c15bf1e8f51}}
+<!-- | files=[1][object_id]=TestID;[1][name]=Test;[1][nominal_type]=FileType:OSL719bf31d92ad4d64bdfb0c15bf1e8f51;[1][nominal_instance]=Test1.pdf;[1][actual_type]=FileType:OSL719bf31d92ad4d64bdfb0c15bf1e8f51;
+        [2][object_id]=TestID;[2][name]=Test;[2][nominal_type]=FileType:OSL719bf31d92ad4d64bdfb0c15bf1e8f51;[2][nominal_instance]=Wiki1.jpg;[2][actual_type]=FileType:OSL719bf31d92ad4d64bdfb0c15bf1e8f51 -->
 }}
 
 {{OslTemplate:LabProcess/Object/ObjectCreator |count=3}}

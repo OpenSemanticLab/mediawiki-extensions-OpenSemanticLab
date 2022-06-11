@@ -6,23 +6,23 @@
 |prefix=Präfix für die Verwendung mehrer Geräte (optional)
 |suffix=Suffix für die Verwendung mehrer Geräte (optional)
 |process_step_name=Name des Prozessschrittes, falls nicht auf dessen Unterseite verwendet
-|nominal device_category=Zu verwendender Gerätekategorie
-|actual_device_category=Tatsächlich verwendete Gerätekategorie
-|nominal_device_type=Zu verwendende Gerätetyp
-|actual_device_type=Tatsächlich verwendeter Gerätetyp
-|nominal_device_instance=Zu verwendende Geräteinstanz
-|actual_device_instance=Tatsächlich verwendete Geräteinstanz
-|nominal_device_setup=Zu verwendendes Gerätesetup
-|actual_device_setup=Tatsächlich verwendetes Gerätesetup
+|nominal tool_category=Zu verwendender Gerätekategorie
+|actual_tool_category=Tatsächlich verwendete Gerätekategorie
+|nominal_tool_type=Zu verwendende Gerätetyp
+|actual_tool_type=Tatsächlich verwendeter Gerätetyp
+|nominal_tool_instance=Zu verwendende Geräteinstanz
+|actual_tool_instance=Tatsächlich verwendete Geräteinstanz
+|nominal_tool_setup=Zu verwendendes Gerätesetup
+|actual_tool_setup=Tatsächlich verwendetes Gerätesetup
 }}
 </pre>
 </noinclude><includeonly><!--
 
 -->{{{intro|Das Laborprodukt soll mit dem Werkzeug}}}  
-{{#if: {{{nominal_device_type|}}}|[[{{{nominal_device_type}}}]]|{{OslTemplate:Message/NotDefined}}}} 
-(Geräteklasse: {{#if: {{{nominal_device_category|}}}|[[:{{{nominal_device_category}}}]]|{{OslTemplate:Message/NotDefined}}}}, Exemplar/Instanz: 
-{{#if: {{{nominal_device_instance|}}}|[[{{{nominal_device_instance}}}]]|{{OslTemplate:Message/NotDefined}}}}) mit Setup 
-{{#if: {{{nominal_device_setup|}}}|[[{{{nominal_device_setup}}}]]|{{OslTemplate:Message/NotDefined}}}}
+{{#if: {{{nominal_tool_type|}}}|[[{{{nominal_tool_type}}}]]|{{OslTemplate:Message/NotDefined}}}} 
+(Geräteklasse: {{#if: {{{nominal_tool_category|}}}|[[:{{{nominal_tool_category}}}]]|{{OslTemplate:Message/NotDefined}}}}, Exemplar/Instanz: 
+{{#if: {{{nominal_tool_instance|}}}|[[{{{nominal_tool_instance}}}]]|{{OslTemplate:Message/NotDefined}}}}) mit Setup 
+{{#if: {{{nominal_tool_setup|}}}|[[{{{nominal_tool_setup}}}]]|{{OslTemplate:Message/NotDefined}}}}
 {{{outro|vereinzelt werden.}}}
 {{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{process_step_name|}}}
