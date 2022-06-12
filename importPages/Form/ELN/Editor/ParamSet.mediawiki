@@ -5,7 +5,7 @@
 like [[Form:LabProcess/Steps/Generic]] but without process aspects
 </noinclude><includeonly>
 <!-- {{OslTemplate:LabProcess/Step/Form/Param/Common}} -->
-{{{for template|OslTemplate:ELN/Editor/DataSet/Subpage}}}
+{{{for template|OslTemplate:ELN/Editor/ParamSet/Subpage}}}
 == Allgemeine Angaben ==
 {| class="formtable"
 ! Name: 
@@ -17,36 +17,46 @@ like [[Form:LabProcess/Steps/Generic]] but without process aspects
 ! Kommentar: 
 | {{{field|comment|input type=textarea|autogrow}}}
 |}
-{{{end template}}}
+<!-- {{{end template}}} -->
 =Geräte=
-{{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
-  |process_step_template=OslTemplate:ELN/Editor/DataSet/Subpage
-  |hide_heading=true}}
-   {{OslTemplate:LabProcess/Step/Form/Param/Tool/Fields
-      |name_in_form=Geräte
-      |template_parameter=device
-      |category_input_type=tree
-   }}
-|}
+<div class="dyntable dyntable-hideable-column-1-nested-hidden"><!-- {{OslTemplate:LabProcess/Step/Form/Param/Specific/Header
+  |process_step_template=OslTemplate:ELN/Editor/ParamSet/Subpage
+  |hide_heading=true}} -->
+{| class="wikitable"
+| style="width: 160px" |
+! style="width: 470px" | Sollwert 
+! style="width: 470px" | Istwert
+  {{OslTemplate:LabProcess/Step/Form/Param/MultiTool/Rows
+     |template=OslTemplate:ELN/Editor/ParamSet/Subpage
+     |name_in_form=Tool
+     |template_parameter=tool
+     |category_input_type=tree
+     |category=Object <!-- Allow also Software -->
+  }}
+|}</div>
 =Materialien=
+<div class="dyntable dyntable-hideable-column-1-nested-hidden">
 {| class="wikitable"
 | style="width: 160px" |
 ! style="width: 470px" | Sollwert 
 ! style="width: 470px" | Istwert
    {{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Rows
-      |template=OslTemplate:ELN/Editor/DataSet/Subpage
+      |template=OslTemplate:ELN/Editor/ParamSet/Subpage
       |name_in_form=Objekt
       |template_parameter=object
       |category_input_type=tree
    }}
-|}
+|}</div>
 =Parameter=
 {| class="wikitable"
 | style="width: 160px" |
 ! style="width: 470px" | Sollwert 
 ! style="width: 470px" | Istwert
    {{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Rows
-      |template=OslTemplate:ELN/Editor/DataSet/Subpage
+      |template=OslTemplate:ELN/Editor/ParamSet/Subpage
+      |name_in_form=Größe
+      |template_parameter=quantitative
+      |category_input_type=tree
    }}
 |}
 =Dateien=
@@ -55,23 +65,33 @@ like [[Form:LabProcess/Steps/Generic]] but without process aspects
 ! style="width: 470px" | Sollwert 
 ! style="width: 470px" | Istwert
    {{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Rows
-      |template=OslTemplate:ELN/Editor/DataSet/Subpage
+      |template=OslTemplate:ELN/Editor/ParamSet/Subpage
       |name_in_form=Datei
       |template_parameter=file
       |category_input_type=tree
    }}
 {{OslTemplate:LabProcess/Step/Form/Param/Specific/Footer}}
+{{OslTemplate:LabProcess/Step/Form/Param/MultiTool/Fields
+   |template=OslTemplate:ELN/Editor/ParamSet/Subpage
+   |name_in_form=Tool
+   |template_parameter=tool
+   |category_input_type=tree
+   |category=Object <!-- Allow also Software -->
+}}
 {{OslTemplate:LabProcess/Step/Form/Param/MultiObject/Fields
-   |template=OslTemplate:ELN/Editor/DataSet/Subpage
+   |template=OslTemplate:ELN/Editor/ParamSet/Subpage
    |name_in_form=Objekt
    |template_parameter=object
    |category_input_type=tree
 }}
 {{OslTemplate:LabProcess/Step/Form/Param/MultiQuantitative/Fields
-   |template=OslTemplate:ELN/Editor/DataSet/Subpage
+   |template=OslTemplate:ELN/Editor/ParamSet/Subpage
+   |name_in_form=Größe
+   |template_parameter=quantitative
+   |category_input_type=tree
 }}
 {{OslTemplate:LabProcess/Step/Form/Param/MultiFile/Fields
-   |template=OslTemplate:ELN/Editor/DataSet/Subpage
+   |template=OslTemplate:ELN/Editor/ParamSet/Subpage
    |name_in_form=File
    |template_parameter=file
    |category_input_type=tree

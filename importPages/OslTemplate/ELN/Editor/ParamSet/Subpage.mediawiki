@@ -10,7 +10,7 @@ Template for a generic ELN data set stored as subpage.
 Like [[OslTemplate:LabProcess/Step/Subpage]] + [[OslTemplate:LabProcess/Steps/Generic/Subpage]] but without process aspects.
 
 <pre>
-{{OslTemplate:ELN/Editor/DataSet/Subpage
+{{OslTemplate:ELN/Editor/ParamSet/Subpage
   | nominal_object_category=Objekt Kategory, z.B. Folie
   | actual_object_category=Tatsächliche Objekt Kategory, z.B. Folie
   | objects=Array of LabProcess/Steps/MultiObjectSelection/Object
@@ -25,8 +25,8 @@ Seite bearbeiten um den Quelltext zu sehen.
 <!-- BESCHREIBUNG (Dubliziert in Unterseitenvorlage) -->
 {{{description|}}}
 <!-- Generischer Prozessschritt vom Typ {{#if: {{{type|}}}|[[{{{type}}}]]|{{OslTemplate:Message/NotDefined}}}}. {{{description|}}}
-{{#if: {{{nominal_device_category|}}} {{{nominal_device_type|}}} {{{nominal_device_instance|}}}  
-| Für den diesen Prozessschritt müssen ein oder mehrere Geräte aus der Kategorie: {{#if: {{{nominal_device_category|}}}|[[:{{{nominal_device_category}}}]]|{{OslTemplate:Message/NotDefined}}}}) ausgewählt werden. |}}
+{{#if: {{{nominal_tool_category|}}} {{{nominal_tool_type|}}} {{{nominal_tool_instance|}}}  
+| Für den diesen Prozessschritt müssen ein oder mehrere Geräte aus der Kategorie: {{#if: {{{nominal_tool_category|}}}|[[:{{{nominal_tool_category}}}]]|{{OslTemplate:Message/NotDefined}}}}) ausgewählt werden. |}}
 {{#if: {{{nominal_object_category|}}} {{{nominal_object_type|}}} {{{nominal_object_instance|}}}  
 | Für den diesen Prozessschritt müssen ein oder mehrere Objekte aus der Kategorie: {{#if: {{{nominal_object_category|}}}|[[:{{{nominal_object_category}}}]]|{{OslTemplate:Message/NotDefined}}}}) ausgewählt werden. |}}
 {{#if: {{{quantitatives|}}}
@@ -35,7 +35,19 @@ Seite bearbeiten um den Quelltext zu sehen.
 {{{tools|}}}{{{objects|}}}{{{quantitatives|}}}{{{files|}}}
 
 <!--
--->{{OslTemplate:LabProcess/Step/Footer
-|specific_template=OslTemplate:ELN/Editor/DataSet/Subpage
-}}
+--><!-- {{OslTemplate:LabProcess/Step/Footer
+|specific_template=OslTemplate:ELN/Editor/ParamSet/Subpage
+}} --> 
+===Prozessparameter===
+{{#ask: [[Category:LabProcess/Parameter/Instance]] [[IsProcessParameterOf::{{FULLPAGENAME}}]]
+ |?IsProcessParameterOf=Prozess
+ |?IsObjectParameterOf=Objekt
+ |?HasName=Name
+ |?IsInstanceOf=Typ
+ |?HasProperty=Attribut
+ |?HasValue=Wert
+<!--  |sort=HasName --> <!-- Results without sorting property are not shown -->
+ }}
+
+Dieser Prozessschritt ist definiert in: [[OslTemplate:ELN/Editor/ParamSet/Subpage]]
 </includeonly>

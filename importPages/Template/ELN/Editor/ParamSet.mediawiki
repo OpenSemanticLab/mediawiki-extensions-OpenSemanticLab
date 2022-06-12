@@ -1,0 +1,113 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+like [[OslTemplate:LabProcess/Steps/Generic]] but without process aspects
+</noinclude>
+<includeonly>{{OslTemplate:ELN/Editor/ParamSet/Link
+|id={{{id|}}}
+|name={{{name|}}}
+|required={{{required|}}}
+<!-- |predecessor={{{predecessor|}}}
+|concurrent={{{concurrent|}}}
+|input_objects={{{input_objects|}}}
+|output_objects={{{output_objects|}}} -->
+|link_type={{{link_type|}}}
+|popup={{{popup|}}}
+|form=ELN/Editor/ParamSet
+|template=OslTemplate:ELN/Editor/ParamSet/Subpage
+|specific_template=OslTemplate:ELN/Editor/ParamSet/Subpage
+|parameters=<!--    
+   {{#if: {{{predecessor|}}}|[predecessor]={{FULLPAGENAME}}/{{{predecessor}}};|}}
+   {{#if: {{{concurrent|}}}|[concurrent]={{FULLPAGENAME}}/{{{concurrent}}};|}} -->
+   [name]={{{name|}}}<!-- ;   
+   [precondition]={{{precondition|}}};
+   [postcondition]={{{postcondition|}}} -->
+|specific_parameters=
+   [nominal_tool_category]={{#replace:{{{nominal_tool_category|Category:Device}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [actual_tool_category]={{#replace:{{{actual_tool_category|{{{nominal_tool_category|Category:Device}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [nominal_tool_type]={{{nominal_tool_type|}}};
+   [actual_tool_type]={{{actual_tool_type|}}};
+   [nominal_tool_instance]={{{nominal_tool_instance|}}};
+   [actual_tool_instance]={{{actual_tool_instance|}}};
+   [nominal_tool_setup]={{{nominal_tool_setup|}}};
+   [actual_tool_setup]={{{actual_tool_setup|}}};
+   [nominal_object_category]={{#replace:{{{nominal_object_category|Category:Object}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [actual_object_category]={{#replace:{{{actual_object_category|{{{nominal_object_category|Category:Object}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [nominal_file_category]={{#replace:{{{nominal_file_category|Category:File}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [actual_file_category]={{#replace:{{{actual_file_category|{{{nominal_file_category|Category:File}}}}}}|Category:|}} <!-- Tree input expects no namespace -->
+|additional_template_1=OslTemplate:LabProcess/Parameter/MultiObject/Object
+|additional_parameters_1={{{objects|}}}
+|additional_template_2=OslTemplate:LabProcess/Parameter/MultiQuantitative/Quantitative
+|additional_parameters_2={{{quantitatives|}}}
+|additional_template_3=OslTemplate:LabProcess/Parameter/MultiFile/File
+|additional_parameters_3={{{files|}}}
+}}<!-- BESCHREIBUNG (Dubliziert in Seitenvorlage) -->
+<!-- Generischer Prozessschritt -->
+{{{description|}}}
+
+<!-- ====Parameter==== -->
+{{#ask: [[IsProcessParameterOf::{{FULLPAGENAME}}/{{{id}}}]] [[HasValue::+]]
+<!--  |?IsProcessParameterOf=Prozess
+ |?IsObjectParameterOf=Objekt -->
+ |?HasName=Name
+<!--  |?IsInstanceOf=Typ -->
+ |?HasProperty=Attribut
+ |?HasValue=Wert
+ |sort=HasProperty
+ }}
+</includeonly>
+<noinclude>
+<templatedata>
+{
+	"params": {
+		"id": {
+			"label": {
+				"de": "ID des Parametersatzes",
+				"en": "ID of the ParamSet"
+			},
+			"type": "string",
+			"autovalue": "0010",
+			"required": true,
+			"suggested": true
+		},
+		"name": {
+			"label": {
+				"de": "Name des Parametersatzes",
+				"en": "Name of the ParamSet"
+			},
+			"type": "string",
+			"autovalue": "ParamSet 1",
+			"suggested": true
+		},
+		"required": {},
+		"predecessor": {},
+		"concurrent": {},
+		"input_objects": {},
+		"output_objects": {},
+		"link_type": {},
+		"popup": {},
+		"precondition": {},
+		"postcondition": {},
+		"nominal_tool_category": {},
+		"actual_tool_category": {},
+		"nominal_tool_type": {},
+		"actual_tool_type": {},
+		"nominal_tool_instance": {},
+		"actual_tool_instance": {},
+		"nominal_tool_setup": {},
+		"actual_tool_setup": {},
+		"nominal_object_category": {},
+		"actual_object_category": {},
+		"nominal_file_category": {},
+		"actual_file_category": {},
+		"objects": {},
+		"quantitatives": {},
+		"files": {},
+		"description": {}
+	},
+	"description": {
+		"en": "Adds a set of machine readable parameters (e. g. devices, materials, quantities)",
+		"de": "Fügt eine Reihe von maschinenlesbaren Parametern hinzu (z. B. Geräte, Materialien, Größen)"
+	}
+}
+</templatedata></noinclude>
