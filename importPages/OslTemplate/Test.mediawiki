@@ -1,0 +1,2 @@
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}</noinclude>
+<includeonly>[[HasId::{{{id|}}}]]</includeonly>

@@ -9,6 +9,7 @@ Templates for Knowledge Base Terms
 -->{{#set: 
 <!-- |HasUuid={{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}  -->
 |HasLabel={{{label}}}@{{{label_lang_code}}}
+|HasDescription={{{description|}}}
 }}<!--
 -->{{{alternative_labels|}}}<!--
 --><table class="info_box">
