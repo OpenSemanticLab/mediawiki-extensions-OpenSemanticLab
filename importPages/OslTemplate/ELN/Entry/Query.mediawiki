@@ -6,11 +6,15 @@
 {{#ask: 
 [[Category:LabNote]]
 {{#if: {{{id|}}} | [[HasId::~*{{{id|}}}*]] | [[HasId::+]]}}
+{{#if: {{{name|}}} | [[HasName::~*{{{name|}}}*]] | [[HasName::+]]}}
 {{#if: {{{date_from|}}} | [[HasCreationDate::>{{{date_from|}}}]] |}}
 {{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
 {{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
 {{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
 {{#if: {{{project|}}} | [[HasProject::{{{project|}}}]] |}}
+{{#if: {{{tool|}}} | [[-IsSubprocessOf.-IsProcessParameterOf.HasDevice::{{{tool|}}}]] |}}
+{{#if: {{{material|}}} | [[-IsSubprocessOf.-IsProcessParameterOf.HasPredecessor::{{{material|}}}]] |}}
+{{#if: {{{quantity|}}} | [[-IsSubprocessOf.-IsProcessParameterOf.HasProperty::{{{quantity|}}}]] |}}
 |sort=HasCreationDate
 |order=desc
 |?HasId=ID

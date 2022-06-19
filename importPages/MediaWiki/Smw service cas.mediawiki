@@ -1,0 +1,3 @@
+chemidplus|https://chem.nlm.nih.gov/chemidplus/rn/$1
+commonchemistry|https://commonchemistry.cas.org/detail?cas_rn=$1
+[[Category:OSL/Infrastructure/Messages]]

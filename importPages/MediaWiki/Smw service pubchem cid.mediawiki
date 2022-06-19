@@ -1,0 +1,2 @@
+molview.org|https://molview.org/?cid=$1
+[[Category:OSL/Infrastructure/Messages]]

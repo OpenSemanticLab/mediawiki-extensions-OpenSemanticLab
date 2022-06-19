@@ -1,0 +1,11 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{OslTemplate:LIMS/Common/Link |Create|Software|Category}}
+</noinclude><includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{info|page name={{OslTemplate:ID/UUID |namespace=Category}} }}}
+{{{for template|OslTemplate:LIMS/Software/Category}}}
+{{OslTemplate:LIMS/Form/Common/Category/Header |category_group_name=Software}}
+{{OslTemplate:LIMS/Form/Common/Footer |template=OslTemplate:LIMS/Software/Category}}
+</includeonly>

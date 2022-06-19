@@ -4,11 +4,14 @@
 
 Form for this template: [[Form:Property]]
 </noinclude>
-<includeonly>This is a property of type [[Has type::{{{data_type|Page}}}]]. 
+<includeonly>{{DISPLAYTITLE:{{{label|}}}}} This is a property of type [[Has type::{{{data_type|Page}}}]]. 
 {{#if: {{{allowed_value|}}} | Allowed values: 
 {{#arraymap: {{{allowed_value}}} | ; | __VALUE__ | *__VALUE__ | \n }} |}}
+{{#if: {{{service|}}} | Services: 
+{{#arraymap: {{{service}}} | ; | __VALUE__ | [[Provides service::__VALUE__]] |,}} |}}
 {{#if: {{{subproperty_of|}}} | It's a subproperty of [[Subproperty of::{{#replace: {{{subproperty_of}}} | Property: | }}]] |}}.
 [[Category:LIMS/Property]]<!--
 -->{{#ifeq:{{{data_type|Page}}}|Page|[[Category:ObjectProperty]]|[[Category:DataProperty]]}}<!--
+-->{{#if:{{{external_uri|}}}|{{#set: |External formatter uri={{{external_uri|}}}}}|}}<!--
 -->{{#arraymap: {{{category}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}<!--
 --></includeonly>

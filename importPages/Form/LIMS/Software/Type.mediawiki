@@ -1,0 +1,42 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{OslTemplate:LIMS/Common/Link |Create|Software|Type}}
+</noinclude><includeonly>
+Neue Kategorien müssen zunächst hier angelegt werden: [[Form:LIMS/Software/Category]]
+{{{info|page name={{OslTemplate:ID/UUID |namespace=Software}} }}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Software/Type}}}
+{{OslTemplate:LIMS/Form/Common/Header}}
+|-
+! Kategorie(n): 
+| {{{field|category|input type=tokens|values from concept=LIMS/Software/Category|delimiter=;|required}}} 
+|-
+! Hersteller: 
+| {{{field|manufacturer}}} 
+|-
+! Hersteller Typenbezeichnung: 
+| {{{field|manufacturer_type_id}}} 
+|-
+! Bild: 
+| {{{field|image|property=HasImage|uploadable|image preview}}} 
+|-
+! Datenblatt: 
+| {{{field|datasheet|property=HasDatasheet|size=25|uploadable}}}
+|-
+! Bedienungsableitung: 
+| {{{field|manual|property=HasManual|size=25|uploadable}}}
+|-
+! Sonstige Dokumente: 
+| {{{field|additional_documents|property=HasAdditionalDocument|size=25|uploadable}}}
+|-
+! Repository: 
+| {{{field|digitalization class}}}
+|-
+! Input: 
+| {{{field|input|list|input type=tokens|values from category=Category:Data}}}
+|-
+! Output: 
+| {{{field|output|list|input type=tokens|values from category=Category:Data}}}
+{{OslTemplate:LIMS/Form/Common/Footer |template=OslTemplate:LIMS/Software/Type}}
+</includeonly>

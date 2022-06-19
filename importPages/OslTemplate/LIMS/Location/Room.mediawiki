@@ -106,6 +106,10 @@ Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
 
 == Geräte im Raum ==
 {{#ask: [[Category:LIMS/Device/Instance]][[IsLocatedIn::{{FULLPAGENAME}}]]|?IsInstanceOf|?HasResponsiblePerson}}
+
+== Inhalt ==
+{{Template:LIMS/Common/Viewer/LocationTree |skip_root={{OslTemplate:Helper/Strings/Yes}}}}
+
 == Unterweisungsinhalte ==
 == Dokumentation ==
 </includeonly>

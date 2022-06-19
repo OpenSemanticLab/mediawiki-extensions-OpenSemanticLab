@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"author": [
 		"Simon Stier"
 	],
@@ -96,6 +96,18 @@
                         "defaultcontentmodel": "flow-board"
 		},
 		{
+			"id": 7022,
+			"constant": "NS_SOFTWARE",
+			"name": "Software",
+			"subpages" : true
+		},
+		{
+			"id": 7023,
+			"constant": "NS_SOFTWARE_TALK",
+			"name": "Software_Talk",
+                        "defaultcontentmodel": "flow-board"
+		},
+		{
 			"id": 7030,
 			"constant": "NS_LOCATION",
 			"name": "Location",
@@ -117,6 +129,18 @@
                         "id": 7041,
                         "constant": "NS_FILETYPE_TALK",
                         "name": "FileType_Talk",
+                        "defaultcontentmodel": "flow-board"
+                },
+		{
+                        "id": 7042,
+                        "constant": "NS_DATATYPE",
+                        "name": "DataType",
+			"subpages" : true
+                },
+                {
+                        "id": 7043,
+                        "constant": "NS_DATATYPE_TALK",
+                        "name": "DataType_Talk",
                         "defaultcontentmodel": "flow-board"
                 },
 		{
@@ -283,8 +307,10 @@
 			"value": {
 				"7010": true,
 				"7020": true,
+				"7022": true,
 				"7030": true,
 				"7040": true,
+				"7042": true,
 				"7050": true,
 				"7060": true,
 				"7070": true,
@@ -316,6 +342,12 @@
         "7310": true
       },
       "merge_strategy": "array_plus"
+    },
+    "wgNamespacesToBeSearchedDefault": {
+      "value": {
+        "Hardware": 7020
+      },
+      "merge_strategy": "array_plus"
     }
 	},
 	"attributes": {
@@ -323,8 +355,10 @@
 			"AvailableNamespaces": {
 				"7010": true,
 				"7020": true,
+				"7022": true,
 				"7030": true,
 				"7040": true,
+				"7042": true,
 				"7050": true,
                                 "7060": true,
                                 "7070": true,

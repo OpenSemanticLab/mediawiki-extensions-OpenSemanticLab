@@ -1,0 +1,23 @@
+<noinclude>
+
+<templatedata>
+{
+    "description": "Creates a semantic link",
+    "params": {
+        "property": {
+            "label": "property",
+            "required": true,
+            "description": "name of the property, e.g. part of"
+        },
+        "value": {
+            "label": "value",
+            "required": true,
+            "description": "value or target for the property, e.g. eLi"
+        }
+
+    }
+}
+</templatedata>
+
+Edit the page to see the template text.
+</noinclude><includeonly>* .. [[Property:{{{property}}}|{{{property}}}]]   [[{{{property}}}::{{{value}}}]]<br>{{#set: {{{property}}}={{{value}}} }}{{#subobject:|@category=KB/Relation|HasSubject={{FULLPAGENAME}}|HasProperty=Property:{{{property}}}|HasValue={{{value}}}}}</includeonly>

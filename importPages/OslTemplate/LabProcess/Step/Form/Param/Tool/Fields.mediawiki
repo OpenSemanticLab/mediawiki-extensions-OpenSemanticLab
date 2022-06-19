@@ -1,7 +1,7 @@
 <includeonly><!-- SHARED WITH ANY OTHER LIMS OBJECT
 -->{{OslTemplate:LabProcess/Step/Form/Param/Object/Fields
       |name_in_form={{{name_in_form|Gerät}}}
-      |template_parameter={{{template_parameter|device}}}
+      |template_parameter={{{template_parameter|tool}}}
       |concept={{{concept|OslTemplate:LIMS/Device/Category}}}
       |category={{{category|Device}}}
       |category_input_type={{{category_input_type|combobox}}}

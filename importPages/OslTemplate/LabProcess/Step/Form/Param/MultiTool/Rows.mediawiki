@@ -1,4 +1,4 @@
-<includeonly>{{OslTemplate:LabProcess/Step/Form/Param/Multi/SectionHeader |label=Geräteauswahl |id=devices}} 
+<includeonly>{{OslTemplate:LabProcess/Step/Form/Param/Multi/SectionHeader |label=Geräteauswahl |id=tools}} 
 |- class="generic-hide"|
 ! Kategorie-Baum
 <!-- NOMINAL CATEGORY:SFS Combobox-->
@@ -10,4 +10,4 @@ NOMINAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|tree}}}|tree|
 ACTUAL CATEGORY:Tree-->{{#ifeq: {{{category_input_type|tree}}}|tree|
 <nowiki>{{{field|</nowiki>actual_{{{template_parameter}}}_category<nowiki>|input type=tree|restricted|top category=</nowiki>{{{category|Device}}}<nowiki>|height=250|width=400|depth=1}}}</nowiki>}}
 |-
-| colspan="3" | <nowiki>{{{field|devices|mandatory|holds template}}}</nowiki></includeonly>
+| colspan="3" | <nowiki>{{{field|tools|mandatory|holds template}}}</nowiki></includeonly>

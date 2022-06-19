@@ -42,9 +42,8 @@
 |mainlabel=-
 |format=plain
 }} -->
-{{OslTemplate:LIMS/Common |Device|Type|name={{{display_name|}}}}}{{#arraymap:{{{category|}}}|;|x|[[x]]|\s}}
+{{OslTemplate:LIMS/Common |Device|Type|name={{{display_name|}}}}}
 {{#declare:
- |HasUuid=uuid
  |HasCreator=creator
  |HasCreationDate=creation_date
  |HasDescription=description

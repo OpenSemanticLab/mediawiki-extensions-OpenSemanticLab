@@ -28,14 +28,14 @@
    [nominal_mass_unit]={{{nominal_mass_unit|}}};
    [actual_mass]={{{actual_mass|}}};
    [actual_mass_unit]={{{actual_mass_unit|{{{nominal_mass_unit}}}}}};
-   [nominal_device_category]={{#replace:{{{nominal_device_category|Category:Device}}}|Category:|}}; <!-- Tree input expects no namespace -->
-   [actual_device_category]={{#replace:{{{actual_device_category|{{{nominal_device_category|Category:Device}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
-   [nominal_device_type]={{{nominal_device_type|}}};
-   [actual_device_type]={{{actual_device_type|}}};
-   [nominal_device_instance]={{{nominal_device_instance|}}};
-   [actual_device_instance]={{{actual_device_instance|}}};
-   [nominal_device_setup]={{{nominal_device_setup|}}};
-   [actual_device_setup]={{{actual_device_setup|}}}
+   [nominal_tool_category]={{#replace:{{{nominal_tool_category|Category:Device}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [actual_tool_category]={{#replace:{{{actual_tool_category|{{{nominal_tool_category|Category:Device}}}}}}|Category:|}}; <!-- Tree input expects no namespace -->
+   [nominal_tool_type]={{{nominal_tool_type|}}};
+   [actual_tool_type]={{{actual_tool_type|}}};
+   [nominal_tool_instance]={{{nominal_tool_instance|}}};
+   [actual_tool_instance]={{{actual_tool_instance|}}};
+   [nominal_tool_setup]={{{nominal_tool_setup|}}};
+   [actual_tool_setup]={{{actual_tool_setup|}}}
 }}
 
 <!-- BESCHREIBUNG -->
@@ -50,13 +50,13 @@ eingewogen werden.
 |prefix=
 |suffix=
 |process_step_name={{{name|}}}
-|device_category={{{nominal_device_category|}}}
-|nominal_device_type={{{nominal_device_type|}}}
-|actual_device_type={{{actual_device_type|}}}
-|nominal_device_instance={{{nominal_device_instance|}}}
-|actual_device_instance={{{actual_device_instance|}}}
-|nominal_device_setup={{{nominal_device_setup|}}}
-|actual_device_setup={{{actual_device_setup|}}}
+|tool_category={{{nominal_tool_category|}}}
+|nominal_tool_type={{{nominal_tool_type|}}}
+|actual_tool_type={{{actual_tool_type|}}}
+|nominal_tool_instance={{{nominal_tool_instance|}}}
+|actual_tool_instance={{{actual_tool_instance|}}}
+|nominal_tool_setup={{{nominal_tool_setup|}}}
+|actual_tool_setup={{{actual_tool_setup|}}}
 }}
 {{OslTemplate:LabProcess/Query/GenericParam
 |process_step_name={{{name}}}
@@ -158,11 +158,11 @@ eingewogen werden.
 			"label": "Tatsächlich verwendete Masseneinheit",
 			"type": "string"
 		},
-		"nominal_device_instance": {
+		"nominal_tool_instance": {
 			"label": "Vorgabe für das zu verwendende Gerät",
 			"type": "wiki-page-name"
 		},
-		"actual_device_instance": {
+		"actual_tool_instance": {
 			"label": "Tatsächlich verwendetes Gerät"
 		},
 		"required": {
@@ -189,8 +189,8 @@ eingewogen werden.
 		"nominal_mass_unit",
 		"actual_mass",
 		"actual_mass_unit",
-		"nominal_device_instance",
-		"actual_device_instance",
+		"nominal_tool_instance",
+		"actual_tool_instance",
 		"required"
 	]
 }

@@ -1,0 +1,7 @@
+<noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}</noinclude>
+<includeonly>{{DISPLAYTITLE:{{{label}}} <{{#explode:{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}|-|0}}> }}<!-- 
+-->{{#set: |HasUuid={{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}} }}
+{{{description|}}}
+{{{alternative_labels|}}}
+[[Category:KB/Class]] {{#arraymap: {{{category|}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}
+</includeonly>

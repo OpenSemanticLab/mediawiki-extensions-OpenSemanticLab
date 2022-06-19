@@ -12,7 +12,7 @@
 </tr>
 <tr>
 <th>UUID</th>
-<td>[[HasUuid::{{{uuid|}}}]]</td>
+<td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
 </tr>
 <tr>
 <th>Anzeigename</th>
@@ -100,6 +100,9 @@ File:{{#ask: [[{{{type|}}}]] |?HasAdditionalDocument= |mainlabel=-}}{{!}}Sonstig
  |format=table
 <!--  |transpose=true -->
 }}
+
+== Inhalt ==
+{{Template:LIMS/Common/Viewer/LocationTree |skip_root={{OslTemplate:Helper/Strings/Yes}}}}
 
 [[Category:LabObject]][[Category:LIMS/Device/Instance]]
 </includeonly>

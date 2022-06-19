@@ -8,14 +8,21 @@
 |tooltip=
 |new window
 }}</div>
-
+<!-- {{{info|page name=LabObject:<OslTemplate:LIMS/Material/Instance[short_timestamp]>-<OslTemplate:LIMS/Material/Instance[creator_abbreviation]>-<unique number;start=0001>-<OslTemplate:LIMS/Material/Instance[type_symbol]> }}} -->
 </noinclude><includeonly>
 Neue Stoffe/Materialien müssen zuerst hier erstellt werden: [[Form:LIMS/Material/Type]]
-{{{info|page name=LabObject:<OslTemplate:LIMS/Material/Instance[short_timestamp]>-<OslTemplate:LIMS/Material/Instance[creator_abbreviation]>-<unique number;start=0001>-<OslTemplate:LIMS/Material/Instance[type_symbol]>}}}
+{{{info|page name={{OslTemplate:ID/UUID |namespace=LabObject}} }}}
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 {{{for template|OslTemplate:LIMS/Material/Instance}}}
-{{OslTemplate:LIMS/Form/Common/Header}}
+{{OslTemplate:LIMS/Form/Common/Header}}<!-- hidden fields 
+--><!-- {{{field|uuid|default=uuid|hidden}}} -->{{{field|type_symbol|hidden}}}{{{field|short_timestamp|hidden}}}{{{field|creator_abbreviation|hidden}}}
 |-
+! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}
+| <div class="uniquePatternedField" data-pattern="${short_timestamp}-${user_abbreviation}-${unique_number}-mi">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div> 
+|-
+! Weitere IDs{{#info:z. B. intern genutzte Bezeichnungen}}: 
+| {{{field|additional_ids|input type=tokens}}}
+|- 
 ! Stoff/Material: 
 | {{{field|type|input type=combobox|values from category=LIMS/Material/Type|required}}} 
 |-
@@ -27,5 +34,8 @@ Neue Stoffe/Materialien müssen zuerst hier erstellt werden: [[Form:LIMS/Materia
 |-
 ! Hersteller Chargen-ID: 
 | {{{field|manufacturer_instance_id}}} 
-{{OslTemplate:LIMS/Form/Common/Footer}}
+|-
+! Standort: 
+| {{{field|location|input type=combobox|values from concept=LIMS/Location/Instance}}}
+{{OslTemplate:LIMS/Form/Common/Footer  |template=OslTemplate:LIMS/Material/Instance}}
 </includeonly>

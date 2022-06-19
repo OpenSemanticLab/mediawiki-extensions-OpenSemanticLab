@@ -2,25 +2,20 @@
 {{OslTemplate:Helper/Docu/FormTemplate}}
 
 {{OslTemplate:LIMS/Common/Link |Create|Device|Instance}}
-
+<!-- {{{info|page name=LabObject:<OslTemplate:LIMS/Device/Instance[short_timestamp]>-<OslTemplate:LIMS/Device/Instance[creator_abbreviation]>-<unique number;start=0001>-<OslTemplate:LIMS/Device/Instance[type_symbol]>}}} -->
 </noinclude><includeonly>
 Neue Gerätetypen müssen zuerst hier erstellt werden: [[Form:LIMS/Device/Type]]
-{{{info|page name=LabObject:<OslTemplate:LIMS/Device/Instance[short_timestamp]>-<OslTemplate:LIMS/Device/Instance[creator_abbreviation]>-<unique number;start=0001>-<OslTemplate:LIMS/Device/Instance[type_symbol]>}}}
+{{{info|page name={{OslTemplate:ID/UUID |namespace=LabObject}} }}}
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 {{{for template|OslTemplate:LIMS/Device/Instance}}}
-{{OslTemplate:LIMS/Form/Common/Header}}
-|-<!-- uuid, type_symbol, timestamp, abbr removed from OslTemplate:LIMS/Form/Common/Header -->
-! UUID:
-| {{{field|uuid|default=uuid}}}
+{{OslTemplate:LIMS/Form/Common/Header}}<!-- hidden fields 
+--><!-- {{{field|uuid|default=uuid|hidden}}} -->{{{field|type_symbol|hidden}}}{{{field|short_timestamp|hidden}}}{{{field|creator_abbreviation|hidden}}}
 |-
-! Type: 
-| {{{field|type_symbol}}}
+! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}
+| <div class="uniquePatternedField" data-pattern="${short_timestamp}-${user_abbreviation}-${unique_number}-di">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div> 
 |-
-! Zeitstempel: 
-| {{{field|short_timestamp}}}
-|- 
-! Erstellerkuerzel: 
-| {{{field|creator_abbreviation}}}
+! Weitere IDs{{#info:z. B. intern genutzte Bezeichnungen}}: 
+| {{{field|additional_ids|input type=tokens}}}
 |- 
 ! Gerätetyp: 
 | {{{field|type|input type=combobox|values from category=LIMS/Device/Type|required}}} 
@@ -38,7 +33,7 @@ Neue Gerätetypen müssen zuerst hier erstellt werden: [[Form:LIMS/Device/Type]]
 | {{{field|image|uploadable|image preview}}} 
 |-
 ! Standort: 
-| {{{field|location}}}
+| {{{field|location|input type=combobox|values from concept=LIMS/Location/Instance}}}
 |-
 ! OE: 
 | {{{field|department}}}

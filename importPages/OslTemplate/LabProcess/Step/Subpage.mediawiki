@@ -22,14 +22,14 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Os
 <includeonly>{{#set: HasName={{{name}}} |HasId={{SUBPAGENAME}}}}
 === Prozessschritt {{{name}}} ===
 {{#if: {{{start_date|}}} |
-Prozessschritt {{{name}}} des Laborprozesses [[IsSubprocessOf::{{{process}}}]] wurde von [[HasAgent::{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartDateAndTime::{{{start_date}}}]] begonnen und am [[HasEndDateAndTime::{{{end_date}}}]] beendet.
+Prozessschritt {{{name}}} des Laborprozesses [[IsSubprocessOf::{{{process}}}]] wurde von [[HasAgent::User:{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartDateAndTime::{{{start_date}}}]] begonnen und am [[HasEndDateAndTime::{{{end_date}}}]] beendet. 
 |
 Der Prozessschritt wurde noch nicht begonnen
 }}{{#if: {{{status|}}}| (Status: [[HasStatus::{{{status|}}}]])|}}
 
-Eingangsobjekte: {{{input_objects|}}}{{#arraymap:{{{input_objects|}}}|{{{input_objects_sep|,}}}|__INPUT_OBJECT__|[[HasInput::__INPUT_OBJECT__]]|,}}.
+Eingangsobjekte: {{#arraymap:{{{input_objects|}}}|{{{input_objects_sep|,}}}|__INPUT_OBJECT__|[[HasInput::{{NAMESPACE}}:{{ROOTPAGENAME}}#__INPUT_OBJECT__]]|,}}.
 
-Ausgangsobjekte: {{{output_objects|}}}{{#arraymap:{{{output_objects|}}}|{{{output_objects_sep|,}}}|__OUTPUT_OBJECT__|[[HasOutput::__OUTPUT_OBJECT__]]|,}}.
+Ausgangsobjekte: {{#arraymap:{{{output_objects|}}}|{{{output_objects_sep|,}}}|__OUTPUT_OBJECT__|[[HasOutput::{{NAMESPACE}}:{{ROOTPAGENAME}}#__OUTPUT_OBJECT__]]|,}}.
 
 {{#if: {{{precondition|}}}|Die Vorbedingung ''{{{precondition|}}}'' wurde {{#ifeq: {{{precondition_fulfilled|}}}|yes|erfüllt|noch nicht erfüllt}}.|}}
 {{#if: {{{postcondition|}}}|Die Nachbedingung ''{{{postcondition|}}}'' wurde {{#ifeq: {{{postcondition_fulfilled|}}}|yes|erfüllt|noch nicht erfüllt}}.|}}

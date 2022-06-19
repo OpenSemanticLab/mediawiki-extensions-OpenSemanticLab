@@ -1,11 +1,16 @@
 {{OslTemplate:LIMS/Device/Category
+|timestamp=2021-11-25T18:25:53.000Z
+|creator=Simon Stier
+|display_name=Device
+|label_lang_code=en
+|alternative_labels={{OslTemplate:Common/Label
+|label=Gerät
+|label_lang_code=de
+}}
+|sub_category_of=Category:Tool
+|category_type=Anwendungsdefinierte Gerätekategorie
 |uuid=53f1ec90-cbdf-480a-b352-644c540a8a31
 |type_symbol=dc
 |short_timestamp=211125
-|timestamp=2021-11-25T18:25:53.000Z
 |creator_abbreviation=sist
-|creator=Simon Stier
-|display_name=Gerät
-|sub_category_of=Category:Tool
-|category_type=Anwendungsdefinierte Gerätekategorie
 }}

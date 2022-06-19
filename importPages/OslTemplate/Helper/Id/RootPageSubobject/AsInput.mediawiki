@@ -1,0 +1,5 @@
+<noinclude>calls OslTemplate:Helper/Id/RootPageSubobject and stores it as property value of HasInput
+
+Test: {{{{FULLPAGENAME}} |test}}
+</noinclude>
+<includeonly>{{#set: |HasInput={{OslTemplate:Helper/Id/RootPageSubobject |{{{1}}}}}}} {{OslTemplate:Helper/Id/RootPageSubobject |{{{1}}}}}</includeonly>

@@ -2,24 +2,134 @@
 
 {{OslTemplate:LIMS/Common/Template |id_postfix=mt}}
 </noinclude>
-<includeonly>
-{{OslTemplate:LIMS/Common |Material|Type|name={{{display_name|}}}}}{{#set: HasId={{PAGENAME}}}}
-
-UUID: [[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]
-
-PubChem-ID: {{#if: {{{pubchem_cid|}}} | [[Has pubchem cid::{{{pubchem_cid}}}]] | {{OslTemplate:Message/NotDefined}}}} </br>
-<!-- Needs ExternalData > v2.2 ? -->
-<!-- {{#if: {{{pubchem cid|}}} |
-{{#get_web_data:url=https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/{{{pubchem cid}}}/XML?heading=GHS+Classification|format=xml|use xpath|data=tox=/Record/Section/Section/Section/Information[./ReferenceNumber=//Record/Reference[./SourceName="European Chemicals Agency (ECHA)"]/ReferenceNumber][./Name="Pictogram(s)"]//Markup//Extra}}
-GHS classification, according to [https://pubchem.ncbi.nlm.nih.gov/compound/{{{pubchem cid}}} pubchem/ECHA]: {{#for_external_table:[[HasGhsClassification::{{{tox}}}]], }}
-</br>|}} -->
-
-Materialkategorien: {{#arraymap:{{#replace:{{{category|}}}|Category:|}}|;|x|[[Category:x]][[IsA::Category:x]]|\s}}</br>
-
-Vorgängermaterialien: {{#arraymap:{{{predecessor|}}}|;|x|[[HasPredecessor::x]]|\s}}</br>
+<includeonly><!-- 
+-->{{#if: {{{pubchem_cid|}}}|<!-- fetch data from pubchem
+-->{{#get_web_data:url=https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/{{{pubchem_cid}}}/XML
+|format=xml
+|use xpath
+|suppress error
+|data=<!--
+-->CAS=/Record/Section/Section/Section[./TOCHeading="CAS"]/Information[./ReferenceNumber=//Record/Reference[./SourceName="CAMEO Chemicals"]/ReferenceNumber][1]//String,<!--
+-->Wikipedia=/Record/Section/Section/Section[./TOCHeading="Wikipedia"]/Information[1]/URL,<!--
+-->ChEBI=/Record/Section/Section/Section[./TOCHeading="Depositor-Supplied Synonyms"]/Information/Value/StringWithMarkup[contains(String, 'CHEBI')][1]/String,<!--
+-->tox=/Record/Section/Section/Section/Information[./ReferenceNumber=//Record/Reference[./SourceName="European Chemicals Agency (ECHA)"]/ReferenceNumber][./Name="Pictogram(s)"][1]//Markup//Extra,<!--
+-->HS=/Record/Section/Section/Section/Information[./ReferenceNumber=//Record/Reference[./SourceName="European Chemicals Agency (ECHA)"]/ReferenceNumber][./Name="GHS Hazard Statements"][1]//String,<!--
+-->PSC=/Record/Section/Section/Section/Information[./ReferenceNumber=//Record/Reference[./SourceName="European Chemicals Agency (ECHA)"]/ReferenceNumber][./Name="Precautionary Statement Codes"][1]/Value/StringWithMarkup[1]/String,<!--
+-->MW=/Record/Section/Section/Section[./TOCHeading="Molecular Weight"]//String,<!--
+-->Density=/Record/Section/Section/Section[./TOCHeading="Density"]/Information[./ReferenceNumber=//Record/Reference[./SourceName="CAMEO Chemicals"]/ReferenceNumber]//String,<!--
+-->CASempty=/Record/Section/Section/Section[./TOCHeading="CAS"]/Information[1]//String,toxempty=/Record/Section/Section/Section/Information[./Name="Pictogram(s)"][1]//Markup//Extra,HSempty=/Record/Section/Section/Section/Information[./Name="GHS Hazard Statements"][1]//String,<!--
+-->PSCempty=/Record/Section/Section/Section/Information[./Name="Precautionary Statement Codes"][1]/Value/StringWithMarkup[1]/String ,<!--
+-->Densityempty=/Record/Section/Section/Section[./TOCHeading="Density"]/Information[1]//String}}<!-- 
+-->|}}<!-- 
+--><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasId::{{{id|{{PAGENAMEE}}}}}]]</td>
+</tr>
+<tr>
+<th>UUID</th>
+<td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
+</tr>
+<tr>
+<th>PubChemID</th>
+<td>[[HasPubChemCid::{{{pubchem_cid|}}}]]</td>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasDisplayName::{{{display_name|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>CAS</th>
+<td>{{#if:{{#for_external_table:{{{CAS}}} }}|{{#for_external_table:[[HasCas::{{{CAS}}}]] }}| {{#for_external_table:[[HasCas::{{{CASempty}}}]] }}}}</td>
+</tr>
+<tr>
+<th>Wikipedia</th>
+<td>{{#for_external_table: [[HasWikipedia::{{{Wikipedia}}}]] }}</td>
+</tr>
+<tr>
+<th>ChEBI-ID</th>
+<td>{{#for_external_table:[[HasChEBIID::{{{ChEBI}}}]] }}</td>
+</tr>
+<tr>
+<th>GHS Pictogram(s)</th>
+<td>{{#if:{{#for_external_table: [[File:{{{tox}}}.svg|70x70px|{{{tox}}}]] &nbsp; }}|{{#for_external_table: [[File:{{{tox}}}.svg|70x70px|{{{tox}}}]]<div style="display:none">[[HasHazardWarning::{{{tox}}}]]</div> &nbsp; }}| {{#for_external_table: [[File:{{{toxempty}}}.svg|70x70px|{{{toxempty}}}]] &nbsp; }}}}</td>
+</tr>
+<tr>
+<th>GHS Hazard Statements</th>
+<td>{{#if:{{#for_external_table:{{{HS}}}}}|{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/HazardStatementTooltip |data=value=HS |delimiter=, &nbsp;}}|{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/HazardStatementTooltip |data=value=HSempty |delimiter=, &nbsp;}} }}</td>
+</tr>
+<tr>
+<th>Precautionary Statement Codes</th>
+<td>{{#if:{{#for_external_table:{{{PSC}}} }}|{{#for_external_table:[[HasPrecautionaryStatementCode::{{{PSC}}}]] }}| {{#for_external_table:[[HasPrecautionaryStatementCode::{{{PSCempty}}}]] }}}}</td>
+</tr>
+<tr>
+<th>Molecular Weight</th>
+<td>{{#for_external_table:[[HasMolecularWeight::{{{MW}}}]] }}</td>
+</tr>
+<tr>
+<th>Density</th>
+<td>{{#if:{{#for_external_table:{{{Density}}}}}|{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/DensityTooltip |data=value=Density |delimiter=, &nbsp;}}|{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/DensityTooltip |data=value=Densityempty |delimiter=, &nbsp;}} }}</td>
+</tr>
+<tr>
+<th>Kategorie</th>
+<td>{{#arraymap:{{{category|}}}|;|x|[[x]][[:x]]|\n}}</td>
+</tr>
+<tr>
+<th>Vorprodukte</th>
+<td>{{#arraymap:{{{predecessor|}}}|;|x|[[HasPredecessor::x]]|\n}}</td>
+</tr>
+<tr>
+<th>Hersteller</th>
+<td>[[HasManufacturer::{{{manufacturer|}}}]]</td>
+</tr>
+<tr>
+<th>Typenbezeichnung</th>
+<td>[[HasManufacturerTypeId::{{{manufacturer_type_id|}}}]]</td>
+</tr>
+</table><!--
+--><!-- {{#set:
+ |HasHazardWarning={{#if:{{#for_external_table:{{{tox}}}  &nbsp; }}|{{#for_external_table:{{{tox}}}  &nbsp; }}| {{#for_external_table:{{toxempty}}}  &nbsp; }}}}
+}} --><!-- 
+-->{{#if:{{#for_external_table:{{{HS}}}<br /> }}|<!--
+  -->{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/HasHazardStatement |data=value=HS |delimiter=<br />}}|<!--
+  -->{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/HasHazardStatement |data=value=HSempty |delimiter=<br />}}<!--
+-->}}<!--
+-->{{#if:{{#for_external_table:{{{Density}}}<br /> }}|<!--
+  -->{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/HasDensity |data=value=Density |delimiter=<br />}}|<!--
+  -->{{#display_external_table: template=OslTemplate:Helper/Semantics/InlineProperty/HasDensity|data=value=Densityempty |delimiter=<br />}}<!--
+-->}}<!--
+-->{{OslTemplate:LIMS/Common |Material|Type|name={{{display_name|}}}}}<!--
+-->{{#declare:
+ |HasCreator=creator
+ |HasCreationDate=creation_date
+ |HasDescription=description
+ |HasImage=image
+ |HasDatasheet=datasheet
+ |HasSafetyDatasheet=safety_datasheet
+ |HasRiskAssessment=risk_assessment
+}}
 
 == Beschreibung ==
 {{{description|}}}
+
+== Dokumente ==
+{{#tag:gallery|
+File:{{{datasheet}}}{{!}}Datenblatt{{!}}link=[[Special:Redirect/file/{{{datasheet}}}]]
+File:{{{safety_datasheet}}}{{!}}Sicherheitsdatenblatt{{!}}link=[[Special:Redirect/file/{{{safety_datasheet}}}]]
+File:{{{risk_assessment}}}{{!}}Gefährdungsbeurteilung{{!}}link=[[Special:Redirect/file/{{{risk_assessment}}}]]
+{{#arraymap:{{{additional_documents|}}}|,|x|File:x{{!}}Sonstige Dokumente|\n}}
+|mode="traditional"
+}}
 
 == Erstellte Instanzen ==
 === Gekauft ===

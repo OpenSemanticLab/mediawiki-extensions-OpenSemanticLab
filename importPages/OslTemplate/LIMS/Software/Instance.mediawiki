@@ -1,0 +1,94 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+{{OslTemplate:LIMS/Common/Template |id_postfix=si}}
+</noinclude>
+<includeonly><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{{display_name|}}}</th>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasId::{{{id|{{PAGENAME}}}}}]]</td>
+</tr>
+<tr>
+<th>UUID</th>
+<td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>[[HasName::{{{display_name|}}}]]</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>[[HasFullName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>Softwaretype</th>
+<td>[[IsInstanceOf::{{{type|}}}]]</td>
+</tr>
+
+<tr>
+<td class="subheading" colspan="2">Organisation</td>
+</tr>
+<tr>
+<th>Branch</th>
+<td>[[HasBranch::{{{branch|}}}]]</td>
+</tr>
+<tr>
+<th>Version</th>
+<td>[[HasManufacturerInstanceId::{{{manufacturer_instance_id|}}}]]</td>
+</tr>
+<tr>
+<th>Build Number</th>
+<td>[[HasBuildNumber::{{{build_number|}}}]]</td>
+</tr>
+<tr>
+<th>Commit-Hash</th>
+<td>[[HasCommitHash::{{{commit_hash|}}}]]</td>
+</tr>
+</table>
+<table class="info_box">
+<tr>
+<th class="heading" colspan="2">Softwaretype [[{{{type|}}}]]</th>
+</tr>
+<tr>
+<th>Anzeigename</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasDisplayName= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Vollständiger Name</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasName= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Hersteller</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasManufacturer= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Typenbezeichnung</th>
+<td>{{#ask: [[{{{type|}}}]] |?HasManufacturerTypeId= |mainlabel=-}}</td>
+</tr>
+<tr>
+<th>Softwarekategorie</th>
+<td>{{#ask: [[{{{type|}}}]] |?Category= |mainlabel=-}}</td>
+</tr>
+</table>{{OslTemplate:LIMS/Common |Software|Instance|name={{{display_name|}}}}}<!--
+ -->{{#set:
+|HasUuid={{{uuid|}}}
+|HasCreator={{{creator|}}}
+|HasCreationDate={{{creation_date|}}}
+}}
+
+== Beschreibung ==
+{{{description|}}}
+
+== Dokumente des Softwaretyps == 
+{{#tag:gallery|
+File:{{#ask: [[{{{type|}}}]] |?HasDatasheet= |mainlabel=-}}{{!}}Datenblatt
+File:{{#ask: [[{{{type|}}}]] |?HasManual= |mainlabel=-}}{{!}}Bedienungsableitung
+File:{{#ask: [[{{{type|}}}]] |?HasRiskAssessment= |mainlabel=-}}{{!}}Gefährdungsbeurteilung
+File:{{#ask: [[{{{type|}}}]] |?HasAdditionalDocument= |mainlabel=-}}{{!}}Sonstige Dokumente
+|mode="traditional"
+}}
+<br>
+[[Category:LabObject]][[Category:LIMS/Software/Instance]]
+</includeonly>

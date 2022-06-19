@@ -15,6 +15,9 @@ Formular zur Suche nach Laborbucheinträgen
 ! ID{{#info:IDs können sowohl vollständig als auch teilweise mit * eingegeben werden}}: 
 | {{{field|id|values from property=HasId}}}
 |-
+! Name{{#info:Name des Eintrages (oder ein Teil davon)}}: 
+| {{{field|name|input type=combobox|values from property=HasName}}}
+|-
 ! Ersteller: 
 | {{{field|creator|values from concept=ELN/Entry/Creator|input type=dropdown|default=current user}}}
 |-
@@ -30,6 +33,19 @@ Formular zur Suche nach Laborbucheinträgen
 ! Keyword: 
 | {{{field|keyword|input type=dropdown|values from property=HasKeyword|strict}}}
 |}
+== Parameter-Suche ==
+<div class="mw-collapsible mw-collapsed">
+{| class="formtable"
+! Tool{{#info:Gerät, das im Versuch verwendet wurde (per Parameter-Set)}}: 
+| {{{field|tool|input type=combobox|values from category=LIMS/Device/Instance}}}
+|-
+! Material{{#info:Material, das im Versuch verwendet wurde (per Parameter-Set)}}: 
+| {{{field|material|input type=combobox|values from category=LIMS/Material/Instance}}}
+|-
+! Physikalische Größe{{#info:Physikalische Größe, die im Versuch angegeben wurde (per Parameter-Set)}}: 
+| {{{field|quantity|input type=combobox|values from category=Property}}}
+|}
+</div>
 {{{end template}}}
 
 {{{standard input|run query}}}

@@ -1,0 +1,4 @@
+{{#concept:
+ [[IsA::{{PAGENAME}}]]
+ |Categories for software
+}}

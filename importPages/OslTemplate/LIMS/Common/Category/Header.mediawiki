@@ -14,7 +14,7 @@
 </tr>
 <tr>
 <th>Anzeigename</th>
-<td>[[HasDisplayName::{{{display_name|}}}]]</td>
+<td>[[HasDisplayName::{{{display_name|}}}]]{{#set:|HasLabel={{{display_name|}}}@{{{label_lang_code|}}}}}{{{alternative_labels|}}}</td>
 </tr>
 <tr>
 <th>Vollständiger Name</th>

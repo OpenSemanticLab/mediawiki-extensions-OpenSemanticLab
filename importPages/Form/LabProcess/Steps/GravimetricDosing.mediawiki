@@ -6,7 +6,7 @@
    |process_step_template=OslTemplate:LabProcess/Steps/GravimetricDosing/Subpage}}
    {{OslTemplate:LabProcess/Step/Form/Param/Tool/Fields
       |name_in_form=Gerät
-      |template_parameter=device
+      |template_parameter=tool
       |category_input_type=tree
    }}
    {{OslTemplate:LabProcess/Step/Form/Param/Material/Fields

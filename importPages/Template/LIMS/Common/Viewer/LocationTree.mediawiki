@@ -1,0 +1,17 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=browser
+|content=LocationTree
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content={{#tree:
+{{#ask:
+ {{#if: {{{skip_root|}}}||[[{{{location|{{FULLPAGENAME}}}}}]]
+ OR}} [[IsLocatedIn::{{{location|{{FULLPAGENAME}}}}}]]
+ OR [[IsLocatedIn.IsLocatedIn::{{{location|{{FULLPAGENAME}}}}}]]
+ OR [[IsLocatedIn.IsLocatedIn.IsLocatedIn::{{{location|{{FULLPAGENAME}}}}}]]
+ OR [[IsLocatedIn.IsLocatedIn.IsLocatedIn.IsLocatedIn::{{{location|{{FULLPAGENAME}}}}}]]
+ |format=tree
+ |parent=IsLocatedIn
+}}
+}}
+}}</includeonly><noinclude>[[Category:OSL/Infrastructure/Template/User]]</noinclude>
