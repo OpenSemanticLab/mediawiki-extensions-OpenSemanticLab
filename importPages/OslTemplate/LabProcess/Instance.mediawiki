@@ -5,6 +5,7 @@ Wrapper for custom instances
 </noinclude>
 <includeonly>{{#default_form:LabProcess/Instance}}
 {{{{{template}}}
+| id={{{id|}}}
 | template={{{template|}}}
 | type_symbol={{{type_symbol|}}}
 | short_timestamp={{{short_timestamp|}}}

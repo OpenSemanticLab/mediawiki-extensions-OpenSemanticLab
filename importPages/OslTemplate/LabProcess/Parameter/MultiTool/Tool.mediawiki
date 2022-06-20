@@ -19,7 +19,7 @@ value = Wert von Property
   -->{{#arraymap: {{{object_id|}}} | {{{sep|;}}} |__OBJECT_ID__|<!-- 
     -->{{#if: {{#pos:__OBJECT_ID__|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}__OBJECT_ID__<!--  
   -->| {{{sep|;}}} }} <!-- or the actual tool? -->
-   |property=HasDeviceType
+   |property=HasToolType
    |value={{{actual_type|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
@@ -32,7 +32,7 @@ value = Wert von Property
   -->{{#arraymap: {{{object_id|}}} | {{{sep|;}}} |__OBJECT_ID__|<!-- 
     -->{{#if: {{#pos:__OBJECT_ID__|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}__OBJECT_ID__<!--  
   -->| {{{sep|;}}} }}
-   |property=HasDevice<!--  or more general HasParticipant -->
+   |property=HasTool<!--  or more general HasParticipant -->
    |value={{{actual_instance|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
@@ -45,7 +45,7 @@ value = Wert von Property
   -->{{#arraymap: {{{object_id|}}} | {{{sep|;}}} |__OBJECT_ID__|<!-- 
     -->{{#if: {{#pos:__OBJECT_ID__|#}}|<!-- already global WikiId -->| {{NAMESPACE}}:{{ROOTPAGENAME}}#}}__OBJECT_ID__<!--  
   -->| {{{sep|;}}} }} <!-- or the actual tool? -->
-   |property=HasDeviceSetup
+   |property=HasToolSetup
    |value={{{actual_setup|}}}
 }}<!--
 --></includeonly>

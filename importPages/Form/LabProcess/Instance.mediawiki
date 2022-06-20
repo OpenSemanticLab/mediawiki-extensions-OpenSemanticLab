@@ -1,29 +1,23 @@
 <noinclude>Forms for Lab Process Instances
 
 {{OslTemplate:Helper/Docu/FormTemplate}}
-
+<!-- {{{info|page name=LabObject:<OslTemplate:LabProcess/Instance[short_timestamp]>-<OslTemplate:LabProcess/Instance[creator_abbreviation]>-<unique number;start=01>00-<OslTemplate:LabProcess/Instance[type_symbol]>}}} -->
 </noinclude>
 <includeonly>
-{{{info|page name=LabObject:<OslTemplate:LabProcess/Instance[short_timestamp]>-<OslTemplate:LabProcess/Instance[creator_abbreviation]>-<unique number;start=01>00-<OslTemplate:LabProcess/Instance[type_symbol]>}}}
+{{{info|page name={{OslTemplate:ID/UUID |namespace=LabObject}} }}}
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 {{{for template|OslTemplate:LabProcess/Instance}}}
 == Automatisch erfasste Angaben ==
 <div class="mw-collapsible mw-collapsed">
 {| class="formtable"
+! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}
+| <div class="uniquePatternedField" data-pattern="${short_timestamp}-${user_abbreviation}-${unique_number}-pi" data-increment="100">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div>{{{field|short_timestamp|hidden}}}{{{field|creator_abbreviation|hidden}}}{{{field|type_symbol}}}
+|-
 ! Vorlage: 
-| {{{field|template}}}
-|-
-! Type: 
-| {{{field|type_symbol}}}
-|-
-! Zeitstempel: 
-| {{{field|short_timestamp}}}
+| {{{field|template}}} 
 |-
 ! Erstelldatum: 
 | {{{field|timestamp|input type=datetimeflatpicker|format=d.m.Y H:i|default=now}}}
-|-
-! Erstellerkuerzel: 
-| {{{field|creator_abbreviation}}}
 |-
 ! Ersteller: 
 | {{{field|creator|default=current user}}} 
@@ -51,7 +45,7 @@
 | {{{field|additional_ids|input type=tokens}}}
 |-
 ! Status{{#info:Gibt den Bearbeitungszustand an}}: 
-| {{{field|status|input type=dropdown|default=Term:Completed|values=Term:Pending,Term:InWork,Term:Completed}}}
+| {{{field|status|input type=dropdown|values from category=OSL43e208341bdd43dc9a5e43d6786adb54|default=Term:OSLf474ec34b7df451ea8356134241aef8a}}}
 |-
 ! Beschreibung: 
 | {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}} 

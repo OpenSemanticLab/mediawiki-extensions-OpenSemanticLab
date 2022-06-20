@@ -1,6 +1,6 @@
 <includeonly>{{#set: Debug={{{debug|{{OslTemplate:Helper/Strings/No}}}}}}}<!-- 
 
--->{{DISPLAYTITLE:{{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}}}}<!-- 
+-->{{DISPLAYTITLE:{{{id|{{PAGENAME}}}}}}}<!-- 
 
 --><!-- {{Purge link}} --><!-- 
 
@@ -8,13 +8,13 @@
 
 Dokumentation zur Herstellung von [[HasOutputType::{{{output_type}}}]] (Kategorie: [[HasOutputCategory::Category:{{{output_category}}}]])
 
-Ersteller [[HasCreator::{{{creator}}}]] ([[HasCreatorShortName::{{{creator_abbreviation}}}]])
+Ersteller [[HasCreator::User:{{{creator}}}]] 
 
-Erstelldatum [[HasCreationDate::{{{timestamp}}}]] (Kurzzeitstempel [[HasCreationShortTimeStamp::{{{short_timestamp}}}]])
-{{#if: {{{projects|}}}|</br> 
-Projekt: {{#arraymap:{{{projects|}}}|,|__x__|[[HasProject::__x__]]|,}} |}}</br> 
-ID: [[HasId::{{PAGENAME}}]]
-{{#if: {{{additional_ids|}}}|</br> 
+Erstelldatum [[HasCreationDate::{{{timestamp}}}]]
+{{#if: {{{projects|}}}|<br> 
+Projekt: {{#arraymap:{{{projects|}}}|,|__x__|[[HasProject::__x__]]|,}} |}}<br> 
+ID: [[HasId::{{{id|{{PAGENAME}}}}}]]
+{{#if: {{{additional_ids|}}}|<br> 
 Weitere IDs: {{#arraymap:{{{additional ids|}}}|,|__x__|[[HasId::__x__]]|,}} |}}
 
 [[Category:LabObject]][[Category:Labprocess/Instance]]

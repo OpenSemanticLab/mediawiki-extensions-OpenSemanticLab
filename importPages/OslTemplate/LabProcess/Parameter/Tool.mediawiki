@@ -16,28 +16,28 @@
 </noinclude><includeonly><!--
 
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceCategory{{{suffix|}}}|type=Nominal |property=HasDeviceCategory |value={{{nominal_tool_category|}}}
+   |name={{{prefix|}}}DeviceCategory{{{suffix|}}}|type=Nominal |property=HasToolCategory |value={{{nominal_tool_category|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceCategory{{{suffix|}}}|type=Actual |property=HasDeviceCategory |value={{{actual_tool_category|}}}
+   |name={{{prefix|}}}DeviceCategory{{{suffix|}}}|type=Actual |property=HasToolCategory |value={{{actual_tool_category|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceType{{{suffix|}}}|type=Nominal |property=HasDeviceType |value={{{nominal_tool_type|}}}
+   |name={{{prefix|}}}DeviceType{{{suffix|}}}|type=Nominal |property=HasToolType |value={{{nominal_tool_type|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceType{{{suffix|}}}|type=Actual |property=HasDeviceType |value={{{actual_tool_type|}}}
+   |name={{{prefix|}}}DeviceType{{{suffix|}}}|type=Actual |property=HasToolType |value={{{actual_tool_type|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceInstance{{{suffix|}}}|type=Nominal |property=HasDeviceInstance |value={{{nominal_tool_instance|}}}
+   |name={{{prefix|}}}DeviceInstance{{{suffix|}}}|type=Nominal |property=HasToolInstance |value={{{nominal_tool_instance|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceInstance{{{suffix|}}}|type=Actual |property=HasDeviceInstance |value={{{actual_tool_instance|}}}
+   |name={{{prefix|}}}DeviceInstance{{{suffix|}}}|type=Actual |property=HasToolInstance |value={{{actual_tool_instance|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceSetup{{{suffix|}}}|type=Nominal |property=HasDeviceSetup |value={{{nominal_tool_setup|}}}
+   |name={{{prefix|}}}DeviceSetup{{{suffix|}}}|type=Nominal |property=HasToolSetup |value={{{nominal_tool_setup|}}}
 }}<!--
 -->{{OslTemplate:LabProcess/Parameter
-   |name={{{prefix|}}}DeviceSetup{{{suffix|}}}|type=Actual |property=HasDeviceSetup |value={{{actual_tool_setup|}}} |sep=,
+   |name={{{prefix|}}}DeviceSetup{{{suffix|}}}|type=Actual |property=HasToolSetup |value={{{actual_tool_setup|}}} |sep=,
 }}<!--
 
 --></includeonly>

@@ -10,6 +10,9 @@ if a page with that name already exists, you will be sent to a form to edit that
 [[Form:Property]]
 {{{for template|OslTemplate:Property|label=Property}}}
 {| class="formtable"
+! Data type (see [https://www.semantic-mediawiki.org/wiki/Help:List_of_datatypes]): 
+| {{{field|data_type|input type=dropdown|values=Annotation URI, Boolean, Email, Number, Page, Temperature, Text, URL, Date, Code, Telephone number, Quantity, Record, Monolingual text, External identifier, Reference, Keyword, Geographic coordinates|default=Page}}}
+|-
 ! Description: 
 | {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
 |-

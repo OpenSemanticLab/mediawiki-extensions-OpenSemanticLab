@@ -1,0 +1,204 @@
+-- Module:SMW
+local p = {}
+
+-- another example, subobject used inside another function
+function p.create_object( frame, args )
+
+	--page = frame:getParent()
+	local page = nil
+	if args['page'] == nil then page = mw.title.getCurrentTitle()
+	else page = mw.title.new(args['page']) end
+	local namespace = mw.site.namespaces[page.namespace]
+	mw.log(namespace.name) --or page.nsText
+	
+	if args['custom_id'] ~= nil and args['custom_id'] ~= "" and args['custom_id_pattern'] ~= nil and args['custom_id_replace'] then
+		args['custom_id'] = string.gsub(args['custom_id'], args['custom_id_pattern'], args['custom_id_replace'])	
+	end
+	
+	local subobjectId = args['id']
+	local objectType = args['type']
+	if objectType == "from_mapping" then objectType = p.getPredecessor( page.fullText .. "#" .. subobjectId ) end --query predecessor material / object
+	
+	local isInstance = true
+	if page.nsText ~= "LabObject" then isInstance = false end
+	local isGlobal = false
+	if args['global'] ~= nil and args['global'] ~= "" then isGlobal = true end
+
+	local display_label = args['label'];
+	if (args['use_as_label'] == "custom_id") and isInstance == true then display_label = args['custom_id'] --don't use id as label in process types
+	elseif (args['use_as_label'] == "id") then display_label = args['id'] end
+	
+	-- OBJECT PROPERTIES
+    local properties = {}
+    
+    if args['custom_id'] ~= nil and args['custom_id'] ~= "" then properties['HasId'] = args['custom_id'] 
+    else properties['HasId'] = string.gsub(page.fullText, page.nsText .. ":", "")  .. "#" .. args['id'] end --LabObject:1ef4...#O0001 -> 1ef4...#O0001
+    
+    --properties['HasName'] = args['name']
+    if args['label'] ~= nil then 
+    	properties['HasLabel'] = args['label'] .. "@en"
+    	properties['Display title of'] = display_label
+    end
+    
+    if isInstance == true then properties['IsInstanceOf'] = objectType
+	else properties['IsA'] = objectType end 
+    
+    if isGlobal == true and isInstance == true then
+	    properties['@category'] = {
+	        'LabProcess/Object',
+	        'LabProcessObject',
+	        'LabProcess/GlobalObject',
+	        'LabProcessOutput'
+	    }
+	else
+		properties['@category'] = {
+	        'LabProcess/Object',
+	        'LabProcessObject'
+	    }
+	end
+
+	mw.logObject(properties)
+    local result = mw.smw.subobject( properties, subobjectId )
+
+    if result == true then
+        -- everything ok
+        mw.log('Your data was stored successfully in a subobject')
+    else
+        -- error message to be found in result.error
+        mw.log('An error occurred during the subobject storage process. Message reads ' .. result.error)
+    end
+    
+    -- PAGE PROPERTIES
+    local page_properties = {}
+    page_properties['HasObject'] = page.fullText .. "#" .. subobjectId
+    if global == true then
+    	page_properties['HasOutput'] = page.fullText .. "#" .. subobjectId
+    end
+    result = mw.smw.set( page_properties )
+
+    if result == true then
+        -- everything ok
+        return subobjectId .. ";"
+    else
+        -- error message to be found in result.error
+    end
+end
+
+-- replaces a number patter with an index, e. g. 
+-- Object0000 -index=32-> Object0013
+function p.indexed_string(string_pattern, index)
+	--local pattern = string.match(string_pattern, "%d+")
+	local pattern = string.reverse(string.match(string.reverse(string_pattern), "%d+")) --select the last number group
+	--local pattern = ""
+	--for word in string.gmatch("string_pattern", "%d+") do pattern = word end --select the last number group
+	--local offset = tonumber(pattern)
+	--index = index + offset
+	pattern = string.gsub(pattern, "%d", "0") --reset to e. g. 0001 to 0000
+	local pattern_len = string.len(pattern)
+	local index_string = "" .. index
+	if (string.len(index_string) < pattern_len) then --auto grow pattern
+		index_string = string.sub(pattern .. index, -pattern_len) 
+	end
+	local result = string.reverse(string.gsub(string.reverse(string_pattern), "%d+", string.reverse(index_string), 1)) --replace only the last number group
+	return result
+end
+
+-- from https://stackoverflow.com/questions/640642/how-do-you-copy-a-lua-table-by-value
+function p.copy(obj, seen)
+  if type(obj) ~= 'table' then return obj end
+  if seen and seen[obj] then return seen[obj] end
+  local s = seen or {}
+  local res = setmetatable({}, getmetatable(obj))
+  s[obj] = res
+  for k, v in pairs(obj) do res[p.copy(k, s)] = p.copy(v, s) end
+  return res
+end
+
+function p.object( frame, reference_only )
+	local args = p.copy(frame.args) --frame.args is a metatable so we have to create a normal table as copy to edit it
+	
+	if args['count'] == nil or args['count'] == "" then args['count'] = "1" end
+	local count = tonumber(args['count'])
+	
+	if args['id'] == nil then args['id'] = "O0000" end
+	if args['label'] == nil then args['label'] = "Object 0" end
+	
+	local object_ids = ""
+	local custom_id_offset	= 0
+	local id_offset = 0
+	local label_offset = 0
+	
+	if count > 1 then
+		if args['custom_id'] ~= nil and args['custom_id'] ~= "" then
+			if string.match(args['custom_id'], "%d+") == nil then args['custom_id'] = args['custom_id'] .. "0" end -- e. g. "O" -> "O0"
+		end
+		if string.match(args['id'], "%d+") == nil then args['id'] = args['id'] .. "0" end
+		if string.match(args['label'], "%d+") == nil then args['label'] = args['label'] .. "0" end
+		
+		if args['offset'] == nil or args['offset'] == "" then
+			if args['custom_id'] ~= nil and args['custom_id'] ~= "" then
+				custom_id_offset = tonumber(string.reverse(string.match(string.reverse("" .. args['custom_id']), "%d+")))
+			end
+			id_offset = tonumber(string.reverse(string.match(string.reverse("" .. args['id']), "%d+")))
+			label_offset = tonumber(string.reverse(string.match(string.reverse("" .. args['label']), "%d+")))
+		else 
+			custom_id_offset	= tonumber(args['offset'])
+			id_offset	= tonumber(args['offset'])
+			label_offset	= tonumber(args['offset'])
+		end
+	end
+	
+	for index = 0, count - 1 do
+		if count > 1 then
+			if args['custom_id'] ~= nil and args['custom_id'] ~= "" then
+				args['custom_id'] = p.indexed_string( args['custom_id'], index + custom_id_offset + 1)
+			end
+			args['id'] = p.indexed_string( args['id'], index + id_offset)
+			args['label'] = p.indexed_string( args['label'], index + label_offset)
+		end
+		--object_ids = object_ids .. args['id']
+		if reference_only then object_ids = object_ids .. args['id'] .. ";"
+		else object_ids = object_ids .. p.create_object(frame, args) end
+	end
+	return object_ids
+end
+
+function p.reference( frame )
+	return p.object( frame, true )
+end
+
+function p.getPredecessor(obj)
+	--mw.logObject(obj)
+	-- please note the unlinking of properties 'page authors', and mainlabel '?' by using the #- operator
+	-- note also: unlinking via parameter link is not supported at this point
+	local query = "[[IsObjectParameterOf::" .. obj .. "]] |?HasPredecessor.IsInstanceOf.-HasPredecessor#-=predecessor |mainlabel=- |headers=hide |format=plain"
+	local result = mw.smw.ask( query )
+	if result ~= nil then
+		--mw.logObject(result)
+		result = result[1]['predecessor']
+		--mw.logObject(result)
+	end
+	return result
+end
+
+return p
+
+--DEBUG
+--[[
+frame = mw.getCurrentFrame() -- Get a frame object
+newFrame = frame:newChild{ -- Get one with args
+	title = 'LabObject:OSL02344d31ba6d4e49acc75772946f1ba1' ,
+ args = { 
+["page"] = "LabObject:OSL02344d31ba6d4e49acc75772946f1ba1",
+["id"] = "O0001",
+["custom_id"] = "220504-sist-0100-pi",
+["count"] = 3,
+label="Sample0",
+use_as_label="custom_id",
+custom_id_pattern="(%d+)-(%a+)-(%d+)-(%a+)",
+custom_id_replace="%1-%2-%3-mi",
+offset="",
+    }
+}
+mw.log(p.object( newFrame ) ) 
+--]]

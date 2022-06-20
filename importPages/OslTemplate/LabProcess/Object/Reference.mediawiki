@@ -1,0 +1,21 @@
+<noinclude>Wraps [[Module:LabProcess/Object]]
+
+Test:
+
+{{{{FULLPAGENAME}}
+|id=O0000
+|count=3
+}}
+
+{{{{FULLPAGENAME}}
+|id=O0001
+|offset=10
+|count=3
+}}
+
+</noinclude>
+<includeonly>{{#invoke:LabProcess/Object|reference
+|id={{{id|}}}
+|count={{{count|}}}
+|offset={{{offset|}}}
+}}</includeonly>
