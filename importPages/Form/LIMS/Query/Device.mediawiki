@@ -1,0 +1,49 @@
+<noinclude>
+Form to search for device types and their instances
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#queryformlink:form={{PAGENAME}}}}
+
+{{Special:RunQuery/{{PAGENAME}}}}
+
+</noinclude>
+<includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Query/Device}}}
+{| class="formtable"
+! Kategorie: 
+| {{{field|category|input type=tree|top category=Device|height=300|width=400|depth=1}}} 
+|-
+! ID{{#info:IDs können sowohl vollständig als auch teilweise mit * eingegeben werden}}: 
+| {{{field|id|values from property=HasId}}}
+|-
+! Name{{#info:Name des Gerätes (oder ein Teil davon)}}: 
+| {{{field|name|input type=combobox|values from property=HasName}}}
+|-
+! Ersteller: 
+| {{{field|creator|values from concept=ELN/Entry/Creator|input type=dropdown|default=current user}}}
+|-
+! Älter als: 
+| {{{field|date_to|input type=datepicker}}}
+|-
+! Jünger als: 
+| {{{field|date_from|input type=datepicker}}}
+|-
+! Keyword: 
+| {{{field|keyword|input type=dropdown|values from property=HasKeyword|strict}}}
+|}
+== Parameter-Suche ==
+<div class="mw-collapsible mw-collapsed">
+{| class="formtable"
+! Material{{#info:Material, das verarbeitet oder vermessen werden kann}}: 
+| {{{field|material|input type=combobox|values from concept=LIMS/Material/Category}}}
+|-
+! Messgröße{{#info:Physikalische Größe, die gemessen werden kann}}: 
+| {{{field|quantity|input type=combobox|values from category=Property}}}
+|}
+</div>
+{{{end template}}}
+
+{{{standard input|run query}}}
+</includeonly>

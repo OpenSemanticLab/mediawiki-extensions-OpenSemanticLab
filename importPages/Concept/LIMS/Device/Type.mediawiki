@@ -1,0 +1,4 @@
+{{#concept:
+ [[OslCategory::Category:LIMS/Device/Type]]
+ |Device types
+}}
