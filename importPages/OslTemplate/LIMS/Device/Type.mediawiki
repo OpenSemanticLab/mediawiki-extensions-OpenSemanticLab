@@ -6,7 +6,7 @@
 <th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
 </tr>
 <tr>
-<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]{{#set: |HasImage=File:{{{image|}}}}}|}}</td>
 </tr>
 <tr>
 <th>ID</th>
@@ -26,7 +26,7 @@
 </tr>
 <tr>
 <th>Gerätekategorie</th>
-<td>{{#arraymap:{{{category|}}}|;|x|[[x]][[:x]]|\n}}</td>
+<td>{{#arraymap:{{{category|}}}|;|x|[[x]][[:x]]|\n}}{{#arraymap:{{{category|}}}|;|x|{{#set: |IsA=x}}|}}</td>
 </tr>
 <tr>
 <th>Hersteller</th>
@@ -36,48 +36,22 @@
 <th>Typenbezeichnung</th>
 <td>[[HasManufacturerTypeId::{{{manufacturer_type_id|}}}]]</td>
 </tr>
-</table>
-<!-- {{#ask: [[{{FULLPAGENAME}}]]
+</table><!-- {{#ask: [[{{FULLPAGENAME}}]]
 |?Category=
 |mainlabel=-
 |format=plain
-}} -->
-{{OslTemplate:LIMS/Common |Device|Type|name={{{display_name|}}}}}
+}} -->{{OslTemplate:LIMS/Common |Device|Type|name={{{display_name|}}}}}
 {{#declare:
- |HasCreator=creator
  |HasCreationDate=creation_date
  |HasDescription=description
- |HasImage=image
- |HasDatasheet=datasheet
+ |HasDatasheet=datasheet<!-- todo: convert to datatype page, adapt galery query -->
  |HasManual=manual
  |HasRiskAssessment=risk_assessment
+}}{{#set:
+ |HasCreator=User:{{{creator|}}}
 }}
-
-== Beschreibung ==
+=== Short description ===
 {{{description|}}}
 
-== Dokumente ==
-{{#tag:gallery|
-File:{{{datasheet}}}{{!}}Datenblatt{{!}}link=[[Special:Redirect/file/{{{datasheet}}}]]
-File:{{{manual}}}{{!}}Bedienungsableitung{{!}}link=[[Special:Redirect/file/{{{manual}}}]]
-File:{{{risk_assessment}}}{{!}}Gefährdungsbeurteilung{{!}}link=[[Special:Redirect/file/{{{risk_assessment}}}]]
-{{#arraymap:{{{additional_documents|}}}|,|x|File:x{{!}}Sonstige Dokumente|\n}}
-|mode="traditional"
-}}
-
-== Erstellte Instanzen ==
-=== Gekauft ===
-{{#ask: [[Category:LIMS/Device/Instance]] [[IsInstanceOf::{{FULLPAGENAME}}]]
-|?HasCreationDate=Datum
-|?HasCreator=Ersteller
-}}
-
-=== Selbst hergestellt ===
-{{#ask: [[Category:LabProcessOutput]] [[IsInstanceOf::{{FULLPAGENAME}}]]
-|?-Has subobject.HasCreationDate=Datum
-|?-Has subobject.IsDefinedIn=Vorschrift
-|?-Has subobject.HasCreator=Ersteller
-}}
-
-[[Category:LIMS/Device/Type]]{{#default_form:LIMS/Device/Type}}
+<div id="custom-ve-add-first-section-link"></div>
 </includeonly>

@@ -45,5 +45,10 @@ Neue Stoffkategorien müssen zunächst hier angelegt werden: [[Form:LIMS/Device/
 |-
 ! Ansprechpartner: 
 | {{{field|contact person|list|delimiter=;|input type=tokens|values from category=Person}}} -->
-{{OslTemplate:LIMS/Form/Common/Footer |template=OslTemplate:LIMS/Device/Type}}
+{{OslTemplate:LIMS/Form/Common/Footer |template=OslTemplate:LIMS/Device/Type |no_buttons=yes}}
+
+{{{standard input|free text|hidden|preload=OslTemplate:LIMS/Device/Type/Body}}}
+
+{{{for template|OslTemplate:LIMS/Device/Type/Footer}}}
+{{{standard input|save}}} {{{standard input|cancel}}}
 </includeonly>

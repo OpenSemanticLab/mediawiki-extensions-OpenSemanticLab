@@ -7,6 +7,9 @@
 <th class="heading" colspan="2">{{{display_name|}}}</th>
 </tr>
 <tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+</tr>
+<tr>
 <th>ID</th>
 <td>[[HasId::{{{id|{{PAGENAME}}}}}]]</td>
 </tr>
@@ -35,7 +38,7 @@
 </tr>
 <tr>
 <th>Geräteverantwortlicher</th>
-<td>{{#arraymap:{{{responsible_person|}}}|;|x|[[HasResponsiblePerson::x]]}}</td>
+<td>{{#arraymap:{{{responsible_person|}}}|;|x|[[HasResponsiblePerson::User:x]]}}</td>
 </tr>
 <tr>
 <th>Standort</th>
