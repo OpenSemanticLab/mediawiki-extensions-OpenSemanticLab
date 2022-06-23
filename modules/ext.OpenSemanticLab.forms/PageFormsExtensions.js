@@ -191,6 +191,9 @@ $(document).ready(function() {
 			context.date = new Date();
 			context.element = $(this);
 			context.pattern = $(this).data('pattern');
+			context.increment = $(this).data('increment');
+			if (!context.increment) context.increment = "1";
+			context.increment = parseInt(context.increment);
 			context.field = $(this).find(".uniqueField");
 			context.fieldVal = context.field.val();
 			context.fieldOrigVal = context.field.prop("defaultValue");
@@ -233,7 +236,7 @@ $(document).ready(function() {
 				var receiveHighestExistingValuesQuery = $.ajax({url : query, dataType: "json", cache: false,
 					success : function(data){
 						var number_pattern = "0000";
-						var number_start = 1;
+						var number_start = context.increment;
 						context.unique_number_string = "" + number_start;
 						for (var key in data.query.results) {
 
@@ -242,7 +245,7 @@ $(document).ready(function() {
 							    if (context.debug) console.log("highestExistingValue:" + context.highestExistingValue);
 							    var regex = new RegExp(context.value.replace("*","([0-9]*)"), "g");
 							    context.unique_number_string = regex.exec(context.highestExistingValue)[1];
-							    context.unique_number_string = "" + (parseInt(context.unique_number_string) + 1);
+							    context.unique_number_string = "" + (parseInt(context.unique_number_string) + context.increment);
 							}
 						}
 						context.unique_number_string = (number_pattern + context.unique_number_string).substr(-number_pattern.length);
