@@ -196,6 +196,7 @@ $(document).ready(function() {
 			context.increment = parseInt(context.increment);
 			context.field = $(this).find(".uniqueField");
 			context.fieldVal = context.field.val();
+			if (context.fieldVal && context.fieldVal !== "") return; //don't override existing value
 			context.fieldOrigVal = context.field.prop("defaultValue");
 			
 			var propertyFieldName = context.field.prop("id") + "_unique_property";
