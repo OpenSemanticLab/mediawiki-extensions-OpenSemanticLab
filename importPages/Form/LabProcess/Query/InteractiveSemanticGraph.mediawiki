@@ -14,6 +14,15 @@
 |-
 ! Properties{{#info:Page or subobject to start with}}: 
 | {{{field|properties|input type=tokens|list|delimiter=;|default=-HasOutput;IsInstanceOf;-IsObjectParameterOf;HasPredecessor;HasObject;HasProcessObject;}}}
+|-
+! Permalink{{#info:Generate a permalink}}: 
+| {{{field|permalink|input type=checkbox|label=Permalink{{#info:Generate a permalink}}}}}
+|-
+! Autoexpand{{#info:Auto-queries given params}}: 
+| {{{field|autoexpand|input type=checkbox|label=Autoexpand{{#info:Auto-queries given params}}}}}
+|-
+! Autoexpand-Depth{{#info:Auto-query depth limit}}: 
+| {{{field|depth}}}
 |}
 {{{end template}}}
 
