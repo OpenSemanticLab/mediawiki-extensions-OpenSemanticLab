@@ -15,4 +15,21 @@
 |?IsInstanceOf=Vorschrift
 |?HasCreator=Ersteller
 }}
+
+== Data Graph ==
+{{#queryformlink:form=LabProcess/Query/InteractiveSemanticGraph|link text=Show Graph|link type=post button
+|query string=
+OslTemplate:LabProcess/Query/InteractiveSemanticGraph[root]={{FULLPAGENAME}}
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[properties][]=-IsSubprocessOf
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[properties][]=-IsProcessParameterOf
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[properties][]=-IsObjectParameterOf
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[properties][]=HasOutput
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[properties][]=-HasInput
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[properties][is_list]=1
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[permalink][is_checkbox]=true
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[autoexpand][is_checkbox]=true
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[autoexpand][value]=
+&OslTemplate:LabProcess/Query/InteractiveSemanticGraph[depth]=10
+&_run
+|tooltip=|popup}}
 </includeonly>
