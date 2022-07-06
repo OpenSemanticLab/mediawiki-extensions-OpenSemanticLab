@@ -117,6 +117,52 @@ var template_tools = [
         {
                 group: 'insert',
                 custom_group: false,
+                title: 'ParamSet',
+                icon: 'table',
+                name: 'parameter_set',
+                dialog: true,
+                dialog_type: 'template',
+                sequence: '{P}',
+                shortcut: 'ctrl+alt+p',
+                template: { target: {href: 'Template:ELN/Editor/ParamSet', wt: 'Template:ELN/Editor/ParamSet'}, params: {'name': {wt: `ParamSet 1`}, 'id': {wt: `0001`}}}
+        },
+        /*{
+                group: 'insert',
+                custom_group: false,
+                title: 'ID-Link',
+                icon: 'link',
+                name: 'id_link',
+                dialog: true,
+                dialog_type: 'custom_command',
+                edit_dialog: false,
+                sequence: '{L}',
+                shortcut: 'ctrl+alt+l',
+                template: { target: {href: '<gets replaced by dialog result', wt: 'subst:<gets replaced by dialog result'} },
+                custom_command:  function( surface, args ) {
+                        args = args || this.args;
+
+                                //store current position
+                                var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
+                                OO.ui.prompt( 'Select Building Block (CC)', { textInput: { placeholder: 'Pagename' } } ).done( function ( result ) {
+                                        if ( result !== null ) {
+                                                console.log( 'User typed "' + result + '" then clicked "OK".' );
+                                                //restore position
+                                                //surface.getModel().setLinearSelection(new ve.Range( 0, currentPos ) );
+                                                //surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
+                                                var title = mw.Title.newFromText( result ), linkAnnotation = ve.dm.MWInternalLinkAnnotation.static.newFromTitle( title );
+                                                //surface.getModel().getFragment().annotateContent( 'set', 'link/mwInternal', linkAnnotation.element );
+						//surface.getModel().getFragment().collapseToEnd().insertContent( [linkAnnotation.element,{ type: '/link/mwInternal' }] );
+						surface.getModel().getFragment().collapseToEnd().insertContent( [{ type: 'link/mwInternal', attributes: {title: 'Foo/Bar', origTitle: 'Foo/Bar', normalizedTitle: 'Foo/Bar', lookupTitle: 'Foo/Bar'} }] ).select();
+                                        } else {
+                                                //console.log( 'User clicked "Cancel" or closed the dialog.' );
+                                        }
+                                } );
+
+                },
+	},*/
+        {
+                group: 'insert',
+                custom_group: false,
                 title: 'Building Block',
                 icon: 'puzzle',
                 name: 'building_block',
@@ -176,6 +222,7 @@ var template_tools = [
 				new Autocomplete('#autocomplete', {
 					search: input => {
 						const url = `/w/api.php?action=ask&query=[[Category:SubstitutionTemplate]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
+						//const url = `/w/api.php?action=ask&query=[[Display_title_of::like:*${input}*]][[!~*QUERY*]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
 						return new Promise(resolve => {
 							if (input.length < 0) { return resolve([]); }
 							fetch(url)
@@ -186,6 +233,9 @@ var template_tools = [
 								resultList = resultList.filter(fulltext => {
 									return fulltext.fulltext.toLowerCase().startsWith(input.toLowerCase());
 								});
+								//resultList = resultList.filter(result => {
+								//	return fulltext.displaytitle.toLowerCase().startsWith(input.toLowerCase());
+								//});
 								resolve(resultList);
 							});
 						});
@@ -193,7 +243,7 @@ var template_tools = [
 					renderResult: (result, props) => `
 					<li ${props}>
 						<div class="wiki-title">
-							${result.printouts['HasDisplayName'][0]}
+							${result.printouts['HasDisplayName'][0]} (${result.fulltext})
 						</div>
 						<div class="wiki-snippet">
 							${result.printouts['HasDescription'][0]}
@@ -335,8 +385,8 @@ function VeExtensions_create() {
 	function CustomTool() {
 		CustomTool.parent.apply( this, arguments );
 	}
-	OO.inheritClass( CustomTool, ve.ui.MWTransclusionDialogTool );
-	//OO.inheritClass( CustomTool, ve.ui.Tool );
+	if (template_tool.dialog_type === 'custom_command') OO.inheritClass( CustomTool, ve.ui.Tool );
+	else OO.inheritClass( CustomTool, ve.ui.MWTransclusionDialogTool );
 
 	CustomTool.static.name =  template_tool.name;
 	CustomTool.static.group =  template_tool.group;

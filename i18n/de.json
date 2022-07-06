@@ -5,7 +5,10 @@
 	"open-semantic-lab-desc": "Ein offenes und semantisches Laborinformations- und managementsystem basierend auf Semantic MediaWiki",
 	"open-semantic-lab-name": "OpenSemanticLab",
 	"open-semantic-lab-create-subpage": "Unterseite erstellen",
-        "visualeditor-tool-annotation-toolname": "Anmerkung",
-        "visualeditor-tool-coloredtext-toolname" : "Farbiger Text",
-        "spreadsheet-editor-spreadsheet" : "Kalkulationstabelle"
+    "open-semantic-lab-lims-location": "Standort",
+    "visualeditor-tool-annotation-toolname": "Anmerkung",
+    "visualeditor-tool-coloredtext-toolname" : "Farbiger Text",
+    "spreadsheet-editor-spreadsheet" : "Kalkulationstabelle",
+	"open-semantic-lab-edit": "Bearbeiten",
+	"open-semantic-lab-edit-master-data": "Stammdaten bearbeiten"
 }
