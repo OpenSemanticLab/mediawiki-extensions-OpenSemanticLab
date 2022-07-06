@@ -17,6 +17,7 @@
 |?HasCreator=Ersteller
 |?HasOutputCategory=Product Kategorie
 |?HasOutputType=Product Typ
+|?HasDescription=Beschreibung
 |sort=HasCreationDate
 |order=desc
 }}
