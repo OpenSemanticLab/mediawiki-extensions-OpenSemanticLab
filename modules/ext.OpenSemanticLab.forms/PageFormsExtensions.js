@@ -1,7 +1,9 @@
+/*@nomin*/
 /* 
 modifies behavior of pageforms
 DEV: MediaWiki:PageFormsExtensions.js
 REL: modules/ext.OpenSemanticLab.forms/PageFormsExtensions.js
+hint: ResourceLoader minifier does not support ES6 yet, therefore skip minification  with "nomin" (see https://phabricator.wikimedia.org/T255556)
 */
 
 /* creates a VE-like section edit link to a form */
