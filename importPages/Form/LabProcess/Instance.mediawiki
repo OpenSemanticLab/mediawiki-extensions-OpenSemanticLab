@@ -23,10 +23,7 @@
 | {{{field|creator|default=current user}}} 
 |-
 ! Anzeigename: 
-| {{{field|display_name}}} 
-|-
-! Vollständiger Name: 
-| {{{field|full_name}}} 
+| {{{field|name}}} 
 |}
 </div>
 == Manuell erfasste Angaben ==
@@ -39,10 +36,10 @@
 | {{{field|output_type|input type=SF_Select|query=((Category:@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=output_category|label}}}
 |-
 ! Projekt(e){{#info:Projekt, denen der Versuch zugeordnet wird}}: 
-| {{{field|projects|values from category=Projekt|input type=tokens}}}
+| {{{field|projects|values from category=LIMS/Project/Part|input type=tokens|delimiter=;}}}
 |-
 ! Weitere IDs{{#info:z. B. intern genutzte Bezeichnungen}}: 
-| {{{field|additional_ids|input type=tokens}}}
+| {{{field|additional_ids|input type=tokens|delimiter=;}}}
 |-
 ! Status{{#info:Gibt den Bearbeitungszustand an}}: 
 | {{{field|status|input type=dropdown|values from category=OSL43e208341bdd43dc9a5e43d6786adb54|default=Term:OSLf474ec34b7df451ea8356134241aef8a}}}
