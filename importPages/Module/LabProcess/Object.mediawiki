@@ -125,36 +125,41 @@ function p.object( frame, reference_only )
 	
 	local object_ids = ""
 	local custom_id_offset	= 0
+	if args['custom_id_offset'] ~= nil and args['custom_id_offset'] ~= "" then custom_id_offset = tonumber(args['custom_id_offset']) end
 	local id_offset = 0
 	local label_offset = 0
 	
-	if count > 1 then
+	if count > 1 or (args['custom_id_offset'] ~= nil and args['custom_id_offset'] ~= "") or (args['offset'] ~= nil and args['offset'] ~= "") then 
+		--set offset for arrays or if an offset is defined
 		if args['custom_id'] ~= nil and args['custom_id'] ~= "" then
 			if string.match(args['custom_id'], "%d+") == nil then args['custom_id'] = args['custom_id'] .. "0" end -- e. g. "O" -> "O0"
+			if args['offset'] == nil or args['offset'] == "" then
+				custom_id_offset = custom_id_offset + tonumber(string.reverse(string.match(string.reverse("" .. args['custom_id']), "%d+")))
+			else custom_id_offset = custom_id_offset + tonumber(args['offset']) end
 		end
-		if string.match(args['id'], "%d+") == nil then args['id'] = args['id'] .. "0" end
+	end
+	if count > 1 or (args['offset'] ~= nil and args['offset'] ~= "") then --set offset for arrays or if an offset is defined
+		if string.match(args['id'], "%d+") == nil then args['id'] = args['id'] .. "0" end -- e. g. "O" -> "O0"
 		if string.match(args['label'], "%d+") == nil then args['label'] = args['label'] .. "0" end
 		
 		if args['offset'] == nil or args['offset'] == "" then
-			if args['custom_id'] ~= nil and args['custom_id'] ~= "" then
-				custom_id_offset = tonumber(string.reverse(string.match(string.reverse("" .. args['custom_id']), "%d+")))
-			end
 			id_offset = tonumber(string.reverse(string.match(string.reverse("" .. args['id']), "%d+")))
 			label_offset = tonumber(string.reverse(string.match(string.reverse("" .. args['label']), "%d+")))
 		else 
-			custom_id_offset	= tonumber(args['offset'])
 			id_offset	= tonumber(args['offset'])
 			label_offset	= tonumber(args['offset'])
 		end
 	end
 	
 	for index = 0, count - 1 do
-		if count > 1 then
-			if args['custom_id'] ~= nil and args['custom_id'] ~= "" then
-				args['custom_id'] = p.indexed_string( args['custom_id'], index + custom_id_offset + 1)
-			end
+		if count > 1 or (args['offset'] ~= nil and args['offset'] ~= "") then --generate indexed strings for arrays or if an offset is defined
 			args['id'] = p.indexed_string( args['id'], index + id_offset)
 			args['label'] = p.indexed_string( args['label'], index + label_offset)
+		end
+		if count > 1 or (args['custom_id_offset'] ~= nil and args['custom_id_offset'] ~= "") then --generate indexed strings for arrays or if an offset is defined
+			if args['custom_id'] ~= nil and args['custom_id'] ~= "" then
+				args['custom_id'] = p.indexed_string( args['custom_id'], index + custom_id_offset)
+			end
 		end
 		--object_ids = object_ids .. args['id']
 		if reference_only then object_ids = object_ids .. args['id'] .. ";"
