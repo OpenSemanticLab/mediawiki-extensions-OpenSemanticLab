@@ -8,5 +8,7 @@
         "open-semantic-lab-lims-location": "Location",
         "visualeditor-tool-annotation-toolname": "Annotation",
         "visualeditor-tool-coloredtext-toolname" : "Colored Text",
-        "spreadsheet-editor-spreadsheet" : "Spreadsheet"
+        "spreadsheet-editor-spreadsheet" : "Spreadsheet",
+        "open-semantic-lab-edit": "edit",
+        "open-semantic-lab-edit-master-data": "edit master data"
 }

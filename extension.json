@@ -45,7 +45,9 @@
 			"messages": [
 				"visualeditor-tool-annotation-toolname",
 				"visualeditor-tool-coloredtext-toolname",
-				"spreadsheet-editor-spreadsheet"
+				"spreadsheet-editor-spreadsheet",
+				"open-semantic-lab-edit",
+				"open-semantic-lab-edit-master-data"
 			]
 		},
 		"ext.OpenSemanticLab.forms": {
