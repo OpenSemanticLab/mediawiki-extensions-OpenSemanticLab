@@ -10,7 +10,7 @@
 
 == Weitere Verwendung ==
 <!-- SuccessorProcess.-IsSubprocessOf.-IsProcessParameterOf.HasValue.-HasOutput.ThisProcess -->
-{{#ask: [[-IsSubprocessOf.-IsProcessParameterOf.HasValue.-HasOutput::{{FULLPAGENAME}}]]
+{{#ask: [[-IsSubprocessOf.-IsProcessParameterOf.HasValue.-HasObject::{{FULLPAGENAME}}]]
 |?HasCreationDate=Datum
 |?IsInstanceOf=Vorschrift
 |?HasCreator=Ersteller
