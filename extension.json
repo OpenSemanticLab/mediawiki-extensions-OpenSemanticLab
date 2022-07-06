@@ -24,23 +24,23 @@
 	"manifest_version": 2,
 	"ResourceModules": {
 		"ext.OpenSemanticLab": {
-	                "localBasePath": "modules/ext.OpenSemanticLab",
-        	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
-      			"scripts": [
+			"localBasePath": "modules/ext.OpenSemanticLab",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
+			"scripts": [
 				"DynamicSidebar.js"
-      			],			
+			],
 			"styles": [
 				"SkinOverwrites.css"
-      			],
+			],
 			"position": "top"
 		},
 		"ext.OpenSemanticLab.editor": {
-	                "localBasePath": "modules/ext.OpenSemanticLab.editor",
-        	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
-      			"scripts": [
+			"localBasePath": "modules/ext.OpenSemanticLab.editor",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
+			"scripts": [
 				"ve_integration.js",
 				"IdNameTooltip.js"
-      			],
+			],
 			"position": "bottom",
 			"messages": [
 				"visualeditor-tool-annotation-toolname",
@@ -51,24 +51,24 @@
 			]
 		},
 		"ext.OpenSemanticLab.forms": {
-	                "localBasePath": "modules/ext.OpenSemanticLab.forms",
-        	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.forms",
-      			"scripts": [
+			"localBasePath": "modules/ext.OpenSemanticLab.forms",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.forms",
+			"scripts": [
 				"PageFormsExtensions.js",
 				"DynamicFormLinks.js",
 				"DynamicPageFormsTables.js"
-      			],
+			],
 			"styles": [
 				"DynamicPageFormsTables.css"
-      			],
+			],
 			"position": "top"
 		},
 		"ext.OpenSemanticLab.LIMS.styles": {
-	                "localBasePath": "modules/ext.OpenSemanticLab.LIMS",
-        	        "remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.LIMS",
-      			"styles": [
+			"localBasePath": "modules/ext.OpenSemanticLab.LIMS",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.LIMS",
+			"styles": [
 				"LimsInfoBox.css"
-      			],
+			],
 			"position": "top"
 		}
 	},
@@ -77,127 +77,127 @@
 			"id": 7010,
 			"constant": "NS_MATERIAL",
 			"name": "Material",
-			"subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7011,
 			"constant": "NS_MATERIAL_TALK",
 			"name": "Material_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"defaultcontentmodel": "flow-board"
 		},
 		{
 			"id": 7020,
 			"constant": "NS_DEVICE",
 			"name": "Device",
-			"subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7021,
 			"constant": "NS_DEVICE_TALK",
 			"name": "Device_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"defaultcontentmodel": "flow-board"
 		},
 		{
 			"id": 7022,
 			"constant": "NS_SOFTWARE",
 			"name": "Software",
-			"subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7023,
 			"constant": "NS_SOFTWARE_TALK",
 			"name": "Software_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"defaultcontentmodel": "flow-board"
 		},
 		{
 			"id": 7030,
 			"constant": "NS_LOCATION",
 			"name": "Location",
-			"subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7031,
 			"constant": "NS_LOCATION_TALK",
 			"name": "Location_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"defaultcontentmodel": "flow-board"
 		},
-                {
-                        "id": 7040,
-                        "constant": "NS_FILETYPE",
-                        "name": "FileType",
-			"subpages" : true
-                },
-                {
-                        "id": 7041,
-                        "constant": "NS_FILETYPE_TALK",
-                        "name": "FileType_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
 		{
-                        "id": 7042,
-                        "constant": "NS_DATATYPE",
-                        "name": "DataType",
-			"subpages" : true
-                },
-                {
-                        "id": 7043,
-                        "constant": "NS_DATATYPE_TALK",
-                        "name": "DataType_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
+			"id": 7040,
+			"constant": "NS_FILETYPE",
+			"name": "FileType",
+			"subpages": true
+		},
+		{
+			"id": 7041,
+			"constant": "NS_FILETYPE_TALK",
+			"name": "FileType_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
+			"id": 7042,
+			"constant": "NS_DATATYPE",
+			"name": "DataType",
+			"subpages": true
+		},
+		{
+			"id": 7043,
+			"constant": "NS_DATATYPE_TALK",
+			"name": "DataType_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
 		{
 			"id": 7050,
 			"constant": "NS_OU",
 			"name": "OU",
-			"subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7051,
 			"constant": "NS_OU_TALK",
 			"name": "OU_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"defaultcontentmodel": "flow-board"
 		},
-                {
-                        "id": 7060,
-                        "constant": "NS_OSL_PROJECT",
-                        "name": "Project",
-			"subpages" : true
-                },
-                {
-                        "id": 7061,
-                        "constant": "NS_OSL_PROJECT_TALK",
-                        "name": "Project_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
-                {
-                        "id": 7070,
-                        "constant": "NS_PERSON",
-                        "name": "Person",
-			"subpages" : true
-                },
-                {
-                        "id": 7071,
-                        "constant": "NS_PERSON_TALK",
-                        "name": "Person_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
 		{
-                        "id": 7080,
-                        "constant": "NS_MODEL",
-                        "name": "Model",
-			"subpages" : true
-                },
-                {
-                        "id": 7081,
-                        "constant": "NS_MODEL_TALK",
-                        "name": "Model_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
+			"id": 7060,
+			"constant": "NS_OSL_PROJECT",
+			"name": "Project",
+			"subpages": true
+		},
+		{
+			"id": 7061,
+			"constant": "NS_OSL_PROJECT_TALK",
+			"name": "Project_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
+			"id": 7070,
+			"constant": "NS_PERSON",
+			"name": "Person",
+			"subpages": true
+		},
+		{
+			"id": 7071,
+			"constant": "NS_PERSON_TALK",
+			"name": "Person_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
+			"id": 7080,
+			"constant": "NS_MODEL",
+			"name": "Model",
+			"subpages": true
+		},
+		{
+			"id": 7081,
+			"constant": "NS_MODEL_TALK",
+			"name": "Model_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
 		{
 			"id": 7100,
 			"constant": "NS_LABNOTE",
 			"name": "LabNote",
-			"subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7101,
@@ -209,101 +209,101 @@
 			"id": 7110,
 			"constant": "NS_LABPROCESS",
 			"name": "LabProcess",
-                        "subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7111,
 			"constant": "NS_LABPROCESS_TALK",
 			"name": "LabProcess_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"defaultcontentmodel": "flow-board"
 		},
 		{
 			"id": 7120,
 			"constant": "NS_LABOBJECT",
 			"name": "LabObject",
-                        "subpages" : true
+			"subpages": true
 		},
 		{
 			"id": 7121,
 			"constant": "NS_LABOBJECT_TALK",
 			"name": "LabObject_Talk",
-                        "defaultcontentmodel": "flow-board"
+			"defaultcontentmodel": "flow-board"
 		},
-                {
-                        "id": 7200,
-                        "constant": "NS_OSLTEMPLATE",
-                        "name": "OslTemplate",
-                        "subpages" : true
-                },
-                {
-                        "id": 7201,
-                        "constant": "NS_OSLTEMPLATE_TALK",
-                        "name": "OslTemplate_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
-                {
-                        "id": 7210,
-                        "constant": "NS_OSLFORM",
-                        "name": "OslForm",
-                        "subpages" : true
-                },
-                {
-                        "id": 7211,
-                        "constant": "NS_OSLFORM_TALK",
-                        "name": "OslForm_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
 		{
-                        "id": 7300,
-                        "constant": "NS_FIELD",
-                        "name": "Field",
-			"subpages" : true
-                },
-                {
-                        "id": 7301,
-                        "constant": "NS_FIELD_TALK",
-                        "name": "Field_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
-                {
-                        "id": 7310,
-                        "constant": "NS_TERM",
-                        "name": "Term",
-			"subpages" : true
-                },
-                {
-                        "id": 7311,
-                        "constant": "NS_TERM_TALK",
-                        "name": "Term_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
+			"id": 7200,
+			"constant": "NS_OSLTEMPLATE",
+			"name": "OslTemplate",
+			"subpages": true
+		},
 		{
-                        "id": 7320,
-                        "constant": "NS_STATEMENT",
-                        "name": "Statement",
-			"subpages" : true
-                },
-                {
-                        "id": 7321,
-                        "constant": "NS_STATEMENT_TALK",
-                        "name": "Statement_Talk",
-                        "defaultcontentmodel": "flow-board"
-                },
+			"id": 7201,
+			"constant": "NS_OSLTEMPLATE_TALK",
+			"name": "OslTemplate_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
 		{
-                        "id": 7330,
-                        "constant": "NS_CR",
-                        "name": "CR",
+			"id": 7210,
+			"constant": "NS_OSLFORM",
+			"name": "OslForm",
+			"subpages": true
+		},
+		{
+			"id": 7211,
+			"constant": "NS_OSLFORM_TALK",
+			"name": "OslForm_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
+			"id": 7300,
+			"constant": "NS_FIELD",
+			"name": "Field",
+			"subpages": true
+		},
+		{
+			"id": 7301,
+			"constant": "NS_FIELD_TALK",
+			"name": "Field_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
+			"id": 7310,
+			"constant": "NS_TERM",
+			"name": "Term",
+			"subpages": true
+		},
+		{
+			"id": 7311,
+			"constant": "NS_TERM_TALK",
+			"name": "Term_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
+			"id": 7320,
+			"constant": "NS_STATEMENT",
+			"name": "Statement",
+			"subpages": true
+		},
+		{
+			"id": 7321,
+			"constant": "NS_STATEMENT_TALK",
+			"name": "Statement_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
+			"id": 7330,
+			"constant": "NS_CR",
+			"name": "CR",
 			"alias": "Reference",
-			"subpages" : true
-                },
-                {
-                        "id": 7331,
-                        "constant": "NS_CR_TALK",
-                        "name": "CR_Talk",
-                        "defaultcontentmodel": "flow-board"
-                }
+			"subpages": true
+		},
+		{
+			"id": 7331,
+			"constant": "NS_CR_TALK",
+			"name": "CR_Talk",
+			"defaultcontentmodel": "flow-board"
+		}
 	],
-  "config_prefix": "",
+	"config_prefix": "",
 	"config": {
 		"smwgNamespacesWithSemanticLinks": {
 			"value": {
@@ -320,37 +320,37 @@
 				"7100": true,
 				"7110": true,
 				"7120": true,
-                                "7200": true,
-                                "7210": true,
+				"7200": true,
+				"7210": true,
 				"7300": true,
 				"7310": true,
 				"7320": true,
 				"7330": true
 			},
 			"merge_strategy": "array_plus"
-    },
-    "wgNamespacesToBeSearchedDefault": {
-      "value": {
-        "2": true,
-        "7010": true,
-        "7020": true,
-        "7030": true,
-	"7040": true,
-	"7050": true,
-        "7060": true,
-	"7070": true,
-        "7100": true,
-        "7300": true,
-        "7310": true
-      },
-      "merge_strategy": "array_plus"
-    },
-    "wgNamespacesToBeSearchedDefault": {
-      "value": {
-        "Hardware": 7020
-      },
-      "merge_strategy": "array_plus"
-    }
+		},
+		"wgNamespacesToBeSearchedDefault": {
+			"value": {
+				"2": true,
+				"7010": true,
+				"7020": true,
+				"7030": true,
+				"7040": true,
+				"7050": true,
+				"7060": true,
+				"7070": true,
+				"7100": true,
+				"7300": true,
+				"7310": true
+			},
+			"merge_strategy": "array_plus"
+		},
+		"wgNamespaceAliases": {
+			"value": {
+				"Hardware": 7020
+			},
+			"merge_strategy": "array_plus"
+		}
 	},
 	"attributes": {
 		"VisualEditor": {
@@ -362,14 +362,14 @@
 				"7040": true,
 				"7042": true,
 				"7050": true,
-                                "7060": true,
-                                "7070": true,
-                                "7080": true,
+				"7060": true,
+				"7070": true,
+				"7080": true,
 				"7100": true,
 				"7110": true,
 				"7120": true,
-                                "7300": true,
-                                "7310": true
+				"7300": true,
+				"7310": true
 			}
 		}
 	},
