@@ -20,4 +20,4 @@
 </templatedata>
 
 Edit the page to see the template text.
-</noinclude><includeonly>* .. [[Property:{{{property}}}|{{{property}}}]]   [[{{{property}}}::{{{value}}}]]<br>{{#set: {{{property}}}={{{value}}} }}{{#subobject:|@category=KB/Relation|HasSubject={{FULLPAGENAME}}|HasProperty=Property:{{{property}}}|HasValue={{{value}}}}}</includeonly>
+</noinclude><includeonly>{{#if:{{{property|}}}|{{#if:{{{value|}}}|* .. [[Property:{{{property}}}|{{{property}}}]]   [[{{{property}}}::{{{value}}}]]<br>{{#set: {{{property}}}={{{value}}} }}{{#subobject:|@category=KB/Relation|HasSubject={{FULLPAGENAME}}|HasProperty=Property:{{{property}}}|HasValue={{{value}}}}}|}}|}}</includeonly>
