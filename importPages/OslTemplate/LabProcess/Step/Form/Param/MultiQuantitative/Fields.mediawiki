@@ -4,7 +4,8 @@
 |-
 | '''Kategorie:'''
 <!-- NOMINAL CATEGORY:SFS Combobox-->
-| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Property/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label|default=Category:QuantityProperty}}}</nowiki></div>
+<!-- | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Property/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label|default=Category:QuantityProperty}}}</nowiki></div> DISABLED DUE TO PERFORMANCE -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_category<nowiki>|class=sfselect-restricted|input type=text|default=Category:QuantityProperty}}}</nowiki></div>
 <!-- ACTUAL CATEGORY:SFS Combobox-->
 | <div class='PageFormsExtensions_sync-field PageFormsExtensions_sync-field-nested PageFormsExtensions_sync-field-src_{{{template}}}[actual_{{{template_parameter}}}_category]'><nowiki>{{{field|</nowiki>actual_category<nowiki>|class=sfselect-restricted|input type=SF_Select|query=((Concept:</nowiki>{{{concept|LIMS/Property/Category}}}<nowiki>));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label|default=Category:QuantityProperty}}} {{{field|actual_category_sync_active|input type=checkbox|label=Tree|default=no}}}</nowiki>{{#info: Nutzt den Kategoriebaum für die Eingabe}}</div>
 <!-- NOMINAL Property-->
@@ -12,11 +13,13 @@
 | '''Größe:'''
 <!-- Update Trigger not working reliable --><!-- | <nowiki>{{{field|nominal_quantity|values from category=Property/Quantitative|input type=combobox|restricted}}}</nowiki>
 | <nowiki>{{{field|actual_quantity|values from category=Property/Quantitative|input type=combobox}}}</nowiki> -->
-| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_quantity<nowiki>|restricted|input type=SF_Select|query=</nowiki>((Category:QuantityProperty))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
+<!-- | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_quantity<nowiki>|restricted|input type=SF_Select|query=</nowiki>((Category:QuantityProperty))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div> DISABLED DUE TO PERFORMANCE -->
+| <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_quantity<nowiki>|restricted|input type=text}}}</nowiki></div>
 | <div><nowiki>{{{field|</nowiki>actual_quantity<nowiki>|input type=SF_Select|query=</nowiki>((@@@@))<nowiki>;?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=actual_category|label}}}</nowiki></div> 
 |-
 | '''Wert:'''
-| <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>nominal_unit<nowiki>|input type=SF_Select|query=((@@@@));?HasInputUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=nominal_quantity|<!--mandatory-->}}}</nowiki></div> 
+<!-- | <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>nominal_unit<nowiki>|input type=SF_Select|query=((@@@@));?HasInputUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=nominal_quantity|}}}</nowiki></div> DISABLED DUE TO PERFORMANCE -->
+| <div class='sfselect-restricted tiny-input'><nowiki>{{{field|</nowiki>nominal_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>nominal_unit<nowiki>|input type=text|<!--mandatory-->}}}</nowiki></div> 
 | <div class='tiny-input'><nowiki>{{{field|</nowiki>actual_value<nowiki>}}}</nowiki><nowiki>{{{field|</nowiki>actual_unit<nowiki>|input type=SF_Select|query=((@@@@));?HasInputUnitSymbol;format~plain;sep~,;link~none;mainlabel~-;headers~hide;limit~200|sametemplate|field=actual_quantity|<!--mandatory-->}}}</nowiki></div> 
 |}
 <nowiki>{{{end template}}}</nowiki></includeonly>
