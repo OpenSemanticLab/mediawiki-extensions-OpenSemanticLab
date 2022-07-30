@@ -50,6 +50,7 @@ function p.create_object( frame, args )
 	        'LabProcess/GlobalObject',
 	        'LabProcessOutput'
 	    }
+	    properties['IsOutputOf'] = page.fullText
 	else
 		properties['@category'] = {
 	        'LabProcess/Object',
