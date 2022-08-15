@@ -66,6 +66,18 @@ var template_tools = [
 		shortcut: 'ctrl+alt+d',
 		template: { target: {href: 'Template:ELN/Editor/DrawIO', wt: 'Template:ELN/Editor/DrawIO'}, params: {'file_name':  {wt: `diagram-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}}}
 	},
+	{
+		group: 'insert',
+		custom_group: false,
+		title: 'Graph',
+		icon: 'articleDisambiguation',
+		name: 'graph_editor',
+		dialog: true,
+        dialog_type: 'template',
+		sequence: '{G}',
+		shortcut: 'ctrl+alt+g',
+		template: { target: {href: 'Template:ELN/Editor/Graph', wt: 'Template:ELN/Editor/Graph'}, params: {'file_name':  {wt: `graph-01`}, 'page_name': {wt: `${mw.config.get('wgPageName')}`}, 'root': {wt: `${mw.config.get('wgPageName')}`}}}
+	},
         {
                 group: 'insert',
                 custom_group: false,
