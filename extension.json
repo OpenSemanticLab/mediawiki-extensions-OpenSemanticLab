@@ -39,7 +39,8 @@
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
 			"scripts": [
 				"ve_integration.js",
-				"IdNameTooltip.js"
+				"IdNameTooltip.js",
+				"QrCodeGenerator.js"
 			],
 			"position": "bottom",
 			"messages": [
