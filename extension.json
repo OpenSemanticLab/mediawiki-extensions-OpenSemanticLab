@@ -39,7 +39,8 @@
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.editor",
 			"scripts": [
 				"ve_integration.js",
-				"IdNameTooltip.js"
+				"IdNameTooltip.js",
+				"QrCodeGenerator.js"
 			],
 			"position": "bottom",
 			"messages": [
@@ -350,6 +351,19 @@
 				"Hardware": 7020
 			},
 			"merge_strategy": "array_plus"
+		},
+		"wgFooterIcons": {
+			"value": {
+				"poweredby": {
+					"opensemanticlab": {
+						"src": "/w/extensions/OpenSemanticLab/modules/ext.OpenSemanticLab/powered_by_osl.svg",
+						"url": "https://github.com/OpenSemanticLab",
+						"alt": "Powered by OpenSemanticLab",
+						"class": "smw-footer"
+					}
+				}
+			},
+			"merge_strategy": "array_plus_2d"
 		}
 	},
 	"attributes": {
