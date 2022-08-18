@@ -38,6 +38,8 @@ class OpenSemanticLab {
 				"Form:ELN/Editor/ParamSet" => "Form/ELN/Editor/ParamSet.mediawiki",
 				"Form:ELN/Entry" => "Form/ELN/Entry.mediawiki",
 				"Form:ELN/Entry/Query" => "Form/ELN/Entry/Query.mediawiki",
+				"Form:KB/Class" => "Form/KB/Class.mediawiki",
+				"Form:KB/Term" => "Form/KB/Term.mediawiki",
 				"Form:LabProcess" => "Form/LabProcess.mediawiki",
 				"Form:LabProcess/Instance" => "Form/LabProcess/Instance.mediawiki",
 				"Form:LabProcess/Query/InteractiveSemanticGraph" => "Form/LabProcess/Query/InteractiveSemanticGraph.mediawiki",
