@@ -5,7 +5,6 @@ REL: modules/ext.OpenSemanticLab.LIMS/QrCodeGenerator.js
 */
 
 $(document).ready(function () {
-
 	if ($('.QrCodeGenerator').length === 0) return; //only on pages with a cam-scanner-div
 	$.when(
 		$.getScript("//larsjung.de/kjua/latest/kjua-0.9.0.min.js"),
