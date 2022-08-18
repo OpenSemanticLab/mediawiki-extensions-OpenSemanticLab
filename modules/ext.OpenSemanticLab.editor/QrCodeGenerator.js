@@ -5,7 +5,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/QrCodeGenerator.js
 */
 
 $(document).ready(function () {
-	console.log("HEEEEEEEELOOOOOOOOOO");
+
 	if ($('.QrCodeGenerator').length === 0) return; //only on pages with a cam-scanner-div
 	$.when(
 		$.getScript("//larsjung.de/kjua/latest/kjua-0.9.0.min.js"),
@@ -19,10 +19,8 @@ $(document).ready(function () {
 		$(".QrCodeGenerator").each( function() {
 			var $element = $(this);
 			var $grid = $('<div></div>')
-			$grid.css("width", "800px");
 			$grid.css("display", "grid");
 			$grid.css("grid-gap", "0px");
-			$grid.css("grid-template-columns", "auto auto auto auto");
 			
 			$element.append($grid);
 			
@@ -52,6 +50,11 @@ $(document).ready(function () {
 					if (!Array.isArray(config['text'])) config['text'] = [config['text']]; //normalize to array
 					if (config['heading']) if (!Array.isArray(config['heading'])) config['heading'] = [config['heading']]; //normalize to array
 					if (config['caption']) if (!Array.isArray(config['caption'])) config['caption'] = [config['caption']]; //normalize to array
+					if (config['text'].length > 1) {
+						$grid.css("grid-template-columns", "auto auto auto auto"); //multiple QR codes
+						$grid.css("width", "800px");
+					}
+
 					for (var i = 0; i < config['text'].length; i++) {
 						var $div = $('<div></div>');
 						$div.css("text-align", "center");
