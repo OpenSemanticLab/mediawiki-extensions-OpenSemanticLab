@@ -17,7 +17,7 @@ Templates for Knowledge Base Terms
 <th class="heading" colspan="2">{{#if: {{{display_name|}}}|{{{display_name|}}} [{{{id|{{PAGENAME}}}}}] | {{{id|{{PAGENAME}}}}} }}</th>
 </tr>
 <tr>
-<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]|}}</td>
+<td class="picture" colspan="2">{{#if: {{{image|}}}|[[File:{{{image|}}}|200x800px]]{{#set: |HasImage=File:{{{image|}}}}}|}}</td>
 </tr>
 <tr>
 <th>ID</th>

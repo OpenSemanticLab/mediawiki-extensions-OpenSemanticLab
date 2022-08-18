@@ -24,6 +24,9 @@
 ! Labels: 
 | {{{field|alternative_labels|holds template}}}
 |-
+! Image / Key Visual: 
+| {{{field|image|uploadable|image preview}}} 
+|-
 ! Description: 
 | {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
 |-
