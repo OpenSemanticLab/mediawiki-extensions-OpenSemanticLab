@@ -16,5 +16,8 @@
 <!-- With format=datatable VE page safe fails!?! -->
 <div class="fileupload-auto-reload">{{#batchupload:OslTemplate:KB/Attachment|{{FULLPAGENAME}}|{{REVISIONUSER}}}}</div>
 {{OslTemplate:Helper/UI/Div/Closing}}
+<!-- Includestatement for wiki-parser, create graphs in browser -->
+== Graph ==
+<div style="width: 100%;" class="InteractiveSemanticGraph">{ "root":"{{FULLPAGENAME}}", "edit": true, "permalink":false, "depth":2, "edge_labels": false}</div>
 
 </includeonly>
