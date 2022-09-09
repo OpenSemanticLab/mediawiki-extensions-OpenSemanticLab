@@ -95,3 +95,8 @@ https://github.com/wikimedia/parsoid/blob/master/src/Config/WikitextConstants.ph
 /var/lib/parsoid/lib/config/WikitextConstants.js
 ->  TagWhiteList: new Set([... 'A', 'BUTTON' , 'FORM', 'LABEL', 'TEXTAREA'])
 */
+
+/* for DynamicFormLinks.js */
+.dynamic-page-form-link {
+	display: none;
+}
