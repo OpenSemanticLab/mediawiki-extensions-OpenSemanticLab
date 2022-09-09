@@ -308,9 +308,10 @@ class OpenSemanticLab {
 	public static function onBeforePageDisplay( $out ) {
 
 		//handle css explicitly, see https://www.mediawiki.org/wiki/ResourceLoader/Developing_with_ResourceLoader#CSS_2
+		$out->addModuleStyles( 'ext.OpenSemanticLab' );
 		$out->addModuleStyles( 'ext.OpenSemanticLab.LIMS.styles' );
 
-		//$out->addModules( 'ext.OpenSemanticLab' );
+		$out->addModules( 'ext.OpenSemanticLab' );
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 		//$out->addModules( 'ext.OpenSemanticLab.forms' );
 
