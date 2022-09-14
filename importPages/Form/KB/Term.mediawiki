@@ -31,7 +31,7 @@
 | {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
 |-
 ! Category: 
-| {{{field|category|input type=tree|top category=Thing<!-- |hideroot -->|default=Term|depth=4|list|delimiter=;|height=500|width=1000}}}
+| {{{field|category|input type=tree|top category=Thing<!-- |hideroot -->|default=Term|depth=4|list|delimiter=;|height=300|width=1000}}}
 |-
 ! Ontology IRI: 
 | {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}
@@ -45,11 +45,11 @@
 <!-- ==Semantic Links== -->
 {{{for template|OslTemplate:KB/Relation|multiple|add button text=Add semantic link|embed in field=OslTemplate:KB/Term[relations]}}}
 {| class="formtable"
-! Property (e. g. "Has part"): 
-| {{{field|property|input type=text with autocomplete|mandatory|values from namespace=Property}}}
+! Property (e. g. "HasPart"): 
+| {{{field|property|input type=text with autocomplete|size=100|mandatory|values from category=ObjectProperty}}}
 |-
 ! Value (e. g. "Electrode"): 
-| {{{field|value|input type=text with autocomplete|mandatory|values from category=KB/Term}}}
+| {{{field|value|input type=text with autocomplete|size=100|mandatory|values from category=KB/Term}}}
 |}
 {{{end template}}}
 
