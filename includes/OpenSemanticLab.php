@@ -132,6 +132,7 @@ class OpenSemanticLab {
 				"OslTemplate:Helper/Semantics/InlineProperty/HasHazardStatement" => "OslTemplate/Helper/Semantics/InlineProperty/HasHazardStatement.mediawiki",
 				"OslTemplate:Helper/Semantics/InlineProperty/HazardStatementTooltip" => "OslTemplate/Helper/Semantics/InlineProperty/HazardStatementTooltip.mediawiki",
 				"OslTemplate:Helper/StringOps" => "OslTemplate/Helper/StringOps.mediawiki",
+				"OslTemplate:Helper/StringOps/ConcatLists" => "OslTemplate/Helper/StringOps/ConcatLists.mediawiki",
 				"OslTemplate:Helper/StringOps/SplitOnTripleHashSelectFirst" => "OslTemplate/Helper/StringOps/SplitOnTripleHashSelectFirst.mediawiki",
 				"OslTemplate:Helper/Strings" => "OslTemplate/Helper/Strings.mediawiki",
 				"OslTemplate:Helper/Strings/No" => "OslTemplate/Helper/Strings/No.mediawiki",
