@@ -232,4 +232,18 @@ $(document).ready(function() {
         
     });
 });
-    
+
+//fix false rendering of section headings in footer templates
+$(document).ready(function() {
+    $('#custom-ve-new-section-prepend-anchor').each(function() {
+        const prev = $(this).prev('p');
+        if (prev.length) {
+            const text_elements = prev.text().split('=');
+            var heading_label = text_elements[text_elements.length-1];
+            if (heading_label === "\n") heading_label = text_elements[text_elements.length-2];
+            console.log(heading_label);
+            prev.text(prev.text().replace('=' + heading_label + "=",""));
+            $('<h1><span class="mw-headline" id="' + heading_label + '">' + heading_label + '</span></h1>').appendTo(prev);
+        }
+    });
+});
