@@ -27,7 +27,8 @@
 			"localBasePath": "modules/ext.OpenSemanticLab",
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
 			"scripts": [
-				"DynamicSidebar.js"
+				"DynamicSidebar.js",
+				"D3graphviz.js"
 			],
 			"styles": [
 				"SkinOverwrites.css"
