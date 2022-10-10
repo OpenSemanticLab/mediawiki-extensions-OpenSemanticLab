@@ -258,6 +258,19 @@
 			"defaultcontentmodel": "flow-board"
 		},
 		{
+			"id": 7220,
+			"constant": "NS_JSONSCHEMA",
+			"name": "JsonSchema",
+			"subpages": true,
+			"defaultcontentmodel": "json"
+		},
+		{
+			"id": 7221,
+			"constant": "NS_JSONSCHEMA_TALK",
+			"name": "JsonSchema_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
 			"id": 7300,
 			"constant": "NS_FIELD",
 			"name": "Field",
