@@ -32,7 +32,8 @@
 				"D3graphviz.js"
 			],
 			"styles": [
-				"SkinOverwrites.css"
+				"SkinOverwrites.css",
+				"TileGrid.css"
 			],
 			"position": "top"
 		},

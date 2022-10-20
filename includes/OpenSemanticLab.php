@@ -313,7 +313,7 @@ class OpenSemanticLab {
 
 		$out->addModules( 'ext.OpenSemanticLab' );
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
-		//$out->addModules( 'ext.OpenSemanticLab.forms' );
+		$out->addModules( 'ext.OpenSemanticLab.forms' );
 
 		return true;
 
