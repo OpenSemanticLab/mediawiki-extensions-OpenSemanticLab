@@ -227,6 +227,7 @@ $(document).ready(function() {
 			context.property = $propertyField.val();
 			if (context.debug) console.log(context);
 			
+			context.year = context.date.getFullYear();
 			context.timestamp_YYMMDD = ("" + context.date.getFullYear()).slice(-2) + ("0" + (context.date.getMonth() + 1)).slice(-2) + ("0" + context.date.getDate()).slice(-2);
 			context.userName = mw.config.get("wgUserName");
 			var prequeries = [];
@@ -249,10 +250,28 @@ $(document).ready(function() {
 			
 			$.when.apply($, prequeries).done(function(){
 				if (context.debug) console.log("all pre-queries done");
+				var properties = {};
+				var property_list = context.pattern.split("${");
+				for (let index = 0; index < property_list.length; index++) {
+					const element = property_list[index];
+					if (index > 0) properties[(element.split("}")[0])] = "";
+				}
+				properties["year"] = context.year;
+				properties["short_timestamp"] = context.timestamp_YYMMDD;
+				properties["user_abbreviation"] = context.HasAbbreviation;
+				properties["unique_number"] = "*";
+
+				searchParams = new URLSearchParams(window.location.search);
+				for (let p of searchParams) {
+					if (properties[p[0]] !== undefined) properties[p[0]] = p[1];
+				}
+				if (context.debug) console.log(properties);
+				
 				context.value = context.pattern;
-				context.value = context.value.replace("${short_timestamp}", context.timestamp_YYMMDD);
-				context.value = context.value.replace("${user_abbreviation}", context.HasAbbreviation);
-				context.value = context.value.replace("${unique_number}", "*");
+				for (let property in properties) {
+					context.value = context.value.replace("${" + property + "}", properties[property]);
+				}
+
 				
 				var postqueries = [];
 				//retriev the existing property value with the highest value for the unique number
