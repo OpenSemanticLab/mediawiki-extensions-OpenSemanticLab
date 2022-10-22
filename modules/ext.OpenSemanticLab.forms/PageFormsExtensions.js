@@ -13,15 +13,18 @@ $("div.custom-section-edit-form-link").each(function(){
 	var link_label = $element.data('link-label');
 	var link_label_msg = $element.data('link-label-msg');
 	var link_tooltip_msg = $element.data('link-tooltip-msg');
+	var purge = $element.data('purge');
 	if (!link_label) link_label = "Edit";
 	if (link_label_msg) link_label = mw.msg(link_label_msg);
 	var link_tooltip = link_label;
 	if (link_tooltip_msg) link_tooltip = mw.msg(link_tooltip_msg);
-	console.log(`form_name: ${form_name}, link_label_msg=${link_label_msg}, link_label=${link_label}`);
+	var additional_params = "";
+	if (purge) additional_params = `&amp;reload=1&amp;returnto=${mw.config.get('wgPageName')}#_purge`; //force reload and second page reload to update query results
+	//console.log(`form_name: ${form_name}, link_label_msg=${link_label_msg}, link_label=${link_label}`);
 	$element.find('span.mw-headline').after(`
 	<span class="mw-editsection" style="display: inline-block !important;">
 	  <span class="mw-editsection-bracket">[</span>
-	    <a href="/w/index.php?title=Special:FormEdit&amp;form=${form_name}&amp;target=${mw.config.get('wgPageName')}" 
+	    <a href="/w/index.php?title=Special:FormEdit&amp;form=${form_name}&amp;target=${mw.config.get('wgPageName')}${additional_params}" 
 	    target="_self" class="mw-editsection-visualeditor" title="${link_tooltip}" style="display: inline-block !important;">${link_label}</a>
 	  <span class="mw-editsection-bracket">]</span>
 	</span>`
