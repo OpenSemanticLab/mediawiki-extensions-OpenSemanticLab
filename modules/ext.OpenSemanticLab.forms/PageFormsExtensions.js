@@ -175,6 +175,81 @@ $(document).ready(function() {
 	}
 });
 
+$(document).ready(function() {
+	if ($('.PageFormsExtensions_copy-fields').length) {
+		
+		
+		//Hook for new template instances
+		mw.hook('pf.addTemplateInstance').add(function($newInstance) {
+			copy_from_previous($newInstance);
+		});
+
+		function copy_from_previous($newInstance) {
+			$prev = $newInstance.prevAll('.multipleTemplateInstance').first();
+			//console.log($newInstance);
+			var values = {};
+			if ($prev.length) {
+				$prev.find("[id^='input']").each(function() { //filter all childs with id=input*
+					$input = $(this);
+					var id = "";//$input.attr('origname');
+					var name = $input.attr('name')
+					if (name) id = name.split('[').pop().split(']')[0]; //select 'id' from 'template[index][id]'
+					var value = $input.val();
+					if (id !== "") values[id] = value;
+					//console.log(id, value);
+				});
+			}
+			$newInstance.find("[id^='input']").each(function() { //filter all childs with id=input*
+				$input = $(this);
+
+				$incremented_field_div = $input.parents(".incrementField").first();
+				var incremented_field = $incremented_field_div.length == 1;
+				if (incremented_field) {
+					var pattern = $incremented_field_div.data('pattern');
+					pattern = pattern.replace("${unique_number}","*");
+					var number_pattern = $incremented_field_div.data('number-pattern');
+					if (!number_pattern) number_pattern = 0000; 
+					var increment = $incremented_field_div.data('increment');
+					if (!increment) increment = 1; 
+					var start_value = $incremented_field_div.data('start-value');
+					if (start_value) $input.val(start_value);
+					else $input.val(get_incremented_id(pattern, [], number_pattern, increment)); //default: create new initial value
+				}
+
+				var id = "";//$input.attr('origname');
+				var name = $input.attr('name')
+				if (name) id = name.split('[').pop().split(']')[0]; //select 'id' from 'template[index][id]'
+				if (id !== "" && values[id]) {
+					var value = values[id]
+					$incremented_field_div = $input.parents(".incrementField").first();
+					if (incremented_field) {
+						value = get_incremented_id(pattern, [value], number_pattern, increment); //create incremented value
+					}
+					//console.log("set " + id + " = " + value);
+					$input.val(value);
+				}
+
+			});
+		}
+
+		//Todo: move to mwjson.util
+		function get_incremented_id(pattern, existing_values = [], number_pattern="0000", increment = 1) {
+			var number_start = increment;
+			var unique_number_string = "" + number_start;
+			if (existing_values.length == 0) existing_values.push(pattern.replace("*", number_pattern));
+			var highestExistingValue = existing_values.sort().pop();
+			var regex = new RegExp(pattern.replace("*","([0-9]*)"), "g");
+			unique_number_string = regex.exec(highestExistingValue)[1];
+			unique_number_string = "" + (parseInt(unique_number_string) + increment);
+			unique_number_string = (number_pattern + unique_number_string).substr(-number_pattern.length);
+			var value = pattern.replace("*", unique_number_string);
+			return value;
+		}
+
+
+	}
+});
+
 //PageForms extension does purge the target page in PF_AutoeditAPI.php:564, but that seems not no be enough for some cases => execute second purge via Api
 //mw.hook( 'wikipage.content' ).add( function() {
 $(document).ready(function() { //earlier?
