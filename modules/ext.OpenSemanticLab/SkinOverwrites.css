@@ -15,6 +15,11 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
 	min-width: 600px !important;
 }
 
+/* prevent overwriting by bootstrap (use by jsoneditor) */
+body.mediawiki {
+	background: #72777d;
+}
+
 /*Prevents skin-chameleon from overwriting the info_box class when using {{#ask:}}.*/
 .skin-chameleon table th {
   text-align: left
