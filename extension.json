@@ -23,6 +23,15 @@
 	},
 	"manifest_version": 2,
 	"ResourceModules": {
+		"ext.OpenSemanticLab.styles": {
+			"localBasePath": "modules/ext.OpenSemanticLab",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
+			"styles": [
+				"SkinOverwrites.css",
+				"TileGrid.css"
+			],
+			"position": "bottom"
+		},
 		"ext.OpenSemanticLab": {
 			"localBasePath": "modules/ext.OpenSemanticLab",
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
@@ -31,11 +40,7 @@
 				"DynamicSidebar.js",
 				"D3graphviz.js"
 			],
-			"styles": [
-				"SkinOverwrites.css",
-				"TileGrid.css"
-			],
-			"position": "top"
+			"position": "bottom"
 		},
 		"ext.OpenSemanticLab.editor": {
 			"localBasePath": "modules/ext.OpenSemanticLab.editor",
