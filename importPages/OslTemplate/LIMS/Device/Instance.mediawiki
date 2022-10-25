@@ -48,6 +48,10 @@
 <th>OE</th>
 <td>{{#arraymap:{{{department|}}}|;|x|[[HasDepartment::x]]}}</td>
 </tr>
+<tr>
+<th>Inventarnummer</th>
+<td>[[HasInventoryId::{{{inventory_id|}}}]]</td>
+</tr>
 </table>
 <table class="info_box">
 <tr>
