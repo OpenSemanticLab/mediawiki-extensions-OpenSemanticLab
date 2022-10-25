@@ -13,15 +13,18 @@ $("div.custom-section-edit-form-link").each(function(){
 	var link_label = $element.data('link-label');
 	var link_label_msg = $element.data('link-label-msg');
 	var link_tooltip_msg = $element.data('link-tooltip-msg');
+	var purge = $element.data('purge');
 	if (!link_label) link_label = "Edit";
 	if (link_label_msg) link_label = mw.msg(link_label_msg);
 	var link_tooltip = link_label;
 	if (link_tooltip_msg) link_tooltip = mw.msg(link_tooltip_msg);
-	console.log(`form_name: ${form_name}, link_label_msg=${link_label_msg}, link_label=${link_label}`);
+	var additional_params = "";
+	if (purge) additional_params = `&amp;reload=1&amp;returnto=${mw.config.get('wgPageName')}#_purge`; //force reload and second page reload to update query results
+	//console.log(`form_name: ${form_name}, link_label_msg=${link_label_msg}, link_label=${link_label}`);
 	$element.find('span.mw-headline').after(`
 	<span class="mw-editsection" style="display: inline-block !important;">
 	  <span class="mw-editsection-bracket">[</span>
-	    <a href="/w/index.php?title=Special:FormEdit&amp;form=${form_name}&amp;target=${mw.config.get('wgPageName')}" 
+	    <a href="/w/index.php?title=Special:FormEdit&amp;form=${form_name}&amp;target=${mw.config.get('wgPageName')}${additional_params}" 
 	    target="_self" class="mw-editsection-visualeditor" title="${link_tooltip}" style="display: inline-block !important;">${link_label}</a>
 	  <span class="mw-editsection-bracket">]</span>
 	</span>`
@@ -175,6 +178,81 @@ $(document).ready(function() {
 	}
 });
 
+$(document).ready(function() {
+	if ($('.PageFormsExtensions_copy-fields').length) {
+		
+		
+		//Hook for new template instances
+		mw.hook('pf.addTemplateInstance').add(function($newInstance) {
+			copy_from_previous($newInstance);
+		});
+
+		function copy_from_previous($newInstance) {
+			$prev = $newInstance.prevAll('.multipleTemplateInstance').first();
+			//console.log($newInstance);
+			var values = {};
+			if ($prev.length) {
+				$prev.find("[id^='input']").each(function() { //filter all childs with id=input*
+					$input = $(this);
+					var id = "";//$input.attr('origname');
+					var name = $input.attr('name')
+					if (name) id = name.split('[').pop().split(']')[0]; //select 'id' from 'template[index][id]'
+					var value = $input.val();
+					if (id !== "") values[id] = value;
+					//console.log(id, value);
+				});
+			}
+			$newInstance.find("[id^='input']").each(function() { //filter all childs with id=input*
+				$input = $(this);
+
+				$incremented_field_div = $input.parents(".incrementField").first();
+				var incremented_field = $incremented_field_div.length == 1;
+				if (incremented_field) {
+					var pattern = $incremented_field_div.data('pattern');
+					pattern = pattern.replace("${unique_number}","*");
+					var number_pattern = $incremented_field_div.data('number-pattern');
+					if (!number_pattern) number_pattern = 0000; 
+					var increment = $incremented_field_div.data('increment');
+					if (!increment) increment = 1; 
+					var start_value = $incremented_field_div.data('start-value');
+					if (start_value) $input.val(start_value);
+					else $input.val(get_incremented_id(pattern, [], number_pattern, increment)); //default: create new initial value
+				}
+
+				var id = "";//$input.attr('origname');
+				var name = $input.attr('name')
+				if (name) id = name.split('[').pop().split(']')[0]; //select 'id' from 'template[index][id]'
+				if (id !== "" && values[id]) {
+					var value = values[id]
+					$incremented_field_div = $input.parents(".incrementField").first();
+					if (incremented_field) {
+						value = get_incremented_id(pattern, [value], number_pattern, increment); //create incremented value
+					}
+					//console.log("set " + id + " = " + value);
+					$input.val(value);
+				}
+
+			});
+		}
+
+		//Todo: move to mwjson.util
+		function get_incremented_id(pattern, existing_values = [], number_pattern="0000", increment = 1) {
+			var number_start = increment;
+			var unique_number_string = "" + number_start;
+			if (existing_values.length == 0) existing_values.push(pattern.replace("*", number_pattern));
+			var highestExistingValue = existing_values.sort().pop();
+			var regex = new RegExp(pattern.replace("*","([0-9]*)"), "g");
+			unique_number_string = regex.exec(highestExistingValue)[1];
+			unique_number_string = "" + (parseInt(unique_number_string) + increment);
+			unique_number_string = (number_pattern + unique_number_string).substr(-number_pattern.length);
+			var value = pattern.replace("*", unique_number_string);
+			return value;
+		}
+
+
+	}
+});
+
 //PageForms extension does purge the target page in PF_AutoeditAPI.php:564, but that seems not no be enough for some cases => execute second purge via Api
 //mw.hook( 'wikipage.content' ).add( function() {
 $(document).ready(function() { //earlier?
@@ -228,6 +306,7 @@ $(document).ready(function() {
 			context.property = $propertyField.val();
 			if (context.debug) console.log(context);
 			
+			context.year = context.date.getFullYear();
 			context.timestamp_YYMMDD = ("" + context.date.getFullYear()).slice(-2) + ("0" + (context.date.getMonth() + 1)).slice(-2) + ("0" + context.date.getDate()).slice(-2);
 			context.userName = mw.config.get("wgUserName");
 			var prequeries = [];
@@ -250,10 +329,28 @@ $(document).ready(function() {
 			
 			$.when.apply($, prequeries).done(function(){
 				if (context.debug) console.log("all pre-queries done");
+				var properties = {};
+				var property_list = context.pattern.split("${");
+				for (let index = 0; index < property_list.length; index++) {
+					const element = property_list[index];
+					if (index > 0) properties[(element.split("}")[0])] = "";
+				}
+				properties["year"] = context.year;
+				properties["short_timestamp"] = context.timestamp_YYMMDD;
+				properties["user_abbreviation"] = context.HasAbbreviation;
+				properties["unique_number"] = "*";
+
+				searchParams = new URLSearchParams(window.location.search);
+				for (let p of searchParams) {
+					if (properties[p[0]] !== undefined) properties[p[0]] = p[1];
+				}
+				if (context.debug) console.log(properties);
+				
 				context.value = context.pattern;
-				context.value = context.value.replace("${short_timestamp}", context.timestamp_YYMMDD);
-				context.value = context.value.replace("${user_abbreviation}", context.HasAbbreviation);
-				context.value = context.value.replace("${unique_number}", "*");
+				for (let property in properties) {
+					context.value = context.value.replace("${" + property + "}", properties[property]);
+				}
+
 				
 				var postqueries = [];
 				//retriev the existing property value with the highest value for the unique number

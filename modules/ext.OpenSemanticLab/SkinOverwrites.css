@@ -7,12 +7,17 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
 /* Indefinite content width for Skin:Timeless, see https://www.mediawiki.org/wiki/Skin:Timeless */
 @media screen and (min-width: 851px) {
     .color-middle-container,
-    .ts-inner { max-width: none; }
+    .ts-inner { max-width: none !important; }
 }
 
 /* Skin:Timeless, ULS Languages are not fully visible */
 .row.uls-language-block {
 	min-width: 600px !important;
+}
+
+/* prevent overwriting by bootstrap (use by jsoneditor) */
+body.mediawiki {
+	background: #72777d;
 }
 
 /*Prevents skin-chameleon from overwriting the info_box class when using {{#ask:}}.*/

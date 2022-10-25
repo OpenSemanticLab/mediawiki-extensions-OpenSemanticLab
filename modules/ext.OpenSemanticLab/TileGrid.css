@@ -1,0 +1,65 @@
+/* https://jsfiddle.net/Sokha/p5ewgqma/ */
+.sok-tile-row {
+	font-family:Arial;
+	overflow:hidden;
+}
+.sok-tile {
+	text-align:center;
+	display:inline-block;
+	font-size:50px;
+	color:white;
+	background-color:#00a9de;
+	width:150px;
+	height:150px;
+	line-height:150px;
+	overflow:hidden;
+	cursor:pointer;
+}
+.sok-tile-name {
+	text-align:left;
+	font-size: 13px;
+	line-height: 13px;
+	padding:10px;
+	background-color:#0072c6;
+	height:30px;
+	width:130px;
+	position:relative;
+	top:-50px;
+}
+.sok-tile:hover .sok-tile-name {
+	height:130px;
+	position:relative;
+	top:-150px;
+	 -webkit-transition-duration: .5s; /* Safari */
+    transition-duration: .5s;
+}
+
+
+
+.custom-link-tile-grid {
+	font-family:Arial;
+	overflow:hidden;
+}
+
+.custom-link-tile {
+	text-align:center;
+	display:inline-block;
+	color:black;
+	background-color:#6dbfa9;
+	overflow:hidden;
+	cursor:pointer;
+}
+
+.custom-link-tile-title {
+	text-align:left;
+	background-color:#f1f3f3;
+	line-height: 12px;
+	position: relative;
+}
+
+.custom-link-tile:hover .custom-link-tile-title {
+
+	position:relative;
+	 -webkit-transition-duration: .5s, .5s; /* Safari */
+    transition-duration: .5s, .5s;
+}
