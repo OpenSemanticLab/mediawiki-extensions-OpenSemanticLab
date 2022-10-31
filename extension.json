@@ -28,7 +28,8 @@
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
 			"styles": [
 				"SkinOverwrites.css",
-				"TileGrid.css"
+				"TileGrid.css",
+				"TileGrid2.css"
 			],
 			"position": "bottom"
 		},
