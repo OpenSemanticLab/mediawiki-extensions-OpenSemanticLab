@@ -1,9 +1,9 @@
 <noinclude>
 {{OslTemplate:Helper/Docu/FormTemplate}}
 
-<div class=dynamic-page-form-link>{{#formlink:form=ELN/Order|link text=Neuen Auftrag erstellen|link type=NOTpost button|query string=OslTemplate:ELN/Order[ou]=LAB&ou=LAB&OslTemplate:ELN/Order/Sample[1][id]=O0001|tooltip=|NOTnew window}}</div>
+<div class=dynamic-page-form-link>{{#formlink:form=ELN/Order|link text=Neuen Auftrag erstellen|link type=NOTpost button|query string=OslTemplate:ELN/Order[ou_abbreviation]=LAB&ou=LAB&OslTemplate:ELN/Order/Sample[1][id]=O0001|tooltip=|NOTnew window}}</div>
 
-<div class=dynamic-page-form-link>{{#formlink:form=ELN/Order|link text=Neuen Auftrag erstellen|link type=NOTpost button|query string=OslTemplate:ELN/Order[ou]=LAB&ou=LAB|tooltip=|NOTnew window}}</div>
+<div class=dynamic-page-form-link>{{#formlink:form=ELN/Order|link text=Neuen Auftrag erstellen|link type=NOTpost button|query string=OslTemplate:ELN/Order[ou_abbreviation]=LAB&ou=LAB|tooltip=|NOTnew window}}</div>
 
 </noinclude><includeonly>
 {{{info|page name={{OslTemplate:ID/UUID |namespace=LabNote}} }}}
@@ -12,25 +12,32 @@
 {| class="formtable"
 | {{{field|collection|input type=checkbox|label=Sammelmappe{{#info:Stellt eine Sammlung von Aufträgen dar}}}}}
 |-
-| {{{field|display_id|input type=checkbox|label=ID im Namen anzeigen{{#info:ID hinter dem Namen einblenden. Falls kein Name vorhanden ist wird immer die ID angezeigt.}}}}}
+| {{{field|display_id|input type=checkbox|default=yes|label=ID im Namen anzeigen{{#info:ID hinter dem Namen einblenden. Falls kein Name vorhanden ist wird immer die ID angezeigt.}}}}}
 |}
 == Stammdaten ==
 {| class="formtable"
 |-
-! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}
-| <div class="uniquePatternedField" data-pattern="${ou}${year}-${unique_number}">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div> 
+! Abteilung/Labor{{#info: Ausführende Stelle}}<!-- |restricted=nogroup -->
+| <div class="sfselect-restricted">{{{field|ou_abbreviation|mandatory|size=25}}}</div> 
+| {{{field|ou|hidden}}}
 |-
-! Name{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
-| {{{field|label}}}
+! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}<!-- |restricted=nogroup -->
+| <div class="uniquePatternedField sfselect-restricted" data-pattern="${ou_abbreviation}${year}-${unique_number}">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div> 
 |-
-! Auftraggeber{{#info:Interner oder externer Kunde}}: 
+! Name/Kürzel{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
+| {{{field|name}}}
+|-
+! Auftraggeber<span style="color:red">*</span>{{#info:Interner oder externer Kunde}}: 
 | {{{field|orderer|input type=combobox|values from category=LIMS/Ou}}}
 |-
-! Ansprechpartner{{#info:Kontakt seitens Auftraggeber}}: 
-| {{{field|contact|input type=tokens|list|values from category=LIMS/Person/User|mapping property=Display title of|delimiter=;}}}
+! Ansprechpartner<span style="color:red">*</span>{{#info:Kontakt seitens Auftraggeber}}: 
+| {{{field|contact|input type=tokens|list|values from category=LIMS/Person|mapping property=Display title of|delimiter=;}}}
 |-
-! Projekt{{#info:Zugeordnetes Projekt. Von diesem werden auch die Zugriffsrechte übernommen}}: 
+! Projekt<span style="color:red">*</span>{{#info:Zugeordnetes Projekt. Von diesem werden auch die Zugriffsrechte übernommen}}: 
 | {{{field|project|input type=combobox|values from category=LIMS/Project/Part}}}
+|-
+! Angebotsnummer{{#info:Zugeordnetes Angebot}}: 
+| {{{field|offer|input type=text}}}
 <!-- |-
 ! Kosten in €{{#info:Geschätzte Kosten zur Durchführung}}: 
 | {{{field|costs}}} -->
@@ -39,17 +46,17 @@
 | {{{field|keywords|input type=tokens|values from property=HasKeyword|list|delimiter=;}}}
 | {{{field|type_symbol|hidden}}}
 |-
-! Bearbeitet von{{#info:Personen, die in die Bearbeitung des Versuches involviert sind}}: 
+! Bearbeitet von{{#info:Personen, die in die Bearbeitung koordinieren}}: 
 | {{{field|agents|input type=tokens|list|values from category=LIMS/Person/User|mapping property=Display title of|default=current user|delimiter=;}}}
 | {{{field|creator|hidden|default=current user}}}
 | {{{field|creator_abbreviation|hidden}}}
 |-
-! Startzeitpunkt{{#info:Zeitpunkt, zu dem der Auftrag begonnen wurde}}: 
+! Beauftragungszeitpunkt{{#info:Zeitpunkt, zu dem der Auftrag begonnen wird}}: 
 | {{{field|start_date|input type=datetimeflatpicker|format=d.m.Y H:i|mandatory|default=now}}}
 | {{{field|creation_date|hidden|input type=datetimepicker|value=now}}}
 | {{{field|short_timestamp|hidden|input type=datetimepicker}}}
 |-
-! Endzeitpunkt{{#info:Zeitpunkt, zu dem der Auftrag beendet wurde}}: 
+! Geplante Fertigstellung{{#info:Zeitpunkt, zu dem der Auftrag beendet wird}}: 
 | {{{field|end_date|input type=datetimeflatpicker|format=d.m.Y H:i}}}
 |-
 ! Beschreibung{{#info:Kurzer Beschreibungstext. Die ausführliche Beschreibung kann nach dem Speichern der Stammdaten erfolgen.}}: 
@@ -74,14 +81,19 @@
 {| class="formtable"
 |-
 ! ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden|note}}
-| <div class="incrementField" data-pattern="O${unique_number}" data-number-pattern="0000" data-increment="1" data-start-value="O0001">{{{field|id|mandatory|property=HasId|size=25}}}</div> 
-! Eingangsdatum{{#info:Zeitpunkt, an dem die Probe eingegangen ist|note}}: 
+| <div class="incrementField sfselect-restricted" data-pattern="O${unique_number}" data-number-pattern="0000" data-increment="1" data-start-value="O0001">{{{field|id|mandatory|property=HasId|size=25}}}</div> 
+! Eingangsdatum<span style="color:red">*</span>{{#info:Zeitpunkt, an dem die Probe eingegangen ist|note}}: 
 | {{{field|receipt_date|input type=datetimeflatpicker|format=d.m.Y H:i|default=now}}}
 |-
 ! Name{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden|note}}: 
 | {{{field|name|size=25}}}
-! Nach Gebrauch (Zielzustand): 
-| {{{field|target_status|input type=dropdown|size=100|values from category=OSLbd354f0cbc7c41d38ee301be9bb3ce8d}}}
+! Nach Gebrauch (Zielzustand)<span style="color:red">*</span>: 
+| {{{field|target_status|input type=dropdown|size=25|values from category=OSLbd354f0cbc7c41d38ee301be9bb3ce8d}}}
+|-
+! Gefahrstoffklassifizierung: 
+| {{{field|ghs_classification|input type=tokens|size=25|values from category=OSLae1ec765ea47421695e9e8af5e212cb9|list|delimiter=;}}}
+! Probeneigenschaft: 
+| {{{field|additional_classification|input type=tokens|size=25|values from category=OSL9d4553ced7324cdc9088cdb786c339f8|list|delimiter=;}}}
 |-
 ! Beschreibung{{#info:Kurzer Beschreibungstext|note}}: 
 | {{{field|description|input type=textarea|editor=NOTvisualeditor|class=toolbarOnTop}}}

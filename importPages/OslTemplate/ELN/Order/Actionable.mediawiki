@@ -42,7 +42,7 @@ SET SEMANTIC PROPERTIES
 -->{{#set:
 <!-- |Action ID={{#sub:{{FULLPAGENAME}}|7|0}}  -->
 |Summary={{{SUMMARY|}}}
-|Assigned to={{#arraymap:{{{ASSIGNED_TO|}}}|;|x|x|;}}|+sep=;
+|Assigned to={{#arraymap:{{{ASSIGNED_TO|}}}|;|x|User:{{#replace:x|User:|}}|;}}|+sep=;
 |Action status={{{ACTION_STATUS|Open}}}
 |Due date={{{DUE_DATE|}}}
 |Due date sort={{{DUE_DATE|January 01 3000}}}
@@ -74,7 +74,7 @@ DUE_DATE
 
 ASSIGNED_TO
 
---><tr><td>'''Actionees'''</td><td>{{#if:{{{ASSIGNED_TO|}}}|{{#arraymap:{{{ASSIGNED_TO|}}}|;|x|[[User:x|x]]|,}}</td></tr>|}}<!--
+--><tr><td>'''Actionees'''</td><td>{{#if:{{{ASSIGNED_TO|}}}|{{#arraymap:{{{ASSIGNED_TO|}}}|;|x|[[User:{{#replace:x|User:|}}]]|,}}</td></tr>|}}<!--
 
 LABEL
 
@@ -86,7 +86,7 @@ RELATED_ARTICLE
 
 RELATED_OBJECTS
 
--->{{#if:{{{RELATED_OBJECTS|}}}|<tr><td>'''Related objects'''</td><td>{{#arraymap:{{{RELATED_OBJECTS|}}}|;|x|[[x]]|,}}</td></tr>|}}</table><!--
+-->{{#if:{{{RELATED_OBJECTS|}}}|<tr><td>'''Related objects'''</td><td>{{#arraymap:{{{RELATED_OBJECTS|}}}|;|x|[[x|{{#ask: [[x]]|?Display title of|mainlabel=-|headers=hide|format=plainlist}}]]|,}}</td></tr>|}}</table><!--
 
 END TABLE FOR META DATA
 

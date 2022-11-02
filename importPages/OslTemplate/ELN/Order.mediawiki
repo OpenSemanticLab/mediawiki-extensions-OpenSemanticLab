@@ -42,6 +42,7 @@
 </div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} {{#ifeq: {{{display_id|No}}}|Yes|({{{id}}})}} | {{{id}}} }}
 }}{{#set:
 |HasId={{{id}}}
+|HasOu={{{ou|}}}
 |HasName={{{name|}}}
 |HasCreator=User:{{{creator|}}}
 |HasAgent={{{agents|}}}|+sep=;
@@ -51,13 +52,13 @@
 |IsRelatedTo={{{related_entries|}}}|+sep=;
 |IsPartOf={{{subordinated_to|}}}|+sep=;
 |HasDescription={{{description|}}}
-|HasTypeSymbol={{{type_symbol|}}}
+<!-- |HasTypeSymbol={{{type_symbol|}}}
 |HasShortTimestamp={{{short_timestamp|}}}
-|HasCreatorAbbreviation={{{creator_abbreviation|}}}
+|HasCreatorAbbreviation={{{creator_abbreviation|}}} -->
 |HasProject={{{project|}}}
 |IsPartOf={{{project|}}}
+|HasOffer={{{offer|}}}
 |HasType={{{type|}}}
-|NewProp={{{newprop|}}}
 |HasOrderer={{{orderer|}}}
 |HasContact={{{contact|}}}|+sep=;
 <!-- |HasCosts={{{costs|0}}} € -->
@@ -80,6 +81,14 @@
 }}
  --><table class="sortable wikitable smwtable jquery-tablesorter">
 <tr>
+<th>Name</th>
+<td>{{#if: {{{name|}}}|{{{name|}}}|}}</td>
+</tr>
+<tr>
+<th>Labor</th>
+<td>{{#if: {{{ou|}}}|{{{ou|}}}|}} {{{ou_abbreviation|}}}</td>
+</tr>
+<tr>
 <th>Ersteller</th>
 <td>[[User:{{{creator|}}}]]</td>
 </tr>
@@ -94,6 +103,10 @@
 <tr>
 <th>Projekt</th>
 <td>{{#if: {{{project|}}}|[[{{{project|}}}]]|}}</td>
+</tr>
+<tr>
+<th>Angebot</th>
+<td>{{#if: {{{offer|}}}|{{{offer|}}}|}}</td>
 </tr>
 <!-- <tr>
 <th>Kosten in €</th>
@@ -112,11 +125,11 @@
 <td>{{#arraymap:{{{subordinated_to|}}}|;|x|[[x]]}}</td>
 </tr>
 <tr>
-<th>Begonnen</th>
+<th>Beauftragt</th>
 <td>{{#if: {{{start_date|}}} |{{#timel: d.m.Y H:i:s | {{{start_date|}}} }} |}}</td>
 </tr>
 <tr>
-<th>Beendet</th>
+<th>Fertigstellung</th>
 <td>{{#if: {{{end_date|}}} |{{#timel: d.m.Y H:i:s | {{{end_date|}}} }} |}}</td><!-- {{#timel: d. F Y, H:i:s | {{{end_date|}}} | de}} -->
 </tr>
 <tr>
@@ -154,6 +167,8 @@
 |?HasDescription=Beschreibung
 |?HasTargetStatus=Nach Verwendung
 |?HasFileAttachment=Anhang
+|?HasGhsClassification.HasImage#50px=Gefährdungen
+|?HasSampleClassification=Eigenschaften
 |format=table
 }}
 
@@ -167,8 +182,8 @@
 |View
 |{{FULLPAGENAME}}
 |ELN/Order/Actionable|OslTemplate:ELN/Order/Actionable}}
-<!-- 
-=== Kalender ===
+
+<!-- === Kalender ===
 {{#ask:
  [[Related article::{{FULLPAGENAME}}]]              
  |?Summary=title

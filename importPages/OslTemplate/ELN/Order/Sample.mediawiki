@@ -13,4 +13,6 @@ Edit the page to see the template text.
 |HasDescription={{{description|}}}
 |HasTargetStatus={{{target_status|}}}
 |HasFileAttachment={{#if: {{{file_attachment|}}}|File:{{{file_attachment|}}}|}}
+|HasGhsClassification={{{ghs_classification|}}}|+sep=;
+|HasSampleClassification={{{additional_classification|}}}|+sep=;
 |}}</includeonly>
