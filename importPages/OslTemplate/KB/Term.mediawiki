@@ -5,7 +5,7 @@ Templates for Knowledge Base Terms
 {{#subpagelist: }}
 </noinclude>
 <includeonly>{{DISPLAYTITLE:{{{label}}} <{{#explode:{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}|-|0}}> }}<!-- 
--->[[Category:KB/Term]]{{#arraymap: {{{category|}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}<!--
+-->[[Category:KB/Term|{{{label}}}]]{{#arraymap: {{{category|}}} | ; | __CATEGORY__ | [[Category:__CATEGORY__]] | }}<!--
 -->{{#set: 
 <!-- |HasUuid={{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}  -->
 |HasLabel={{{label}}}@{{{label_lang_code}}}
@@ -26,6 +26,10 @@ Templates for Knowledge Base Terms
 <tr>
 <th>UUID</th>
 <td>[[HasUuid::{{{uuid|{{OslTemplate:ID/UUID/Format/Normal |{{PAGENAME}}}}}}}]]</td>
+</tr>
+<tr>
+<th>Ontology IRI</th>
+<td>{{#arraymap: {{{ontology_iri|}}} | ; | x |[[Equivalent URI::x]]}}</td>
 </tr>
 <tr>
 <td class="subheading" colspan="2">Relations (Outgoing)</td>
