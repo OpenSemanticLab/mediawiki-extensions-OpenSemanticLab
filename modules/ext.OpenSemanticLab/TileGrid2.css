@@ -1,0 +1,126 @@
+.custom-link-tile2_image {
+  height: 150px;
+  text-align:center;
+  width: 80%;
+}
+
+.custom-link-tile2_image img {
+  /*height: auto;*/
+  height: 150px;
+  max-width: 100%;
+}
+
+.custom-link-tile2_image::before{
+  color: #14866d;
+  z-index: 1;
+  content: attr(data-icon-1);
+  font-size: 50px; 
+  letter-spacing: 0px;
+  vertical-align: middle;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.custom-link-tile2_image{
+  color: #14866d;
+  z-index: 1;
+  font-size: 100px; 
+  letter-spacing: -50px;
+  vertical-align: middle;
+  width: 100%;
+  min-width: 220px;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.custom-link-tile2_image::after{
+  color: #2a4b8d;
+  content: attr(data-icon-2);
+  font-size: 50px; 
+  letter-spacing: 0px;
+  font-weight: 600;
+  text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.custom-link-tile2_btn {
+  text-align: center;
+}
+
+.custom-link-tile2_btn a{
+  color: #ffffff !important;
+  padding: 0.8rem;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  font-weight: 600;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  background-image: none !important;
+}
+
+.custom-link-tile2_btn a:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.custom-link-tile2_grid {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.custom-link-tile2_item {
+  display: flex;
+  padding: 1rem;
+}
+
+@media (min-width: 40rem) {
+  .custom-link-tile2_item {
+    width: 50%;
+  }
+}
+
+@media (min-width: 56rem) {
+  .custom-link-tile2_item {
+    /*width: 33.3333%;*/
+    width: 25%;
+  }
+}
+
+.custom-link-tile2 {
+  background-color: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.custom-link-tile2_content {
+  padding: 1rem;
+  background: linear-gradient(to bottom left, #14866d 40%, #2a4b8d 100%);
+}
+
+.custom-link-tile2_title {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+}
+
+.custom-link-tile2_text {
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;    
+  font-weight: 400;
+}
