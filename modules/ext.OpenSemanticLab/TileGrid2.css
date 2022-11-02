@@ -1,7 +1,7 @@
-
 .custom-link-tile2_image {
   height: 150px;
   text-align:center;
+  width: 80%;
 }
 
 .custom-link-tile2_image img {
@@ -11,12 +11,24 @@
 }
 
 .custom-link-tile2_image::before{
-  color: #FF0000;
+  color: #14866d;
   z-index: 1;
   content: attr(data-icon-1);
+  font-size: 50px; 
+  letter-spacing: 0px;
+  vertical-align: middle;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.custom-link-tile2_image{
+  color: #14866d;
+  z-index: 1;
   font-size: 100px; 
   letter-spacing: -50px;
   vertical-align: middle;
+  width: 100%;
+  min-width: 220px;
 }
 
 @keyframes fadein {
@@ -25,10 +37,12 @@
 }
 
 .custom-link-tile2_image::after{
-  color: #000;
+  color: #2a4b8d;
   content: attr(data-icon-2);
   font-size: 50px; 
+  letter-spacing: 0px;
   font-weight: 600;
+  text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 }
 
 .custom-link-tile2_btn {
@@ -47,6 +61,7 @@
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
+  background-image: none !important;
 }
 
 .custom-link-tile2_btn a:hover {
