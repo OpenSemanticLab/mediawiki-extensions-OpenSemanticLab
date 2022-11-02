@@ -4,8 +4,8 @@
 <div class=dynamic-page-form-link>{{#formlink:form=ELN/Entry|link text=Neuen Laborbucheintrag erstellen|link type=post button|query string=OslTemplate:ELN/Entry/Header[short_timestamp]=${short_timestamp}&OslTemplate:ELN/Entry/Header[creator_abbreviation]=${user_abbreviation}&OslTemplate:ELN/Entry/Header[type_symbol]=ni|tooltip=|NOTnew window}}</div>
 
 </noinclude><includeonly>
+{{{info|page name={{OslTemplate:ID/UUID |namespace=LabNote}} }}}
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
-{{{info|page name=LabNote:<OslTemplate:ELN/Entry/Header[short_timestamp]>-<OslTemplate:ELN/Entry/Header[creator_abbreviation]>-<unique number;start=0001>-<OslTemplate:ELN/Entry/Header[type_symbol]>}}}
 {{{for template|OslTemplate:ELN/Entry/Header}}}
 {| class="formtable"
 | {{{field|collection|input type=checkbox|label=Experiment/Versuchsreihe{{#info:Stellt eine Sammlung von Laborbucheintragen dar}}}}}
@@ -14,11 +14,24 @@
 |}
 == Stammdaten ==
 {| class="formtable"
-! Name{{#info:Jeder Eintrag hat eine eideutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
+|-
+! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}
+| <div class="uniquePatternedField" data-pattern="${short_timestamp}-${user_abbreviation}-${unique_number}-ni">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div> 
+|-
+! Name{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
 | {{{field|name}}}
+|-
+! Auftraggeber{{#info:Interner oder externer Kunde}}: 
+| {{{field|orderer|input type=combobox|values from category=LIMS/Ou}}}
+|-
+! Ansprechpartner{{#info:Kontakt seitens Auftraggeber}}: 
+| {{{field|contact|input type=tokens|list|values from category=LIMS/Person/User|mapping property=Display title of|delimiter=;}}}
 |-
 ! Projekt{{#info:Zugeordnetes Projekt. Von diesem werden auch die Zugriffsrechte übernommen}}: 
 | {{{field|project|input type=combobox|values from category=LIMS/Project/Part}}}
+<!-- |-
+! Kosten in €{{#info:Geschätzte Kosten zur Durchführung}}: 
+| {{{field|costs}}} -->
 |-
 ! Schlagwörter{{#info:Schlagwörter helfen, den Eintrag zu kategorisieren und später leichter wieder zu finden}}: 
 | {{{field|keywords|input type=tokens|values from property=HasKeyword|list|delimiter=;}}}
