@@ -21,6 +21,9 @@ Formular zur Suche nach Laborbucheinträgen
 ! Ersteller: 
 | {{{field|creator|values from concept=ELN/Entry/Creator|input type=dropdown|default=current user}}}
 |-
+! Auftraggeber: 
+| {{{field|orderer|values from category=LIMS/Ou|input type=combobox}}}
+|-
 ! Projekt: 
 | {{{field|project|values from category=LIMS/Project/Part|input type=combobox}}}
 |-
