@@ -299,7 +299,7 @@ $(document).ready(function() {
 			context.field = $(this).find(".uniqueField");
 			context.fieldVal = context.field.val();
 			console.log(context.fieldVal);
-			if (context.fieldVal !== undefined && context.fieldVal !== "") return; //don't overwrite existing values
+			if (context.fieldVal && context.fieldVal !== "") return; //don't overwrite existing values
 			context.fieldOrigVal = context.field.prop("defaultValue");
 			
 			var propertyFieldName = context.field.prop("id") + "_unique_property";
