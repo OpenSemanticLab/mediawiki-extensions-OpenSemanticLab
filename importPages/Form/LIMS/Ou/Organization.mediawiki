@@ -1,0 +1,66 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#forminput:form=LIMS/OU/Organization |query string=namespace=OU}}
+
+</noinclude><includeonly>
+{{{info|page name={{OslTemplate:ID/UUID |namespace=OU}} }}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Ou/Organization}}}
+{| class="formtable"
+! Bild/Logo: 
+| {{{field|image|uploadable|size=25}}}
+|-
+! Name: 
+| {{{field|name|property=HasOuName|input type=text|size=25|mandatory|restricted}}}
+<!-- |-
+! Langname: 
+| {{{field|long_name|property=HasLongName|input type=text|size=25}}}
+|-
+! Kurzname: 
+| {{{field|abbreviation|property=HasAbbreviation|input type=text|size=25}}} -->
+<!-- |-
+! Typ: 
+| {{{field|type|input type=text|size=25}}} -->
+|-
+! Übergeordnete OU: 
+| {{{field|superordinate_ou|property=HasSuperordinateOu|values from category=LIMS/Ou|input type=tokens|size=38}}}
+<!-- |-
+! Leitung: 
+| {{{field|head|property=HasOuHead|values from category=LIMS/Person|existing values only|input type=tokens|mapping property=Display title of|list|size=38}}}
+|-
+! Stellv. Leitung: 
+| {{{field|head_deputy|property=HasOuHeadDeputy|values from category=LIMS/Person|input type=tokens|mapping property=Display title of|size=38}}}
+|-
+! Sekretariat: 
+| {{{field|ou_secretary|property=HasSecretary|values from category=LIMS/Person|input type=tokens|mapping property=Display title of|size=38}}} -->
+|-
+! E-Mail: 
+| {{{field|email|input type=text|delimiter=;|size=45}}}
+<!-- |-
+! Untergeordnete OE{{#info:Wird automatisch aktualisiert}}: 
+| {{{field|subordinate_ou|property=HasSubordinateOu|delimiter=;|values from category=LIMS/Ou|input type=tokens|size=38|restricted}}} -->
+<!-- |-
+! Addresse/Koordinaten {{#info:Adresse eingeben oder auf der Karte auswählen}}: 
+| {{{field|location|input type=openlayers}}} -->
+|-
+! Website: 
+| {{{field|url|input type=text|size=25}}}
+<!-- |-
+! Themenfelder: 
+| {{{field|topic|property=HasTopic|input type=tokens|values from category=Topic|delimiter=;|size=38}}}
+|-
+! Kompetenzen: 
+| {{{field|competence|property=HasCompetence|input type=tokens|values from category=Competence|delimiter=;|size=38}}} -->
+|}
+{{{end template}}}
+<!-- '''Freitext:'''
+
+{{{standard input|free text|rows=10}}}
+
+
+{{{standard input|summary}}}
+
+{{{standard input|minor edit}}} {{{standard input|watch}}} -->
+{{{standard input|save}}} <!-- {{{standard input|preview}}} {{{standard input|changes}}} --> {{{standard input|cancel}}}
+</includeonly>

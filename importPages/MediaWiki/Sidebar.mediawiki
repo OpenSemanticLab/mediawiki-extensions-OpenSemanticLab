@@ -1,0 +1,17 @@
+* navigation
+** mainpage|mainpage-description
+** recentchanges-url|recentchanges
+** randompage-url|randompage
+** https://www.mediawiki.org/wiki/Help:VisualEditor/User_guide|Editor-Tutorial
+** Quick-Links|Quick-Links
+* Neu
+** CreatePage|Seite
+** {{SERVER}}{{localurl:CreatePage|superpage={{FULLPAGENAME}}}}|Unterseite
+** CreateElnEntryPage|Laborbucheintrag
+** Form:KB/Term|Wissenseintrag
+<!-- ** /w/index.php?title=Spezial:Mit_Formular_bearbeiten&form=ELN%2FEntry&target=&OslTemplate:ELN%2FEntry%2FHeader%5Bshort_timestamp%5D=211110&OslTemplate:ELN%2FEntry%2FHeader%5Bcreator_abbreviation%5D=sist&OslTemplate:ELN%2FEntry%2FHeader%5Btype_symbol%5D=n|Laborbucheintrag2 -->
+* Spezial-Suche
+** Special:RunQuery/ELN/Entry/Query|Laborbucheintrag
+* SEARCH
+* TOOLBOX
+* LANGUAGES

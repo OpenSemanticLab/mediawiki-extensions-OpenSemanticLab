@@ -1,0 +1,99 @@
+<noinclude>
+Dies ist die Vorlage „{{PAGENAME}}“.
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+Sie hat die folgende Struktur:
+<pre>
+{{OslTemplate:LIMS/Person
+<!-- |gender= -->
+|first_name=
+|surname=
+|role=
+|department=
+|email=
+|phone_number=
+|fax_number=
+|room=
+|located_in=
+|competence=
+|topic=
+|image=
+}}
+</pre>
+Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
+</noinclude>
+<includeonly><!-- 
+ -->[[Category:LIMS/Person]]<!-- 
+ -->{{#default_form:LIMS/Person}}<!-- 
+ -->{{DISPLAYTITLE: {{{first_name|}}} {{{surname|}}}}}<!-- 
+ --><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{PAGENAME}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|200x800px]] {{#set:|HasImage={{{image}}}}} |}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Info</td>
+</tr>
+<!-- <tr>
+<th>Geschlecht</th>
+<td>[[HasGender::{{{HasGender|}}}]]</td>
+</tr> -->
+<tr>
+<th>Vorname</th>
+<td>[[HasFirstName::{{{first_name|}}}]]</td>
+</tr>
+<tr>
+<th>Nachname</th>
+<td>[[HasSurname::{{{surname|}}}]]</td>
+</tr>
+<tr>
+<th>Funktion(en)</th>
+<td> {{#arraymap:{{{role|}}}|;|x|[[HasRole::x]]}}</td>
+</tr>
+<tr>
+<th>Abteilung</th>
+<td>[[HasDepartment::{{{department|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Kontakt</td>
+</tr>
+<tr>
+<th>E-Mail</th>
+<td>[[HasEmail::{{{email|}}}]]</td>
+</tr>
+<tr>
+<th>Telefon</th>
+<td>{{#arraymap:{{{phone_number|}}}|;|x|[[HasPhoneNumber::x]]}}</td>
+</tr>
+<tr>
+<th>Fax</th>
+<td>[[HasFaxNumber::{{{fax_number|}}}]]</td>
+</tr>
+<tr>
+<th>Raum</th>
+<td>[[HasRoom::{{{room|}}}]]</td>
+</tr>
+<tr>
+<th>Standort</th>
+<td>[[IsLocatedIn::{{{located_in|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Schnittstellen</td>
+</tr>
+<tr>
+<th>Kompetenz(en)</th>
+<td>
+{{#arraymap:{{{competence|}}}|;|x|[[HasCompetence::x]]}}
+</td>
+</tr>
+<tr>
+<th>Themenfeld(er)</th>
+<td>
+{{#arraymap:{{{topic|}}}|;|x|[[HasTopic::x]]}}
+</td>
+</tr>
+</table>
+</includeonly>

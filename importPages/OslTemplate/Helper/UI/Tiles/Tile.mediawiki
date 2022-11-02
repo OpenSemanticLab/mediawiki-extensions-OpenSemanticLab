@@ -1,0 +1,22 @@
+<includeonly><!-- <div class="custom-link-tile title-font-size-24px text-font-size-12px">
+<div class="custom-link-tile-url">{{{link|}}}</div>
+<div class="custom-link-tile-title">{{{title|}}}</div>
+<div class="custom-link-tile-image">{{{image|}}}</div>
+<div class="custom-link-tile-text">{{{description|}}}</div>
+<div class="custom-link-tile-tooltip">{{{tooltip|}}}</div>
+</div> -->
+ <li class="custom-link-tile2_item">
+      <div class="custom-link-tile2">
+        <!-- <div class="custom-link-tile2_image-section">
+          <div class="custom-link-tile2_image-section-left">{{{icon_ltext|}}}</div> -->
+          <div class="custom-link-tile2_image" data-icon-ltext="" data-icon-1="{{{icon1|}}}" data-icon-2="{{{icon2|}}}">{{{image|}}}</div>
+          <!-- <div class="custom-link-tile2_image-section-right">{{{icon_rtext|}}}</div>
+        </div> -->
+        <div class="custom-link-tile2_image-caption">{{{caption|}}}</div>
+        <div class="custom-link-tile2_content">
+          <p class="custom-link-tile2_title">{{{title|}}}</p>
+          <p class="custom-link-tile2_text">{{{description|}}}</p>
+          <div class="custom-link-tile2_btn">{{#if:{{{url|}}}|[{{#ifeq:{{#sub:{{{url|}}}|0|2}}|/w|{{SERVER}}|}}{{{url|}}} {{{link_label|{{{title|}}}}}}]|}}{{{link|}}}</div>
+        </div>
+      </div>
+    </li></includeonly>

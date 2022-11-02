@@ -1,0 +1,2 @@
+Category for various ''terms'' - disjunct to [[:Category:Object]], [[:Category:Process]], [[:Category:Property]]
+[[Category:Thing]]

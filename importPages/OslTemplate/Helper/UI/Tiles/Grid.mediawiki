@@ -1,0 +1,10 @@
+<includeonly><!-- <div class=dynamic-page-form-link>
+<div class="custom-link-tile-grid custom-link-tile-grid-size-x-100% custom-link-tile-grid-size-y-100% custom-link-tile-grid-tile-size-x-250px custom-link-tile-grid-tile-size-y-250px" style="display:none>
+{{{tiles|}}}
+</div>
+</div> -->
+<div>
+  <ul class="custom-link-tile2_grid">
+{{{tiles|}}}
+  </ul>
+</div></includeonly>

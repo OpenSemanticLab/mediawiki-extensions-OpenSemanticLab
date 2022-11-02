@@ -1,0 +1,3 @@
+Template for the Knowledge Base (KB)
+
+{{#subpagelist: }}

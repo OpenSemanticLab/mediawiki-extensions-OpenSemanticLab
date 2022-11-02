@@ -1,0 +1,7 @@
+<inputbox>
+id=create_page_or_subpage_input
+type=create
+break=no
+placeholder=Page name
+useve=true
+</inputbox>

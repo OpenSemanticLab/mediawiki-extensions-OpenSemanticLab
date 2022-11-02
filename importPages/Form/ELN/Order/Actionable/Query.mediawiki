@@ -1,0 +1,42 @@
+<noinclude>
+Formular zur Suche nach Laboraufgaben
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#queryformlink:form={{PAGENAME}}}}
+
+{{Special:RunQuery/{{PAGENAME}}}}
+
+</noinclude>
+<includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:ELN/Order/Actionable/Query}}}
+{| class="formtable"
+<!-- ! ID{{#info:IDs können sowohl vollständig als auch teilweise mit * eingegeben werden}}: 
+| {{{field|id|values from property=HasId}}} -->
+<!-- |-
+! Name{{#info:Name des Eintrages (oder ein Teil davon)}}: 
+| {{{field|name|input type=combobox|values from property=HasName}}} -->
+|-
+! Verantwortliche Person: 
+| {{{field|assigned_to|values from category=LIMS/Person/User|input type=dropdown|default=current user}}}
+<!-- |-
+! Auftraggeber: 
+| {{{field|orderer|values from category=LIMS/Ou|input type=combobox}}}
+|-
+! Projekt: 
+| {{{field|project|values from category=LIMS/Project/Part|input type=combobox}}}
+|-
+! Älter als: 
+| {{{field|date_to|input type=datepicker}}}
+|-
+! Jünger als: 
+| {{{field|date_from|input type=datepicker}}}
+|-
+! Keyword: 
+| {{{field|keyword|input type=dropdown|values from property=HasKeyword|strict}}} -->
+|}
+{{{end template}}}
+
+{{{standard input|run query}}}
+</includeonly>

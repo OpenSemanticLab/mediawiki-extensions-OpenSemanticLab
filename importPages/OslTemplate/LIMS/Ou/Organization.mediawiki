@@ -1,0 +1,136 @@
+<noinclude>
+</noinclude>
+<includeonly><!--
+-->[[Category:LIMS/OU/Organization]]<!--
+-->{{#default_form:LIMS/Ou/Organization}}<!--
+-->{{DISPLAYTITLE: {{{name|}}}}}<!--
+--><table class="info_box">
+<tr>
+<th class="heading" colspan="2">{{PAGENAME}}</th>
+</tr>
+<tr>
+<td class="picture" colspan="2">{{#if: {{{image|}}} | [[File:{{{image}}}|800x200px]] {{#set:|HasImage=File:{{{image}}}}} |}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Stammdaten</td>
+</tr>
+<tr>
+<th>Organisationstyp</th>
+<td>[[HasType::{{{type|}}}]]</td>
+</tr>
+<tr>
+<th>Langname</th>
+<td>[[HasName::{{{full_name|}}}]]</td>
+</tr>
+<tr>
+<th>Kurzname</th>
+<td>[[HasName::{{{name|}}}]]</td>
+</tr>
+<tr>
+<th>ID</th>
+<td>[[HasID::{{{id|}}}]]</td>
+</tr>
+<tr>
+<th>UUID</th>
+<td>[[HasUuid::{{{uuid|}}}]]</td>
+</tr>
+<tr>
+<th>Akronym</th>
+<td>[[HasAbbreviation::{{{abbreviation|}}}]]</td>
+</tr>
+<tr>
+<th>Übergeordnete OU</th>
+<td>[[HasSuperordinateOu::{{{superordinate_ou|}}}]]</td>
+</tr>
+<tr>
+<th>Untergeordnete OU(s)</th>
+<td>{{#ask:[[HasSuperordinateOu::{{FULLPAGENAME}}]]}}</td>
+</tr>
+<tr>
+<th>Mitgliedschaft(en)</th>
+<td>[[IsMemberOf::{{{membership|}}}]]</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Kontakt</td>
+</tr>
+<tr>
+<th>Leitung</th>
+<td>[[HasHead::{{{head|}}}]]</td>
+</tr>
+<tr>
+<th>Stellv. Leitung</th>
+<td>[[HasHeadDeputy::{{{head_deputy|}}}]]</td>
+</tr>
+<tr>
+<th>Sekretariat</th>
+<td>[[HasSecretary::{{{secretary|}}}]]</td>
+</tr>
+<tr>
+<th>Abteilungen</th>
+<td>{{#ask: [[IsPartOf::{{FULLPAGENAME}}]]}}</td>
+</tr>
+<!-- <tr>
+<th>E-Mail-Veteiler</th>
+<td>{{#arraymap:{{{mailing_list|}}}|;|x|[[HasMailingList::x]]}}</td>
+</tr> -->
+<tr>
+<th>E-Mail</th>
+<td>{{#arraymap:{{{email|}}}|;|x|[[HasEmail::x]]}}</td>
+</tr>
+<tr>
+<th>Website</th>
+<td>{{#arraymap:{{{url|}}}|;|x|[[HasUrl::x]]}}</td>
+</tr>
+<tr>
+<th>Standort(e)</th>
+<td>{{#arraymap:{{{location|}}}|;|x|[[HasLocation::x]]}}</td>
+</tr>
+<tr>
+<td class="subheading" colspan="2">Schnittstellen</td>
+</tr>
+<tr>
+<th>Kompetenz(en)</th>
+<td>{{#arraymap:{{{competence|}}}|;|x|[[HasCompetence::x]]}}</td>
+</tr>
+<tr>
+<th>Themenfeld(er)</th>
+<td>{{#arraymap:{{{topic|}}}|;|x|[[HasTopic::x]]}}</td>
+</tr>
+</table>
+
+==Description==
+{{{description|}}}
+
+== Standorte ==
+{{#ask:  [[-HasLocation::{{FULLPAGENAME}}]]
+ 
+ 
+ 
+ 
+ 
+ |?HasImage
+|?HasName
+ |format=gallery
+ |imageproperty=HasImage
+ |captionproperty=HasName
+|redirects=-<!-- links to pages, not images -->
+}}
+{{#tag: display_map
+|{{#ask: [[-HasLocation::{{FULLPAGENAME}}]][[HasCoordinates::+]]
+  |?HasCoordinates=location
+  |?HasImage=marker
+  <!-- |?HasName=label -->
+|format=plainlist
+|mainlabel=page
+  |template=OslTemplate:Helper/Location/CustomMarker
+ |named args=yes
+|link=none
+|userparam=100 <!-- size -->
+|import-annotation=true<!--  prevents [[SMW::on]] and [[SMW::off]] tags -->
+}}
+|service=leaflet
+|height=400px
+<!--|zoom=18 -->
+}}
+
+</includeonly>

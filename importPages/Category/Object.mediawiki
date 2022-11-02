@@ -1,0 +1,15 @@
+{{OslTemplate:LIMS/Common/Category/Header
+  |category_group_name=Object
+  |uuid=80b1fa9b-01d9-4ebe-8cab-94ae11b19fb4
+  |type_symbol=dc
+  |short_timestamp=211125
+  |timestamp=2022-04-28T07:44:53.000Z
+  |creator_abbreviation=sist
+  |creator=Simon Stier
+  |display_name=Object
+  |ontology_iri=
+  |sub_category_of=Category:Thing
+  |category_type=
+  |description=
+}}
+{{OslTemplate:LIMS/Common/Category/Footer}}
