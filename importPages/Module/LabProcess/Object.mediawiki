@@ -15,6 +15,10 @@ function p.create_object( frame, args )
 		args['custom_id'] = string.gsub(args['custom_id'], args['custom_id_pattern'], args['custom_id_replace'])	
 	end
 	
+	if args['label'] ~= nil and args['label'] ~= "" and args['name'] ~= nil and args['name'] then
+		args['label'] = args['name']
+	end
+	
 	local subobjectId = args['id']
 	local objectType = args['type']
 	if objectType == "from_mapping" then objectType = p.getPredecessor( page.fullText .. "#" .. subobjectId ) end --query predecessor material / object
@@ -56,7 +60,11 @@ function p.create_object( frame, args )
 	        'LabProcess/Object',
 	        'LabProcessObject'
 	    }
-	end
+    end
+    
+    -- calculate consumed/remaining quantity
+	properties["HasQuantifyingQuantity"] = "Property:HasNumberOfEntities" --default
+	properties["HasNumberOfEntities"] = 1 - p.getConsumedQuantity(page.fullText .. "#" .. subobjectId)
 
 	mw.logObject(properties)
     local result = mw.smw.subobject( properties, subobjectId )
@@ -185,6 +193,22 @@ function p.getPredecessor(obj)
 		--mw.logObject(result)
 	end
 	return result
+end
+
+function p.getConsumedQuantity(obj)
+	--mw.logObject(obj)
+	local query = "[[HasPredecessor::" .. obj .. "]] |headers=hide |?#-=page |mainlabel=- |format=plain"
+	local result = mw.smw.ask( query )
+	local consumed = 0
+	if result ~= nil then
+		--mw.logObject(result)
+		for num, row in pairs( result ) do 
+			--mw.logObject(row['page']) 
+			consumed = consumed + 1
+		end
+		--mw.logObject(result)
+	end
+	return consumed
 end
 
 return p
