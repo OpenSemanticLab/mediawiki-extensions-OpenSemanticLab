@@ -1,0 +1,99 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+<div class=dynamic-page-form-link>{{#formlink:form=ELN/Order|link text=Neuen Auftrag erstellen|link type=NOTpost button|query string=OslTemplate:ELN/Order[ou]=LAB&ou=LAB&OslTemplate:ELN/Order/Sample[1][id]=O0001|tooltip=|NOTnew window}}</div>
+
+<div class=dynamic-page-form-link>{{#formlink:form=ELN/Order|link text=Neuen Auftrag erstellen|link type=NOTpost button|query string=OslTemplate:ELN/Order[ou]=LAB&ou=LAB|tooltip=|NOTnew window}}</div>
+
+</noinclude><includeonly>
+{{{info|page name={{OslTemplate:ID/UUID |namespace=LabNote}} }}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:ELN/Order}}}
+{| class="formtable"
+| {{{field|collection|input type=checkbox|label=Sammelmappe{{#info:Stellt eine Sammlung von Aufträgen dar}}}}}
+|-
+| {{{field|display_id|input type=checkbox|label=ID im Namen anzeigen{{#info:ID hinter dem Namen einblenden. Falls kein Name vorhanden ist wird immer die ID angezeigt.}}}}}
+|}
+== Stammdaten ==
+{| class="formtable"
+|-
+! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}
+| <div class="uniquePatternedField" data-pattern="${ou}${year}-${unique_number}">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div> 
+|-
+! Name{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
+| {{{field|label}}}
+|-
+! Auftraggeber{{#info:Interner oder externer Kunde}}: 
+| {{{field|orderer|input type=combobox|values from category=LIMS/Ou}}}
+|-
+! Ansprechpartner{{#info:Kontakt seitens Auftraggeber}}: 
+| {{{field|contact|input type=tokens|list|values from category=LIMS/Person/User|mapping property=Display title of|delimiter=;}}}
+|-
+! Projekt{{#info:Zugeordnetes Projekt. Von diesem werden auch die Zugriffsrechte übernommen}}: 
+| {{{field|project|input type=combobox|values from category=LIMS/Project/Part}}}
+<!-- |-
+! Kosten in €{{#info:Geschätzte Kosten zur Durchführung}}: 
+| {{{field|costs}}} -->
+|-
+! Schlagwörter{{#info:Schlagwörter helfen, den Eintrag zu kategorisieren und später leichter wieder zu finden}}: 
+| {{{field|keywords|input type=tokens|values from property=HasKeyword|list|delimiter=;}}}
+| {{{field|type_symbol|hidden}}}
+|-
+! Bearbeitet von{{#info:Personen, die in die Bearbeitung des Versuches involviert sind}}: 
+| {{{field|agents|input type=tokens|list|values from category=LIMS/Person/User|mapping property=Display title of|default=current user|delimiter=;}}}
+| {{{field|creator|hidden|default=current user}}}
+| {{{field|creator_abbreviation|hidden}}}
+|-
+! Startzeitpunkt{{#info:Zeitpunkt, zu dem der Auftrag begonnen wurde}}: 
+| {{{field|start_date|input type=datetimeflatpicker|format=d.m.Y H:i|mandatory|default=now}}}
+| {{{field|creation_date|hidden|input type=datetimepicker|value=now}}}
+| {{{field|short_timestamp|hidden|input type=datetimepicker}}}
+|-
+! Endzeitpunkt{{#info:Zeitpunkt, zu dem der Auftrag beendet wurde}}: 
+| {{{field|end_date|input type=datetimeflatpicker|format=d.m.Y H:i}}}
+|-
+! Beschreibung{{#info:Kurzer Beschreibungstext. Die ausführliche Beschreibung kann nach dem Speichern der Stammdaten erfolgen.}}: 
+| {{{field|description|input type=textarea|editor=NOTvisualeditor|class=toolbarOnTop}}}
+|-
+! Proben: 
+| <div class="PageFormsExtensions_copy-fields">{{{field|samples|holds template}}}</div> 
+|}
+== Zusätzliche Angaben ==
+<div class="mw-collapsible <!-- mw-collapsed -->">
+{| class="formtable"
+! Übergeordnete Einträge{{#info:Auftrag, denen dieser Eintrag zugeordnet ist)}}: 
+| {{{field|subordinated_to|input type=tokens|values from category=ELN/Entry/Collection|list|delimiter=;}}}
+|-
+! Verwandte Einträge{{#info:Andere Versuche, die für diesen Versuch relevant sind (z.B. vorausgegangene Aufträge)}}: 
+| {{{field|related_entries|input type=tokens|values from category=LabNote|list|delimiter=;}}}
+|}
+</div>
+{{{end template}}}
+
+{{{for template|OslTemplate:ELN/Order/Sample|multiple|add button text=Probe hinzufügen|embed in field=OslTemplate:ELN/Order[samples]}}}
+{| class="formtable"
+|-
+! ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden|note}}
+| <div class="incrementField" data-pattern="O${unique_number}" data-number-pattern="0000" data-increment="1" data-start-value="O0001">{{{field|id|mandatory|property=HasId|size=25}}}</div> 
+! Eingangsdatum{{#info:Zeitpunkt, an dem die Probe eingegangen ist|note}}: 
+| {{{field|receipt_date|input type=datetimeflatpicker|format=d.m.Y H:i|default=now}}}
+|-
+! Name{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden|note}}: 
+| {{{field|name|size=25}}}
+! Nach Gebrauch (Zielzustand): 
+| {{{field|target_status|input type=dropdown|size=100|values from category=OSLbd354f0cbc7c41d38ee301be9bb3ce8d}}}
+|-
+! Beschreibung{{#info:Kurzer Beschreibungstext|note}}: 
+| {{{field|description|input type=textarea|editor=NOTvisualeditor|class=toolbarOnTop}}}
+! Dateianhang (PDF/Bild): 
+| {{{field|file_attachment|uploadable|image preview}}} 
+|}
+{{{end template}}}
+
+
+{{{standard input|free text|hidden|preload=OslTemplate:ELN/Order/Body}}}
+
+{{{for template|OslTemplate:ELN/Order/Footer}}}
+
+{{{standard input|save|label=Speichern}}} {{{standard input|cancel|label=Abbrechen}}}
+</includeonly>

@@ -18,7 +18,7 @@ Neue Gerätetypen müssen zuerst hier erstellt werden: [[Form:LIMS/Device/Type]]
 | {{{field|additional_ids|input type=tokens}}}
 |- 
 ! Gerätetyp: 
-| {{{field|type|input type=combobox|values from category=LIMS/Device/Type|required}}} 
+| {{{field|type|input type=combobox|values from concept=LIMS/Device/Type|required}}} 
 |-
 ! Untergeräte / Zubehör: 
 | {{{field|accessory|list|delimiter=;|input type=tokens|values from category=LIMS/Device/Instance}}}

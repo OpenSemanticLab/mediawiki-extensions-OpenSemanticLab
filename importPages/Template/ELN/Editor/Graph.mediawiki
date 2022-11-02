@@ -1,0 +1,169 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/Visible
+|icon=articleDisambiguation
+|content=Graph ''{{{file_name}}}''
+}}
+{{OslTemplate:Helper/UI/VE/Hidden 
+|content=<div id="{{#if: {{{page_name|}}}|{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-|}}{{{file_name}}}" style="width: {{#ifeq: {{{full_width|0}}}|1|100%| {{{width|600px}}} }};" class="InteractiveSemanticGraph" data-config='{ 
+  "name":"{{#if: {{{page_name|}}}|{{#replace:{{#replace: {{{page_name}}}|/|-}}|:|-}}-|}}{{{file_name}}}",
+  "root":"{{{root|}}}",
+  "properties":[{{#arraymap:{{{properties|}}}|;|x|"x"|,}}],
+  "depth":{{{depth|2}}},
+  "edit":{{#ifeq: {{{edit|0}}}|1|true|false}}, 
+  "permalink":{{#ifeq: {{{permalink|0}}}|1|true|false}}, 
+  "edge_labels": {{#ifeq: {{{edge_labels|1}}}|1|true|false}},
+  "hint":{{#ifeq: {{{hint|0}}}|1|true|false}}
+}'></div>
+}}</includeonly><noinclude>[[Category:OSL/Infrastructure/Template/User]]
+<templatedata>
+{
+	"params": {
+		"file_name": {
+			"label": {
+				"en": "Graph name",
+				"de": "Name des Graph-Name"
+			},
+			"description": {
+				"en": "Must be unique on this page",
+				"de": "Muss eindeutig auf dieser Seite sein"
+			},
+			"required": true,
+			"autovalue": "graph-01"
+		},
+		"root": {
+			"label": {
+				"en": "Root page name",
+				"de": "Name der Wurzelseite"
+			},
+			"description": {
+				"en": "Dafault value is the current page",
+				"de": "Standardwert ist die aktuelle Seite"
+			},
+			"type": "wiki-page-name",
+			"required": true,
+			"autovalue": "{{subst:FULLPAGENAME}}",
+			"suggested": true
+		},
+		"properties": {
+			"label": {
+				"en": "Properties",
+				"de": "Attribute"
+			},
+			"description": {
+				"en": "Semicolon separated property list used to expand the root node",
+				"de": "Per Semicolon getrennte Attributliste, mit der der Wurzelknoten erweitert wird"
+			},
+			"required": true,
+			"autovalue": "IsA; HasPart",
+			"suggested": true
+		},
+		"depth": {
+			"label": {
+				"en": "Expansion depth",
+				"de": "Expandierungstiefe"
+			},
+			"description": {
+				"en": "Defines how far the graph is unfolded automatically with the given properties",
+				"de": "Gibt an, wie weitd er Graph mit den gegebenen Attributen automatische aufgeklappt wird"
+			},
+			"required": false,
+			"autovalue": "2",
+			"suggested": true
+		},
+		"width": {
+			"label": {
+				"en": "Width",
+				"de": "Breite"
+			},
+			"description": {
+				"en": "Width of the graph in pixels",
+				"de": "Breite des Graphen in Pixeln"
+			},
+			"type": "string",
+			"autovalue": "600px"
+		},
+		"full_width": {
+			"label": {
+				"en": "Full width",
+				"de": "Gesamte Seitenbreite"
+			},
+			"description": {
+				"en": "Used the full page width to display the graph",
+				"de": "Nutzt die gesamte Seitenbreite zur Darstellung des Graphen"
+			},
+			"type": "boolean",
+			"autovalue": "0",
+			"suggested": true
+		},
+		"edit": {
+			"label": {
+				"en": "Edit modus",
+				"de": "Bearbeitungsmodus"
+			},
+			"description": {
+				"en": "Allows editing the graph",
+				"de": "Erlaubt die Bearbeitung des Graphs"
+			},
+			"type": "boolean",
+			"autovalue": "0",
+			"suggested": true
+		},
+		"edge_labels": {
+			"label": {
+				"en": "Edge labels",
+				"de": "Kantenbeschriftungen"
+			},
+			"description": {
+				"en": "Displays edge labels",
+				"de": "Zeigt die Namen der Verbindungslinien an"
+			},
+			"type": "boolean",
+			"autovalue": "1",
+			"suggested": false
+		},
+		"permalink": {
+			"label": {
+				"en": "Permalink",
+				"de": "Permalink"
+			},
+			"description": {
+				"en": "Creates a permalink for the state of the graph",
+				"de": "Erstellt einen Permalink für den Zustand des Graphs"
+			},
+			"type": "boolean",
+			"autovalue": "0",
+			"suggested": false
+		},
+		"hint": {
+			"label": {
+				"en": "Show hints",
+				"de": "Hinweise zeigen"
+			},
+			"description": {
+				"en": "Shows additional information beside the graph",
+				"de": "Zeigt zusätzliche Informationen neben dem Graphen an"
+			},
+			"type": "boolean",
+			"autovalue": "0",
+			"suggested": false
+		},
+		"page_name": {
+			"label": {
+				"en": "Page name",
+				"de": "Seitename"
+			},
+			"description": {
+				"en": "is filled in automatically",
+				"de": "wird automatisch ausgefüllt"
+			},
+			"type": "wiki-page-name",
+			"autovalue": "{{subst:FULLPAGENAME}}"
+		}
+	},
+	"description": {
+		"en": "Adds a semantic graph viewer and editor",
+		"de": "Fügt einen semantischen Graphen ein"
+	},
+	"format": "block"
+}
+</templatedata>
+</noinclude>

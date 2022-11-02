@@ -1,0 +1,160 @@
+local p = {}
+
+-- another example, subobject used inside another function
+function p.create_url_param_string( parameters, index )
+	local result = ""
+	mw.logObject(parameters)
+	for key,value in next, parameters do --somehow 'in pairs(parameters) do ' gets wrong values?
+		mw.log(value)
+		result = result .. "[" .. index .. "][" .. key .. "]=" .. value ..";" 
+	end
+	return result
+end
+
+-- from https://stackoverflow.com/questions/640642/how-do-you-copy-a-lua-table-by-value
+function p.copy(obj, seen)
+  if type(obj) ~= 'table' then return obj end
+  if seen and seen[obj] then return seen[obj] end
+  local s = seen or {}
+  local res = setmetatable({}, getmetatable(obj))
+  s[obj] = res
+  for k, v in pairs(obj) do res[p.copy(k, s)] = p.copy(v, s) end
+  return res
+end
+
+
+-- from Module:LabProcess/Object
+-- replaces a number patter with an index, e. g. 
+-- Object0000 -index=32-> Object0013
+function p.indexed_string(string_pattern, index)
+	local pattern = string.reverse(string.match(string.reverse(string_pattern), "%d+")) --select the last number group
+	pattern = string.gsub(pattern, "%d", "0") --reset to e. g. 0001 to 0000
+	local pattern_len = string.len(pattern)
+	local index_string = "" .. index
+	if (string.len(index_string) < pattern_len) then --auto grow pattern
+		index_string = string.sub(pattern .. index, -pattern_len) 
+	end
+	local result = string.reverse(string.gsub(string.reverse(string_pattern), "%d+", string.reverse(index_string), 1)) --replace only the last number group
+	return result
+end
+
+function p.test()
+	mw.log(p.create_url_param_string({p1= "value1"}, 1))
+end
+
+function p.common(frame, params)
+	-- set default
+	local page = nil
+	if frame.args['page'] == nil then page = mw.title.getCurrentTitle()
+	else page = mw.title.new(frame.args['page']) end
+	
+	if params['count'] == nil then params['count'] = "1" end
+	local count = tonumber(params['count'])
+	
+	if (params["id"] == nil) then params["id"] = "P0000" end
+	if (params["name"] == nil) then params["name"] = "Param0" end
+	if (params["label"] == nil) then params["label"] = "Param 0" end
+	--if (params["object_id"] == nil) then params["object_id"] = "O0000" end --object_id is optional
+	if count > 1 then
+		if params["object_id"] ~= nil and string.match(params['object_id'], "%d+") == nil then params['object_id'] = params['object_id'] .. "0" end -- e. g. "P" -> "P0"
+		if string.match(params['name'], "%d+") == nil then params['name'] = params['name'] .. "0" end
+		if string.match(params['label'], "%d+") == nil then params['label'] = params['label'] .. "0" end
+		if string.match(params['id'], "%d+") == nil then params['id'] = params['id'] .. "0" end
+	end
+	
+	-- common
+	if (params["actual_category"] == nil and params["nominal_category"] ~= nil) then params["actual_category"] = params["nominal_category"] end
+	if (params["actual_type"] == nil and params["nominal_type"] ~= nil) then params["actual_type"] = params["nominal_type"] end
+	if (params["actual_instance"] == nil and params["nominal_instance"] ~= nil) then params["actual_instance"] = params["nominal_instance"] end
+	if (params["actual_instance_static"] ~= nil and params["actual_instance_static"] ~= "") then
+		if string.match(params["actual_instance_static"], "#") == nil then params["actual_instance_static"] = page.fullText .. "#" .. params["actual_instance_static"] end
+	end
+	
+	-- devices
+	if (params["actual_setup"] == nil and params["nominal_setup"] ~= nil) then params["actual_setup"] = params["nominal_setup"] end
+	
+	-- quantitatives
+	if (params["actual_quantity"] == nil and params["nominal_quantity"] ~= nil) then params["actual_quantity"] = params["nominal_quantity"] end
+	if (params["actual_unit"] == nil and params["nominal_unit"] ~= nil) then params["actual_unit"] = params["nominal_unit"] end
+	
+
+	
+	if count == 1 and params['offset'] == nil then params['offset'] = "1" end
+	if params['offset'] == nil then
+		id_offset = tonumber(string.match(params['id'], "%d+"))
+		if params["object_id"] ~= nil then object_offset = tonumber(string.match(params['object_id'], "%d+")) end
+		name_offset = tonumber(string.match(params['name'], "%d+"))
+		label_offset = tonumber(string.match(params['label'], "%d+"))
+	else 
+		id_offset = tonumber(params['offset'])
+		object_offset	= tonumber(params['offset'])
+		name_offset	= tonumber(params['offset'])
+		label_offset	= tonumber(params['offset'])
+	end
+	
+	if params['index_offset'] == nil then params['index_offset'] = "0" end
+	local index_offset = tonumber(params['index_offset'])
+
+	
+	--delete config params
+	params['count'] = nil
+	params['index_offset'] = nil
+	mw.logObject(frame)
+	
+	local result = ""
+	for index = 0, count - 1 do
+		if count > 1 then
+			params['id'] = p.indexed_string( params['id'], index + id_offset)
+			params['name'] = p.indexed_string( params['name'], index + name_offset)
+			params['label'] = p.indexed_string( params['label'], index + label_offset)
+			if params["object_id"] ~= nil then params['object_id'] = p.indexed_string( params['object_id'], index + object_offset) end
+		end
+
+		--object_ids = object_ids .. params['id']
+		--local params = p.copy(params)
+		result = result .. p.create_url_param_string(params, index + 1 + index_offset)
+		--result = result .. p.create_url_param_string(frame, index)
+	end
+	return result	
+end
+
+function p.object(frame)
+	local params = p.copy(frame.args) --frame.args is a metatable so we have to create a normal table as copy to edit it
+	if (params["label"] == nil) then params["label"] = "Object 0" end
+	return p.common(frame, params)
+end
+
+function p.tool(frame)
+	local params = p.copy(frame.args)
+	if (params["label"] == nil) then params["label"] = "Device 0" end
+	return p.common(frame, params)
+end
+
+function p.file(frame)
+	local params = p.copy(frame.args)
+	if (params["label"] == nil) then params["label"] = "File 0" end
+	return p.common(frame, params)
+end
+
+function p.quantitative(frame)
+	local params = p.copy(frame.args)
+	if (params["label"] == nil) then params["label"] = "Quantitative 0" end
+	return p.common(frame, params)
+end
+
+return p
+
+--DEBUG
+--[[
+frame = mw.getCurrentFrame() -- Get a frame object
+newFrame = frame:newChild{ -- Get one with args
+	title = 'LabObject:OSL02344d31ba6d4e49acc75772946f1ba1' ,
+ args = { 
+["nominal_category"] = "Category:OSLb1415173552d4921acf30ac51f3bce62",
+["name"] = "MagazineSelection",
+["label"] = "Magazine Selection",
+["count"] = 3
+    }
+}
+mw.log(p.object( newFrame ) ) 
+--]]

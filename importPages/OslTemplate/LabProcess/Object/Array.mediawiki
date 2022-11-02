@@ -1,0 +1,12 @@
+<noinclude>Wraps [[Module:LabProcess/Object]]</noinclude>
+<includeonly>{{#invoke:LabProcess/Object|object
+|id={{{id|}}}
+|custom_id={{{custom_id|}}}
+|custom_id_pattern={{{custom_id_pattern|}}}
+|custom_id_replace={{{custom_id_replace|}}}
+|label={{{label|}}}
+|use_as_label={{{use_as_label|}}}
+|type={{{type|}}}
+|count={{{count|}}}
+|offset={{{offset|}}}
+}}</includeonly>

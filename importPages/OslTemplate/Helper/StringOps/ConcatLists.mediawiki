@@ -1,0 +1,18 @@
+<noinclude>
+Example [a,b,c] [d,e,f]: {{{{FULLPAGENAME}}|a,b,c|d,e,f}}
+
+Example [a,b,c] []: {{{{FULLPAGENAME}}|a,b,c|}}
+
+Example [] [d,e,f]: {{{{FULLPAGENAME}}||d,e,f}}
+
+Example [] []: {{{{FULLPAGENAME}}||}}
+
+</noinclude>
+<includeonly><!--
+-->{{#if:{{{1|}}}|<!--
+  -->{{#if:{{{2|}}}|<!--
+    -->{{{1|}}}{{{sep|,}}}{{{2|}}}|<!--
+    -->{{{1|}}}{{{2|}}}<!--
+  -->}}|<!--
+  -->{{{1|}}}{{{2|}}}<!--
+-->}}</includeonly>

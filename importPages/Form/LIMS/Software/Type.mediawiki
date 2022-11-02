@@ -31,12 +31,12 @@ Neue Kategorien müssen zunächst hier angelegt werden: [[Form:LIMS/Software/Cat
 | {{{field|additional_documents|property=HasAdditionalDocument|size=25|uploadable}}}
 |-
 ! Repository: 
-| {{{field|digitalization class}}}
+| {{{field|repository}}}
 |-
 ! Input: 
-| {{{field|input|list|input type=tokens|values from category=Category:Data}}}
+| {{{field|input|list|input type=tokens|values from category=Category:Data|delimiter=;}}}
 |-
 ! Output: 
-| {{{field|output|list|input type=tokens|values from category=Category:Data}}}
+| {{{field|output|list|input type=tokens|values from category=Category:Data|delimiter=;}}}
 {{OslTemplate:LIMS/Form/Common/Footer |template=OslTemplate:LIMS/Software/Type}}
 </includeonly>

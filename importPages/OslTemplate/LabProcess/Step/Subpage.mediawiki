@@ -19,7 +19,7 @@ Vorlage für alle Prozessschritte (allgemeiner Teil), Formular definiert in [[Os
 }}
 </pre>
 </noinclude>
-<includeonly>{{#set: HasName={{{name}}} |HasId={{SUBPAGENAME}}}}
+<includeonly>{{DISPLAYTITLE: {{{name|{{SUBPAGENAME}}}}}}}{{#set: HasName={{{name}}} |HasId={{SUBPAGENAME}}}}
 === Prozessschritt {{{name}}} ===
 {{#if: {{{start_date|}}} |
 Prozessschritt {{{name}}} des Laborprozesses [[IsSubprocessOf::{{{process}}}]] wurde von [[HasAgent::User:{{{agent}}}]] bearbeitet und folgt(e) auf [[HasPredecessor::{{{predecessor|}}}]] bzw. lief parallel zu [[IsConcurrentTo::{{{concurrent|}}}]]. Die Bearbeitung wurde am [[HasStartDateAndTime::{{{start_date}}}]] begonnen und am [[HasEndDateAndTime::{{{end_date}}}]] beendet. 

@@ -1,0 +1,26 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+</noinclude>
+<includeonly>
+== Ergebnisse ==
+{{#ask: 
+[[OslCategory::Category:LIMS/Device/Type]]
+{{#if: {{{category|}}} | [[Category:{{{category|}}}]] |}}
+{{#if: {{{id|}}} | [[HasId::~*{{{id|}}}*]] | [[HasId::+]]}}
+{{#if: {{{name|}}} | [[Display title of::~*{{{name|}}}*]] | }}
+{{#if: {{{date_from|}}} | [[HasCreationDate::>{{{date_from|}}}]] |}}
+{{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
+{{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
+{{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
+{{#if: {{{material|}}} | [[HasSupportedMaterial::{{{material|}}}]] |}}
+{{#if: {{{quantity|}}} | [[HasMeasurementQuantity::{{{quantity|}}}]] |}}
+|mainlabel=Name
+<!-- |?Display title of=Name -->
+|?HasId=ID
+|?Category=Kategorie
+|?-IsInstanceOf=Exemplare
+|?HasDescription=Beschreibung 
+|format=table 
+|default=Keine Daten gefunden
+}}
+</includeonly>

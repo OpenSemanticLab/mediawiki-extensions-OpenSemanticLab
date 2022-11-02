@@ -1,0 +1,40 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+<div class=dynamic-page-form-link>{{#formlink:form=KB/Class
+|link text=Create a new Class
+|link type=post button
+<!-- |query string= -->
+|tooltip=
+|new window
+}}</div>
+<!-- {{{info|page name=Term:OSL-{{UUID}} }}} -->
+<!-- {{{info|page name=Term:OSL_{{#replace:{{UUID}}|-|_}} }}} -->
+</noinclude><includeonly>
+{{{info|page name={{OslTemplate:ID/UUID |namespace=Category}} }}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:KB/Class}}}
+{| class="formtable"
+! Label: 
+| {{{field|label|mandatory}}} 
+|-
+! Language:
+| {{{field|label_lang_code|input type=dropdown|values=en,de|default=en|mandatory}}}
+|-
+! Labels: 
+| {{{field|alternative_labels|holds template}}}
+|-
+! Description: 
+| {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
+|-
+! Category: 
+| {{{field|category|input type=tree|top category=Thing<!-- |hideroot -->|default=Thing|depth=4|list|delimiter=;|height=500|width=1000}}}
+|-
+! Ontology IRI: 
+| {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}
+|}
+
+{{OslTemplate:Common/Form/Label/Instances |template=OslTemplate:KB/Class}}
+
+{{{standard input|save}}} {{{standard input|cancel}}}
+</includeonly>

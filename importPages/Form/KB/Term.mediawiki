@@ -1,0 +1,60 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+<div class=dynamic-page-form-link>{{#formlink:form=KB/Term
+|link text=Create a new Term
+|link type=post button
+<!-- |query string= -->
+|tooltip=
+|new window
+}}</div>
+<!-- {{{info|page name=Term:OSL-{{UUID}} }}} -->
+<!-- {{{info|page name=Term:OSL_{{#replace:{{UUID}}|-|_}} }}} -->
+</noinclude><includeonly>
+{{{info|page name={{OslTemplate:ID/UUID |namespace=Term}} }}}
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:KB/Term}}}
+{| class="formtable"
+! Label: 
+| {{{field|label|mandatory}}} 
+|-
+! Language:
+| {{{field|label_lang_code|input type=dropdown|values=en,de|default=en|mandatory}}}
+|-
+! Labels: 
+| {{{field|alternative_labels|holds template}}}
+|-
+! Image / Key Visual: 
+| {{{field|image|uploadable|image preview}}} 
+|-
+! Description: 
+| {{{field|description|input type=textarea|editor=visualeditor|class=toolbarOnTop}}}
+|-
+! Category: 
+| {{{field|category|input type=tree|top category=Thing<!-- |hideroot -->|default=Term|depth=4|list|delimiter=;|height=300|width=1000}}}
+|-
+! Ontology IRI: 
+| {{{field|ontology_iri|input type=tokens|list|delimiter=;}}}
+|-
+! Semantic Links: 
+| {{{field|relations|holds template}}}
+|}
+{{{end template}}}
+{{OslTemplate:Common/Form/Label/Instances |template=OslTemplate:KB/Term}}
+
+<!-- ==Semantic Links== -->
+{{{for template|OslTemplate:KB/Relation|multiple|add button text=Add semantic link|embed in field=OslTemplate:KB/Term[relations]}}}
+{| class="formtable"
+! Property (e. g. "HasPart"): 
+| {{{field|property|input type=text with autocomplete|size=100|mandatory|values from category=ObjectProperty}}}
+|-
+! Value (e. g. "Electrode"): 
+| {{{field|value|input type=text with autocomplete|size=100|mandatory|values from category=KB/Term}}}
+|}
+{{{end template}}}
+
+{{{standard input|free text|hidden|preload=OslTemplate:KB/Term/Body}}}
+
+{{{for template|OslTemplate:KB/Term/Footer}}}
+{{{standard input|save}}} {{{standard input|cancel}}}
+</includeonly>

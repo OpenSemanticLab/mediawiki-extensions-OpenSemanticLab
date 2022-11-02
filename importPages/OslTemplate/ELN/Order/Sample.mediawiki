@@ -1,0 +1,16 @@
+<noinclude>
+
+Edit the page to see the template text.
+</noinclude>
+<includeonly>{{#if: {{{id|}}}|{{#set:|HasInput={{FULLPAGENAME}}#{{{id}}}|}}|}}<!-- 
+-->{{#subobject: {{{id|}}}
+|@category=ELN/Order/Sample
+|HasId={{{id|}}}
+|HasName={{{name|}}}
+|Display title of={{{name|{{{id|}}}}}}
+|IsInputOf={{FULLPAGENAME}}
+|HasReceiptDate={{{receipt_date|}}}
+|HasDescription={{{description|}}}
+|HasTargetStatus={{{target_status|}}}
+|HasFileAttachment={{#if: {{{file_attachment|}}}|File:{{{file_attachment|}}}|}}
+|}}</includeonly>
