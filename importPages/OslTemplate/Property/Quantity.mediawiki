@@ -32,9 +32,9 @@ This is a property of type [[Has type::Quantity]] {{#if: {{{main_unit|}}}
 <!-- {{#ask: [[{{{base_quantity}}}]] |?HasUnitDefinition |format=template |template=Quantity_property/Store_corresponds_to}} -->
 {{#ask: [[{{FULLPAGENAME}}]] |?Corresponds to|format=table}}
 
-{{{description|}}}
+[[HasDescription::{{{description|}}}]]
 
-{{#arraymap:{{{ontology_iri|}}}|;|x|[[HasOntologyIri::x]]|\n}}
+{{#arraymap:{{{ontology_iri|}}}|;|x|[[Equivalent URI::x]]|\n}}
 <!-- {{#forminput:form=Quantity_property/Subquantity_property|query string=namespace=Property&preload={{FULLPAGENAME}}&Quantity_property/Subquantity_property[main_unit]={{{main_unit}}}&Quantity_property/Subquantity_property[alternative_names]={{{alternative_names}}}&Quantity_property/Subquantity_property[base_quantity]={{{base_quantity}}}&Quantity_property/Subquantity_property[subquantity_of]={{FULLPAGENAME}}&Quantity_property/Subquantity_property[description]=Test|button text=Create subquantity|placeholder=Subquantity name, e. g. 'Has wavelength' for 'Has length'|size=50}} -->
 <!-- {{#forminput:form=Property/Quantity|query string=namespace=Property&preload={{FULLPAGENAME}}&Property/Quantity[main_unit]={{{main_unit}}}&Property/Quantity[alternative_names]={{{alternative_names}}}&Property/Quantity[base_quantity]={{{base_quantity|{{FULLPAGENAME}}}}}&Property/Quantity[subquantity_of]={{FULLPAGENAME}}&Property/Quantity[description]={{{description|}}}|button text=Create subquantity|placeholder=Subquantity name, e. g. 'HasWavelength' for 'HasLength'|size=50}} -->
 {{#forminput:form=Property/Subquantity|query string=namespace=Property&OslTemplate:Property/Quantity[base_quantity]={{{base_quantity|{{FULLPAGENAME}}}}}&OslTemplate:Property/Quantity[subquantity_of]={{FULLPAGENAME}}&OslTemplate:Property/Quantity[description]={{{description|}}}|button text=Create subquantity|placeholder=Subquantity name, e. g. 'HasWavelength' for 'HasLength'|size=50}}
