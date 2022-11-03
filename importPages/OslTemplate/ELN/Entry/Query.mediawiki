@@ -12,7 +12,7 @@
 {{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
 {{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
 {{#if: {{{project|}}} | [[HasProject::{{{project|}}}]] |}}
-{{#if: {{{tool|}}} | [[-IsSubprocessOf.-IsProcessParameterOf.HasDevice::{{{tool|}}}]] |}}
+{{#if: {{{tool|}}} | [[-IsSubprocessOf.-IsProcessParameterOf.HasTool::{{{tool|}}}]] |}}
 {{#if: {{{material|}}} | [[-IsSubprocessOf.-IsProcessParameterOf.HasPredecessor::{{{material|}}}]] |}}
 {{#if: {{{quantity|}}} | [[-IsSubprocessOf.-IsProcessParameterOf.HasProperty::{{{quantity|}}}]] |}}
 |sort=HasCreationDate

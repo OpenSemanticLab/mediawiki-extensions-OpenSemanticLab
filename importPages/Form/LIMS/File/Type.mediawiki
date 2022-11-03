@@ -1,11 +1,11 @@
 <noinclude>
 {{OslTemplate:Helper/Docu/FormTemplate}}
 
-<div class=dynamic-page-form-link>{{#formlink:form=LIMS/File/Type|link text=Neuen Typ erstellen|link type=post button|query string=OslTemplate:LIMS/File/Type[short_timestamp]=${short_timestamp}&OslTemplate:LIMS/File/Type[creator_abbreviation]=${user_abbreviation}&OslTemplate:LIMS/File/Type[type_symbol]=ft|tooltip=|new window}}</div>
+{{OslTemplate:LIMS/Common/Link |Create|File|Type}}
 
 </noinclude><includeonly>
 Neue Kategorien müssen zunächst hier angelegt werden: [[Form:LIMS/File/Category]]
-{{{info|page name=FileType:<OslTemplate:LIMS/File/Type[short_timestamp]>-<OslTemplate:LIMS/File/Type[creator_abbreviation]>-<unique number;start=0001>-<OslTemplate:LIMS/File/Type[type_symbol]>}}}
+{{{info|page name={{OslTemplate:ID/UUID |namespace=FileType}} }}}
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 {{{for template|OslTemplate:LIMS/File/Type}}}
 {{OslTemplate:LIMS/Form/Common/Header}}

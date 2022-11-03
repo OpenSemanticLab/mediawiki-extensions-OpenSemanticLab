@@ -1,0 +1,49 @@
+<includeonly>{{OslTemplate:Helper/UI/VE/SectionSeparator |label=Anhang}}
+<div id="custom-ve-new-section-prepend-anchor"></div>
+== Erstellte Instanzen ==
+<!-- === Gekauft === -->
+{{#ask: [[Category:LIMS/Device/Instance]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?HasCreationDate=Datum
+|?HasCreator=Ersteller
+}}
+<!-- === Selbst hergestellt ===
+{{#ask: [[Category:LabProcessOutput]] [[IsInstanceOf::{{FULLPAGENAME}}]]
+|?-Has subobject.HasCreationDate=Datum
+|?-Has subobject.IsDefinedIn=Vorschrift
+|?-Has subobject.HasCreator=Ersteller
+}} -->
+== Dokumente ==
+<!-- {{#tag:gallery|
+File:{{{datasheet}}}{{!}}Datenblatt{{!}}link=[[Special:Redirect/file/{{{datasheet}}}]]
+File:{{{manual}}}{{!}}Bedienungsableitung{{!}}link=[[Special:Redirect/file/{{{manual}}}]]
+File:{{{risk_assessment}}}{{!}}Gefährdungsbeurteilung{{!}}link=[[Special:Redirect/file/{{{risk_assessment}}}]]
+{{#arraymap:{{{additional_documents|}}}|,|x|File:x{{!}}Sonstige Dokumente|\n}}
+|mode="traditional"
+}} -->
+{{#tag:gallery|
+File:{{#ask: [[{{FULLPAGENAME}}]] |?HasDatasheet= |mainlabel=-}}{{!}}Datenblatt<!-- TODO: direct link-->
+File:{{#ask: [[{{FULLPAGENAME}}]] |?HasManual= |mainlabel=-}}{{!}}Bedienungsableitung
+File:{{#ask: [[{{FULLPAGENAME}}]] |?HasRiskAssessment= |mainlabel=-}}{{!}}Gefährdungsbeurteilung
+File:{{#ask: [[{{FULLPAGENAME}}]] |?HasAdditionalDocument= |mainlabel=-}}{{!}}Sonstige Dokumente
+|mode="traditional"
+}}
+
+{{OslTemplate:Helper/UI/VE/Visible 
+|content=Upload-Area
+|icon=upload
+}}
+{{OslTemplate:Helper/UI/Div/VE-Hidden}}
+{{#ask: [[IsFileAttachmentOf::{{FULLPAGENAME}}]] 
+<!-- |?HasName #=Name 
+|?HasUrl=Link 
+|?Modification date=Zuletzt geändert  -->
+|?HasUrl
+<!-- |format=gallery -->
+|redirects=HasUrl<!-- Links direct to download -->
+}} <!-- With format=table chem and math formular fail to render on page!?! -->
+<!-- With format=datatable VE page safe fails!?! -->
+<div class="fileupload-auto-reload">{{#batchupload:OslTemplate:KB/Attachment|{{FULLPAGENAME}}|{{REVISIONUSER}}}}</div>
+{{OslTemplate:Helper/UI/Div/Closing}}
+
+{{#default_form:LIMS/Device/Type}}{{#set: |OslCategory=Category:LIMS/Device/Type}} <!-- or VIA CONCEPT because general 'Category:' statements overlaps with Category:LIMS/../Type-->
+</includeonly>

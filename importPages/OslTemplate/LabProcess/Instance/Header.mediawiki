@@ -1,26 +1,66 @@
 <includeonly>{{#set: Debug={{{debug|{{OslTemplate:Helper/Strings/No}}}}}}}<!-- 
 
--->{{DISPLAYTITLE:{{#replace:{{PAGENAME}}|<nowiki> </nowiki>|_}}}}<!-- 
+-->{{DISPLAYTITLE:{{{id|{{PAGENAME}}}}}}}<!-- 
 
---><!-- {{Purge link}} --><!-- 
-
---><!-- Dies ist eine Laborprodukt vom Typ [[HasObjectType::{{{type}}}]] -->
-
-Dokumentation zur Herstellung von [[HasOutputType::{{{output_type}}}]] (Kategorie: [[HasOutputCategory::Category:{{{output_category}}}]])
-
-Ersteller [[HasCreator::{{{creator}}}]] ([[HasCreatorShortName::{{{creator_abbreviation}}}]])
-
-Erstelldatum [[HasCreationDate::{{{timestamp}}}]] (Kurzzeitstempel [[HasCreationShortTimeStamp::{{{short_timestamp}}}]])
-{{#if: {{{projects|}}}|</br> 
-Projekt: {{#arraymap:{{{projects|}}}|,|__x__|[[HasProject::__x__]]|,}} |}}</br> 
-ID: [[HasId::{{PAGENAME}}]]
-{{#if: {{{additional_ids|}}}|</br> 
-Weitere IDs: {{#arraymap:{{{additional ids|}}}|,|__x__|[[HasId::__x__]]|,}} |}}
-
-[[Category:LabObject]][[Category:Labprocess/Instance]]
-
-Definiert in [[IsInstanceOf::{{{template}}}]]
-
+--><div class="custom-section-edit-form-link" data-form-name="LabProcess/Instance" data-link-label-msg="open-semantic-lab-edit" data-link-tooltip-msg="open-semantic-lab-edit-master-data">
+== Stammdaten ==
+</div>{{#set:
+|HasId={{{id|{{PAGENAME}}}}}
+|HasName={{{name|}}}
+|HasCreator=User:{{{creator|}}}
+|IsInstanceOf={{{template}}}
+|HasId={{{additional_ids|}}}|+sep=;
+|HasCreationDate={{{timestamp}}}
+|HasProject={{{projects|}}}|+sep=;
+|HasDescription={{{description|}}}
+|HasOutputType={{{output_type|}}}
+|HasOutputCategory={{#if:{{{output_category|}}}|Category:{{{output_category}}}|}}
+}}[[Category:LabObject]][[Category:Labprocess/Instance]]<table class="sortable wikitable smwtable jquery-tablesorter">
+<tr>
+<th>ID</th>
+<td>{{{id|{{PAGENAME}}}}}</td>
+</tr>
+<!-- <tr>
+<th>Name</th>
+<td>{{{name}}}</td>
+</tr> -->
+{{#if:{{{additional_ids|}}}|<tr>
+<th>Weitere IDs</th>
+<td>{{#arraymap:{{{additional_ids|}}}|;|__x__|__x__|,}}</td>
+</tr>|}}
+<tr>
+<th>Ersteller</th>
+<td>[[User:{{{creator|}}}]]</td>
+</tr>
+<tr>
+<th>Vorlage</th>
+<td>[[{{{template}}}]]</td>
+</tr>
+{{#if:{{{output_category|}}}|<tr>
+<th>Produkt- / Ergebniskategorie</th>
+<td>[[:Category:{{{output_category}}}]]</td>
+</tr>|}}
+{{#if:{{{output_type|}}}|<tr>
+<th>Produkt- / Ergebnis</th>
+<td>[[{{{output_type}}}]]</td>
+</tr>|}}
+{{#if:{{{projects|}}}|<tr>
+<th>Projekt</th>
+<td>{{#arraymap:{{{projects|}}}|;|__x__|[[__x__]]|,}}</td>
+</tr>|}}
+<tr>
+<th>Erstelldatum </th>
+<td>{{#if: {{{timestamp|}}} |{{#timel: d.m.Y H:i:s | {{{timestamp|}}} }} |}}</td>
+</tr>
+<!-- <tr>
+<th>Beendet</th>
+<td>{{#if: {{{end_date|}}} |{{#timel: d.m.Y H:i:s | {{{end_date|}}} }} |}}</td>
+</tr> -->
+<tr>
+<th>Beschreibung</th>
+<td>{{{description|}}}</td>
+</tr>
+</table>
 <!--== Fortschritt ==
 
 {{#ask: [[Category:Prozessschritt]] [[HasRelationTo::{{FULLPAGENAME}}]]

@@ -1,0 +1,52 @@
+local p = {}
+local linkedwiki = require 'linkedwiki'
+function p.section(f)
+	local object =  linkedwiki.new()
+    object:setConfig(f.args["endpoint"])
+    mw.log(object:getConfig())
+
+	local result = object:query( f.args["query"])
+-- linkedwiki.print_r(result)
+
+local text = [[
+== Authority Notice ==
+]]
+	local newline=[[
+
+]]
+	local i = 0
+	local row = nill
+	local link = nil
+	local logo = nil
+	text = '<div class="graphviz" style="display:none; text-align:center;"> digraph{' .. newline .. 'rankdir=LR;'
+	row = result['result']['rows'][i]
+	while( row ~= nil )
+	do
+	 --linkedwiki.print_r(row)
+	  --define nodes
+	  if row['subject_label'] then --set subject label
+	  	text = text .. '"' .. row['subject'] .. '"' .. '[label="'.. row['subject_label'] .. '" href="' .. row['subject'] .. '"]' .. newline
+	  end
+	  if row['object_label'] then --set object label
+	    text = text .. '"' .. row['object'] .. '"' .. '[label="'.. row['object_label'] .. '" href="' .. row['object'] .. '"]' .. newline
+	  end
+	  --define edge
+	  text = text .. '"' .. row['subject'] .. '" -> "' .. row['object'] .. '" ['
+	  if row['edge'] then --link to edge
+	  	text = text .. 'href="'.. row['edge'] .. '"'
+	  end
+	  if row['edge_label'] then --set edge label
+	  	text = text .. 'label="'.. row['edge_label'] .. '"'
+	  end
+	  if row['edgetooltip'] then --add edge tooltip
+	  	text = text .. ' edgetooltip="' .. row['edgetooltip'] .. '"'
+	  end
+	  text = text .. ']' .. newline
+	  i = i + 1
+	  row = result['result']['rows'][i]
+	end
+	text = text .. '}</div>'
+  return text
+end
+ 
+return p

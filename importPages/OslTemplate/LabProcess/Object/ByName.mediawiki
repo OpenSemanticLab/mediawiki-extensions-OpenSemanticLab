@@ -1,0 +1,7 @@
+<noinclude></noinclude><includeonly>{{OslTemplate:LabProcess/Object
+|global={{{global|}}}
+|name={{{name|}}}
+|id={{{id|{{#replace:{{#replace:{{{base_id|{{PAGENAME}}}}}|00-pi|}}|00-pt|}}}}}{{{id_postfix}}}
+|label={{#ifeq:{{{use_as_label|}}}|id|{{{id|{{#replace:{{#replace:{{{base_id|{{PAGENAME}}}}}|00-pi|}}|00-pt|}}}}}{{{id_postfix}}}|{{#ifeq:{{{use_as_label|}}}|name|{{{name|}}}|{{{label|}}}}}}}<!-- {{{{{{use_as_label|label}}}}}} -->
+|type={{{type|}}}
+}}</includeonly>

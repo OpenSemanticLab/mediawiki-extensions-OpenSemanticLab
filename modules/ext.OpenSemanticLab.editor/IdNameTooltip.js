@@ -40,6 +40,7 @@ var IdNameTooltip_updateTooltip = function(context) {
 			{property: 'HasId', regex: regex_short_id, map: (match) => {return match;} },
 			{property: 'HasUuid', regex: regex_uuid, map: (match) => {return match.replace(regex_uuid, `$3-$5-$7-$9-$11`);} }
 		];
+		context.results = "";
 		const str = $(context.element).text();
 		let m;
 		var query = `/w/api.php?action=ask&query=`;
@@ -53,9 +54,29 @@ var IdNameTooltip_updateTooltip = function(context) {
 				query += `[[${item.property}::${item.map(match_str)}]]`;
 				count += 1;
 			}
+
 		});
 		query += `&format=json`;
-		if (count > 0){
+
+		const regex_object_id_ref = /\|[\s]*?[\S]*id[\s]*?=[\s]*([^|\s]*)[\s|\|]?/gm;
+		const ref_matches = str.matchAll(regex_object_id_ref);
+		const page_text = $(context.element).parent().text();
+		//console.log(page_text);
+		for (const ref_match of ref_matches) {
+			var object_id = ref_match[1];
+			if (context.debug) console.log(`Found match ${object_id}`);
+			//resolve local ids directly in the page text
+			var regex_object_id = new RegExp("LabProcess\\/Object\\|object[\\s]*?\\|[\\s]*?id[\\s]*?=[\\s]*?" + object_id + "[\\s\\S]*?\\|[\\s]*?name[\\s]*?=[\\s]*([\\s\\S]*?)[\\s]*?[\\||}]", 'gm');
+			const id_matches = page_text.matchAll(regex_object_id);
+			for (const id_match of id_matches) { 
+				const obj_name = id_match[1];
+				if (context.debug) console.log(`Found match name ${obj_name}`);
+				if (context.results !== "") context.results += ", ";
+				context.results += obj_name; 
+			}
+		}
+		
+		if (count > 0){ //query external ids
 			$.ajax({
 				url : query,
 				dataType: "json",
@@ -66,6 +87,8 @@ var IdNameTooltip_updateTooltip = function(context) {
 			//var y_pos = e.pageY;
 			$(this).prop('title', 'Resolve ID...');  
 		}
+                else $(context.element).prop('title', context.results); //display results directly
+
 		  /*$(this).tooltip({
 			trigger: 'manual',
 			//placement: 'bottom',
@@ -101,18 +124,17 @@ var IdNameTooltip_displayTooltipFromQueryResult = function(context) {
     return function(data) {
     	if (context.debug) console.log(data);
     	var count = 0;
-    	var text = "";
     	for (var key in data.query.results) {
-    		if (count > 0) text += ", ";
+    		if (context.results !== "") context.results += ", ";
 	    	if (data.query.results[key].displaytitle !== undefined) {
 	    		context.displaytitle = data.query.results[key].displaytitle;
 	    		if (context.debug) console.log(context.displaytitle);
-	    		text += context.displaytitle;
+	    		context.results += context.displaytitle;
 	    	}
-	    	else text += "<NOT FOUND>";
+	    	else context.results += "<NOT FOUND>";
 	    	count += 1;
     	}
-		if (count > 0) $(context.element).prop('title', text);  
+		if (context.results !== "") $(context.element).prop('title', context.results);  
 		else $(context.element).prop('title', "<NOT FOUND>");  
 		
     };

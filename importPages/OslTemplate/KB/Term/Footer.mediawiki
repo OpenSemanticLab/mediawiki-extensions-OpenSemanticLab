@@ -16,5 +16,24 @@
 <!-- With format=datatable VE page safe fails!?! -->
 <div class="fileupload-auto-reload">{{#batchupload:OslTemplate:KB/Attachment|{{FULLPAGENAME}}|{{REVISIONUSER}}}}</div>
 {{OslTemplate:Helper/UI/Div/Closing}}
+<!-- Includestatement for wiki-parser, create graphs in browser -->
+== Graph ==
+<div style="width: 100%;" class="InteractiveSemanticGraph">{ "root":"{{FULLPAGENAME}}", "properties":[{{OslTemplate:Helper/StringOps/ConcatLists |{{#arraymap:
+  {{#ask: 
+    [[Category:KB/Relation]]
+    [[HasSubject::{{FULLPAGENAME}}]]
+    |?HasProperty=
+    |mainlabel=-
+    |link=none
+  }}
+|,|__PROP__|"{{#replace:__PROP__|Property:|}}"}} | {{#arraymap:
+  {{#ask: 
+    [[Category:KB/Relation]]
+    [[HasValue::{{FULLPAGENAME}}]]
+    |?HasProperty=
+    |mainlabel=-
+    |link=none
+  }}
+|,|__PROP__|"{{#replace:-__PROP__|Property:|}}"}}}}], "edit": true, "permalink":true, "depth":1, "edge_labels": false}</div>
 
 </includeonly>

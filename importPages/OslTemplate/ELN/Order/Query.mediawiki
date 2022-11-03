@@ -1,0 +1,28 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+</noinclude>
+<includeonly>
+== Ergebnisse ==
+{{#ask: 
+[[Category:ELN/Order]]
+{{#if: {{{id|}}} | [[HasId::~*{{{id|}}}*]] | [[HasId::+]]}}
+<!-- {{#if: {{{name|}}} | [[HasName::~*{{{name|}}}*]] | [[HasName::+]]}} -->
+{{#if: {{{date_from|}}} | [[HasCreationDate::>{{{date_from|}}}]] |}}
+{{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
+{{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
+{{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
+{{#if: {{{project|}}} | [[HasProject::{{{project|}}}]] |}}
+{{#if: {{{orderer|}}} | [[HasOrderer::{{{orderer|}}}]] |}}
+|sort=HasCreationDate
+|order=desc
+|?HasId=ID
+|?HasName=Name
+|?HasCreationDate=Datum 
+|?HasCreator=Ersteller  
+|?HasProject=Projekt
+|?HasKeyword=Keywords 
+|?HasDescription=Beschreibung 
+|format=table 
+|default=Keine Daten gefunden
+}}
+</includeonly>

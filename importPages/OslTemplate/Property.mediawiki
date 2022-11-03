@@ -4,7 +4,8 @@
 
 Form for this template: [[Form:Property]]
 </noinclude>
-<includeonly>{{DISPLAYTITLE:{{{label|}}}}} This is a property of type [[Has type::{{{data_type|Page}}}]]. 
+<includeonly>{{DISPLAYTITLE:{{{label|{{PAGENAME}}}}}}}This is a property of type [[Has type::{{{data_type|Page}}}]]. 
+{{{description|}}}{{#set:|HasDescription={{{description|}}}}}
 {{#if: {{{allowed_value|}}} | Allowed values: 
 {{#arraymap: {{{allowed_value}}} | ; | __VALUE__ | *__VALUE__ | \n }} |}}
 {{#if: {{{service|}}} | Services: 

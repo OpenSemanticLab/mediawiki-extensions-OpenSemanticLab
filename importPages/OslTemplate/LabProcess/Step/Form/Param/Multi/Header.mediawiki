@@ -1,4 +1,4 @@
 <includeonly>{| class="wikitable" 
 | style="width: 140px" |
 | style="width: 470px" | '''Object'''  <nowiki>{{{field|object_id}}} </nowiki>  
-| style="width: 470px" | '''Name'''  <nowiki>{{{field|type|hidden|list|delimiter=;}}}{{{field|name}}}{{{field|label|hidden}}}</nowiki><includeonly>
+| style="width: 470px" | '''Name'''  <nowiki>{{{field|type|hidden|list|delimiter=;}}}{{{field|name}}}{{{field|label|hidden}}}{{{field|id|hidden}}}</nowiki><includeonly>

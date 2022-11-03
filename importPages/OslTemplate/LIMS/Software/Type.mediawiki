@@ -40,6 +40,14 @@
 <th>Repository</th>
 <td>[[HasUrl::{{{repository|}}}]]</td>
 </tr>
+<tr>
+<th>Input</th>
+<td>{{#arraymap:{{{input|}}}|;|__VALUE__|[[HasInput::__VALUE__]]|,}}</td>
+</tr>
+<tr>
+<th>Output</th>
+<td>{{#arraymap:{{{output|}}}|;|__VALUE__|[[HasOutput::__VALUE__]]|,}}</td>
+</tr>
 </table>
 <!-- {{#ask: [[{{FULLPAGENAME}}]]
 |?Category=

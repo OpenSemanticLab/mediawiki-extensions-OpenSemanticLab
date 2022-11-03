@@ -1,0 +1,55 @@
+<noinclude><span class="actionable_button add_action">{{#formlink:form=ELN/Order/Actionable|link text=Add an action|link type=text|query string=|new window}}</span>
+
+<!-- [[Category:Page required for Actionable Extension]] -->
+</noinclude><includeonly>{{{info|edit title=Editing|create title=Creating action|page name={{OslTemplate:ID/UUID |namespace=Action}} }}}
+{{{for template|OslTemplate:ELN/Order/Actionable}}}<!--
+
+BEGIN TABLE FOR META DATA
+
+--><table class="actionable"><!--
+
+SUMMARY
+
+--><tr><td>'''Action'''</td><td>{{{field|SUMMARY|input type=textarea|rows=1|autogrow|mandatory}}}</td></tr><!--
+
+ACTION_STATUS
+
+--><tr><td>'''Status'''</td><td>{{{field|ACTION_STATUS|input type=radiobutton|property=Action status|default=Open|mandatory|show on select=Closed=>ClosedStatus}}}</td></tr><!--
+
+DUE_DATE
+
+--><tr><td>'''Due'''</td><td>{{{field|DUE_DATE|input type=datepicker|default=now}}}</td></tr><!--
+
+ASSIGNED_TO
+--><tr><td>'''Actionees'''</td><td>{{{field|ASSIGNED_TO|input type=tokens|values from category=LIMS/Person/User|mapping property=Display title of|list|delimiter=;}}}</td></tr><!--
+
+LABEL
+
+--><tr><td>'''[[:Category:Label|<span style="color: #ffffff;">Labels</span>]]'''</td><td>{{{field|LABEL|input type=tokens|namespace=Label|values from namespace=Label|mapping property=Alias|list|delimiter=;}}}</td></tr><!--
+
+RELATED_ARTICLE
+
+--><tr><td>'''Related articles'''</td><td><!-- {{{field|RELATED_ARTICLE|input type=SF_Select|values from category=ELN/Order|list|delimiter=;}}} -->{{{field|RELATED_ARTICLE|input type=SF_Select|query=((Category:ELN/Order));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</td></tr><!--
+
+RELATED_OBJECTS
+
+--><tr><td>'''Related Objects'''</td><td>{{{field|RELATED_OBJECTS|input type=SF_Select|query=((IsInputOf::@@@@));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|field=RELATED_ARTICLE|label|list|delimiter=;}}}</td></tr><!--
+
+DETAILS
+
+--><tr><td>'''Details'''</td><td>{{{field|DETAILS|input type=textarea|rows=4|autogrow|editor=visualeditor|class=toolbarOnTop}}}</td></tr><!--
+
+RESOLUTION
+
+--><tr id="ClosedStatus"><td>'''Resolution'''</td><td>{{{field|RESOLUTION|input type=textarea|rows=4|autogrow|editor=wikieditor|class=toolbarOnTop}}}</td></tr></div><!--
+
+--></table><!--
+
+END TABLE FOR META DATA
+
+-->{{{standard input|summary}}}
+
+{{{standard input|watch}}}
+
+{{{standard input|save}}} <!-- {{{standard input|preview}}} {{{standard input|changes}}} --> {{{standard input|cancel}}}
+</includeonly>
