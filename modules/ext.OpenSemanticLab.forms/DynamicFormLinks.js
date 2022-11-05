@@ -5,8 +5,10 @@ REL: modules/ext.OpenSemanticLab.forms/DynamicFormLinks.js
 */
 
 $(document).ready(function() {
-	if( $('.dynamic-page-form-link').length === 0) return; //only on pages with a WellplateEditor-div
+	const selector = '.dynamic-page-form-link, .sidebar-inner';
+	if( $(selector).length === 0) return; //dynamic-page-form-link divs or mw-sidebar
 	var context = {};
+	context.selector = selector;
 	context.debug = true;
 	date = new Date();
 	context.date = date;
@@ -44,7 +46,7 @@ var DynamicFormLinks_receiveUserAbbreviationQuery = function(context) {
 	    		if (context.debug) console.log("HasAbbreviation:" + context.HasAbbreviation);
 	    	}
     	}
-		$('.dynamic-page-form-link').each(function(i) { 
+		$(context.selector).each(function(i) { 
 			//for links
 			$(this).find('a').each(function(i) { 
 				var url = $(this).attr('href');
@@ -70,6 +72,6 @@ var DynamicFormLinks_receiveUserAbbreviationQuery = function(context) {
 				}
 			});
 		});
-		$('.dynamic-page-form-link').css("display","block"); //make visible
+		$(context.selector).css("display","block"); //make visible
     };
 };
