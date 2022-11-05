@@ -5,11 +5,11 @@ REL: modules/ext.OpenSemanticLab.forms/DynamicFormLinks.js
 */
 
 $(document).ready(function() {
-	const selector = '.dynamic-page-form-link, .sidebar-inner';
+	const selector = '.dynamic-page-form-link, #site-navigation';
 	if( $(selector).length === 0) return; //dynamic-page-form-link divs or mw-sidebar
 	var context = {};
 	context.selector = selector;
-	context.debug = true;
+	context.debug = false;
 	date = new Date();
 	context.date = date;
 	context.timestamp_YYYYMMDDHHMMSS = date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + date.getDate()).slice(-2) + ("0" + date.getHours() ).slice(-2) + ("0" + date.getMinutes()).slice(-2) + ("0" + date.getSeconds()).slice(-2);
