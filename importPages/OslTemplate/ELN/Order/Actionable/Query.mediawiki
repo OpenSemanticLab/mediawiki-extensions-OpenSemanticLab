@@ -1,15 +1,18 @@
-<includeonly>
+<noinclude>
+Result for {{REVISIONUSER}}:
+{{{{FULLPAGENAME}} |assigned_to=User:{{REVISIONUSER}} }}
+</noinclude><includeonly>
 === Kalender ===
 {{#ask:
  [[Category:ELN/Order/Actionable]] 
 {{#if:{{{assigned_to|}}}|[[Assigned to::{{{assigned_to|}}}]]|}}
  |?Summary=title
  |?Due date=Has event start
- |?End Date=Has event end
+<!--  |?End Date=Has event end
  |?Details=description     
  |?Has event icon=icon              
  |?Has event color=color
- |?Has event location=location          
+ |?Has event location=location           -->
  |format=eventcalendar
  |defaultview=month
  |start=earliest

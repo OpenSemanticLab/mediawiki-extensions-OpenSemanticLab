@@ -1,0 +1,4 @@
+{{#concept:
+ [[Category:LIMS/Ou]] OR [[Category:LIMS/OU/Organization]]
+ |Categories for Organization Units
+}}

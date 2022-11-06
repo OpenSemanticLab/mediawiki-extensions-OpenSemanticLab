@@ -79,6 +79,10 @@ Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
 <td>[[HasSecretary::{{{ou_secretary|}}}]]</td>
 </tr>
 <tr>
+<th>Mitglieder</th>
+<td>{{#ask: [[Category:LIMS/Person/User]][[HasDepartment::{{FULLPAGENAME}}]]}}</td>
+</tr>
+<tr>
 <th>E-Mail-Veteiler</th>
 <td>{{#arraymap:{{{mailing_list|}}}|;|x|[[HasMailingList::x]]}}</td>
 </tr>

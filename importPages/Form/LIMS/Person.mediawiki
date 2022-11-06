@@ -16,31 +16,31 @@
 | {{{field|image|uploadable|size=25}}}
 |-
 ! Vorname: 
-| {{{field|first_name|mandatory|property=HasFirstName|input type=text|restricted|size=25}}}
+| {{{field|first_name|mandatory|property=HasFirstName|input type=text|size=25}}}
 |-
 ! Nachname: 
-| {{{field|surname|mandatory|property=HasSurname|restricted|size=25}}}
+| {{{field|surname|mandatory|property=HasSurname|size=25}}}
 |-
 ! Funktion(en): 
-| {{{field|person_position|property=HasRole|values from category=Role|input type=tokens|list|delimiter=;|restricted|size=38}}}
+| {{{field|person_position|property=HasRole|values from category=Role|input type=tokens|list|delimiter=;|size=38}}}
 |-
 ! E-Mail: 
-| {{{field|email|property=HasEmail|placeholder=example@example.de|restricted|size=25}}}
+| {{{field|email|property=HasEmail|placeholder=example@example.de|size=25}}}
 |-
 ! Telefon-Nummer(n): 
-| {{{field|phone_number|property=HasPhoneNumber|placeholder=+49|input type=tokens|list|delimiter=;|restricted|size=38}}}
+| {{{field|phone_number|property=HasPhoneNumber|placeholder=+49|input type=tokens|list|delimiter=;|size=38}}}
 |-
 ! Fax: 
-| {{{field|fax_number|property=HasFaxNumber|placeholder=+49|restricted|size=25}}}
+| {{{field|fax_number|property=HasFaxNumber|placeholder=+49|size=25}}}
 |-
-! Abteilung: 
-| {{{field|department|property=HasDepartment|values from category=LIMS/Ou|existing values only|input type=tokens|max values=1|restricted|size=38}}}
+! Unternehmen/Abteilung: 
+| {{{field|ou|property=HasDepartment|values from namespace=OU|existing values only|input type=tokens|max values=1|size=38}}}
 |-
 ! Raum: 
-| {{{field|room|property=HasRoom|values from category=LIMS/Location/Room|existing values only|input type=tokens|max values=1|restricted|size=38}}}
+| {{{field|room|property=HasRoom|values from category=LIMS/Location/Room|existing values only|input type=tokens|max values=1|size=38}}}
 |-
 ! Standort: 
-| {{{field|located_in|property=IsLocatedIn|restricted|size=25}}}
+| {{{field|located_in|property=IsLocatedIn|size=25}}}
 |-
 ! Kompetenz(en):
 | {{{field|competence|property=HasCompetence|values from category=Competence|input type=tokens|list|delimiter=;|size=38}}}

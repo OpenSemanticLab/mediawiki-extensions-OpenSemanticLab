@@ -54,8 +54,8 @@ Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.
 <td> {{#arraymap:{{{role|}}}|;|x|[[HasRole::x]]}}</td>
 </tr>
 <tr>
-<th>Abteilung</th>
-<td>[[HasDepartment::{{{department|}}}]]</td>
+<th>Unternehmen / Abteilung</th>
+<td>{{#if:{{{ou|}}}|[[HasDepartment::OU:{{#replace:{{{ou|}}}|OU:|}}]]|}}</td>
 </tr>
 <tr>
 <td class="subheading" colspan="2">Kontakt</td>

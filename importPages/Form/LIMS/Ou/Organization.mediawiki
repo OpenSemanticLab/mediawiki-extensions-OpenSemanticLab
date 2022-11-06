@@ -12,7 +12,7 @@
 | {{{field|image|uploadable|size=25}}}
 |-
 ! Name: 
-| {{{field|name|property=HasOuName|input type=text|size=25|mandatory|restricted}}}
+| {{{field|name|property=HasOuName|input type=text|size=25|mandatory}}}
 <!-- |-
 ! Langname: 
 | {{{field|long_name|property=HasLongName|input type=text|size=25}}}
@@ -39,7 +39,7 @@
 | {{{field|email|input type=text|delimiter=;|size=45}}}
 <!-- |-
 ! Untergeordnete OE{{#info:Wird automatisch aktualisiert}}: 
-| {{{field|subordinate_ou|property=HasSubordinateOu|delimiter=;|values from category=LIMS/Ou|input type=tokens|size=38|restricted}}} -->
+| {{{field|subordinate_ou|property=HasSubordinateOu|delimiter=;|values from category=LIMS/Ou|input type=tokens|size=38}}} -->
 <!-- |-
 ! Addresse/Koordinaten {{#info:Adresse eingeben oder auf der Karte auswählen}}: 
 | {{{field|location|input type=openlayers}}} -->

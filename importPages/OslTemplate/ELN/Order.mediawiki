@@ -39,7 +39,7 @@
 |maxsize=220
 |maxtags=1000
 }}
-</div> -->{{DISPLAYTITLE: {{#if: {{{name|}}}|{{{name|}}} {{#ifeq: {{{display_id|No}}}|Yes|({{{id}}})}} | {{{id}}} }}
+</div> -->{{DISPLAYTITLE: {{OslTemplate:Helper/Strings/CleanDisplayTitle |{{#if: {{{name|}}}|{{{name|}}} {{#ifeq: {{{display_id|No}}}|Yes|({{{id}}})}} | {{{id}}} }} }}
 }}{{#set:
 |HasId={{{id}}}
 |HasOu={{{ou|}}}

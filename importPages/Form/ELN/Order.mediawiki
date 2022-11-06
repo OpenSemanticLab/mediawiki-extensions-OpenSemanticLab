@@ -24,13 +24,13 @@
 ! Lokale ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden}}<!-- |restricted=nogroup -->
 | <div class="uniquePatternedField sfselect-restricted" data-pattern="${ou_abbreviation}${year}-${unique_number}">{{{field|id|mandatory|property=HasId|size=25|unique}}}</div> 
 |-
-! Name/Kürzel{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
+! Auftragsname/-kürzel{{#info:Jeder Eintrag hat eine eindeutige ID, zusätzlich kann jedoch noch ein Klarnamen vergeben werden}}: 
 | {{{field|name}}}
 |-
 ! Auftraggeber<span style="color:red">*</span>{{#info:Interner oder externer Kunde}}: 
-| {{{field|orderer|input type=combobox|values from category=LIMS/Ou}}}
+| {{{field|orderer|input type=combobox|values from concept=LIMS/Ou}}}
 |-
-! Ansprechpartner<span style="color:red">*</span>{{#info:Kontakt seitens Auftraggeber}}: 
+! Ansprechpartner{{#info:Kontakt seitens Auftraggeber}}: 
 | {{{field|contact|input type=tokens|list|values from category=LIMS/Person|mapping property=Display title of|delimiter=;}}}
 |-
 ! Projekt<span style="color:red">*</span>{{#info:Zugeordnetes Projekt. Von diesem werden auch die Zugriffsrechte übernommen}}: 

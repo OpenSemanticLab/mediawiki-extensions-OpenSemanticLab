@@ -1,0 +1,6 @@
+<noinclude>
+{{{{FULLPAGENAME}} |Title with ,}}
+</noinclude>
+<includeonly><!-- 
+-->{{#replace:{{{1|}}}|,|&#44;}}<!-- remove , due to incompatibility with SF_Select
+--></includeonly>

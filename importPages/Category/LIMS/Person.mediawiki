@@ -1,0 +1,3 @@
+Category of all Persons
+
+{{#default_form:LIMS/Person}}

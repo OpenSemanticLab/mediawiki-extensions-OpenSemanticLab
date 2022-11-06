@@ -32,6 +32,7 @@ class OpenSemanticLab {
 				"Concept:LIMS/Location/Instance" => "Concept/LIMS/Location/Instance.mediawiki",
 				"Concept:LIMS/Material/Category" => "Concept/LIMS/Material/Category.mediawiki",
 				"Concept:LIMS/Object/Category" => "Concept/LIMS/Object/Category.mediawiki",
+				"Concept:LIMS/Ou" => "Concept/LIMS/Ou.mediawiki",
 				"Concept:LIMS/Property/Category" => "Concept/LIMS/Property/Category.mediawiki",
 				"Concept:LIMS/Software/Category" => "Concept/LIMS/Software/Category.mediawiki",
 				"Form:ELN" => "Form/ELN.mediawiki",
@@ -149,6 +150,7 @@ class OpenSemanticLab {
 				"OslTemplate:Helper/StringOps/ConcatLists" => "OslTemplate/Helper/StringOps/ConcatLists.mediawiki",
 				"OslTemplate:Helper/StringOps/SplitOnTripleHashSelectFirst" => "OslTemplate/Helper/StringOps/SplitOnTripleHashSelectFirst.mediawiki",
 				"OslTemplate:Helper/Strings" => "OslTemplate/Helper/Strings.mediawiki",
+				"OslTemplate:Helper/Strings/CleanDisplayTitle" => "OslTemplate/Helper/Strings/CleanDisplayTitle.mediawiki",
 				"OslTemplate:Helper/Strings/EqualSign" => "OslTemplate/Helper/Strings/EqualSign.mediawiki",
 				"OslTemplate:Helper/Strings/No" => "OslTemplate/Helper/Strings/No.mediawiki",
 				"OslTemplate:Helper/Strings/Yes" => "OslTemplate/Helper/Strings/Yes.mediawiki",
@@ -338,6 +340,8 @@ class OpenSemanticLab {
 				"Category:Thing" => "Category/Thing.mediawiki",
 				"Category:Process" => "Category/Process.mediawiki",
 				"Category:Term" => "Category/Term.mediawiki",
+				"Category:LIMS/Person/User" => "Category/LIMS/Person/User.mediawiki",
+				"Category:LIMS/Person" => "Category/LIMS/Person.mediawiki",
 			],
 
 			// base dir for imported pages
