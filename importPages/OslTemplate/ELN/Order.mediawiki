@@ -159,6 +159,7 @@
 }} € -->
 |}}
 
+<div class="custom-section-edit-form-link" data-form-name="ELN/Order" data-purge="true" data-link-label-msg="open-semantic-lab-edit" data-link-tooltip-msg="open-semantic-lab-edit-master-data">
 == Proben ==
 {{#ask: [[IsInputOf::{{FULLPAGENAME}}]]
 |?HasId=ID

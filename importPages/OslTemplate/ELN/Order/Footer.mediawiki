@@ -1,4 +1,4 @@
-<includeonly>{{VisualTest:TestPage/VeExtensions/SectionSeparator |label=Anhang}}
+<includeonly>{{OslTemplate:Helper/UI/VE/SectionSeparator |label=Anhang}}
 <div id="custom-ve-new-section-prepend-anchor"></div>
 == Dokumente ==
 {{OslTemplate:Helper/UI/VE/Visible 

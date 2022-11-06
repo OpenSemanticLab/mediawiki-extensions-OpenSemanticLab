@@ -335,7 +335,6 @@ class OpenSemanticLab {
 				"Template:ELN/Editor/ParamSet" => "Template/ELN/Editor/ParamSet.mediawiki",
 				"OslTemplate:ELN/Editor/ParamSet" => "OslTemplate/ELN/Editor/ParamSet.mediawiki",
 				"CreatePage" => "CreatePage.mediawiki",
-				"MediaWiki:Sidebar" => "MediaWiki/Sidebar.mediawiki",
 				"Category:Object" => "Category/Object.mediawiki",
 				"Category:Thing" => "Category/Thing.mediawiki",
 				"Category:Process" => "Category/Process.mediawiki",
