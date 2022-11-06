@@ -1,5 +1,6 @@
 <noinclude>{{OslTemplate:Helper/Docu/FormTemplate}}
 {{OslTemplate:LIMS/Common/Template |id_postfix=dt}}
+[[OSLCategory::Category:LIMS/Device/Type]]
 </noinclude>
 <includeonly><table class="info_box">
 <tr>
