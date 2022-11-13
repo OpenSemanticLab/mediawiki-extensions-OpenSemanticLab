@@ -70,23 +70,23 @@ BEGIN TABLE FOR META DATA
 
 DUE_DATE
 
---><tr><td>'''Due'''</td><td>{{{DUE_DATE|}}}</td></tr><!--
+--><tr><td>'''{{int:sa-due}}'''</td><td>{{{DUE_DATE|}}}</td></tr><!--
 
 ASSIGNED_TO
 
---><tr><td>'''Actionees'''</td><td>{{#if:{{{ASSIGNED_TO|}}}|{{#arraymap:{{{ASSIGNED_TO|}}}|;|x|[[User:{{#replace:x|User:|}}]]|,}}</td></tr>|}}<!--
+--><tr><td>'''{{int:sa-actionees}}'''</td><td>{{#if:{{{ASSIGNED_TO|}}}|{{#arraymap:{{{ASSIGNED_TO|}}}|;|x|[[User:{{#replace:x|User:|}}]]|,}}</td></tr>|}}<!--
 
 LABEL
 
--->{{#if:{{{LABEL|}}} |<tr><td>'''Labels'''</td><td>{{#arraymap:{{{LABEL|}}}|;|XXX|{{#formredlink:form=Label|link text=XXX|existing page link text=XXX|link type=button|query string=Label[ALIAS]={{#explode:XXX|Label:|1}}|target=XXX|tooltip=Create a page for this label to customize its color|new window}}|,}}</td></tr>|}}<!--
+-->{{#if:{{{LABEL|}}} |<tr><td>'''{{int:sa-labels}}'''</td><td>{{#arraymap:{{{LABEL|}}}|;|XXX|{{#formredlink:form=Label|link text=XXX|existing page link text=XXX|link type=button|query string=Label[ALIAS]={{#explode:XXX|Label:|1}}|target=XXX|tooltip=Create a page for this label to customize its color|new window}}|,}}</td></tr>|}}<!--
 
 RELATED_ARTICLE
 
--->{{#if:{{{RELATED_ARTICLE|}}}|<tr><td>'''Related articles'''</td><td>{{#arraymap:{{{RELATED_ARTICLE|}}}|;|x|[[x]]|,}}</td></tr>|}}<!--
+-->{{#if:{{{RELATED_ARTICLE|}}}|<tr><td>'''{{int:osl-order-actionable-related-articles}}'''</td><td>{{#arraymap:{{{RELATED_ARTICLE|}}}|;|x|[[x]]|,}}</td></tr>|}}<!--
 
 RELATED_OBJECTS
 
--->{{#if:{{{RELATED_OBJECTS|}}}|<tr><td>'''Related objects'''</td><td>{{#arraymap:{{{RELATED_OBJECTS|}}}|;|x|[[x|{{#ask: [[x]]|?Display title of|mainlabel=-|headers=hide|format=plainlist}}]]|,}}</td></tr>|}}</table><!--
+-->{{#if:{{{RELATED_OBJECTS|}}}|<tr><td>'''{{int:osl-order-actionable-related-objects}}'''</td><td>{{#arraymap:{{{RELATED_OBJECTS|}}}|;|x|[[x|{{#ask: [[x]]|?Display title of|mainlabel=-|headers=hide|format=plainlist}}]]|,}}</td></tr>|}}</table><!--
 
 END TABLE FOR META DATA
 
@@ -94,7 +94,7 @@ END TABLE FOR META DATA
 
 RESOLUTION
 
--->{{#if:{{{RESOLUTION|}}}|'''Resolution:'''
+-->{{#if:{{{RESOLUTION|}}}|'''{{int:sa-resolution}}:'''
 
 {{{RESOLUTION|}}}<br />|}}<!--
 
@@ -102,7 +102,7 @@ DETAILS
 
 -->{{#if:{{{DETAILS|}}}|<div style="clear:both;"></div>
 
-'''Details:'''
+'''{{int:sa-details}}:'''
 
 {{{DETAILS|}}}|}}<!--
 
