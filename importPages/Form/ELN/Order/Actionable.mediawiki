@@ -41,7 +41,7 @@ DETAILS
 
 RESOLUTION
 
---><tr id="ClosedStatus"><td>'''{{int:sa-resolution}}'''</td><td>{{{field|RESOLUTION|input type=textarea|rows=4|autogrow|editor=wikieditor|class=toolbarOnTop}}}</td></tr></div<!--
+--><tr id="ClosedStatus"><td>'''{{int:sa-resolution}}'''</td><td>{{{field|RESOLUTION|input type=textarea|rows=4|autogrow|editor=wikieditor|class=toolbarOnTop}}}</td></tr><!--
 
 --></table><!--
 
