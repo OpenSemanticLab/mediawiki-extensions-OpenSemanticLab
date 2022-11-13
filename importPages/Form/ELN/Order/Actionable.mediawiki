@@ -10,7 +10,11 @@ BEGIN TABLE FOR META DATA
 
 SUMMARY
 
---><tr><td>'''{{int:sa-action}}'''</td><td>{{{field|SUMMARY|input type=textarea|rows=1|autogrow|mandatory}}}</td></tr><!--
+--><tr><td>'''{{int:sa-action}}'''</td><td>{{{field|SUMMARY|input type=text|mandatory|size=50}}}</td></tr><!--
+
+DESCRIPTION
+
+--><tr><td>'''{{int:osl-order-actionable-description}}'''{{#info:{{int:osl-order-actionable-description-tooltip}}|note}}</td><td>{{{field|DESCRIPTION|input type=textarea|rows=1|autogrow|maxlength=150}}}</td></tr><!--
 
 ACTION_STATUS
 
@@ -47,7 +51,7 @@ RESOLUTION
 
 END TABLE FOR META DATA
 
--->{{{standard input|summary}}}
+--><!-- {{{standard input|summary}}} -->
 
 {{{standard input|watch}}}
 

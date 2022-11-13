@@ -42,6 +42,7 @@ SET SEMANTIC PROPERTIES
 -->{{#set:
 <!-- |Action ID={{#sub:{{FULLPAGENAME}}|7|0}}  -->
 |Summary={{{SUMMARY|}}}
+|HasDescription={{{DESCRIPTION|}}}
 |Assigned to={{#arraymap:{{{ASSIGNED_TO|}}}|;|x|User:{{#replace:x|User:|}}|;}}|+sep=;
 |Action status={{{ACTION_STATUS|Open}}}
 |Due date={{{DUE_DATE|}}}
@@ -67,6 +68,10 @@ ACTION_STATUS, ACTION_ID, SUMMARY
 BEGIN TABLE FOR META DATA
 
 --><table class="actionable"><!--
+
+RELATED_ARTICLE
+
+-->{{#if:{{{DESCRIPTION|}}}|<tr><td>'''{{int:osl-order-actionable-description}}'''</td><td>{{{DESCRIPTION|}}}</td></tr>|}}<!--
 
 DUE_DATE
 
