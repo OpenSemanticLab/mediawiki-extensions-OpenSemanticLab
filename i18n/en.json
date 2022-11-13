@@ -22,5 +22,7 @@
 	"visualeditor-tool-coloredtext-toolname": "Colored Text",
 	"spreadsheet-editor-spreadsheet": "Spreadsheet",
 	"open-semantic-lab-edit": "edit",
-	"open-semantic-lab-edit-master-data": "edit master data"
+	"open-semantic-lab-edit-master-data": "edit master data",
+	"osl-order-actionable-related-articles": "Related order",
+	"osl-order-actionable-related-objects": "Related objects"
 }
