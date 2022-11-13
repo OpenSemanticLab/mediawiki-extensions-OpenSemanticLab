@@ -23,6 +23,8 @@
 	"spreadsheet-editor-spreadsheet": "Kalkulationstabelle",
 	"open-semantic-lab-edit": "Bearbeiten",
 	"open-semantic-lab-edit-master-data": "Stammdaten bearbeiten",
+	"osl-order-actionable-description": "Kurzbeschreibung",
+	"osl-order-actionable-description-tooltip": "max. 150 Zeichen",
 	"osl-order-actionable-related-articles": "Zugehöriger Auftrag",
 	"osl-order-actionable-related-objects": "Zugehörige Proben"
 }
