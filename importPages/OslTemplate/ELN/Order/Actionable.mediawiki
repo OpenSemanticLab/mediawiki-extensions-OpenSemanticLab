@@ -71,6 +71,10 @@ BEGIN TABLE FOR META DATA
 
 RELATED_ARTICLE
 
+-->{{#ifeq: {{{IS_TEMPLATE|No}}}|Yes|<tr><td>'''{{int:osl-order-actionable-template}}{{#info:{{int:osl-order-actionable-template-tooltip}}|note}}'''</td><td>{{{IS_TEMPLATE|No}}}</td></tr>}}<!--
+
+RELATED_ARTICLE
+
 -->{{#if:{{{DESCRIPTION|}}}|<tr><td>'''{{int:osl-order-actionable-description}}'''</td><td>{{{DESCRIPTION|}}}</td></tr>|}}<!--
 
 DUE_DATE
@@ -113,7 +117,11 @@ DETAILS
 
 APPLY CATEGORY
 
--->[[Category:Actionable]][[Category:ELN/Order/Actionable]]{{#default_form:ELN/Order/Actionable}}{{#set:|HasEditForm=Form:ELN/Order/Actionable}}<!--
+-->[[Category:Actionable]]<!--
+-->[[Category:ELN/Order/Actionable]]<!--
+-->{{#ifeq: {{{IS_TEMPLATE|No}}}|Yes|[[Category:ELN/Order/Actionable/Template]]}}<!--
+-->{{#default_form:ELN/Order/Actionable}}<!--
+-->{{#set:|HasEditForm=Form:ELN/Order/Actionable}}<!--
 
 FREE TEXT APPEARS BELOW
 

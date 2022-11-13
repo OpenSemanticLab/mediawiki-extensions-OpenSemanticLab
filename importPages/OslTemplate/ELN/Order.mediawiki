@@ -159,7 +159,7 @@
 }} € -->
 |}}
 
-<div class="custom-section-edit-form-link" data-form-name="ELN/Order" data-purge="true" data-link-label-msg="open-semantic-lab-edit" data-link-tooltip-msg="open-semantic-lab-edit-master-data">
+<div class="custom-section-edit-form-link" data-form-name="ELN/Order" data-purge="true" data-link-label-msg="open-semantic-lab-edit" data-link-tooltip-msg="open-semantic-lab-edit-master-data"></div>
 == Proben ==
 {{#ask: [[IsInputOf::{{FULLPAGENAME}}]]
 |?HasId=ID
@@ -174,7 +174,7 @@
 }}
 
 == Aufgaben ==
-=== Kanban ===
+<div class="PageBot-Action"></div>
 {{Actionable board
 |All
 |{{FULLPAGENAME}}

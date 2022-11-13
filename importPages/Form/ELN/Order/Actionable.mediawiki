@@ -51,6 +51,17 @@ RESOLUTION
 
 END TABLE FOR META DATA
 
+TEMPLATE OPTION
+
+-->
+<br>
+<br>
+{| class="formtable"
+{{{field|IS_TEMPLATE|input type=checkbox|label={{int:osl-order-actionable-template}}{{#info:{{int:osl-order-actionable-template-tooltip}}|note}}}}}
+{{{field|copy_of|hidden}}}
+|}
+<!--
+
 --><!-- {{{standard input|summary}}} -->
 
 {{{standard input|watch}}}
