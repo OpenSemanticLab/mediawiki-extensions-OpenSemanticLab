@@ -50,12 +50,15 @@ $(document).ready(function () {
             var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
 
             if (config.type === "button") {
-                var button = new OO.ui.ButtonWidget({
-                    label: config.label
-                });
+                //var button = new OO.ui.ButtonWidget({
+                //    label: config.label
+                //});
+                //var $element = button.$element;
                 //button.setIcon( 'templateAdd' ); //does not work
                 //note: msgs need to be resolved here because they are prefetched
-                button.$element.find('a').attr('href', 
+
+                var $element = $('<span class="actionable_button add_action" style="background-color:indigo"><a>' + config.label + '</a></span>');
+                $element.find('a').attr('href', 
                     `javascript:mwjson.editor.createPageDialog({
                         "msg": { 
                             "dialog-title": "${mw.message('open-semantic-lab-create-task')}", 
@@ -70,12 +73,15 @@ $(document).ready(function () {
                         "hide_title": true,
                         "hide_template": false,
                         "hide_template-preview": false,
-                        "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable]]|?Display_title_of=HasDisplayName|?HasDescription"},
-                        "modifications": [{"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )}],
+                        "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable/Template]]|?Display_title_of=HasDisplayName|?HasDescription"},
+                        "modifications": [
+                            {"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )},
+                            {"template": "OslTemplate:ELN/Order/Actionable", "path": "IS_TEMPLATE", "value": 'No'}
+                        ],
                         "redirect": (page) => new mw.Title( page.title ).getUrl({"action": "formedit", "returnto": mw.config.get( 'wgPageName' )})
                     })`
                 )
-                $(this).append(button.$element);
+                $(this).append($element);
             }
             /*mwjson.util.addBarLink({"label": mw.message('open-semantic-lab-copy-page'), 
                 "href": `javascript:mwjson.editor.createPageDialog({

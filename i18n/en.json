@@ -23,6 +23,8 @@
 	"spreadsheet-editor-spreadsheet": "Spreadsheet",
 	"open-semantic-lab-edit": "edit",
 	"open-semantic-lab-edit-master-data": "edit master data",
+	"osl-order-actionable-template": "Use as template",
+	"osl-order-actionable-template-tooltip": "allows reusing this element as a template",
 	"osl-order-actionable-description": "Short description",
 	"osl-order-actionable-description-tooltip": "max. 150 characters",
 	"osl-order-actionable-related-articles": "Related order",
