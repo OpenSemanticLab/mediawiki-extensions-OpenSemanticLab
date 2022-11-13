@@ -76,7 +76,8 @@ $(document).ready(function () {
                         "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable/Template]]|?Display_title_of=HasDisplayName|?HasDescription"},
                         "modifications": [
                             {"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )},
-                            {"template": "OslTemplate:ELN/Order/Actionable", "path": "IS_TEMPLATE", "value": 'No'}
+                            {"template": "OslTemplate:ELN/Order/Actionable", "path": "IS_TEMPLATE", "value": 'No'},
+                            {"template": "OslTemplate:ELN/Order/Actionable", "path": "copy_of", "value": (config) => config.template}
                         ],
                         "redirect": (page) => new mw.Title( page.title ).getUrl({"action": "formedit", "returnto": mw.config.get( 'wgPageName' )})
                     })`
