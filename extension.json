@@ -67,7 +67,8 @@
 			"scripts": [
 				"PageFormsExtensions.js",
 				"DynamicFormLinks.js",
-				"DynamicPageFormsTables.js"
+				"DynamicPageFormsTables.js",
+				"PageBot.js"
 			],
 			"styles": [
 				"DynamicPageFormsTables.css"

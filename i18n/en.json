@@ -1,15 +1,32 @@
 {
 	"@metadata": {
-		"authors": ["Simon Stier"]
+		"authors": [
+			"Simon Stier"
+		]
 	},
 	"open-semantic-lab-desc": "An Open and Semantic Lab Information and Management System based on Semantic MediaWiki",
 	"open-semantic-lab-name": "OpenSemanticLab",
-        "open-semantic-lab-create-page": "Create page",
-        "open-semantic-lab-create-subpage": "Create subpage",
-        "open-semantic-lab-lims-location": "Location",
-        "visualeditor-tool-annotation-toolname": "Annotation",
-        "visualeditor-tool-coloredtext-toolname" : "Colored Text",
-        "spreadsheet-editor-spreadsheet" : "Spreadsheet",
-        "open-semantic-lab-edit": "edit",
-        "open-semantic-lab-edit-master-data": "edit master data"
+	"open-semantic-lab-create-page": "Create page",
+	"open-semantic-lab-create-subpage": "Create subpage",
+	"open-semantic-lab-create-page-dialog-continue": "Continue", 
+	"open-semantic-lab-create-page-dialog-cancel": "Cancel", 
+	"open-semantic-lab-create-page-dialog-title-label": "Name / Title of the new page", 
+	"open-semantic-lab-create-page-dialog-template-label": "Template (optional)", 
+	"open-semantic-lab-create-page-dialog-page-exists-warning": "Page does exist. Overwrite?",
+	"open-semantic-lab-create-task": "Create task",
+	"open-semantic-lab-create-task-from-template": "Create task form template",
+	"open-semantic-lab-copy-page": "Copy",
+	"open-semantic-lab-preview": "Preview",
+	"open-semantic-lab-lims-location": "Location",
+	"visualeditor-tool-annotation-toolname": "Annotation",
+	"visualeditor-tool-coloredtext-toolname": "Colored Text",
+	"spreadsheet-editor-spreadsheet": "Spreadsheet",
+	"open-semantic-lab-edit": "edit",
+	"open-semantic-lab-edit-master-data": "edit master data",
+	"osl-order-actionable-template": "Use as template",
+	"osl-order-actionable-template-tooltip": "allows reusing this element as a template",
+	"osl-order-actionable-description": "Short description",
+	"osl-order-actionable-description-tooltip": "max. 150 characters",
+	"osl-order-actionable-related-articles": "Related order",
+	"osl-order-actionable-related-objects": "Related objects"
 }

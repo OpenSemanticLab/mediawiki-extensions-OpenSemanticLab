@@ -5,9 +5,11 @@ REL: modules/ext.OpenSemanticLab.forms/DynamicFormLinks.js
 */
 
 $(document).ready(function() {
-	if( $('.dynamic-page-form-link').length === 0) return; //only on pages with a WellplateEditor-div
+	const selector = '.dynamic-page-form-link, #site-navigation';
+	if( $(selector).length === 0) return; //dynamic-page-form-link divs or mw-sidebar
 	var context = {};
-	context.debug = true;
+	context.selector = selector;
+	context.debug = false;
 	date = new Date();
 	context.date = date;
 	context.timestamp_YYYYMMDDHHMMSS = date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + date.getDate()).slice(-2) + ("0" + date.getHours() ).slice(-2) + ("0" + date.getMinutes()).slice(-2) + ("0" + date.getSeconds()).slice(-2);
@@ -44,7 +46,7 @@ var DynamicFormLinks_receiveUserAbbreviationQuery = function(context) {
 	    		if (context.debug) console.log("HasAbbreviation:" + context.HasAbbreviation);
 	    	}
     	}
-		$('.dynamic-page-form-link').each(function(i) { 
+		$(context.selector).each(function(i) { 
 			//for links
 			$(this).find('a').each(function(i) { 
 				var url = $(this).attr('href');
@@ -70,6 +72,6 @@ var DynamicFormLinks_receiveUserAbbreviationQuery = function(context) {
 				}
 			});
 		});
-		$('.dynamic-page-form-link').css("display","block"); //make visible
+		$(context.selector).css("display","block"); //make visible
     };
 };

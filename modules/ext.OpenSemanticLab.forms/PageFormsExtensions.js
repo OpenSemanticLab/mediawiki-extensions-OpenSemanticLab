@@ -196,7 +196,7 @@ $(document).ready(function() {
 					$input = $(this);
 					var id = "";//$input.attr('origname');
 					var name = $input.attr('name')
-					if (name) id = name.split('[').pop().split(']')[0]; //select 'id' from 'template[index][id]'
+					if (name) id = name.split('[')[2].split(']')[0]; //select 'id' from 'template[index][id]' or 'template[index][id][]'
 					var value = $input.val();
 					if (id !== "") values[id] = value;
 					//console.log(id, value);
@@ -221,7 +221,7 @@ $(document).ready(function() {
 
 				var id = "";//$input.attr('origname');
 				var name = $input.attr('name')
-				if (name) id = name.split('[').pop().split(']')[0]; //select 'id' from 'template[index][id]'
+				if (name) id = name.split('[')[2].split(']')[0]; //select 'id' from 'template[index][id]' or 'template[index][id][]'
 				if (id !== "" && values[id]) {
 					var value = values[id]
 					$incremented_field_div = $input.parents(".incrementField").first();
@@ -229,7 +229,7 @@ $(document).ready(function() {
 						value = get_incremented_id(pattern, [value], number_pattern, increment); //create incremented value
 					}
 					//console.log("set " + id + " = " + value);
-					$input.val(value);
+					$input.val(value).change();
 				}
 
 			});

@@ -1,15 +1,32 @@
 {
 	"@metadata": {
-		"authors": ["Simon Stier"]
+		"authors": [
+			"Simon Stier"
+		]
 	},
 	"open-semantic-lab-desc": "Ein offenes und semantisches Laborinformations- und managementsystem basierend auf Semantic MediaWiki",
 	"open-semantic-lab-name": "OpenSemanticLab",
-	"open-semantic-lab-create-page": "Seite erstellen",	
+	"open-semantic-lab-create-page": "Seite erstellen",
 	"open-semantic-lab-create-subpage": "Unterseite erstellen",
-    "open-semantic-lab-lims-location": "Standort",
-    "visualeditor-tool-annotation-toolname": "Anmerkung",
-    "visualeditor-tool-coloredtext-toolname" : "Farbiger Text",
-    "spreadsheet-editor-spreadsheet" : "Kalkulationstabelle",
+	"open-semantic-lab-create-page-dialog-continue": "Fortfahren", 
+	"open-semantic-lab-create-page-dialog-cancel": "Abbrechen", 
+	"open-semantic-lab-create-page-dialog-title-label": "Name der neuen Seite", 
+	"open-semantic-lab-create-page-dialog-template-label": "Vorlage (optional)", 
+	"open-semantic-lab-create-page-dialog-page-exists-warning": "Seite exisitiert bereits. Überschreiben?",
+	"open-semantic-lab-create-task": "Aufgabe erstellen",
+	"open-semantic-lab-create-task-from-template": "Aufgabe aus Vorlage erstellen",
+	"open-semantic-lab-copy-page": "Kopieren",
+	"open-semantic-lab-preview": "Vorschau",
+	"open-semantic-lab-lims-location": "Standort",
+	"visualeditor-tool-annotation-toolname": "Anmerkung",
+	"visualeditor-tool-coloredtext-toolname": "Farbiger Text",
+	"spreadsheet-editor-spreadsheet": "Kalkulationstabelle",
 	"open-semantic-lab-edit": "Bearbeiten",
-	"open-semantic-lab-edit-master-data": "Stammdaten bearbeiten"
+	"open-semantic-lab-edit-master-data": "Stammdaten bearbeiten",
+	"osl-order-actionable-template": "Als Vorlage verwenden",
+	"osl-order-actionable-template-tooltip": "Erlaubt die Wiederverwendung dieses Elements als Vorlage",
+	"osl-order-actionable-description": "Kurzbeschreibung",
+	"osl-order-actionable-description-tooltip": "max. 150 Zeichen",
+	"osl-order-actionable-related-articles": "Zugehöriger Auftrag",
+	"osl-order-actionable-related-objects": "Zugehörige Proben"
 }
