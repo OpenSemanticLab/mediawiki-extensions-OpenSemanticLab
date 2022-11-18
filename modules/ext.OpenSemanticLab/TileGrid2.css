@@ -6,8 +6,11 @@
 
 .custom-link-tile2_image img {
   /*height: auto;*/
-  height: 150px;
+  max-height: 150px;
   max-width: 100%;
+  width: auto;
+  height: auto;
+  vertical-align: unset;
 }
 
 .custom-link-tile2_image::before{
@@ -58,7 +61,6 @@
   border-radius: 4px;
   font-weight: 600;
   display: block;
-  width: 100%;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
@@ -105,6 +107,7 @@
 }
 
 .custom-link-tile2_content {
+  height: 100%;
   padding: 1rem;
   background: linear-gradient(to bottom left, #14866d 40%, #2a4b8d 100%);
 }
