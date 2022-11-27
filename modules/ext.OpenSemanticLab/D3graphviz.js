@@ -1,12 +1,15 @@
 $(document).ready(function() {
 	if( $('.graphviz').length === 0 && $('.graphviz-print').length === 0) return; //only on pages with a graphviz-div
-
+    const scriptPath = mw.config.get('wgScriptPath');
     $.when(
-		$.getScript("//d3js.org/d3.v5.min.js"),
-		$.getScript("//unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"),
-		$.getScript("//unpkg.com/d3-graphviz@3.2.0/build/d3-graphviz.js"),
-        $.getScript('//unpkg.com/canvg@3.0.7/lib/umd.js')
+        $.getScript(scriptPath + "/extensions/OpenSemanticLab/modules/ext.OpenSemanticLab/d3.v5.min.js"),
+        $.getScript(scriptPath + "/extensions/OpenSemanticLab/modules/ext.OpenSemanticLab/wasm.min.js"),
+        $.getScript(scriptPath + "/extensions/OpenSemanticLab/modules/ext.OpenSemanticLab/canvg.umd.js"),
+        //mw.loader.using('ext.OpenSemanticLab'),
     ).done(function() {
+        $.when(
+            $.getScript(scriptPath + "/extensions/OpenSemanticLab/modules/ext.OpenSemanticLab/d3-graphviz.min.js"),
+        ).done(function() {
 
                 /*The print functions display the PNG file when printing and reset the PNG file to the SVG file after printing.*/
                 window.onbeforeprint = (event) => {
@@ -142,5 +145,5 @@ $(document).ready(function() {
                     }
                 });
             });
-
+        });
 });
