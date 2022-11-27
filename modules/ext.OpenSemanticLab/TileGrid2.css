@@ -47,10 +47,17 @@
   letter-spacing: 0px;
   font-weight: 600;
   text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+
+  vertical-align: top;
+  position: relative;
+  top: 45px;
 }
 
 .custom-link-tile2_btn {
   text-align: center;
+  display: table-row;
+  vertical-align: bottom;
+  height: 50px;
 }
 
 .custom-link-tile2_btn a{
@@ -65,6 +72,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
   background-image: none !important;
+  height: 48px;
 }
 
 .custom-link-tile2_btn a:hover {
@@ -84,20 +92,38 @@
   padding: 1rem;
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 300px) {
+  .custom-link-tile2_item {
+    width: 100%;
+  }
+}
+
+@media (min-width: 600px) {
   .custom-link-tile2_item {
     width: 50%;
   }
 }
 
-@media (min-width: 56rem) {
+@media (min-width: 1200px) {
   .custom-link-tile2_item {
-    /*width: 33.3333%;*/
+    width: 33.3333%;
+  }
+}
+
+@media (min-width: 1800px) {
+  .custom-link-tile2_item {
     width: 25%;
   }
 }
 
+@media (min-width: 2100px) {
+  .custom-link-tile2_item {
+    width: 20%;
+  }
+}
+
 .custom-link-tile2 {
+  width: 100%;
   background-color: white;
   border-radius: 0.25rem;
   box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
@@ -110,6 +136,7 @@
   height: 100%;
   padding: 1rem;
   background: linear-gradient(to bottom left, #14866d 40%, #2a4b8d 100%);
+  display: table;
 }
 
 .custom-link-tile2_title {
