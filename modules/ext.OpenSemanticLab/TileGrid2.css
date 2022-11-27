@@ -55,6 +55,9 @@
 
 .custom-link-tile2_btn {
   text-align: center;
+  display: table-row;
+  vertical-align: bottom;
+  height: 50px;
 }
 
 .custom-link-tile2_btn a{
@@ -69,6 +72,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
   background-image: none !important;
+  height: 48px;
 }
 
 .custom-link-tile2_btn a:hover {
@@ -132,6 +136,7 @@
   height: 100%;
   padding: 1rem;
   background: linear-gradient(to bottom left, #14866d 40%, #2a4b8d 100%);
+  display: table;
 }
 
 .custom-link-tile2_title {
