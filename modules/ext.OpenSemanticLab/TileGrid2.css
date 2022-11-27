@@ -50,7 +50,7 @@
 
   vertical-align: top;
   position: relative;
-  top: 45px;
+  top: 60px;
 }
 
 .custom-link-tile2_btn {
@@ -60,10 +60,12 @@
   height: 50px;
 }
 
-.custom-link-tile2_btn a{
+.custom-link-tile2_content .custom-link-tile2_btn a{
   color: #ffffff !important;
+  text-decoration-line: none;
+  font-style: unset;
   padding: 0.8rem;
-  font-size: 14px;
+  font-size: 1.1rem;
   text-transform: uppercase;
   border-radius: 4px;
   font-weight: 600;
@@ -136,6 +138,11 @@
   padding: 1rem;
   background: linear-gradient(to bottom left, #14866d 40%, #2a4b8d 100%);
   display: table;
+}
+
+.custom-link-tile2_content a{
+  color: #ffffff !important;
+  text-decoration-line: underline;
 }
 
 .custom-link-tile2_title {
