@@ -1,12 +1,13 @@
 <includeonly>{{#set: Debug={{{debug|{{OslTemplate:Helper/Strings/No}}}}}}}<!-- 
 
--->{{DISPLAYTITLE:{{{id|{{PAGENAME}}}}}}}<!-- 
+-->{{DISPLAYTITLE:{{{id|{{PAGENAME}}}}}}}{{DEFAULTSORTKEY:{{{id|{{PAGENAME}}}}}}}<!-- 
 
 --><div class="custom-section-edit-form-link" data-form-name="LabProcess/Instance" data-link-label-msg="open-semantic-lab-edit" data-link-tooltip-msg="open-semantic-lab-edit-master-data">
 == Stammdaten ==
 </div>{{#set:
 |HasId={{{id|{{PAGENAME}}}}}
 |HasName={{{name|}}}
+|HasStatus={{{status|Term:OSLf474ec34b7df451ea8356134241aef8a}}}
 |HasCreator=User:{{{creator|}}}
 |IsInstanceOf={{{template}}}
 |HasId={{{additional_ids|}}}|+sep=;

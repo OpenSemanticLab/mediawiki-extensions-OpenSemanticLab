@@ -12,6 +12,7 @@
 == Erstellte Instanzen ==
 
 {{#ask: <!-- [[Category:LabObject]] --> [[IsInstanceOf::{{FULLPAGENAME}}]]
+[[HasStatus::Term:OSLf474ec34b7df451ea8356134241aef8a||Term:OSLa2b4567ad4874ea1b9adfed19a3d06d1||Term:OSLaa8d29404288446a9f3ec7afa4e2a512]]
 |?HasCreationDate=Datum
 |?HasProject=Projekt
 |?HasCreator=Ersteller

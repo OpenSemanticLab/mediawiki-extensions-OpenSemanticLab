@@ -22,6 +22,6 @@
 | <div class='sfselect-restricted'><nowiki>{{{field|</nowiki>nominal_instance<nowiki>|input type=SF_Select|query=((Category:LabObject));?Display_title_of;format~plain;sep~,;link~none;headers~hide;limit~1000|sametemplate|label}}}</nowiki></div>
 <!-- INSTANCE -->
 <!-- | '''Ist''' | -->
-| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@));?Display_title_of;?NumberOfEntities;format~plain;sep~,;link~none;headers~hide;sort~HasNumberOfEntities ;order~desc;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|<!--mandatory-->}}}</nowiki>
+| <nowiki>{{{field|</nowiki>actual_instance<nowiki>|input type=SF_Select|query=((IsInstanceOf::@@@@))((IsOutputOf.HasStatus::Term:OSLf474ec34b7df451ea8356134241aef8a))OR((IsInstanceOf::@@@@))((IsOutputOf.HasStatus::Term:OSLa2b4567ad4874ea1b9adfed19a3d06d1))OR((IsInstanceOf::@@@@))((IsOutputOf.HasStatus::Term:OSLaa8d29404288446a9f3ec7afa4e2a512));?Display_title_of;?NumberOfEntities;format~plain;sep~,;link~none;headers~hide;sort~HasNumberOfEntities ;order~desc;limit~1000|sametemplate|field=</nowiki>actual_type<nowiki>|label|<!--mandatory-->}}}</nowiki>
 |}<nowiki>{{{field|actual_instance_static|hidden|class=hide-instance-when-filled}}}</nowiki>
 <nowiki>{{{end template}}}</nowiki></includeonly>
