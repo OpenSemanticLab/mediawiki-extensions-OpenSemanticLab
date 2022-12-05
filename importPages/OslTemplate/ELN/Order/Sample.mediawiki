@@ -7,7 +7,7 @@ Edit the page to see the template text.
 |@category=ELN/Order/Sample
 |HasId={{{id|}}}
 |HasName={{{name|}}}
-|Display title of={{{name|{{{id|}}}}}}
+|Display title of={{OslTemplate:Helper/Strings/CleanDisplayTitle |{{{name|{{{id|}}}}}}}}
 |IsInputOf={{FULLPAGENAME}}
 |HasReceiptDate={{{receipt_date|}}}
 |HasDescription={{{description|}}}
