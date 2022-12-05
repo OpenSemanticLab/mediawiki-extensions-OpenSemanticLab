@@ -2,7 +2,7 @@
 Result for {{REVISIONUSER}}:
 {{{{FULLPAGENAME}} |assigned_to=User:{{REVISIONUSER}} }}
 </noinclude><includeonly>
-=== Kalender ===
+{{#ifeq: {{{is_template|No}}}|No|=== Kalender ===
 {{#ask:
  [[Category:ELN/Order/Actionable]] 
 {{#if:{{{assigned_to|}}}|[[Assigned to::{{{assigned_to|}}}]]|}}
@@ -16,5 +16,13 @@ Result for {{REVISIONUSER}}:
  |format=eventcalendar
  |defaultview=month
  |start=earliest
+}}
+|{{#ask:
+ [[Category:ELN/Order/Actionable/Template]] 
+{{#if:{{{assigned_to|}}}|[[Assigned to::{{{assigned_to|}}}]]|}}
+ |?Summary=Name
+ |?HasDescription=Kurzbeschreibung
+ |format=table
+}}
 }}
 </includeonly>

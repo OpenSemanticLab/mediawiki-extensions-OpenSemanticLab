@@ -20,6 +20,9 @@ Formular zur Suche nach Laboraufgaben
 |-
 ! Verantwortliche Person: 
 | {{{field|assigned_to|values from category=LIMS/Person/User|input type=dropdown|default=current user}}}
+|-
+! Als Vorlage markiert: 
+| {{{field|is_template|input type=checkbox|default=No}}}
 <!-- |-
 ! Auftraggeber: 
 | {{{field|orderer|values from category=LIMS/Ou|input type=combobox}}}
