@@ -37,6 +37,7 @@
 			"localBasePath": "modules/ext.OpenSemanticLab",
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
 			"scripts": [
+				"osl.js",
 				"Tiles.js",
 				"DynamicSidebar.js",
 				"D3graphviz.js"
