@@ -83,6 +83,14 @@
 				"LimsInfoBox.css"
 			],
 			"position": "top"
+		},
+		"ext.OpenSemanticLab.print": {
+			"localBasePath": "modules/ext.OpenSemanticLab.print",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.print",
+			"scripts": [
+				"html2pdf.bundle.min.js"
+			],
+			"position": "top"
 		}
 	},
 	"namespaces": [
