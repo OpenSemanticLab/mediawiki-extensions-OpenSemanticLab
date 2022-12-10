@@ -27,6 +27,7 @@ $(document).ready(function () {
             "open-semantic-lab-create-page-dialog-page-exists-warning",
             "open-semantic-lab-create-task",
             "open-semantic-lab-create-task-from-template",
+            "open-semantic-lab-edit-page-slots",
             "open-semantic-lab-preview",
         ])
     ).done(function () {
@@ -105,6 +106,12 @@ $(document).ready(function () {
             "label": mw.message('open-semantic-lab-print-page'),
             "href": `javascript:osl.ui.printPage();`
         });
+
+        //Create Print link in the page tools sidebar
+        mwjson.util.addBarLink({
+            "label": mw.message('open-semantic-lab-edit-page-slots'),
+            "href": `javascript:osl.ui.editSlots();`
+        });
     });
 });
 
@@ -143,7 +150,8 @@ osl.ui = class {
 
         $.when(
             mw.loader.using('ext.OpenSemanticLab.print'),
-            new mw.Api().loadMessagesIfMissing(msgs)
+            new mw.Api().loadMessagesIfMissing(msgs),
+            mwjson.editor.init()
         ).done(function () {
 
             config.schema = {
@@ -235,6 +243,45 @@ osl.ui = class {
                         pdfObject.save($('#firstHeading').text().replace(' ','_') + ".pdf");
                     })
             }
+            var editor = new mwjson.editor(config)
+        });
+    }
+
+    static editSlots() {
+
+        var config = {
+            JSONEditorConfig: {disable_collapse: true},
+            popupConfig: {			
+                msg: {
+                    "dialog-title": mw.message('open-semantic-lab-print-settings').plain(),
+                    "continue": mw.message('open-semantic-lab-print-page').plain(), 
+                    "cancel": mw.message('open-semantic-lab-create-page-dialog-cancel').plain(), 
+                }
+            }
+        };
+
+        $.when(
+            //mw.loader.using('ext.mwjson.editor.ace'),
+            mwjson.api.getPage(mw.config.get( 'wgPageName' )),
+            mwjson.editor.init()
+        ).done(function (page) {
+
+            config.schema = page.schema;
+            config.data = page.slots;
+
+            config.onsubmit = (slots) => {
+                
+                page.slots = slots;
+                console.log(page.slots);
+                for (var slot_key of Object.keys(page.slots)) {
+                    page.slots_changed[slot_key] = true;
+                }
+                mwjson.api.updatePage(page).done((page) => {
+                    window.location.href = window.location.href; //reload page
+                });
+                
+            }
+            config.popupConfig = {size: "larger"}
             var editor = new mwjson.editor(config)
         });
     }
