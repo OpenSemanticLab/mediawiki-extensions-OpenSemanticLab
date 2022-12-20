@@ -12,31 +12,46 @@ Formular zur Suche nach Laboraufträgen
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 {{{for template|OslTemplate:ELN/Order/Query}}}
 {| class="formtable"
+|-
 ! ID{{#info:IDs können sowohl vollständig als auch teilweise mit * eingegeben werden}}: 
 | {{{field|id|values from property=HasId}}}
-<!-- |-
-! Name{{#info:Name des Eintrages (oder ein Teil davon)}}: 
-| {{{field|name|input type=combobox|values from property=HasName}}} -->
 |-
-! Ersteller: 
-| {{{field|creator|values from concept=ELN/Entry/Creator|input type=dropdown|default=current user}}}
+! Abteilung/Labor{{#info: Ausführende Stelle}}
+| {{{field|ou_abbreviation|input type=dropdown|values from property=HasOuAbbreviation|strict}}}
 |-
-! Auftraggeber: 
-| {{{field|orderer|values from category=LIMS/Ou|input type=combobox}}}
+! Ersteller{{#info:Ersteller der Auftrages}}: 
+| {{{field|creator|values from concept=ELN/Order/Creator|input type=dropdown|default=current user}}}
 |-
-! Projekt: 
-| {{{field|project|values from category=LIMS/Project/Part|input type=combobox}}}
+! Auftragsname/-kürzel{{#info:Name des Eintrages (oder ein Teil davon)}}: 
+| {{{field|name|input type=combobox|values from property=HasName}}}
 |-
-! Älter als: 
-| {{{field|date_to|input type=datepicker}}}
+! Auftraggeber{{#info:Interner oder externer Kunde}}: 
+| {{{field|orderer|input type=combobox|values from concept=LIMS/Ou}}}
 |-
-! Jünger als: 
-| {{{field|date_from|input type=datepicker}}}
+! Ansprechpartner{{#info:Kontakt seitens Auftraggeber}}: 
+| {{{field|contact|input type=dropdown|values from category=LIMS/Person|mapping property=Display title of}}}
 |-
-! Keyword: 
+! Projekt{{#info:Zugeordnetes Projekt. Von diesem werden auch die Zugriffsrechte übernommen}}: 
+| {{{field|project|input type=combobox|values from category=LIMS/Project/Part}}}
+|-
+! Angebotsnummer{{#info:Zugeordnetes Angebot}}: 
+| {{{field|offer|input type=dropdown|values from property=HasOffer|strict}}}
+|-
+! Schlagwörter{{#info:Dem Eintrag zugeordnete Schlagwörter}}: 
 | {{{field|keyword|input type=dropdown|values from property=HasKeyword|strict}}}
+|-
+! Bearbeitet von{{#info:Person, die den Auftrag bearbeitet}}: 
+| {{{field|agents|input type=combobox|values from category=LIMS/Person/User|mapping property=Display title of}}}
+|-
+! Älter als{{#info:Das Erstelldatum muss vor diesem Zeitpunkt liegen}}: 
+| {{{field|creation_date_to|input type=datepicker}}}
+|-
+! Jünger als{{#info:Das Erstelldatum muss nach diesem Zeitpunkt liegen}}: 
+| {{{field|creation_date_from|input type=datepicker}}}
 |}
 {{{end template}}}
+
+
 
 {{{standard input|run query}}}
 </includeonly>

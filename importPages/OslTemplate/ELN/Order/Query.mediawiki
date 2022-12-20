@@ -6,13 +6,17 @@
 {{#ask: 
 [[Category:ELN/Order]]
 {{#if: {{{id|}}} | [[HasId::~*{{{id|}}}*]] | [[HasId::+]]}}
-<!-- {{#if: {{{name|}}} | [[HasName::~*{{{name|}}}*]] | [[HasName::+]]}} -->
+{{#if: {{{ou_abbreviation|}}} | [[HasOuAbbreviation::{{{ou_abbreviation|}}}]] |}}
+{{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
+{{#if: {{{name|}}} | [[HasName::~*{{{name|}}}*]] | [[HasName::+]]}}
+{{#if: {{{orderer|}}} | [[HasOrderer::{{{orderer|}}}]] |}}
+{{#if: {{{contact|}}} | [[HasContact::{{{contact|}}}]] |}}
+{{#if: {{{project|}}} | [[HasProject::{{{project|}}}]] |}}
+{{#if: {{{offer|}}} | [[HasOffer::{{{offer|}}}]] |}}
+{{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
+{{#if: {{{agents|}}} | [[HasAgent::{{{agents|}}}]] |}}
 {{#if: {{{date_from|}}} | [[HasCreationDate::>{{{date_from|}}}]] |}}
 {{#if: {{{date_to|}}} | [[HasCreationDate::<{{{date_to|}}}]] |}}
-{{#if: {{{keyword|}}} | [[HasKeyword::{{{keyword|}}}]] |}}
-{{#if: {{{creator|}}} | [[HasCreator::{{{creator|}}}]] |}}
-{{#if: {{{project|}}} | [[HasProject::{{{project|}}}]] |}}
-{{#if: {{{orderer|}}} | [[HasOrderer::{{{orderer|}}}]] |}}
 |sort=HasCreationDate
 |order=desc
 |?HasId=ID
@@ -21,7 +25,9 @@
 |?HasCreator=Ersteller  
 |?HasProject=Projekt
 |?HasKeyword=Keywords 
-|?HasDescription=Beschreibung 
+|?HasDescription=Beschreibung
+<!-- |?-Related article=Aufgaben
+|?-Related article.Label=Status -->
 |format=table 
 |default=Keine Daten gefunden
 }}

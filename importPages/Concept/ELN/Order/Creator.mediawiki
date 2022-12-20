@@ -1,0 +1,4 @@
+{{#concept:
+ [[-HasCreator::<q>[[Category:ELN/Order]]</q>]]
+ |Creators of lab orders
+}}

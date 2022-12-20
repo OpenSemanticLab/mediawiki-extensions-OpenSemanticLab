@@ -1,6 +1,5 @@
 <includeonly> <!-- __NOCACHE__ --> <div style="display:none">{{#if: {{{project|}}} |{{{{{project}}}/_acl}} }}</div><!-- {{#ifexist: {{{project|}}}/_acl |{{{{{project}}}/_acl}} }} --><!-- inherit permissions -->
-<div class="custom-section-edit-form-link" data-form-name="ELN/Order" data-purge="true" data-link-label-msg="open-semantic-lab-edit" data-link-tooltip-msg="open-semantic-lab-edit-master-data"><!--
---><table class="info_box">
+<table class="info_box print-section-qr-code">
 <tr>
 <th class="heading" colspan="2">{{{id}}}</th>
 </tr>
@@ -14,7 +13,8 @@
 <th>ID</th>
 <td>{{PAGENAME}}</td>
 </tr> -->
-</table>
+</table><!-- section-qr-code
+--><div class="print-section-master-data"><div class="custom-section-edit-form-link" data-form-name="ELN/Order" data-purge="true" data-link-label-msg="open-semantic-lab-edit" data-link-tooltip-msg="open-semantic-lab-edit-master-data">
 == Stammdaten ==
 </div>
 <!-- {{OslTemplate:Helper/UI/VE/Visible |content=Stammdaten bearbeiten}}
@@ -42,6 +42,7 @@
 </div> -->{{DISPLAYTITLE: {{OslTemplate:Helper/Strings/CleanDisplayTitle |{{#if: {{{name|}}}|{{{name|}}} {{#ifeq: {{{display_id|No}}}|Yes|({{{id}}})}} | {{{id}}} }} }}
 }}{{#set:
 |HasId={{{id}}}
+|HasOuAbbreviation={{{ou_abbreviation|}}}
 |HasOu={{{ou|}}}
 |HasName={{{name|}}}
 |HasCreator=User:{{{creator|}}}
@@ -136,7 +137,7 @@
 <th>Beschreibung</th>
 <td>{{{description|}}}</td>
 </tr>
-</table>
+</table></div> <!-- section-master-data -->
 <!-- {{#ifeq: {{OslTemplate:Helper/Query/Plain |property=HasType}} | collection | -->
 {{#ifeq: {{{collection|}}} | Yes | [[Category:ELN/Entry/Collection]]
 == Sammlung ==
@@ -174,7 +175,7 @@
 }}
 
 == Aufgaben ==
-<div class="PageBot-Action"></div>
+<div class="noprint"><div class="PageBot-Action"></div>
 {{Actionable board
 |All
 |{{FULLPAGENAME}}
@@ -182,7 +183,17 @@
 |False
 |View
 |{{FULLPAGENAME}}
-|ELN/Order/Actionable|OslTemplate:ELN/Order/Actionable}}
+|ELN/Order/Actionable|OslTemplate:ELN/Order/Actionable}}</div>
+
+<div class="printonly">{{#ask:[[Related article::{{FULLPAGENAME}}]]
+|?Display title of=Name
+|?Related article=Auftrag/Proben
+|?HasDescription=Beschreibung
+|?Label=Label
+|?Due date=Fällig
+|sort=Due date
+|format=table
+}}</div>
 
 <!-- === Kalender ===
 {{#ask:

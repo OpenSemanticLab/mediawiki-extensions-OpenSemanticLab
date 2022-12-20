@@ -15,9 +15,9 @@
 |redirects=HasUrl<!-- Links direct to download -->
 }} <!-- With format=table chem and math formular fail to render on page!?! -->
 <!-- With format=datatable VE page safe fails!?! -->
-<div class="fileupload-auto-reload">{{#batchupload:OslTemplate:ELN/Attachment|{{FULLPAGENAME}}|{{REVISIONUSER}}}}</div>
+<div class="fileupload-auto-reload noprint">{{#batchupload:OslTemplate:ELN/Attachment|{{FULLPAGENAME}}|{{REVISIONUSER}}}}</div>
 {{OslTemplate:Helper/UI/Div/Closing}}
 
-{{OslTemplate:ELN/Attachment/Verification}}
+<!-- {{OslTemplate:ELN/Attachment/Verification}} -->
 [[Category:ELN/Order]]
 </includeonly>
