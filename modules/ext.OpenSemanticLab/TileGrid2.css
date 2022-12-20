@@ -143,6 +143,7 @@
 .custom-link-tile2_content a{
   color: #ffffff !important;
   text-decoration-line: underline;
+  font-style: italic;
 }
 
 .custom-link-tile2_title {
