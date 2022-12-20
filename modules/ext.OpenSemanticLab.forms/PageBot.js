@@ -33,7 +33,8 @@ $(document).ready(function () {
     ).done(function () {
 
         //Create Copy link in the page tools sidebar
-        mwjson.util.addBarLink({
+        //ToDo: Only in namespace main, otherwise (uu)ids need to be changed
+        /*mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-copy-page'),
             "href": `javascript:mwjson.editor.createCopyPageDialog({
                 "msg": {
@@ -44,7 +45,7 @@ $(document).ready(function () {
                     "page-exists-warning": "${mw.message('open-semantic-lab-create-page-dialog-page-exists-warning')}",
                 }
             })`
-        });
+        });*/
 
         $(".PageBot-Action").each(function () {
             //see also: https://www.mediawiki.org/wiki/Manual:Interface/JavaScript
@@ -108,10 +109,10 @@ $(document).ready(function () {
         });
 
         //Create Print link in the page tools sidebar
-        mwjson.util.addBarLink({
+        /*mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-edit-page-slots'),
             "href": `javascript:osl.ui.editSlots();`
-        });
+        });*/
     });
 });
 
@@ -282,6 +283,7 @@ osl.ui = class {
                 
             }
             config.popupConfig = {size: "larger"}
+            config.popupConfig.toggle_fullscreen = true;
             var editor = new mwjson.editor(config)
         });
     }
