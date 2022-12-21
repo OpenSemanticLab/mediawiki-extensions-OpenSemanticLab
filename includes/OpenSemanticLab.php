@@ -25,6 +25,7 @@ class OpenSemanticLab {
 				"Category:Software" => "Category/Software.mediawiki",
 				"Category:Tool" => "Category/Tool.mediawiki",
 				"Concept:ELN/Entry/Creator" => "Concept/ELN/Entry/Creator.mediawiki",
+				"Concept:ELN/Order/Creator" => "Concept/ELN/Order/Creator.mediawiki",
 				"Concept:LIMS/Device/Category" => "Concept/LIMS/Device/Category.mediawiki",
 				"Concept:LIMS/Device/Instance" => "Concept/LIMS/Device/Instance.mediawiki",
 				"Concept:LIMS/Device/Type" => "Concept/LIMS/Device/Type.mediawiki",
