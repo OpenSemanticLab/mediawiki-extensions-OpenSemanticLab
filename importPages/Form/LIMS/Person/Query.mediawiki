@@ -1,0 +1,42 @@
+<noinclude>
+Formular zur Suche nach Personen
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#queryformlink:form={{PAGENAME}}}}
+
+{{Special:RunQuery/{{PAGENAME}}}}
+
+</noinclude>
+<includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Person/Query}}}
+{| class="formtable"
+! Vorname: 
+| {{{field|first_name|property=HasFirstName|input type=text|size=25}}}
+|-
+! Nachname: 
+| {{{field|surname|property=HasSurname|size=25}}}
+<!-- |-
+! Funktion(en): 
+| {{{field|person_position|property=HasRole|values from category=Role|input type=tokens|list|delimiter=;|size=38}}} -->
+|-
+! Unternehmen/Abteilung: 
+| {{{field|ou|property=HasDepartment|values from property=HasDepartment|existing values only|input type=combobox|mapping property=Display title of}}}
+<!-- |-
+! Raum: 
+| {{{field|room|property=HasRoom|values from category=LIMS/Location/Room|existing values only|input type=combobox|size=38}}} -->
+<!-- |-
+! Standort: 
+| {{{field|located_in|property=IsLocatedIn|values from property=IsLocatedIn|size=25}}} -->
+<!-- |-
+! Kompetenz(en):
+| {{{field|competence|property=HasCompetence|values from category=Competence|input type=tokens|list|delimiter=;|size=38}}}
+|-
+! Themenfeld(er):
+| {{{field|topic|property=HasTopic|values from category=Topic|input type=tokens|list|delimiter=;|size=38}}} -->
+|}
+{{{end template}}}
+
+{{{standard input|run query}}}
+</includeonly>

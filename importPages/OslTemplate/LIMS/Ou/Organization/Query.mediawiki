@@ -1,0 +1,21 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+</noinclude>
+<includeonly>
+== Ergebnisse ==
+
+{{#ask: 
+[[Category:LIMS/Ou]]
+{{#if: {{{name|}}} | [[HasName::~*{{{name|}}}*]] | }}
+{{#if: {{{superordinate_ou|}}} | [[HasSuperordinateOu::{{{superordinate_ou|}}}]] |}}
+<!-- |sort=HasSurname 
+|order=desc-->
+|?HasSuperordinateOu=Übergeordnete Abteilung/Organisation
+|?IsLocatedIn=Standort
+<!-- |?HasPhoneNumber=Telefon -->
+|?HasEmail=Email
+|?HasUrl=Website
+|format=table 
+|default=Keine Daten gefunden
+}}
+</includeonly>

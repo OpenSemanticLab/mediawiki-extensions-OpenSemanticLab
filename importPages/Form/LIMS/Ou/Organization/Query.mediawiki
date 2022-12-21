@@ -1,0 +1,24 @@
+<noinclude>
+Formular zur Suche nach Organisationen
+
+{{OslTemplate:Helper/Docu/FormTemplate}}
+
+{{#queryformlink:form={{PAGENAME}}}}
+
+{{Special:RunQuery/{{PAGENAME}}}}
+
+</noinclude>
+<includeonly>
+<div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
+{{{for template|OslTemplate:LIMS/Ou/Organization/Query}}}
+{| class="formtable"
+! Name: 
+| {{{field|name|property=HasOuName|input type=text|size=25|mandatory}}}
+|-
+! Übergeordnete Abteilung/Organisation: 
+| {{{field|superordinate_ou|property=HasSuperordinateOu|values from property=HasSuperordinateOu|existing values only|input type=combobox|mapping property=Display title of|size=38}}}
+|}
+{{{end template}}}
+
+{{{standard input|run query}}}
+</includeonly>

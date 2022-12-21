@@ -20,9 +20,9 @@
 |-
 ! Nachname: 
 | {{{field|surname|mandatory|property=HasSurname|size=25}}}
-|-
+<!-- |-
 ! Funktion(en): 
-| {{{field|person_position|property=HasRole|values from category=Role|input type=tokens|list|delimiter=;|size=38}}}
+| {{{field|person_position|property=HasRole|values from category=Role|input type=tokens|list|delimiter=;|size=38}}} -->
 |-
 ! E-Mail: 
 | {{{field|email|property=HasEmail|placeholder=example@example.de|size=25}}}
@@ -35,7 +35,7 @@
 |-
 ! Unternehmen/Abteilung: 
 | {{{field|ou|property=HasDepartment|values from namespace=OU|existing values only|input type=tokens|max values=1|size=38}}}
-|-
+<!-- |-
 ! Raum: 
 | {{{field|room|property=HasRoom|values from category=LIMS/Location/Room|existing values only|input type=tokens|max values=1|size=38}}}
 |-
@@ -46,7 +46,7 @@
 | {{{field|competence|property=HasCompetence|values from category=Competence|input type=tokens|list|delimiter=;|size=38}}}
 |-
 ! Themenfeld(er):
-| {{{field|topic|property=HasTopic|values from category=Topic|input type=tokens|list|delimiter=;|size=38}}}
+| {{{field|topic|property=HasTopic|values from category=Topic|input type=tokens|list|delimiter=;|size=38}}} -->
 |}
 {{{end template}}}
 <!-- '''Freitext:'''

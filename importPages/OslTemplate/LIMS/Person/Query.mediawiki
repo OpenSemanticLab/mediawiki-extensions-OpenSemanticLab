@@ -1,0 +1,31 @@
+<noinclude>
+{{OslTemplate:Helper/Docu/FormTemplate}}
+</noinclude>
+<includeonly>
+== Ergebnisse ==
+
+{{#ask: 
+[[Category:LIMS/Person]]
+{{#if: {{{name|}}} | [[HasName::~*{{{name|}}}*]] | }}
+{{#if: {{{first_name|}}} | [[HasFirstName::~*{{{first_name|}}}*]] | }}
+{{#if: {{{surname|}}} | [[HasSurname::~*{{{surname|}}}*]] | }}
+{{#if: {{{person_position|}}} | [[HasRole::{{{person_position|}}}]] |}}
+{{#if: {{{ou|}}} | [[HasDepartment::{{{ou|}}}]] |}}
+{{#if: {{{room|}}} | [[HasRoom::{{{room|}}}]] |}}
+{{#if: {{{located_in|}}} | [[IsLocatedIn::{{{located_in|}}}]] |}}
+{{#if: {{{competence|}}} | [[HasCompetence::{{{competence|}}}]] |}}
+{{#if: {{{topic|}}} | [[HasTopic::{{{topic|}}}]] |}}
+<!-- |sort=HasSurname 
+|order=desc-->
+|?HasFirstName=Vorname
+|?HasSurname=Nachname
+|?HasRole=Funktion
+|?HasDepartment=Abteilung
+|?IsLocatedIn=Standort
+|?HasRoom=Raum
+|?HasPhoneNumber=Telefon
+|?HasEmail=Email
+|format=table 
+|default=Keine Daten gefunden
+}}
+</includeonly>
