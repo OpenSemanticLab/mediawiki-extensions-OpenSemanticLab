@@ -81,7 +81,7 @@
 {| class="formtable"
 |-
 ! ID{{#info: Wird automatisch generiert, kann bei Bedarf jedoch geändert werden|note}}
-| <div class="incrementField sfselect-restricted" data-pattern="O${unique_number}" data-number-pattern="0000" data-increment="1" data-start-value="O0001">{{{field|id|mandatory|property=HasId|size=25}}}</div> 
+| <div class="incrementField sfselect-restricted" data-pattern="P${unique_number}" data-number-pattern="00" data-increment="1" data-start-value="P01">{{{field|id|mandatory|property=HasId|size=25}}}</div> 
 ! Eingangsdatum<span style="color:red">*</span>{{#info:Zeitpunkt, an dem die Probe eingegangen ist|note}}: 
 | {{{field|receipt_date|input type=datetimeflatpicker|format=d.m.Y H:i|default=now}}}
 |-
