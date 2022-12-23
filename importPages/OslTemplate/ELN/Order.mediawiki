@@ -165,7 +165,7 @@
 {{#ask: [[IsInputOf::{{FULLPAGENAME}}]]
 |?HasId=ID
 |?HasName=Name
-|?HasReceiptDate=Eingangsdatum
+|?HasReceiptDate#LOCL@TO=Eingangsdatum
 |?HasDescription=Beschreibung
 |?HasTargetStatus=Nach Verwendung
 |?HasFileAttachment=Anhang
@@ -190,7 +190,7 @@
 |?Related article=Auftrag/Proben
 |?HasDescription=Beschreibung
 |?Label=Label
-|?Due date=Fällig
+|?Due date=Fällig#LOCL@TO
 |sort=Due date
 |format=table
 }}</div>
