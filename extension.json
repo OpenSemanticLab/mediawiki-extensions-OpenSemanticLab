@@ -95,6 +95,18 @@
 	},
 	"namespaces": [
 		{
+			"id": 7000,
+			"constant": "NS_Item",
+			"name": "Item",
+			"subpages": true
+		},
+		{
+			"id": 7001,
+			"constant": "NS_ITEM_TALK",
+			"name": "Item_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
+		{
 			"id": 7010,
 			"constant": "NS_MATERIAL",
 			"name": "Material",
@@ -341,6 +353,7 @@
 	"config": {
 		"smwgNamespacesWithSemanticLinks": {
 			"value": {
+				"7000": true,
 				"7010": true,
 				"7020": true,
 				"7022": true,
@@ -366,6 +379,7 @@
 		"wgNamespacesToBeSearchedDefault": {
 			"value": {
 				"2": true,
+				"7000": true,
 				"7010": true,
 				"7020": true,
 				"7030": true,
@@ -402,6 +416,7 @@
 	"attributes": {
 		"VisualEditor": {
 			"AvailableNamespaces": {
+				"7000": true,
 				"7010": true,
 				"7020": true,
 				"7022": true,
