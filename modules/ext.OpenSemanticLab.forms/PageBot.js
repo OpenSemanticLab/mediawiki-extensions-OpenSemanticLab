@@ -131,7 +131,7 @@ $(document).ready(function () {
         //Create Slot edit link in the page tools sidebar
         mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-edit-page-slots'),
-            "href": `javascript:osl.ui.editSlots();`
+            "href": `javascript:osl.ui.editSlots({"include": ["jsonschema", "jsondata"], "hide": ["footer", "header"]});`
         });
 
         if (mw.config.get( 'wgPageName' ).startsWith("Category:") && !["Category:Category", "Category:Entity"].includes(mw.config.get( 'wgPageName' ))) {
@@ -358,6 +358,14 @@ osl.ui = class {
                 if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
 
                 if (dataslot === 'jsondata') {
+
+                    config.JSONEditorConfig.disable_properties = false;
+                    config.JSONEditorConfig.show_opt_in = false;
+                    config.JSONEditorConfig.display_required_only = false;
+                    config.JSONEditorConfig.disable_array_reorder = true;
+			        config.JSONEditorConfig.disable_array_delete_all_rows = true;
+			        config.JSONEditorConfig.disable_array_delete_last_row = true;
+
                     if (page.title.startsWith("Category:")) config.schema = {"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"};
                     else if (page.slots['jsonschema']) config.schema = page.slots['jsonschema'];
                     else if (jsondata.type) {
@@ -416,7 +424,7 @@ osl.ui = class {
         return promise;
     }
 
-    static editSlots() {
+    static editSlots(_config) {
 
         var config = {
             JSONEditorConfig: {
@@ -443,6 +451,19 @@ osl.ui = class {
             ).done(function (page) {
 
                 config.schema = page.schema;
+                if (mwjson.util.isString(config.schema)) config.schema = JSON.parse(config.schema);
+                if (config && _config.hide) {
+                    for (const slot_key of _config.hide) {
+                        if (config.schema.properties[slot_key]) config.schema.properties[slot_key]['options'] = {hidden: true};
+                    }
+                }
+                if (config && _config.include) {
+                    for (const slot_key of _config.include) {
+                        config.schema.defaultProperties = [];
+                        if (config.schema.properties[slot_key]) config.schema.defaultProperties.push(slot_key);
+                    }
+                }
+                
                 config.data = page.slots;
 
                 config.onsubmit = (slots) => {
@@ -570,6 +591,13 @@ osl.ui = class {
             config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-edit-page-data-dialog-title").plain();
             config.popupConfig.msg["continue"] = mw.message("open-semantic-lab-edit-page-data-dialog-continue").plain();
             config.popupConfig.msg["cancel"] = mw.message("open-semantic-lab-edit-page-data-dialog-cancel").plain();
+
+            config.JSONEditorConfig.disable_properties = false;
+            config.JSONEditorConfig.show_opt_in = false;
+            config.JSONEditorConfig.display_required_only = false;
+            config.JSONEditorConfig.disable_array_reorder = true;
+            config.JSONEditorConfig.disable_array_delete_all_rows = true;
+            config.JSONEditorConfig.disable_array_delete_last_row = true;
         }
 
         const promise = new Promise((resolve, reject) => {
