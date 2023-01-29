@@ -211,7 +211,7 @@ $(document).ready(function() {
 					var pattern = $incremented_field_div.data('pattern');
 					pattern = pattern.replace("${unique_number}","*");
 					var number_pattern = $incremented_field_div.data('number-pattern');
-					if (!number_pattern) number_pattern = 0000; 
+					if (!number_pattern) number_pattern = "0000"; 
 					var increment = $incremented_field_div.data('increment');
 					if (!increment) increment = 1; 
 					var start_value = $incremented_field_div.data('start-value');
@@ -241,10 +241,13 @@ $(document).ready(function() {
 			var unique_number_string = "" + number_start;
 			if (existing_values.length == 0) existing_values.push(pattern.replace("*", number_pattern));
 			var highestExistingValue = existing_values.sort().pop();
-			var regex = new RegExp(pattern.replace("*","([0-9]*)"), "g");
+			var regex = new RegExp(pattern.replace("*","([0-9]*)"), "g"); //will not match if pattern is P00 but existing value is O01
+			//var regex = new RegExp("([0-9]*)", "g");
+			//console.log(highestExistingValue);
 			unique_number_string = regex.exec(highestExistingValue)[1];
 			unique_number_string = "" + (parseInt(unique_number_string) + increment);
-			unique_number_string = (number_pattern + unique_number_string).substr(-number_pattern.length);
+			//create leading zeros string with overflow, e. g. 0001, 0002, ..., 9999, 10000, 10001, ...
+			unique_number_string = (number_pattern.substring(0,number_pattern.length-unique_number_string.length) + unique_number_string);
 			var value = pattern.replace("*", unique_number_string);
 			return value;
 		}

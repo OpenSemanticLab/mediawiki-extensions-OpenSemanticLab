@@ -27,14 +27,28 @@ $(document).ready(function () {
             "open-semantic-lab-create-page-dialog-page-exists-warning",
             "open-semantic-lab-create-task",
             "open-semantic-lab-create-task-from-template",
+            "open-semantic-lab-edit-page-schema",
+            "open-semantic-lab-edit-page-data",
+            "open-semantic-lab-edit-page-data-dialog-title",
+            "open-semantic-lab-edit-page-data-dialog-continue", 
+            "open-semantic-lab-edit-page-data-dialog-cancel", 
             "open-semantic-lab-edit-page-slots",
+            "open-semantic-lab-edit-page-slots-dialog-title",
+            "open-semantic-lab-edit-page-slots-dialog-continue", 
+            "open-semantic-lab-edit-page-slots-dialog-cancel", 
+            "open-semantic-lab-create-subcategory",
+            "open-semantic-lab-create-instance",
+            "open-semantic-lab-query-instance",
+            "open-semantic-lab-query-dialog-title",
+            "open-semantic-lab-query-dialog-continue", 
+            "open-semantic-lab-query-dialog-cancel", 
             "open-semantic-lab-preview",
         ])
     ).done(function () {
 
         //Create Copy link in the page tools sidebar
         //ToDo: Only in namespace main, otherwise (uu)ids need to be changed
-        /*mwjson.util.addBarLink({
+        mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-copy-page'),
             "href": `javascript:mwjson.editor.createCopyPageDialog({
                 "msg": {
@@ -45,7 +59,7 @@ $(document).ready(function () {
                     "page-exists-warning": "${mw.message('open-semantic-lab-create-page-dialog-page-exists-warning')}",
                 }
             })`
-        });*/
+        });
 
         $(".PageBot-Action").each(function () {
             //see also: https://www.mediawiki.org/wiki/Manual:Interface/JavaScript
@@ -108,13 +122,82 @@ $(document).ready(function () {
             "href": `javascript:osl.ui.printPage();`
         });
 
-        //Create Print link in the page tools sidebar
-        /*mwjson.util.addBarLink({
+        //Create Slot edit link in the page tools sidebar
+        mwjson.util.addBarLink({
+            "label": mw.message('open-semantic-lab-edit-page-data'),
+            "href": `javascript:osl.ui.editData('jsondata');`
+        });
+
+        //Create Slot edit link in the page tools sidebar
+        mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-edit-page-slots'),
             "href": `javascript:osl.ui.editSlots();`
-        });*/
+        });
+
+        if (mw.config.get( 'wgPageName' ).startsWith("Category:") && !["Category:Category", "Category:Entity"].includes(mw.config.get( 'wgPageName' ))) {
+            mwjson.util.addBarLink({
+                "label": mw.message('open-semantic-lab-edit-page-schema'),
+                "href": `javascript:osl.ui.editData('jsonschema');`
+            });
+            mwjson.util.addBarLink({
+                "label": mw.message('open-semantic-lab-create-subcategory'),
+                "href": `javascript:osl.ui.createSubcategory();`
+            });
+            mwjson.util.addBarLink({
+                "label": mw.message('open-semantic-lab-create-instance'),
+                "href": `javascript:osl.ui.createInstance();`
+            });
+            mwjson.util.addBarLink({
+                "label": mw.message('open-semantic-lab-query-instance'),
+                "href": `javascript:osl.ui.queryInstance();`
+            });
+        }
     });
 });
+
+osl.util = class {
+    constructor() {
+    }
+
+    static postProcessPage(page) {
+        if (page.slots['jsondata']) {
+            if (mwjson.util.isString(page.slots['jsondata']))
+                page.slots['jsondata'] = JSON.parse(page.slots['jsondata'])
+            var org_name = page.slots['jsondata']['name'];
+            var name = "";
+            if (!org_name || org_name === "") {
+                if (page.slots['jsondata']['label'] && page.slots['jsondata']['label'][0]) {
+                    name = page.slots['jsondata']['label'][0]['text'];
+                }
+                else if (page.slots['jsondata']['label']) {
+                    name = page.slots['jsondata']['label']['text'];
+                }
+                name = mwjson.util.toPascalCase(name);
+            }
+            else name = org_name;
+            
+            if (name != org_name) {
+                page.slots['jsondata']['name'] = name;
+                page.slots_changed['jsondata'] = true;
+            }
+        }
+        if (page.slots['jsonschema']) {
+            if (mwjson.util.isString(page.slots['jsonschema']))
+                page.slots['jsonschema'] = JSON.parse(page.slots['jsonschema'])
+            var org_title =  page.slots['jsonschema']['title'];
+            var title = "";
+            if ((!org_title || org_title === "") && page.slots['jsondata']) {
+                title = page.slots['jsondata']['name'];
+            }
+            else title = org_title
+            if (title != org_title) {
+                page.slots['jsonschema']['title'] = name;
+                page.slots_changed['jsonschema'] = true;
+            }
+        }
+        return page;
+    }
+}
 
 osl.ui = class {
 	constructor() {
@@ -248,43 +331,295 @@ osl.ui = class {
         });
     }
 
-    static editSlots() {
+    static editData(dataslot = 'jsondata') {
 
         var config = {
-            JSONEditorConfig: {disable_collapse: true},
+            JSONEditorConfig: {
+                no_additional_properties: false
+            },
             popupConfig: {			
                 msg: {
-                    "dialog-title": mw.message('open-semantic-lab-print-settings').plain(),
-                    "continue": mw.message('open-semantic-lab-print-page').plain(), 
-                    "cancel": mw.message('open-semantic-lab-create-page-dialog-cancel').plain(), 
+                    "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
                 }
             }
         };
 
-        $.when(
-            //mw.loader.using('ext.mwjson.editor.ace'),
-            mwjson.api.getPage(mw.config.get( 'wgPageName' )),
-            mwjson.editor.init()
-        ).done(function (page) {
+        const promise = new Promise((resolve, reject) => {
 
-            config.schema = page.schema;
-            config.data = page.slots;
+            $.when(
+                mwjson.api.getPage(mw.config.get( 'wgPageName' )),
+                mwjson.editor.init()
+            ).done(function (page) {
 
-            config.onsubmit = (slots) => {
-                
-                page.slots = slots;
-                console.log(page.slots);
-                for (var slot_key of Object.keys(page.slots)) {
-                    page.slots_changed[slot_key] = true;
+                //build schema
+                var jsondata = page.slots[dataslot];
+                if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
+
+                if (dataslot === 'jsondata') {
+                    if (page.title.startsWith("Category:")) config.schema = {"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"};
+                    else if (page.slots['jsonschema']) config.schema = page.slots['jsonschema'];
+                    else if (jsondata.type) {
+                        config.schema = {"allOf": []}
+                        if (Array.isArray(jsondata.type)) {
+                            for (const category of jsondata.type) {
+                                config.schema["allOf"].push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"})
+                            }
+                        }
+                        else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
+                            config.schema["allOf"].push({"$ref": "/wiki/" + jsondata.type + "?action=raw&slot=jsonschema"})
+                        }
+                        else {
+                            console.log("Error: Page has no jsonschema");
+                            return;
+                        }
+                    }
+                    else {
+                        console.log("Error: Page has no jsonschema");
+                        return;
+                    }
                 }
-                mwjson.api.updatePage(page).done((page) => {
-                    window.location.href = window.location.href; //reload page
-                });
-                
-            }
-            config.popupConfig = {size: "larger"}
-            config.popupConfig.toggle_fullscreen = true;
-            var editor = new mwjson.editor(config)
+                else if (dataslot === 'jsonschema') {
+                    config.schema = mwjson.schema.jsonschema_jsonschema;
+                    
+                    config.JSONEditorConfig.disable_edit_json = false;
+                    config.JSONEditorConfig.disable_properties = false;
+                    config.JSONEditorConfig.show_errors = 'never';
+                }
+                else {
+                    console.log("Error: No jsonschema defined");
+                    return;
+                }
+                config.data = jsondata;
+
+                config.onsubmit = (jsondata) => {
+                    
+                    page.slots[dataslot] = jsondata;
+                    page.slots_changed[dataslot] = true;
+
+                    osl.util.postProcessPage(page);
+
+                    console.log(page);
+                    mwjson.api.updatePage(page).done((page) => {
+                        resolve()
+                        window.location.href = window.location.href; //reload page
+                    });
+                    
+                }
+                config.popupConfig.size = "larger";
+                config.popupConfig.toggle_fullscreen = true;
+                var editor = new mwjson.editor(config)
+            });
         });
+
+        return promise;
+    }
+
+    static editSlots() {
+
+        var config = {
+            JSONEditorConfig: {
+                disable_collapse: true,
+                disable_edit_json: false,
+                disable_properties: false,
+                no_additional_properties: false,
+            },
+            popupConfig: {
+                msg: {
+                    "dialog-title": mw.message('open-semantic-lab-edit-page-slots-dialog-title').plain(),
+                    "continue": mw.message('open-semantic-lab-edit-page-slots-dialog-continue').plain(),
+                    "cancel": mw.message('open-semantic-lab-edit-page-slots-dialog-cancel').plain(),
+                }
+            }
+        };
+
+        const promise = new Promise((resolve, reject) => {
+
+            $.when(
+                //mw.loader.using('ext.mwjson.editor.ace'),
+                mwjson.api.getPage(mw.config.get('wgPageName')),
+                mwjson.editor.init()
+            ).done(function (page) {
+
+                config.schema = page.schema;
+                config.data = page.slots;
+
+                config.onsubmit = (slots) => {
+                    page.slots = slots;
+                    console.log(page.slots);
+                    for (var slot_key of Object.keys(page.slots)) {
+                        page.slots_changed[slot_key] = true;
+                    }
+
+                    osl.util.postProcessPage(page);
+
+                    mwjson.api.updatePage(page).done((page) => {
+                        resolve();
+                        window.location.href = window.location.href; //reload page
+                    });
+                }
+                config.popupConfig.size = "larger";
+                config.popupConfig.toggle_fullscreen = true;
+                var editor = new mwjson.editor(config)
+            });
+        });
+
+        return promise;
+    }
+
+    static createSubcategory(super_categories = [mw.config.get( 'wgPageName' )]) {
+
+        var config = {
+            JSONEditorConfig: {
+                no_additional_properties: false
+            },
+            popupConfig: {			
+                msg: {
+                    "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                }
+            },
+            target_namespace: "Category"
+        };
+
+        const promise = new Promise((resolve, reject) => {
+
+            $.when(
+                mwjson.editor.init()
+            ).done(function () {
+
+                config.schema = {"allOf": []}
+                config.schema.allOf.push({"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"});
+                config.data = {"subclass_of": []}
+                for (const super_category of super_categories) {
+                    if (super_category.startsWith("Category:")) {
+                        config.data.subclass_of.push(super_category);
+                    }
+                    else {
+                        console.log("Error: Cannot create an subclass of " + super_category);
+                        return;
+                    }
+                }
+
+                config.onsubmit = (jsondata) => {
+                    
+                    mwjson.api.getPage("Category:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
+                        page.slots['jsondata'] = jsondata;
+                        page.slots_changed['jsondata'] = true;
+
+                        var jsonschema = {type: "object", "allOf": []}
+                        
+                        for (const super_category of jsondata.subclass_of) {
+                            jsonschema.allOf.push({"$ref": "/wiki/" + super_category + "?action=raw&slot=jsonschema"});
+                        }
+                        page.slots['jsonschema'] = jsonschema;
+                        page.slots_changed['jsonschema'] = true;
+
+                        osl.util.postProcessPage(page);
+                        jsonschema.title = page.slots['jsondata']['name'];
+
+                        console.log(page);
+                        mwjson.api.updatePage(page).done((page) => {
+                            resolve();
+                            window.location.href = "/wiki/" + page.title; //nav to new page
+                        });
+                    });
+                    
+                }
+                config.popupConfig.size = "larger";
+                config.popupConfig.toggle_fullscreen = true;
+                var editor = new mwjson.editor(config)
+            });
+        });
+
+        return promise;
+    }
+
+    static createInstance(categories = [mw.config.get( 'wgPageName' )]) {
+        return osl.ui.createOrQueryInstance(categories, 'default');
+    }
+
+    static queryInstance(categories = [mw.config.get( 'wgPageName' )]) {
+        return osl.ui.createOrQueryInstance(categories, 'query');
+    }
+
+    static createOrQueryInstance(categories = [mw.config.get( 'wgPageName' )], mode='default') {
+
+        var config = {
+            JSONEditorConfig: {
+                no_additional_properties: false
+            },
+            popupConfig: {			
+                msg: {
+                    "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                }
+            },
+            target_namespace: "Item"
+        };
+
+        if (mode==='query') {
+            config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-query-dialog-title").plain();
+            config.popupConfig.msg["continue"] = mw.message("open-semantic-lab-query-dialog-continue").plain();
+            config.popupConfig.msg["cancel"] = mw.message("open-semantic-lab-query-dialog-cancel").plain();
+        }
+        else {
+            config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-edit-page-data-dialog-title").plain();
+            config.popupConfig.msg["continue"] = mw.message("open-semantic-lab-edit-page-data-dialog-continue").plain();
+            config.popupConfig.msg["cancel"] = mw.message("open-semantic-lab-edit-page-data-dialog-cancel").plain();
+        }
+
+        const promise = new Promise((resolve, reject) => {
+
+            $.when(
+                mwjson.editor.init()
+            ).done(function () {
+
+                config.schema = {"allOf": []}
+                
+                if (mode !== 'query') config.data = {"type": []}
+                for (const category of categories) {
+                    if (category.startsWith("Category:")) {
+                        config.schema.allOf.push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"});
+                        if (mode !== 'query') config.data.type.push(category);
+                    }
+                    else {
+                        console.log("Error: Cannot create an instance of " + category);
+                        return;
+                    }
+                }
+
+                if (mode === 'query') {
+                    config.mode = mode;
+                }
+                else {
+                    config.onsubmit = (jsondata) => {
+                        
+                            mwjson.api.getPage("Item:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
+                                page.slots['jsondata'] = jsondata;
+                                page.slots_changed['jsondata'] = true;
+
+                                osl.util.postProcessPage(page);
+
+                                console.log(page);
+                                mwjson.api.updatePage(page).done((page) => {
+                                    resolve();
+                                    window.location.href = "/wiki/" + page.title; //nav to new page
+                                });
+                            });
+                        
+                    }
+                }
+                config.popupConfig.size = "larger";
+                config.popupConfig.toggle_fullscreen = true;
+                var editor = new mwjson.editor(config)
+            });
+
+        });
+        if (mode === 'query') return;
+        else return promise;
     }
 }

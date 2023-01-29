@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.0.4",
+	"version": "0.2.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -10,10 +10,15 @@
 	"license-name": "AGPL v3",
 	"type": "semantic",
 	"requires": {
-		"MediaWiki": ">= 1.31",
+		"MediaWiki": ">= 1.35",
 		"extensions": {
+			"SemanticMediaWiki": "*",
+			"PageForms": "*",
+			"WSSlots": "*",
+			"MwJson": "*",
 			"DrawioEditor": ">= 1.0",
-			"WellplateEditor": "*"
+			"WellplateEditor": "*",
+			"SvgEditor": "*"
 		}
 	},
 	"MessagesDirs": {
@@ -94,6 +99,18 @@
 		}
 	},
 	"namespaces": [
+		{
+			"id": 7000,
+			"constant": "NS_Item",
+			"name": "Item",
+			"subpages": true
+		},
+		{
+			"id": 7001,
+			"constant": "NS_ITEM_TALK",
+			"name": "Item_Talk",
+			"defaultcontentmodel": "flow-board"
+		},
 		{
 			"id": 7010,
 			"constant": "NS_MATERIAL",
@@ -341,6 +358,7 @@
 	"config": {
 		"smwgNamespacesWithSemanticLinks": {
 			"value": {
+				"7000": true,
 				"7010": true,
 				"7020": true,
 				"7022": true,
@@ -366,6 +384,8 @@
 		"wgNamespacesToBeSearchedDefault": {
 			"value": {
 				"2": true,
+				"14": true,
+				"7000": true,
 				"7010": true,
 				"7020": true,
 				"7030": true,
@@ -402,6 +422,7 @@
 	"attributes": {
 		"VisualEditor": {
 			"AvailableNamespaces": {
+				"7000": true,
 				"7010": true,
 				"7020": true,
 				"7022": true,
