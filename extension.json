@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.0.4",
+	"version": "0.2.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -10,10 +10,15 @@
 	"license-name": "AGPL v3",
 	"type": "semantic",
 	"requires": {
-		"MediaWiki": ">= 1.31",
+		"MediaWiki": ">= 1.35",
 		"extensions": {
+			"SemanticMediaWiki": "*",
+			"PageForms": "*",
+			"WSSlots": "*",
+			"MwJson": "*",
 			"DrawioEditor": ">= 1.0",
-			"WellplateEditor": "*"
+			"WellplateEditor": "*",
+			"SvgEditor": "*"
 		}
 	},
 	"MessagesDirs": {
