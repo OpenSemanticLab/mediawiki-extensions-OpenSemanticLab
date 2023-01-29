@@ -379,6 +379,7 @@
 		"wgNamespacesToBeSearchedDefault": {
 			"value": {
 				"2": true,
+				"14": true,
 				"7000": true,
 				"7010": true,
 				"7020": true,
