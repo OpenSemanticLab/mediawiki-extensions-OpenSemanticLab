@@ -116,6 +116,43 @@ $(document).ready(function () {
             `});*/
         });
 
+        //Create tile that links to a popup editor
+        $(".pagebot-tile").each(function () {
+            var defaultOptions = {
+                "type": "button",
+                "action": "create-instance"
+            };
+            var userOptions = {};
+
+            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+            else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
+            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+            const user_lang = mw.config.get( 'wgUserLanguage' );
+
+            mwjson.api.getPage(config.categories[0]).then((page) => {
+                var schema = page.slots['jsonschema'];
+                if (mwjson.util.isString(schema)) schema = JSON.parse(schema);
+                var title = schema["title"];
+                if (schema['title*'] && schema['title*'][user_lang]) title = schema['title*'][user_lang];
+                //else if (schema['label'] && schema['label']['en']) title = schema['label']['en'];
+                var description = schema["description"];
+                if (schema['description*'] && schema['description*'][user_lang]) description = schema['description*'][user_lang];
+                //else if (schema['description'] && schema['description']['en']) description = schema['description']['en'];
+                console.log(title, description);
+                $(this).find(".custom-link-tile2_title").text(title);
+                $(this).find(".custom-link-tile2_text").text(description);
+                if (config.action === "create-instance") {
+                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-instance').text()}</a>`))
+                }
+                else if (config.action === "query-instance") {
+                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.queryInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-query-instance').text()}</a>`))
+                }
+
+                $(this).css('visibility', 'visible');
+                $(this).parent().removeClass('linear-background');
+            });
+        });
+
         //Create Print link in the page tools sidebar
         mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-print-page'),
@@ -608,11 +645,13 @@ osl.ui = class {
 
                 config.schema = {"allOf": []}
                 
-                if (mode !== 'query') config.data = {"type": []}
+                //if (mode !== 'query') 
+                config.data = {"type": []}
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
                         config.schema.allOf.push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"});
-                        if (mode !== 'query') config.data.type.push(category);
+                        //if (mode !== 'query') 
+                        config.data.type.push(category);
                     }
                     else {
                         console.log("Error: Cannot create an instance of " + category);
