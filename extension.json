@@ -101,7 +101,7 @@
 	"namespaces": [
 		{
 			"id": 7000,
-			"constant": "NS_Item",
+			"constant": "NS_ITEM",
 			"name": "Item",
 			"subpages": true
 		},
