@@ -664,8 +664,13 @@ osl.ui = class {
                 }
                 else {
                     config.onsubmit = (jsondata) => {
-                        
-                            mwjson.api.getPage("Item:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
+                            var title = mwjson.util.OswId(jsondata.uuid);
+                            if (categories.includes("Category:Property") || editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
+                                config.target_namespace = "Property";
+                                //title = mwjson.util.toPascalCase(jsondata.label[0].text);
+                                title = jsondata.name;
+                            }
+                            mwjson.api.getPage(config.target_namespace + ":" + title).then((page) => {
                                 page.slots['jsondata'] = jsondata;
                                 page.slots_changed['jsondata'] = true;
 
