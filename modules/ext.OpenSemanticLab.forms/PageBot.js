@@ -138,13 +138,23 @@ $(document).ready(function () {
                 var description = schema["description"];
                 if (schema['description*'] && schema['description*'][user_lang]) description = schema['description*'][user_lang];
                 //else if (schema['description'] && schema['description']['en']) description = schema['description']['en'];
-                console.log(title, description);
-                $(this).find(".custom-link-tile2_title").text(title);
-                $(this).find(".custom-link-tile2_text").text(description);
+                //console.log(title, description);
+                var jsondata = page.slots['jsondata'];
+                if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
+                var icon = "";
+                if (jsondata.utf8_icon && mwjson.util.isString(jsondata.utf8_icon)) icon = jsondata.utf8_icon;
+                else if (jsondata.utf8_icon && mwjson.util.isArray(jsondata.utf8_icon)) icon = jsondata.utf8_icon[0];
+                console.log(icon);
+                if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(icon);
+                if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="/wiki/' + config.categories[0] + '">' + title + '</a>'))
+                if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").text(description);
+
                 if (config.action === "create-instance") {
+                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
                     $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-instance').text()}</a>`))
                 }
                 else if (config.action === "query-instance") {
+                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
                     $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.queryInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-query-instance').text()}</a>`))
                 }
 
