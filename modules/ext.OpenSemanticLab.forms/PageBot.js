@@ -540,7 +540,13 @@ osl.ui = class {
 
         var config = {
             JSONEditorConfig: {
-                no_additional_properties: false
+                no_additional_properties: false,
+                disable_properties: false,
+                show_opt_in: false,
+                display_required_only: false,
+                disable_array_reorder: true,
+                disable_array_delete_all_rows: true,
+                disable_array_delete_last_row: true,
             },
             popupConfig: {			
                 msg: {
@@ -558,7 +564,7 @@ osl.ui = class {
                 mwjson.editor.init()
             ).done(function () {
 
-                config.schema = {"allOf": []}
+                config.schema = {"allOf": []};
                 config.schema.allOf.push({"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"});
                 config.data = {"subclass_of": []}
                 for (const super_category of super_categories) {
@@ -577,9 +583,13 @@ osl.ui = class {
                         page.slots['jsondata'] = jsondata;
                         page.slots_changed['jsondata'] = true;
 
-                        var jsonschema = {type: "object", "allOf": []}
+                        var jsonschema = {
+                            "@context": [],
+                            type: "object", "allOf": []
+                        };
                         
                         for (const super_category of jsondata.subclass_of) {
+                            jsonschema["@context"].push("/wiki/" + super_category + "?action=raw&slot=jsonschema");
                             jsonschema.allOf.push({"$ref": "/wiki/" + super_category + "?action=raw&slot=jsonschema"});
                         }
                         page.slots['jsonschema'] = jsonschema;
@@ -587,6 +597,18 @@ osl.ui = class {
 
                         osl.util.postProcessPage(page);
                         jsonschema.title = page.slots['jsondata']['name'];
+                        if (page.slots['jsondata']['label']) {
+                            jsonschema["title*"] = {};
+                            for (const label of page.slots['jsondata']['label'])
+                            if (label.lang === "en") jsonschema.title = label.text;
+                            else jsonschema["title*"][label.lang] = label.text;
+                        }
+                        if (page.slots['jsondata']['description']) {
+                            jsonschema["description*"] = {};
+                            for (const description of page.slots['jsondata']['description'])
+                            if (description.lang === "en") jsonschema.description = description.text;
+                            else jsonschema["description*"][description.lang] = description.text;
+                        }
 
                         console.log(page);
                         mwjson.api.updatePage(page).done((page) => {
