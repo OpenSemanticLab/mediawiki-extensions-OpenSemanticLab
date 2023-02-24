@@ -206,7 +206,7 @@ osl.util = class {
     constructor() {
     }
 
-    static postProcessPage(page) {
+    static postProcessPage(page, categories = []) {
         if (page.slots['jsondata']) {
             if (mwjson.util.isString(page.slots['jsondata']))
                 page.slots['jsondata'] = JSON.parse(page.slots['jsondata'])
@@ -242,7 +242,32 @@ osl.util = class {
                 page.slots_changed['jsonschema'] = true;
             }
         }
-        return page;
+
+        const promise = new Promise((resolve, reject) => { 
+            var promises = [];
+            for (const category of categories) {
+                const p = mwjson.api.getPage(category);
+                promises.push(p);
+            }
+            Promise.allSettled(promises).then((results) => {
+                for (const result of results) {
+                    const category_page = result.value;
+                    if (page.slots['jsondata'] && category_page.slots['schema_template']) {
+                        var template_text = category_page.slots['schema_template'];
+                        Handlebars.registerPartial( "self", template_text );
+                        var template = Handlebars.compile(template_text);
+                        var json_schema_text = template(page.slots['jsondata']);
+                        //console.log("Set jsonschema: ", json_schema_text);
+                        if (!page.slots['jsonschema']) page.slots['jsonschema'] = {};
+                        page.slots['jsonschema'] = mwjson.util.mergeDeep(page.slots['jsonschema'], JSON.parse(json_schema_text));
+                        //console.log(page.slots['jsonschema']);
+                        page.slots_changed['jsonschema'] = true;
+                    }
+                }
+                resolve(page);
+            });
+        });
+        return promise;
     }
 }
 
@@ -404,6 +429,7 @@ osl.ui = class {
                 var jsondata = page.slots[dataslot];
                 if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
 
+                var categories = [];
                 if (dataslot === 'jsondata') {
 
                     config.JSONEditorConfig.disable_properties = false;
@@ -413,22 +439,26 @@ osl.ui = class {
 			        config.JSONEditorConfig.disable_array_delete_all_rows = true;
 			        config.JSONEditorConfig.disable_array_delete_last_row = true;
 
-                    if (page.title.startsWith("Category:")) config.schema = {"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"};
-                    else if (page.slots['jsonschema']) config.schema = page.slots['jsonschema'];
-                    else if (jsondata.type) {
+                    if (jsondata.type) {
                         config.schema = {"allOf": []}
                         if (Array.isArray(jsondata.type)) {
                             for (const category of jsondata.type) {
+                                categories.push(category);
                                 config.schema["allOf"].push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"})
                             }
                         }
                         else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
+                            categories.push(jsondata.type);
                             config.schema["allOf"].push({"$ref": "/wiki/" + jsondata.type + "?action=raw&slot=jsonschema"})
                         }
                         else {
                             console.log("Error: Page has no jsonschema");
                             return;
                         }
+                    }
+                    else if (page.title.startsWith("Category:")) {
+                        categories.push("Category:Category");
+                        config.schema = {"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"};
                     }
                     else {
                         console.log("Error: Page has no jsonschema");
@@ -453,12 +483,13 @@ osl.ui = class {
                     page.slots[dataslot] = jsondata;
                     page.slots_changed[dataslot] = true;
 
-                    osl.util.postProcessPage(page);
+                    osl.util.postProcessPage(page, categories).then((page) => {
 
-                    console.log(page);
-                    mwjson.api.updatePage(page).done((page) => {
-                        resolve()
-                        window.location.href = window.location.href; //reload page
+                        console.log(page);
+                        mwjson.api.updatePage(page).done((page) => {
+                            resolve()
+                            window.location.href = window.location.href; //reload page
+                        });
                     });
                     
                 }
@@ -520,11 +551,12 @@ osl.ui = class {
                         page.slots_changed[slot_key] = true;
                     }
 
-                    osl.util.postProcessPage(page);
+                    osl.util.postProcessPage(page).then((page) => {
 
-                    mwjson.api.updatePage(page).done((page) => {
-                        resolve();
-                        window.location.href = window.location.href; //reload page
+                        mwjson.api.updatePage(page).done((page) => {
+                            resolve();
+                            window.location.href = window.location.href; //reload page
+                        });
                     });
                 }
                 config.popupConfig.size = "larger";
@@ -536,7 +568,7 @@ osl.ui = class {
         return promise;
     }
 
-    static createSubcategory(super_categories = [mw.config.get( 'wgPageName' )]) {
+    static createSubcategory(super_categories = [mw.config.get( 'wgPageName' )], meta_categories=["Category:Category"]) {
 
         var config = {
             JSONEditorConfig: {
@@ -561,11 +593,13 @@ osl.ui = class {
         const promise = new Promise((resolve, reject) => {
 
             $.when(
+                mwjson.api.getPage(mw.config.get('wgPageName')),
                 mwjson.editor.init()
-            ).done(function () {
-
+            ).done(function (category_page) {
+                if (mwjson.util.isString(category_page.slots['jsondata'])) category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
+                if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
                 config.schema = {"allOf": []};
-                config.schema.allOf.push({"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"});
+                for (const meta_category of meta_categories) config.schema.allOf.push({"$ref": "/wiki/" + meta_category + "?action=raw&slot=jsonschema"});
                 config.data = {"subclass_of": []}
                 for (const super_category of super_categories) {
                     if (super_category.startsWith("Category:")) {
@@ -583,37 +617,22 @@ osl.ui = class {
                         page.slots['jsondata'] = jsondata;
                         page.slots_changed['jsondata'] = true;
 
-                        var jsonschema = {
-                            "@context": [],
-                            type: "object", "allOf": []
-                        };
-                        
-                        for (const super_category of jsondata.subclass_of) {
-                            jsonschema["@context"].push("/wiki/" + super_category + "?action=raw&slot=jsonschema");
-                            jsonschema.allOf.push({"$ref": "/wiki/" + super_category + "?action=raw&slot=jsonschema"});
-                        }
-                        page.slots['jsonschema'] = jsonschema;
-                        page.slots_changed['jsonschema'] = true;
+                        console.log(editor.jsonschema.subschemas_uuids);
+                        meta_categories = ["Category:Category"]
+                        for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
 
-                        osl.util.postProcessPage(page);
-                        jsonschema.title = page.slots['jsondata']['name'];
-                        if (page.slots['jsondata']['label']) {
-                            jsonschema["title*"] = {};
-                            for (const label of page.slots['jsondata']['label'])
-                            if (label.lang === "en") jsonschema.title = label.text;
-                            else jsonschema["title*"][label.lang] = label.text;
+                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0" ) {//Category:Category, Category:Entity
+                                meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
+                            }
                         }
-                        if (page.slots['jsondata']['description']) {
-                            jsonschema["description*"] = {};
-                            for (const description of page.slots['jsondata']['description'])
-                            if (description.lang === "en") jsonschema.description = description.text;
-                            else jsonschema["description*"][description.lang] = description.text;
-                        }
+                        console.log(meta_categories);
+                        osl.util.postProcessPage(page, meta_categories).then((page) => {
 
-                        console.log(page);
-                        mwjson.api.updatePage(page).done((page) => {
-                            resolve();
-                            window.location.href = "/wiki/" + page.title; //nav to new page
+                            console.log(page);
+                            mwjson.api.updatePage(page).done((page) => {
+                                resolve();
+                                window.location.href = "/wiki/" + page.title; //nav to new page
+                            });
                         });
                     });
                     
@@ -706,12 +725,13 @@ osl.ui = class {
                                 page.slots['jsondata'] = jsondata;
                                 page.slots_changed['jsondata'] = true;
 
-                                osl.util.postProcessPage(page);
+                                osl.util.postProcessPage(page, categories).then((page) => {
 
-                                console.log(page);
-                                mwjson.api.updatePage(page).done((page) => {
-                                    resolve();
-                                    window.location.href = "/wiki/" + page.title; //nav to new page
+                                    console.log(page);
+                                    mwjson.api.updatePage(page).done((page) => {
+                                        resolve();
+                                        window.location.href = "/wiki/" + page.title; //nav to new page
+                                    });
                                 });
                             });
                         
