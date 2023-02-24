@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"author": [
 		"Simon Stier"
 	],
@@ -34,7 +34,8 @@
 			"styles": [
 				"SkinOverwrites.css",
 				"TileGrid.css",
-				"TileGrid2.css"
+				"TileGrid2.css",
+				"placeholder.css"
 			],
 			"position": "bottom"
 		},

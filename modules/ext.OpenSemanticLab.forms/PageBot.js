@@ -153,6 +153,10 @@ $(document).ready(function () {
                     if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
                     $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-instance').text()}</a>`))
                 }
+                if (config.action === "create-subcategory") {
+                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
+                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createSubcategory(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-subcategory').text()}</a>`))
+                }
                 else if (config.action === "query-instance") {
                     if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
                     $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.queryInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-query-instance').text()}</a>`))
