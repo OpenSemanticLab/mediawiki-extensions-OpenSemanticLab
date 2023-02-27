@@ -29,7 +29,7 @@ var template_tools = [
 		dialog_type: 'template',
 		transclusion_type: 'mwTransclusionInline', //default: mwTransclusionBlock
 		sequence: '{A}',
-		template: { target: { href: 'Template:ELN/Decoration/Annotation', wt: 'Template:ELN/Decoration/Annotation' }, params: { 'text': { wt: '' }, 'info': { wt: '1' }, 'question': { wt: '0' }, 'warning': { wt: '0' }, 'error': { wt: '0' } } }
+		template: { target: { href: 'Template:Decoration/Annotation', wt: 'Template:Decoration/Annotation' }, params: { 'text': { wt: '' }, 'info': { wt: '1' }, 'question': { wt: '0' }, 'warning': { wt: '0' }, 'error': { wt: '0' } } }
 	},
 	{
 		group: 'textStyle', //built in: format, textStyle, cite, insert
@@ -40,7 +40,7 @@ var template_tools = [
 		dialog: true,
 		dialog_type: 'template',
 		transclusion_type: 'mwTransclusionInline', //default: mwTransclusionBlock
-		template: { target: { href: 'Template:ELN/Decoration/ColoredText', wt: 'Template:ELN/Decoration/ColoredText' }, params: { 'text': { wt: '' }, 'red': { wt: '1' }, 'blue': { wt: '0' }, 'green': { wt: '0' }, 'black': { wt: '0' } } }
+		template: { target: { href: 'Template:Decoration/ColoredText', wt: 'Template:Decoration/ColoredText' }, params: { 'text': { wt: '' }, 'red': { wt: '1' }, 'blue': { wt: '0' }, 'green': { wt: '0' }, 'black': { wt: '0' } } }
 	},
 	{
 		group: 'insert', //built in: insert
@@ -52,7 +52,7 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{S}',
 		shortcut: 'ctrl+alt+s',
-		template: { target: { href: 'Template:ELN/Editor/SvgEdit', wt: 'Template:ELN/Editor/SvgEdit' }, params: { 'file_name': { wt: `sketch-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/SvgEdit', wt: 'Template:Editor/SvgEdit' }, params: { 'file_name': { wt: `sketch-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -64,7 +64,7 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{D}',
 		shortcut: 'ctrl+alt+d',
-		template: { target: { href: 'Template:ELN/Editor/DrawIO', wt: 'Template:ELN/Editor/DrawIO' }, params: { 'file_name': { wt: `diagram-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/DrawIO', wt: 'Template:Editor/DrawIO' }, params: { 'file_name': { wt: `diagram-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -76,7 +76,7 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{G}',
 		shortcut: 'ctrl+alt+g',
-		template: { target: { href: 'Template:ELN/Editor/Graph', wt: 'Template:ELN/Editor/Graph' }, params: { 'file_name': { wt: `graph-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'root': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Graph', wt: 'Template:Editor/Graph' }, params: { 'file_name': { wt: `graph-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'root': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -88,7 +88,7 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{E}',
 		shortcut: 'ctrl+alt+e',
-		template: { target: { href: 'Template:ELN/Editor/Spreadsheet', wt: 'Template:ELN/Editor/Spreadsheet' }, params: { 'file_name': { wt: `spreadsheet-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Spreadsheet', wt: 'Template:Editor/Spreadsheet' }, params: { 'file_name': { wt: `spreadsheet-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -100,7 +100,7 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{V}',
 		shortcut: 'ctrl+alt+v',
-		template: { target: { href: 'Template:ELN/Viewer/Kekule', wt: 'Template:ELN/Viewer/Kekule' }, params: { 'cid': { wt: '2244' }, 'mode': { wt: '2D' } } }
+		template: { target: { href: 'Template:Viewer/Kekule', wt: 'Template:Viewer/Kekule' }, params: { 'cid': { wt: '2244' }, 'mode': { wt: '2D' } } }
 	},
 	{
 		group: 'insert',
@@ -112,7 +112,7 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{C}',
 		shortcut: 'ctrl+alt+c',
-		template: { target: { href: 'Template:ELN/Editor/Kekule', wt: 'Template:ELN/Editor/Kekule' }, params: { 'file_name': { wt: `chemdoc-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'format': { wt: 'json' } } }
+		template: { target: { href: 'Template:Editor/Kekule', wt: 'Template:Editor/Kekule' }, params: { 'file_name': { wt: `chemdoc-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'format': { wt: 'json' } } }
 	},
 	{
 		group: 'insert',
@@ -124,9 +124,9 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
-		template: { target: { href: 'Template:ELN/Editor/Wellplate', wt: 'Template:ELN/Editor/Wellplate' }, params: { 'file_name': { wt: `wellplate-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Wellplate', wt: 'Template:Editor/Wellplate' }, params: { 'file_name': { wt: `wellplate-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
-	{
+	/*{
 		group: 'insert',
 		custom_group: false,
 		title: 'ParamSet',
@@ -136,8 +136,8 @@ var template_tools = [
 		dialog_type: 'template',
 		sequence: '{P}',
 		shortcut: 'ctrl+alt+p',
-		template: { target: { href: 'Template:ELN/Editor/ParamSet', wt: 'Template:ELN/Editor/ParamSet' }, params: { 'name': { wt: `ParamSet 1` }, 'id': { wt: `0001` } } }
-	},
+		template: { target: { href: 'Template:Editor/ParamSet', wt: 'Template:Editor/ParamSet' }, params: { 'name': { wt: `ParamSet 1` }, 'id': { wt: `0001` } } }
+	},*/
 	/*{
 			group: 'insert',
 			custom_group: false,
