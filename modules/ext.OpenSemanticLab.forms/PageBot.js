@@ -211,6 +211,19 @@ osl.util = class {
     }
 
     static postProcessPage(page, categories = []) {
+        //var namespace_prefix = new mw.Title(page.title).getNamespacePrefix();
+        //if (namespace_prefix === "Item:" || namespace_prefix === "Category:" || namespace_prefix === "Property:") {
+            //could not be solved by modified RevisionRecord.php.
+			if (page.slots['header'] !== "{{#invoke:Entity|header}}") {
+				page.slots['header'] = "{{#invoke:Entity|header}}"
+				page.slots_changed['header'] = true;
+			}
+			if (page.slots['footer'] !== "{{#invoke:Entity|footer}}") {
+				page.slots['footer'] = "{{#invoke:Entity|footer}}"
+				page.slots_changed['footer'] = true;
+			}
+		//}
+
         if (page.slots['jsondata']) {
             if (mwjson.util.isString(page.slots['jsondata']))
                 page.slots['jsondata'] = JSON.parse(page.slots['jsondata'])
@@ -422,15 +435,18 @@ osl.ui = class {
             }
         };
 
+        const page_title = mw.config.get( 'wgPageName' );
+        const page_namespace = mw.config.get( 'wgCanonicalNamespace' );
+
         const promise = new Promise((resolve, reject) => {
 
             $.when(
-                mwjson.api.getPage(mw.config.get( 'wgPageName' )),
+                mwjson.api.getPage(page_title),
                 mwjson.editor.init()
             ).done(function (page) {
 
                 //build schema
-                var jsondata = page.slots[dataslot];
+                var jsondata = page.slots[dataslot] ? page.slots[dataslot] : {};
                 if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
 
                 var categories = [];
@@ -460,9 +476,17 @@ osl.ui = class {
                             return;
                         }
                     }
-                    else if (page.title.startsWith("Category:")) {
+                    else if (page_namespace === "Category") {
                         categories.push("Category:Category");
                         config.schema = {"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"};
+                    }
+                    else if (page_namespace === "") { //Main
+                        categories.push("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26"); //Article
+                        config.schema = {"$ref": "/wiki/Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26?action=raw&slot=jsonschema"};
+                    }
+                    else if (page_namespace === "File") {
+                        categories.push("Category:OSWff333fd349af4f65a69100405a9e60c7"); //File
+                        config.schema = {"$ref": "/wiki/Category:OSWff333fd349af4f65a69100405a9e60c7?action=raw&slot=jsonschema"};
                     }
                     else {
                         console.log("Error: Page has no jsonschema");
