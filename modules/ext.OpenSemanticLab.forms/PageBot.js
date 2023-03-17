@@ -273,7 +273,10 @@ osl.util = class {
                         var template_text = category_page.slots['schema_template'];
                         Handlebars.registerPartial( "self", template_text );
                         var template = Handlebars.compile(template_text);
-                        var json_schema_text = template(page.slots['jsondata']);
+                        var json_schema_text = template(mwjson.util.mergeDeep(
+                            {'_page_title': page.title},
+                            page.slots['jsondata']
+                        ));
                         //console.log("Set jsonschema: ", json_schema_text);
                         if (!page.slots['jsonschema']) page.slots['jsonschema'] = {};
                         page.slots['jsonschema'] = mwjson.util.mergeDeep(page.slots['jsonschema'], JSON.parse(json_schema_text));
