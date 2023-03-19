@@ -116,6 +116,53 @@ $(document).ready(function () {
             `});*/
         });
 
+        $(".pagebot-button").each(function () {
+            var defaultOptions = {
+                "action": "create-instance",
+                "params": {},
+                "class": "btn btn-primary"
+            };
+            var userOptions = {};
+            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+            if (!userOptions.params) userOptions.params = {};
+            if (!userOptions.params.categories) userOptions.params.categories = [mw.config.get("wgPageName")];
+            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+            var icon = "";
+            if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
+            var label = "";
+            if (config.action === "create-instance") {
+                label = mw.message('open-semantic-lab-create-instance').text();
+                if (!config.label && config.label !== "") config.label = label;
+                if (!$(this).attr("title")) 
+                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`))
+            }
+            else if (config.action === "create-subcategory") {
+                label = mw.message('open-semantic-lab-create-subcategory').text();
+                if (!config.label && config.label !== "") config.label = label;
+                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createSubcategory(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`))
+            }
+            else if (config.action === "query-instance") {
+                label = mw.message('open-semantic-lab-query-instance').text();
+                if (!config.label && config.label !== "") config.label = label;
+                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.queryInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`))
+            }
+            else if (config.action === "edit-data") {
+                label = mw.message('open-semantic-lab-edit-page-data').text();
+                if (!config.label && config.label !== "") config.label = label;
+                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`))
+            }
+            else if (config.action === "edit") {
+                //label = mw.message('open-semantic-lab-edit-page-data').text();
+                if (!config.label && config.label !== "") config.label = label;
+                $(this).append($(`<a class="${config.class}" role="button" href='/wiki/${mw.config.get("wgPageName")}?veaction=edit'>${icon + config.label}</a>`))
+            }
+            if (!config.tooltip && config.label === "") config.tooltip = label;
+            if (config.tooltip && config.tooltip !== "") {
+                $(this).attr("data-toggle", "tooltip");
+                $(this).attr("title", config.tooltip);
+            }
+        });
+
         //Create tile that links to a popup editor
         $(".pagebot-tile").each(function () {
             var defaultOptions = {
@@ -273,7 +320,10 @@ osl.util = class {
                         var template_text = category_page.slots['schema_template'];
                         Handlebars.registerPartial( "self", template_text );
                         var template = Handlebars.compile(template_text);
-                        var json_schema_text = template(page.slots['jsondata']);
+                        var json_schema_text = template(mwjson.util.mergeDeep(
+                            {'_page_title': page.title},
+                            page.slots['jsondata']
+                        ));
                         //console.log("Set jsonschema: ", json_schema_text);
                         if (!page.slots['jsonschema']) page.slots['jsonschema'] = {};
                         page.slots['jsonschema'] = mwjson.util.mergeDeep(page.slots['jsonschema'], JSON.parse(json_schema_text));
