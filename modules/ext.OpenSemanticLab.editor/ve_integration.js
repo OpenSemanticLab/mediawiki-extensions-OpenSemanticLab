@@ -50,9 +50,10 @@ var template_tools = [
 		name: 'svgedit_editor',
 		dialog: true,
 		dialog_type: 'template',
+		generate_uuid: true,
 		sequence: '{S}',
 		shortcut: 'ctrl+alt+s',
-		template: { target: { href: 'Template:Editor/SvgEdit', wt: 'Template:Editor/SvgEdit' }, params: { 'file_name': { wt: `sketch-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/SvgEdit', wt: 'Template:Editor/SvgEdit' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` sketch-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -62,9 +63,10 @@ var template_tools = [
 		name: 'drawio_editor',
 		dialog: true,
 		dialog_type: 'template',
+		generate_uuid: true,
 		sequence: '{D}',
 		shortcut: 'ctrl+alt+d',
-		template: { target: { href: 'Template:Editor/DrawIO', wt: 'Template:Editor/DrawIO' }, params: { 'file_name': { wt: `diagram-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/DrawIO', wt: 'Template:Editor/DrawIO' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` diagram-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -74,9 +76,10 @@ var template_tools = [
 		name: 'graph_editor',
 		dialog: true,
 		dialog_type: 'template',
+		generate_uuid: true,
 		sequence: '{G}',
 		shortcut: 'ctrl+alt+g',
-		template: { target: { href: 'Template:Editor/Graph', wt: 'Template:Editor/Graph' }, params: { 'file_name': { wt: `graph-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'root': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Graph', wt: 'Template:Editor/Graph' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` graph-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'root': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -86,9 +89,10 @@ var template_tools = [
 		name: 'spreadsheet_editor',
 		dialog: true,
 		dialog_type: 'template',
+		generate_uuid: true,
 		sequence: '{E}',
 		shortcut: 'ctrl+alt+e',
-		template: { target: { href: 'Template:Editor/Spreadsheet', wt: 'Template:Editor/Spreadsheet' }, params: { 'file_name': { wt: `spreadsheet-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Spreadsheet', wt: 'Template:Editor/Spreadsheet' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` spreadsheet-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -98,6 +102,7 @@ var template_tools = [
 		name: 'kekule_viewer',
 		dialog: true,
 		dialog_type: 'template',
+		generate_uuid: true,
 		sequence: '{V}',
 		shortcut: 'ctrl+alt+v',
 		template: { target: { href: 'Template:Viewer/Kekule', wt: 'Template:Viewer/Kekule' }, params: { 'cid': { wt: '2244' }, 'mode': { wt: '2D' } } }
@@ -110,9 +115,10 @@ var template_tools = [
 		name: 'kekule_editor',
 		dialog: true,
 		dialog_type: 'template',
+		generate_uuid: true,
 		sequence: '{C}',
 		shortcut: 'ctrl+alt+c',
-		template: { target: { href: 'Template:Editor/Kekule', wt: 'Template:Editor/Kekule' }, params: { 'file_name': { wt: `chemdoc-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'format': { wt: 'json' } } }
+		template: { target: { href: 'Template:Editor/Kekule', wt: 'Template:Editor/Kekule' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` chemdoc-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'format': { wt: 'json' } } }
 	},
 	{
 		group: 'insert',
@@ -122,9 +128,10 @@ var template_tools = [
 		name: 'wellplate_viewer',
 		dialog: true,
 		dialog_type: 'template',
+		generate_uuid: true,
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
-		template: { target: { href: 'Template:Editor/Wellplate', wt: 'Template:Editor/Wellplate' }, params: { 'file_name': { wt: `wellplate-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Wellplate', wt: 'Template:Editor/Wellplate' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` wellplate-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	/*{
 		group: 'insert',
@@ -328,12 +335,20 @@ mw.loader.using(['ext.visualEditor.mediawiki']).then(function () {
 });
 
 function VeExtensions_create() {
+
+	function get_uuid() {
+		return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+			(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+		);
+	}
+
 	template_tools.forEach(function (template_tool) {
 		//Create and register command
 		template_tool.command_name = template_tool.name + '_command';
 		if (!('transclusion_type' in template_tool)) template_tool.transclusion_type = 'mwTransclusionBlock';
 		var custom_template = [{ type: template_tool.transclusion_type, attributes: { mw: { parts: [{ template: template_tool.template }] } } }, { type: '/' + template_tool.transclusion_type }];
 
+		//console.log(template_tool)
 		if (template_tool.dialog) {
 			//Insert template and open dialog
 			function InsertAndOpenCommand(name, options) {
@@ -341,7 +356,11 @@ function VeExtensions_create() {
 			}
 			OO.inheritClass(InsertAndOpenCommand, ve.ui.Command);
 			InsertAndOpenCommand.prototype.execute = function (surface, args) {
+
 				args = args || this.args;
+				if (template_tool.generate_uuid && args[0][0].attributes.mw.parts[0].template.params) {
+					args[0][0].attributes.mw.parts[0].template.params['uuid'] = { wt: get_uuid() };
+				}
 				if (template_tool.dialog_type === 'template') {
 					surface.getModel().getFragment().collapseToEnd().insertContent(args[0], args[1]).select();
 					surface.execute('window', 'open', 'transclusion');

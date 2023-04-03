@@ -147,7 +147,8 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
                         OO.ui.prompt( 'Upload Clipboard as file', { textInput: { text: 'File name', value: file_name } } ).done( function ( result ) {
                             if ( result !== null ) {
                                 if (debug) console.log( 'User typed "' + result + '" then clicked "OK".' );
-                                file_name = file_name_prefix + '_' + result + '.' + file_name_postfix;
+                                //file_name = file_name_prefix + '_' + result + '.' + file_name_postfix;
+                                file_name = result + '.' + file_name_postfix;
                                 if (debug) console.log( 'Final file name: "' + file_name );
                                 //we have to copy the file for renaming because file.name is read only
                                 file = new File([file], file_name, {type: file.type, lastModified: file.lastModified });
@@ -186,41 +187,39 @@ $(document).ready(function() {
     ).done(function () {
         var debug = false;
         if (debug) console.log("File Upload Handler init");
-        
-        function updateFileInstanceTemplate(text, exists){
-            const template = "OslTemplate:LIMS/File/Instance";
-            const user = "User:" + mw.config.get('wgUserName');
-            const page = mw.config.get('wgPageName');
-            var params;
-            if (exists) {
-                var pages = mwjson.parser.getParamValue(text, template, "edit_page", "");
-                pages = mwjson.parser.updateParamValue(pages, [page], 'append');
-                var users = mwjson.parser.getParamValue(text, template, "editor", "");
-                users = mwjson.parser.updateParamValue(users, [user], 'append');
-                params = [
-                    {name: "edit_page", value: pages},
-                    {name: "editor", value: users},
-                ];
-            }
-            else {
-                params = [
-                    {name: "creation_page", value: page},
-                    {name: "creator", value: user},
-                ];
-            }
-            return mwjson.parser.updatePageText(text, template, params);
-        }
 
         function fileUploadHandler(editor, file){
-            if (debug) console.log("File uploaded with " +  editor + ": " + file.name + ", exists: " + file.exists);
+            if (debug) console.log("File uploaded with " +  editor + ": " + file.name + " (" + file.label + "), exists: " + file.exists);
             const file_page = "File:" + file.name;
+            const legacy_mode = !file.name.startsWith("OSW");
+            const uuid = legacy_mode ? mwjson.util.uuidv4() : mwjson.util.uuidv4(file.name.split(".")[0]); // e.g. OSW<uuid>.svg
             mwjson.api.getPage(file_page).then( (page) => {
-                var text = updateFileInstanceTemplate(page.content, file.exists);
-                if (page.exists) {
-                    if (debug) console.log("Page exists with content: " + page.content);
-                    mwjson.api.editPage(file_page, text, `Edited with ${editor}`);
+                if (!page.slots['jsondata']) page.slots['jsondata'] = {};
+                if (mwjson.util.isString(page.slots['jsondata'])) page.slots['jsondata'] = JSON.parse(page.slots['jsondata']);
+                let jsondata = {
+                    type: ["Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d"], // WikiFile
+                    uuid: uuid,
+                    label: [{"text": file.label, "lang": "en"}],
+                    editor: ["User:" + mw.config.get('wgUserName')],
+                    editing_context: [mw.config.get('wgPageName')]
                 }
-                else mwjson.api.createPage(file_page, text, `Created with ${editor}`).then( () => {if (debug) console.log("Page created")});
+                
+                page.slots['jsondata'] = mwjson.util.mergeDeep(jsondata, page.slots['jsondata']);
+                page.slots['jsondata']['editor'] = mwjson.util.uniqueArray(page.slots['jsondata']['editor']);
+                if (!page.exists) page.slots['jsondata']['creator'] = ["User:" + mw.config.get('wgUserName')];
+                if (!page.slots['jsondata']['creator']) page.slots['jsondata']['creator'] = [page.slots['jsondata']['editor'][0]]; //page may already exits - set first editor as default creator
+                if (!page.exists) page.slots['jsondata']['creation_context'] = [mw.config.get('wgPageName')];
+                if (!page.slots['jsondata']['creation_context']) page.slots['jsondata']['creation_context'] = [page.slots['jsondata']['editing_context'][0]]; //page may already exits - set creation page to first editing page
+                page.slots_changed['jsondata'] = true;
+                osl.util.postProcessPage(page).then((page) => {
+                    if (page.exists) {
+                        if (debug) console.log("Page exists with content: ", page);
+                        mwjson.api.updatePage(page, `Edited with ${editor}`)
+                    }
+                    else {
+                        mwjson.api.updatePage(page, `Created with ${editor}`).then( () => {if (debug) console.log("Page created")});
+                    }
+                });
             });		
         }
         
@@ -229,6 +228,20 @@ $(document).ready(function() {
         mw.hook( 'drawioeditor.file.uploaded' ).add( (file) => {fileUploadHandler("DrawIoEditor", file)});
         mw.hook( 'kekuleeditor.file.uploaded' ).add( (file) => {fileUploadHandler("KekuleEditor", file)});
         mw.hook( 'spreadsheeteditor.file.uploaded' ).add( (file) => {fileUploadHandler("LuckySheetEditor", file)});
+        mw.hook( 'simplebatchupload.file.uploaded' ).add( (file) => {fileUploadHandler("SimpleBatchUpload", file)}); 
+        mw.hook( 'simplebatchupload.files.uploaded' ).add( (result) => {
+            console.log(result.files);
+            mwjson.api.getPage(mw.config.get('wgPageName')).then( (page) => {
+                if (!page.slots['jsondata']) page.slots['jsondata'] = {};
+                if (mwjson.util.isString(page.slots['jsondata'])) page.slots['jsondata'] = JSON.parse(page.slots['jsondata']);
+                if (!page.slots['jsondata']['attachments']) page.slots['jsondata']['attachments'] = [];
+                for (const file of result.files) page.slots['jsondata']['attachments'].push("File:" + file.name);
+                page.slots_changed['jsondata'] = true;
+                var status = $( '<li>' ).text( "Reloading..." ).data('filenode_text', "Reloading...");
+                $( 'ul.fileupload-results').append( status );
+                mwjson.api.updatePage(page, `Edited with SimpleBatchUpload`).then((page) => window.location.reload());
+            });
+        }); 
         
     });
 });

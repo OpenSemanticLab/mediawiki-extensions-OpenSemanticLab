@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -15,12 +15,13 @@
 			"SemanticMediaWiki": "*",
 			"PageForms": "*",
 			"WSSlots": "*",
-			"MwJson": "*",
-			"DrawioEditor": ">= 1.0",
-			"WellplateEditor": "*",
-			"SvgEditor": "*",
-			"SpreadsheetEditor": "*",
-			"ChemEditor": "*"
+			"SimpleBatchUpload": ">= 1.8.2.2-dev",
+			"DrawioEditor": ">= 1.1.2-dev",
+			"MwJson": ">= 0.6.0",
+			"WellplateEditor": ">= 0.1.0",
+			"SvgEditor": ">= 0.1.0",
+			"SpreadsheetEditor": "0.3.0",
+			"ChemEditor": ">= 0.4.0"
 		}
 	},
 	"MessagesDirs": {
@@ -444,12 +445,19 @@
 			}
 		}
 	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\OpenSemanticLab\\": "src/"
+	},
 	"AutoloadClasses": {
 		"OpenSemanticLab": "includes/OpenSemanticLab.php"
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
-		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation"
+		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation",
+		"BeforeRevisionRenderSlot": "OpenSemanticLab::onBeforeRevisionRenderSlot"
+	},
+	"ContentHandlers": {
+		"entity": "MediaWiki\\Extension\\OpenSemanticLab\\EntityContentHandler"
 	}
 }
