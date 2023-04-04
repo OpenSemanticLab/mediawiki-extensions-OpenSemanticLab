@@ -120,46 +120,72 @@ $(document).ready(function () {
             var defaultOptions = {
                 "action": "create-instance",
                 "params": {},
-                "class": "btn btn-primary"
+                "class": "btn btn-primary",
+                "target": this
             };
             var userOptions = {};
             if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
             if (!userOptions.params) userOptions.params = {};
             if (!userOptions.params.categories) userOptions.params.categories = [mw.config.get("wgPageName")];
             var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            var icon = "";
-            if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
-            var label = "";
-            if (config.action === "create-instance") {
-                label = mw.message('open-semantic-lab-create-instance').text();
-                if (!config.label && config.label !== "") config.label = label;
-                if (!$(this).attr("title")) 
-                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`))
+
+            var configs = []
+            if (config.action === "menu-dropdown") {
+                $(this).addClass("dropdown show");
+                config.id = "dropdown-" + mwjson.util.getShortUid();
+                const target = $(`<div class="dropdown-menu" aria-labelledby="${config.id}"></div>`);
+                $(this).append(target);
+                configs.push(config);
+                for (var entry of config.menu_entries) {
+                    entry = mwjson.util.mergeDeep(defaultOptions, entry);
+                    entry.class += " dropdown-item";
+                    entry.target = target;
+                    configs.push(entry);
+                }
             }
-            else if (config.action === "create-subcategory") {
-                label = mw.message('open-semantic-lab-create-subcategory').text();
-                if (!config.label && config.label !== "") config.label = label;
-                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createSubcategory(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`))
-            }
-            else if (config.action === "query-instance") {
-                label = mw.message('open-semantic-lab-query-instance').text();
-                if (!config.label && config.label !== "") config.label = label;
-                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.queryInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`))
-            }
-            else if (config.action === "edit-data") {
-                label = mw.message('open-semantic-lab-edit-page-data').text();
-                if (!config.label && config.label !== "") config.label = label;
-                $(this).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`))
-            }
-            else if (config.action === "edit") {
-                //label = mw.message('open-semantic-lab-edit-page-data').text();
-                if (!config.label && config.label !== "") config.label = label;
-                $(this).append($(`<a class="${config.class}" role="button" href='/wiki/${mw.config.get("wgPageName")}?veaction=edit'>${icon + config.label}</a>`))
-            }
-            if (!config.tooltip && config.label === "") config.tooltip = label;
-            if (config.tooltip && config.tooltip !== "") {
-                $(this).attr("data-toggle", "tooltip");
-                $(this).attr("title", config.tooltip);
+            else configs.push(config);
+
+            for (const config of configs) {
+                var icon = "";
+                if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
+                var label = "";
+                if (config.action === "create-instance") {
+                    label = mw.message('open-semantic-lab-create-instance').text();
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                }
+                else if (config.action === "create-subcategory") {
+                    label = mw.message('open-semantic-lab-create-subcategory').text();
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createSubcategory(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                }
+                else if (config.action === "query-instance") {
+                    label = mw.message('open-semantic-lab-query-instance').text();
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.queryInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                }
+                else if (config.action === "edit-data") {
+                    label = mw.message('open-semantic-lab-edit-page-data').text();
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
+                }
+                else if (config.action === "edit") {
+                    //label = mw.message('open-semantic-lab-edit-page-data').text();
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class}" role="button" href='/wiki/${mw.config.get("wgPageName")}?veaction=edit'>${icon + config.label}</a>`));
+                }
+                else if (config.action === "menu-dropdown") {
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class} dropdown-toggle" role="button" href='#' id="${config.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${icon + config.label}</a>`));
+                }
+                else if (config.action === "dropdown-divider") {
+                    $(config.target).append($(`<div class="dropdown-divider"></div>`));
+                }
+                if (!config.tooltip && config.label === "") config.tooltip = label;
+                if (config.tooltip && config.tooltip !== "") {
+                    $(config.target).attr("data-toggle", "tooltip");
+                    $(config.target).attr("title", config.tooltip);
+                }
             }
         });
 
@@ -305,6 +331,9 @@ osl.util = class {
                 page.slots['jsonschema']['title'] = name;
                 page.slots_changed['jsonschema'] = true;
             }
+            //if (!page.slots['jsonschema']['properties'] || !page.slots['jsonschema']['properties']['type']) {
+            //    page.slots['jsonschema']['properties']['type'] = {'default': [page.title]};
+            //}
         }
 
         const promise = new Promise((resolve, reject) => { 
