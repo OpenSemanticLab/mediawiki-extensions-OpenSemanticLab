@@ -47,7 +47,11 @@ $(document).ready(function () {
     ).done(function () {
 
         //Create Copy link in the page tools sidebar
-        //ToDo: Only in namespace main, otherwise (uu)ids need to be changed
+        let current_title = new mw.Title( mw.config.get("wgPageName") );
+        let namespace = current_title.getNamespacePrefix().replace(":",""); 
+        //let title = current_title.getPrefixedDb() + " Copy";
+        //if (current_title.getMain().startsWith("OSW")) title = namespace + ":" + mwjson.util.OswId();
+        if (namespace === "") {  //Only in namespace main, otherwise (uu)ids need to be changed
         mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-copy-page'),
             "href": `javascript:mwjson.editor.createCopyPageDialog({
@@ -59,7 +63,8 @@ $(document).ready(function () {
                     "page-exists-warning": "${mw.message('open-semantic-lab-create-page-dialog-page-exists-warning')}",
                 }
             })`
-        });
+            });
+        }
 
         $(".PageBot-Action").each(function () {
             //see also: https://www.mediawiki.org/wiki/Manual:Interface/JavaScript
@@ -169,6 +174,11 @@ $(document).ready(function () {
                     if (!config.label && config.label !== "") config.label = label;
                     $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
                 }
+                else if (config.action === "copy") {
+                    label = mw.message('open-semantic-lab-copy-page').text();
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData({"mode": "copy"});'>${icon + config.label}</a>`));
+                }
                 else if (config.action === "edit") {
                     //label = mw.message('open-semantic-lab-edit-page-data').text();
                     if (!config.label && config.label !== "") config.label = label;
@@ -247,10 +257,10 @@ $(document).ready(function () {
         });
 
         //Create Slot edit link in the page tools sidebar
-        mwjson.util.addBarLink({
+        /*mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-edit-page-data'),
-            "href": `javascript:osl.ui.editData('jsondata');`
-        });
+            "href": `javascript:osl.ui.editData({dataslot: 'jsondata'});`
+        });*/
 
         //Create Slot edit link in the page tools sidebar
         mwjson.util.addBarLink({
@@ -258,10 +268,10 @@ $(document).ready(function () {
             "href": `javascript:osl.ui.editSlots({"include": ["jsonschema", "jsondata"], "hide": ["footer", "header"]});`
         });
 
-        if (mw.config.get( 'wgPageName' ).startsWith("Category:") && !["Category:Category", "Category:Entity"].includes(mw.config.get( 'wgPageName' ))) {
+        /*if (mw.config.get( 'wgPageName' ).startsWith("Category:") && !["Category:Category", "Category:Entity"].includes(mw.config.get( 'wgPageName' ))) {
             mwjson.util.addBarLink({
                 "label": mw.message('open-semantic-lab-edit-page-schema'),
-                "href": `javascript:osl.ui.editData('jsonschema');`
+                "href": `javascript:osl.ui.editData({dataslot: 'jsonschema'});`
             });
             mwjson.util.addBarLink({
                 "label": mw.message('open-semantic-lab-create-subcategory'),
@@ -275,7 +285,7 @@ $(document).ready(function () {
                 "label": mw.message('open-semantic-lab-query-instance'),
                 "href": `javascript:osl.ui.queryInstance();`
             });
-        }
+        }*/
     });
 });
 
@@ -499,7 +509,12 @@ osl.ui = class {
         });
     }
 
-    static editData(dataslot = 'jsondata') {
+    static editData(params) {
+        var params = mwjson.util.mergeDeep({
+            dataslot: 'jsondata',
+            source_page: mw.config.get( 'wgPageName' )
+        }, params);
+        var dataslot = params.dataslot;
 
         var config = {
             JSONEditorConfig: {
@@ -514,13 +529,12 @@ osl.ui = class {
             }
         };
 
-        const page_title = mw.config.get( 'wgPageName' );
-        const page_namespace = mw.config.get( 'wgCanonicalNamespace' );
+        const page_namespace = new mw.Title(params.source_page).getNamespacePrefix().replace(":", "");
 
         const promise = new Promise((resolve, reject) => {
 
             $.when(
-                mwjson.api.getPage(page_title),
+                mwjson.api.getPage(params.source_page),
                 mwjson.editor.init()
             ).done(function (page) {
 
@@ -583,22 +597,44 @@ osl.ui = class {
                     console.log("Error: No jsonschema defined");
                     return;
                 }
+
+                if (params.mode === 'copy') {
+                    jsondata['uuid'] = mwjson.util.uuidv4();
+                    jsondata['name'] = undefined;
+                    jsondata['based_on'] = [params.source_page];
+                    var label = jsondata['label'] ? jsondata['label'][0]['text'] : "";
+                    var lang = jsondata['label'] ? jsondata['label'][0]['lang'] : "en";
+                    if (!label.includes("Copy")) label += " Copy 1"
+                    else {
+                        // From: https://stackoverflow.com/questions/21122338/how-to-increment-a-string-in-javascript
+                        // Find the trailing number or it will match the empty string
+                        var count = label.match(/\d*$/);
+                        // Take the substring up until where the integer was matched
+                        // Concatenate it to the matched count incremented by 1
+                        label = label.substr(0, count.index) + (++count[0]);
+                    }
+                    jsondata['label'][0] = {"text": label, "lang": lang};
+                    page.title = page_namespace === "" ? mwjson.util.OswId(jsondata['uuid']) : page_namespace + ":" + mwjson.util.OswId(jsondata['uuid']);
+                }
+
                 config.data = jsondata;
 
                 config.onsubmit = (jsondata) => {
                     
                     page.slots[dataslot] = jsondata;
                     page.slots_changed[dataslot] = true;
+                    if (params.mode === "copy") {
+                        for (const slot of Object.keys(page.slots)) page.slots_changed[slot] = true;
+                        page.exists = false;
+                    }
 
                     osl.util.postProcessPage(page, categories).then((page) => {
-
-                        console.log(page);
+                        //console.log(page);
                         mwjson.api.updatePage(page).done((page) => {
-                            resolve()
-                            window.location.href = window.location.href; //reload page
+                            resolve();
+                            window.location.href = "/wiki/" + page.title;
                         });
                     });
-                    
                 }
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
