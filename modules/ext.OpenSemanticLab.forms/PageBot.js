@@ -52,17 +52,17 @@ $(document).ready(function () {
         //let title = current_title.getPrefixedDb() + " Copy";
         //if (current_title.getMain().startsWith("OSW")) title = namespace + ":" + mwjson.util.OswId();
         if (namespace === "") {  //Only in namespace main, otherwise (uu)ids need to be changed
-        mwjson.util.addBarLink({
-            "label": mw.message('open-semantic-lab-copy-page'),
-            "href": `javascript:mwjson.editor.createCopyPageDialog({
-                "msg": {
-                    "continue": "${mw.message('open-semantic-lab-create-page-dialog-continue')}", 
-                    "cancel": "${mw.message('open-semantic-lab-create-page-dialog-cancel')}",
-                    "title-label": "${mw.message('open-semantic-lab-create-page-dialog-title-label')}",
-                    "template-label": "${mw.message('open-semantic-lab-create-page-dialog-template-label')}", 
-                    "page-exists-warning": "${mw.message('open-semantic-lab-create-page-dialog-page-exists-warning')}",
-                }
-            })`
+            mwjson.util.addBarLink({
+                "label": mw.message('open-semantic-lab-copy-page'),
+                "href": `javascript:mwjson.editor.createCopyPageDialog({
+                    "msg": {
+                        "continue": "${mw.message('open-semantic-lab-create-page-dialog-continue')}", 
+                        "cancel": "${mw.message('open-semantic-lab-create-page-dialog-cancel')}",
+                        "title-label": "${mw.message('open-semantic-lab-create-page-dialog-title-label')}",
+                        "template-label": "${mw.message('open-semantic-lab-create-page-dialog-template-label')}", 
+                        "page-exists-warning": "${mw.message('open-semantic-lab-create-page-dialog-page-exists-warning')}",
+                    }
+                })`
             });
         }
 
@@ -179,6 +179,11 @@ $(document).ready(function () {
                     if (!config.label && config.label !== "") config.label = label;
                     $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData({"mode": "copy"});'>${icon + config.label}</a>`));
                 }
+                else if (config.action === "export") {
+                    label = mw.message('open-semantic-lab-print-page').text();
+                    if (!config.label && config.label !== "") config.label = label;
+                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.printPage();'>${icon + config.label}</a>`));
+                }
                 else if (config.action === "edit") {
                     //label = mw.message('open-semantic-lab-edit-page-data').text();
                     if (!config.label && config.label !== "") config.label = label;
@@ -251,10 +256,10 @@ $(document).ready(function () {
         });
 
         //Create Print link in the page tools sidebar
-        mwjson.util.addBarLink({
+        /*mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-print-page'),
             "href": `javascript:osl.ui.printPage();`
-        });
+        });*/
 
         //Create Slot edit link in the page tools sidebar
         /*mwjson.util.addBarLink({
