@@ -640,6 +640,8 @@ osl.ui = class {
                             window.location.href = "/wiki/" + page.title;
                         });
                     });
+
+                    return promise;
                 }
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
@@ -706,6 +708,8 @@ osl.ui = class {
                             window.location.href = window.location.href; //reload page
                         });
                     });
+
+                    return promise;
                 }
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
@@ -783,6 +787,8 @@ osl.ui = class {
                             });
                         });
                     });
+
+                    return promise;
                     
                 }
                 config.popupConfig.size = "larger";
@@ -863,26 +869,26 @@ osl.ui = class {
                 }
                 else {
                     config.onsubmit = (jsondata) => {
-                            var title = mwjson.util.OswId(jsondata.uuid);
-                            if (categories.includes("Category:Property") || editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
-                                config.target_namespace = "Property";
-                                //title = mwjson.util.toPascalCase(jsondata.label[0].text);
-                                title = jsondata.name;
-                            }
-                            mwjson.api.getPage(config.target_namespace + ":" + title).then((page) => {
-                                page.slots['jsondata'] = jsondata;
-                                page.slots_changed['jsondata'] = true;
+                        var title = mwjson.util.OswId(jsondata.uuid);
+                        if (categories.includes("Category:Property") || editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
+                            config.target_namespace = "Property";
+                            //title = mwjson.util.toPascalCase(jsondata.label[0].text);
+                            title = jsondata.name;
+                        }
+                        mwjson.api.getPage(config.target_namespace + ":" + title).then((page) => {
+                            page.slots['jsondata'] = jsondata;
+                            page.slots_changed['jsondata'] = true;
 
-                                osl.util.postProcessPage(page, categories).then((page) => {
+                            osl.util.postProcessPage(page, categories).then((page) => {
 
-                                    console.log(page);
-                                    mwjson.api.updatePage(page).done((page) => {
-                                        resolve();
-                                        window.location.href = "/wiki/" + page.title; //nav to new page
-                                    });
+                                console.log(page);
+                                mwjson.api.updatePage(page).done((page) => {
+                                    resolve();
+                                    window.location.href = "/wiki/" + page.title; //nav to new page
                                 });
                             });
-                        
+                        });
+                        return promise;
                     }
                 }
                 config.popupConfig.size = "larger";
