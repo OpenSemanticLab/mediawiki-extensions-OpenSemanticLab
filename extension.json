@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.5.0",
+	"version": "0.6.2",
 	"author": [
 		"Simon Stier"
 	],
@@ -445,19 +445,12 @@
 			}
 		}
 	},
-	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\OpenSemanticLab\\": "src/"
-	},
 	"AutoloadClasses": {
 		"OpenSemanticLab": "includes/OpenSemanticLab.php"
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
-		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation",
-		"BeforeRevisionRenderSlot": "OpenSemanticLab::onBeforeRevisionRenderSlot"
-	},
-	"ContentHandlers": {
-		"entity": "MediaWiki\\Extension\\OpenSemanticLab\\EntityContentHandler"
+		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation"
 	}
 }
