@@ -1,0 +1,32 @@
+.card.draggable {
+    margin-bottom: 0.5rem;
+    cursor: grab;
+}
+
+.droppable {
+    background-color: var(--success);
+    min-height: 120px;
+    margin-bottom: 0.5rem;
+}
+
+.dropzone {
+    font-size: 0.5rem;
+}
+
+.kanban-board .items {
+    max-height: 500px;
+    overflow: auto;
+}
+
+.kanban-board .kanban-board .items {
+    max-height: 390px;
+    overflow: auto;
+}
+
+.kanban-board .card-text {
+    font-size: 0.8rem;
+}
+
+.kanban-board .kanban-board .card-text {
+    font-size: 0.6rem;
+}

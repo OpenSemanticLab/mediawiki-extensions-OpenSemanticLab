@@ -517,7 +517,9 @@ osl.ui = class {
     static editData(params) {
         var params = mwjson.util.mergeDeep({
             dataslot: 'jsondata',
-            source_page: mw.config.get( 'wgPageName' )
+            source_page: mw.config.get( 'wgPageName' ),
+            autosave: true,
+            reload: true,
         }, params);
         var dataslot = params.dataslot;
 
@@ -536,10 +538,14 @@ osl.ui = class {
 
         const page_namespace = new mw.Title(params.source_page).getNamespacePrefix().replace(":", "");
 
+        var page_load_promise = undefined;
+        if (params.source_page_obj) page_load_promise = new Promise((resolve, reject) => {resolve(params.source_page_obj);});
+        else page_load_promise = mwjson.api.getPage(params.source_page);
+
         const promise = new Promise((resolve, reject) => {
 
             $.when(
-                mwjson.api.getPage(params.source_page),
+                page_load_promise,
                 mwjson.editor.init()
             ).done(function (page) {
 
@@ -635,10 +641,13 @@ osl.ui = class {
 
                     osl.util.postProcessPage(page, categories).then((page) => {
                         //console.log(page);
+                        if (params.autosave) {
                         mwjson.api.updatePage(page).done((page) => {
                             resolve();
-                            window.location.href = "/wiki/" + page.title;
+                                if (params.reload) window.location.href = "/wiki/" + page.title;
                         });
+                        }
+                        else resolve();
                     });
 
                     return promise;

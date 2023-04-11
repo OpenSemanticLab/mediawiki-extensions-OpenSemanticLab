@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.6.2",
+	"version": "0.7.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -100,6 +100,19 @@
 				"html2pdf.bundle.min.js"
 			],
 			"position": "top"
+		},
+		"ext.osw.ui.kanban": {
+			"localBasePath": "modules/ext.osw.ui.kanban",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.osw.ui.kanban",
+			"dependencies": [
+                "ext.OpenSemanticLab"
+            ],
+			"scripts": [
+				"kanban.js"
+			],
+			"styles": [
+				"kanban.css"
+			]
 		}
 	},
 	"namespaces": [
