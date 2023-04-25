@@ -143,4 +143,22 @@ details.mw-slot-details[open] summary {
 	display: none;
 }
 
+/* to device wikipages into multiple section with VisualEditor support */
+.layout-table {
+	width: 100%;
+}
+
+.layout-table-auto {
+	table-layout: auto; 
+}
+
+.layout-table-fixed {
+	table-layout: fixed; 
+}
+
+.layout-table td{
+	overflow-y: auto;
+	padding: 5px;
+}
+
    
