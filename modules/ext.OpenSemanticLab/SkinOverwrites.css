@@ -161,4 +161,8 @@ details.mw-slot-details[open] summary {
 	padding: 5px;
 }
 
+/* scale parsed preview content */
+.layout-table .mw-parser-output {
+	scale: 0.5
+}
    

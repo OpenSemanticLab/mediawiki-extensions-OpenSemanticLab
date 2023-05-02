@@ -255,6 +255,37 @@ $(document).ready(function () {
             });
         });
 
+        $(".pagebot-preview").each(function () {
+            var defaultOptions = {
+                container: this
+            };
+            var userOptions = {};
+
+            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+            
+            osl.ui.createPagePreview(config);
+        });
+
+        $(".pagebot-preview-editor").each(function () {
+            var defaultOptions = {
+                schema_editor: {
+                    include: ["jsonschema"], 
+                    hide: ["footer", "header", "jsondata"]
+                },
+                data_editor: {container: this},
+                preview: {}
+            };
+            var userOptions = {};
+
+            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+            
+            config.schema_editor.container = document.getElementById(config.schema_editor.container_id);
+            config.preview.container = document.getElementById(config.preview.container_id);
+            osl.ui.createPreviewEditor(config);
+        });
+
         //Create Print link in the page tools sidebar
         /*mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-print-page'),
@@ -642,10 +673,10 @@ osl.ui = class {
                     osl.util.postProcessPage(page, categories).then((page) => {
                         //console.log(page);
                         if (params.autosave) {
-                        mwjson.api.updatePage(page).done((page) => {
-                            resolve();
+                            mwjson.api.updatePage(page).done((page) => {
+                                resolve();
                                 if (params.reload) window.location.href = "/wiki/" + page.title;
-                        });
+                            });
                         }
                         else resolve();
                     });
@@ -908,5 +939,128 @@ osl.ui = class {
         });
         if (mode === 'query') return;
         else return promise;
+    }
+
+    static createPagePreview(params) {
+        var defaultOptions = {
+            display_mode: "embedded"
+        };
+        var config = mwjson.util.mergeDeep(defaultOptions, params);
+
+        if (!config.jsonschema && config.page && config.page.slots["jsonschema"]) config.jsonschema = config.page.slots["jsonschema"];
+        if (!config.jsondata && config.page && config.page.slots["jsondata"]) config.jsondata = config.page.slots["jsondata"];
+        if (!config.header_template && config.page && config.page.slots["header_template"]) config.header_template = config.page.slots["header_template"];
+        if (!config.footer_template && config.page && config.page.slots["footer_template"]) config.footer_template = config.page.slots["footer_template"];
+        if (!config.wikitext && config.page && config.page.slots["main"]) config.wikitext = config.page.slots["main"];
+
+        var wikitext = "{{#invoke: Entity|header";
+        if (config.jsonschema) wikitext += "|jsonschema=" + JSON.stringify(config.jsonschema).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.jsondata) wikitext += "|jsondata=" + JSON.stringify(config.jsondata).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.header_template) wikitext += "|template=<nowiki>" + config.header_template + "</nowiki>";
+        wikitext += " }}\n";
+        if (config.wikitext) wikitext += config.wikitext;
+        wikitext += "\n{{#invoke: Entity|footer";
+        if (config.jsonschema) wikitext += "|jsonschema=" + JSON.stringify(config.jsonschema).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.jsondata) wikitext += "|jsondata=" + JSON.stringify(config.jsondata).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.footer_template) wikitext += "|template=<nowiki>" + config.footer_template + "</nowiki>";
+        wikitext += " }}";
+        console.log(wikitext);
+        mwjson.api.parseWikiText({
+            container: params.container,
+            text: wikitext,
+            display_mode: config.display_mode,
+            copy_parent_frame_style: true
+        });
+    }
+
+    static createPreviewEditor(params) {
+        var schema_config = {
+            JSONEditorConfig: {
+                disable_collapse: true,
+                disable_edit_json: false,
+                disable_properties: false,
+                no_additional_properties: false,
+            }
+        };
+        var data_config = {
+            JSONEditorConfig: {
+                disable_properties:  false,
+            show_opt_in:  false,
+            display_required_only:  false,
+            disable_array_reorder:  true,
+            disable_array_delete_all_rows:  true,
+            disable_array_delete_last_row:  true
+            }
+        }
+        var preview_config = {
+
+        }
+        schema_config = mwjson.util.mergeDeep(schema_config, params.schema_editor);
+        data_config = mwjson.util.mergeDeep(data_config, params.data_editor);
+        preview_config = mwjson.util.mergeDeep(preview_config, params.preview);
+
+        data_config.schema = mwjson.util.deepCopy(schema_config.data.jsonschema);
+
+        console.log(schema_config, data_config, preview_config)
+
+        const promise = new Promise((resolve, reject) => {
+
+            $.when(
+                //mw.loader.using('ext.mwjson.editor.ace'),
+                mwjson.api.getPage("Category:DummyCategory"),
+                mwjson.editor.init()
+            ).done(function (virtual_page) {
+
+                var schema_editor = undefined;
+                var data_editor = undefined;
+                preview_config.page = virtual_page;
+
+                schema_config.schema = virtual_page.schema;
+                if (mwjson.util.isString(schema_config.schema)) schema_config.schema = JSON.parse(schema_config.schema);
+                if (schema_config && schema_config.hide) {
+                    for (const slot_key of schema_config.hide) {
+                        if (schema_config.schema.properties[slot_key]) schema_config.schema.properties[slot_key]['options'] = {hidden: true};
+                    }
+                }
+                if (schema_config && schema_config.include) {
+                    for (const slot_key of schema_config.include) {
+                        schema_config.schema.defaultProperties = [];
+                        if (schema_config.schema.properties[slot_key]) schema_config.schema.defaultProperties.push(slot_key);
+                    }
+                }
+                
+                if (schema_config.data) virtual_page.slots = schema_config.data;
+                else schema_config.data = virtual_page.slots;
+                virtual_page.schema.properties["jsonschema"] = { "type": "string", "format": "textarea", "options": {"wikieditor": "jsoneditors"} };
+                if (data_config.data) virtual_page.slots['jsondata'] = data_config.data;
+
+                schema_config.onsubmit = (slots) => {
+                    virtual_page.slots = slots;
+
+                    //osl.util.postProcessPage(category_page).then((page) => {                        
+                    //});
+
+                    data_editor.setSchema({schema: JSON.parse(virtual_page.slots['jsonschema'])});
+                    data_editor.createUI();
+                    //virtual_page.slots['jsondata'] = data_editor.getData(); //not loaded yet
+                    //osl.ui.createPagePreview(preview_config);
+                }
+
+                data_config.onsubmit = (jsondata) => {
+                    //virtual_page.slots = schema_editor.getData();
+
+                    virtual_page.slots['jsondata'] = jsondata;
+                    if (mwjson.util.isString(virtual_page.slots['jsonschema'])) virtual_page.slots['jsonschema'] = JSON.parse(virtual_page.slots['jsonschema']); 
+                    osl.ui.createPagePreview(preview_config);  
+                }
+
+                schema_editor = new mwjson.editor(schema_config);
+                data_editor = new mwjson.editor(data_config);
+
+                osl.ui.createPagePreview(preview_config);
+            });
+        });
+
+        return promise;
     }
 }
