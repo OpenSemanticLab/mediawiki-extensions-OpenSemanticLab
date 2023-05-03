@@ -4,15 +4,18 @@ $(document).ready(function () {
 
     $.when(
         mw.loader.using('ext.mwjson.editor'),
+        mw.loader.using('ext.OpenSemanticLab.forms'),
     ).done(function () {
 
         let config = {
             onCreate: (params) => {
                 console.log("Create", params);
                 let jsondata = { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4()};
-                if (params.tag) {
-                    if (params.tag.type === "string") jsondata[params.tag.key] = params.value;
-                    else jsondata[params.tag.key] = [params.value];
+                if (params.tags) {
+                    for (const tag of params.tags) {
+                        if (tag.type === "string") jsondata[tag.key] = Object.keys(tag.values)[0];
+                        else jsondata[tag.key] = Object.keys(tag.values);
+                    }
                 }
                 mwjson.api.getPage("Item:" +  mwjson.util.OswId(jsondata.uuid))
                 .then((page) => {
@@ -35,7 +38,7 @@ $(document).ready(function () {
                     osl.ui.editData({
                         source_page_obj: page,
                         reload: false,
-                        autosave: false
+                        autosave: params.board.autosave
                     }).then(() => {
                         console.log("Edited", page);
                         params.task.remove()
@@ -44,12 +47,48 @@ $(document).ready(function () {
                         //params.task.refresh();
                     });
                 });
+            },
+            onChange: (params) => {
+                console.log("Change", params);
+                if (params.board.autosave) {
+                    mwjson.api.getPage("Item:" +  mwjson.util.OswId(params.task.jsondata.uuid))
+                    .then((page) => {
+                        osl.util.postProcessPage(page).then((page) => {   
+                            page.slots['jsondata'] = params.task.jsondata;
+                            page.slots_changed['jsondata'] = true;
+                            mwjson.api.updatePage(page, "Edited with Kanban-Board")                     
+                        });
+                    });
+                }
+            },
+            onSave: (params) => {
+                console.log("Save", params);
+                for (const task of params.kanban.tasks) {
+                    mwjson.api.getPage("Item:" +  mwjson.util.OswId(task.jsondata.uuid))
+                    .then((page) => {
+                        osl.util.postProcessPage(page).then((page) => {
+                            page.slots['jsondata'] = task.jsondata;
+                            page.slots_changed['jsondata'] = true;
+                            mwjson.api.updatePage(page, "Edited with Kanban-Board")
+                        });
+                    });
+                }
             }
         }
 
         window.kanban = new osl.kanban.Kanban(config);
         console.log("Kanban init");
         $(".Kanban").each(function () {
+            var defaultOptions = {
+                "type": "button",
+                "action": "create-instance"
+            };
+            var userOptions = {};
+
+            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+            const user_lang = mw.config.get( 'wgUserLanguage' );
+
             let board = kanban.addBoard({
                 container: this,
                 label: "Kanban",
@@ -59,9 +98,9 @@ $(document).ready(function () {
                     type: "string",
                     label: "",
                     values: {
-                        "low": { label: "Low", color: 'yellow' },
-                        "medium": { label: "Medium", color: 'orange' },
-                        "high": { label: "High", color: 'red' }
+                        "Item:OSWcaf7db070ad6407babc5245e84d76840": { label: "Low", color: 'yellow' },
+                        "Item:OSW8d781c35212548fa9b2fccad3765da65": { label: "Medium", color: 'orange' },
+                        "Item:OSW8743c7d03c4e46c1bd42bb05e1a082d9": { label: "High", color: 'red' }
                     }
 
                 }],
@@ -74,7 +113,7 @@ $(document).ready(function () {
                             type: "string",
                             label: "",
                             values: {
-                                "backlog": { label: "Backlog", color: 'gray' }
+                                "Item:OSWaa8d29404288446a9f3ec7afa4e2a512": { label: "Backlog", color: 'gray' }
                             }
 
                         }],
@@ -87,7 +126,7 @@ $(document).ready(function () {
                                         type: "string",
                                         label: "",
                                         values: {
-                                            "low": { label: "Low", color: "yellow"}
+                                            "Item:OSWcaf7db070ad6407babc5245e84d76840": { label: "Low", color: "yellow"}
                                         },
                                         auto_unset: false
                                     }],
@@ -95,7 +134,7 @@ $(document).ready(function () {
                                         key: "expenditure_of_time"
                                     },
                                     tasks: [
-                                        { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T1", "lang": "en" }], due_date: "2023-03-01", progress: "30", expenditure_of_time:"10"} }
+                                        // { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T1", "lang": "en" }], due_date: "2023-03-01", progress: "30", expenditure_of_time:"10"} }
                                     ]
                                 },
                                 {
@@ -105,7 +144,7 @@ $(document).ready(function () {
                                         type: "string",
                                         label: "",
                                         values: {
-                                            "medium": { label: "Medium", color: "orange"}
+                                            "Item:OSW8d781c35212548fa9b2fccad3765da65": { label: "Medium", color: "orange"}
                                         },
                                         auto_unset: false
                                     }],
@@ -113,7 +152,7 @@ $(document).ready(function () {
                                         key: "expenditure_of_time"
                                     },
                                     tasks: [
-                                        { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T2", "lang": "en" }], expenditure_of_time:"20" } }
+                                        // { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T2", "lang": "en" }], expenditure_of_time:"20" } }
                                     ]
                                 },
                                 {
@@ -123,7 +162,7 @@ $(document).ready(function () {
                                         type: "string",
                                         label: "",
                                         values: {
-                                            "high": { label: "High", color: "red"}
+                                            "Item:OSW8743c7d03c4e46c1bd42bb05e1a082d9": { label: "High", color: "red"}
                                         },
                                         auto_unset: false
                                     }],
@@ -131,7 +170,7 @@ $(document).ready(function () {
                                         key: "expenditure_of_time"
                                     },
                                     tasks: [
-                                        { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T2", "lang": "en" }], expenditure_of_time:"30" } }
+                                        // { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T2", "lang": "en" }], expenditure_of_time:"30" } }
                                     ]
                                 }
                             ]
@@ -144,12 +183,12 @@ $(document).ready(function () {
                             type: "string",
                             label: "",
                             values: {
-                                "in_work": { label: "In Work", color: 'blue' }
+                                "Item:OSWa2b4567ad4874ea1b9adfed19a3d06d1": { label: "In Work", color: 'blue' }
                             }
 
                         }],
                         tasks: [
-                            { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T2", "lang": "en" }], status: ["in_work"], tags: ["test1"] } }
+                            // { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T2", "lang": "en" }], status: ["in_work"], tags: ["test1"] } }
                         ]
                     },
                     {
@@ -159,19 +198,37 @@ $(document).ready(function () {
                             type: "string",
                             label: "",
                             values: {
-                                "done": { label: "Done", color: 'green' }
+                                "Item:OSWf474ec34b7df451ea8356134241aef8a": { label: "Done", color: 'green' }
                             }
 
                         }],
                         tasks: [
-                            { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T3", "lang": "en" }], status: ["done"], tags: ["test1", "test2"] } }
+                            // { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), label: [{ "text": "T3", "lang": "en" }], status: ["done"], tags: ["test1", "test2"] } }
                         ]
                     }
                 ]
             });
-            board.insertTask({task:
-                { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), name: "Test", label: [{ "text": "My new test task", "lang": "en" }], status: "backlog", prio: "low", due_date: "2023-03-01", progress: "50"} }
-            });
+            //board.insertTask({task:
+            //    { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), name: "Test", label: [{ "text": "My new test task", "lang": "en" }], status: "backlog", prio: "low", due_date: "2023-03-01", progress: "50"} }
+            //});
+
+            if (config.query && config.query.type === "smw") {
+                var query = "/w/api.php?action=ask&format=json&query=" + config.query.value;
+                fetch(query)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    for (const title of Object.keys(data.query.results)) {
+                        mwjson.api.getPage(title).then((page) =>{
+                            let jsondata = page.slots['jsondata'];
+                            if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
+                            board.insertTask({task:
+                                { jsondata: jsondata}
+                            });
+                        });
+                    }
+                });
+            }
         });
     });
 });
@@ -311,6 +368,15 @@ osl.kanban.Kanban = class {
     onEdit(params) {
         if (this.config.onEdit) this.config.onEdit(params);
     }
+
+    onSave(params) {
+        params.kanban = this;
+        if (this.config.onSave) this.config.onSave(params);
+    }
+
+    onChange(params) {
+        if (this.config.onChange) this.config.onChange(params);
+    }
 }
 
 osl.kanban.Board = class {
@@ -418,8 +484,10 @@ osl.kanban.Board = class {
         this.autosave = !this.autosave;
     }
 
-    onSave() {
-        console.log("Safe");
+    onSave(params = {}) {
+        console.log("Save");
+        params.board = this;
+        this.parent.onSave(params);
     }
 
     onNewTask(params) {
@@ -430,6 +498,12 @@ osl.kanban.Board = class {
     onEdit(params) {
         params.board = this;
         this.parent.onEdit(params);
+        //if (this.autosave) this.parent.onSave(params);
+    }
+
+    onChange(params) {
+        params.board = this;
+        this.parent.onChange(params);
     }
 }
 
@@ -486,7 +560,7 @@ osl.kanban.Lane = class {
         let color = params.tag.values[params.value].color || 'grey';
         let textColor = params.textColor || osl.kanban.defineTextColor(color);
         $("#" + this.tag_container_id).append(`<a href="#"  class="badge float-right" style="background-color:${color}; color:${textColor}">+${label}</a>`)
-        .on('click', () => this.onNewTask(params));
+        .on('click', () => this.onNewTask()); //ToDo: add only single tag from this lane badge, but all tags from parent lanes
     }
 
     refresh() {
@@ -494,6 +568,9 @@ osl.kanban.Lane = class {
     }
 
     onNewTask(params) {
+        params = params || {};
+        params.tags = params.tags || [];
+        params.tags.push(...this.config.tags);
         this.parent.onNewTask(params);
     }
 
@@ -579,6 +656,8 @@ osl.kanban.Lane = class {
         //}
 
         this.board.updateDropzones();
+
+        this.onChange({task: task});
     }
 
     handleDrop(params) {
@@ -621,6 +700,10 @@ osl.kanban.Lane = class {
         }
     }
 
+    onChange(params) {
+        this.parent.onChange(params);
+    }
+
     onEdit(params) {
         this.parent.onEdit(params);
     }
@@ -651,7 +734,7 @@ osl.kanban.Task = class {
                     <a href="" class="lead font-weight-light">{{jsondata.label.[0].text}}</a>
                 </div>
                 <p class="card-text">
-                    This is a description of a item on the board.
+                    {{#if jsondata.description}}{{jsondata.description.[0].text}}{{/if}}
                 </p>
                 <div class="container">
                 <div class="row" style="align-items: center;">
