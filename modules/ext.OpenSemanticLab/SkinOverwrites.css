@@ -10,7 +10,7 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
     .ts-inner { max-width: none !important; }
 }
 
-/* Skin:Timeless, ULS Languages are not fully visible */
+/* Skin:Timeless, Citizen: ULS Languages are not fully visible */
 .row.uls-language-block {
 	min-width: 600px !important;
 }
@@ -165,4 +165,26 @@ details.mw-slot-details[open] summary {
 .layout-table .mw-parser-output {
 	scale: 0.5
 }
-   
+
+.InteractiveSemanticGraph {
+	width: unset !important;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+}
+
+.SvgEdit {
+	width: unset !important;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	display: flex;
+}
+
+.SvgEdit div {
+	width: 100%;
+}
+
+.Kanban {
+	display: flex;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+}
