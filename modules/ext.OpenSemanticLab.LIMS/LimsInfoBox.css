@@ -6,7 +6,6 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 /*info_box is used in all templates with an info box.*/
 .info_box {
     display: table;
-    border: 1px solid #000000;
     width: 30em;
     font-family: Arial;
     background-color: #f1f3f3;
@@ -18,26 +17,24 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
     clear: right;
     text-align: left !important;
     border-collapse: collapse;
+    border-radius: 4px;
 }
 
 .info_box th {
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    border-collapse: collapse;
     background-color: #f1f3f3;
 }
 
 .info_box td {
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
-    border-collapse: collapse;
+
 }
 
 /*subheading is used for the subheadings in the info box.*/
 .subheading {
     text-align: center;
-    background-color: #6dbfa9;
+    background-color: gray;
+    color: white;
     font-weight: bold;
+    border-radius: 4px;
 }
 
 .picture {
@@ -50,8 +47,11 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 .heading {
     width: 100%;
     text-align: center !important;
-    background-color: #6dbfa9 !important;
+    background-color: #14866d !important;
+    color: white;
     font-size: larger;
+    border-radius: 4px;
+    padding: 5px;
 }
 
 /*device is used in templates for the boxes within the wiki text.*/
