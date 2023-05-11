@@ -5,6 +5,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 
 /*info_box is used in all templates with an info box.*/
 .info_box {
+ display: table;
  border: 1px solid #000000;
  width: 30em; 
  font-family: Arial;
@@ -36,7 +37,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 .subheading{
  text-align: center; 
  background-color:#6dbfa9;
- font-weight: bold
+ font-weight: bold;
 }
 
 .picture{
@@ -47,6 +48,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 
 /*heading is used for the heading of the info box.*/
 .heading{
+    width: 100%; 
  text-align: center !important;
  background-color: #6dbfa9 !important; 
  font-size: larger;
