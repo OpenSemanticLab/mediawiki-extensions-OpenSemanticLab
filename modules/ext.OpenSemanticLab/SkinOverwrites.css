@@ -10,9 +10,22 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
     .ts-inner { max-width: none !important; }
 }
 
-/* Skin:Timeless, Citizen: ULS Languages are not fully visible */
-.row.uls-language-block {
-	min-width: 600px !important;
+/* Bootstrap / Skin:Timeless: ULS Languages are not fully visible (see https://www.mediawiki.org/wiki/Extension:Bootstrap) */
+.uls-language-list {
+	display: block;
+}
+.uls-search {
+	display: block;
+}
+
+/* Skin:Citizen: Preferences options are not fully visible */
+.citizen-pref-panel fieldset {
+	min-width: unset;
+}
+
+/* Skin:Citizen: Sidebar menu entries misaligned */
+.citizen-menu ul {
+	padding-left: unset;
 }
 
 /* prevent overwriting by bootstrap (use by jsoneditor) */
