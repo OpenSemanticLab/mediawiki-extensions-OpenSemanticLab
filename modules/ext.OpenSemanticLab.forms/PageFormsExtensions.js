@@ -333,19 +333,22 @@ $(document).ready(function() {
 				var property_list = context.pattern.split("${");
 				for (let index = 0; index < property_list.length; index++) {
 					const element = property_list[index];
-					if (index > 0) properties[(element.split("}")[0])] = "";
+					if (index > 0) properties[(element.split("}")[0])] = undefined;
 				}
 				properties["year"] = context.year;
 				properties["short_timestamp"] = context.timestamp_YYMMDD;
 				properties["user_abbreviation"] = context.HasAbbreviation;
 				properties["unique_number"] = "*";
 
-				searchParams = new URLSearchParams(window.location.search);
+				const searchParams = new URLSearchParams(window.location.search);
 				for (let p of searchParams) {
-					if (properties[p[0]] !== undefined) properties[p[0]] = p[1];
+					if (context.debug) console.log(p);
+					if (p[0] in properties) properties[p[0]] = p[1];
 				}
 				if (context.debug) console.log(properties);
-				
+
+				for (let property in properties) if (properties[property] === undefined) return; //value missing => abort
+
 				context.value = context.pattern;
 				for (let property in properties) {
 					context.value = context.value.replace("${" + property + "}", properties[property]);
