@@ -187,6 +187,12 @@ $(document).ready(function() {
 			copy_from_previous($newInstance);
 		});
 
+                $('.PageFormsExtensions_copy-fields').each(function() {
+                        $(this).find(".multipleTemplateInstance").each(function() {
+                        	copy_from_previous($(this));
+			});
+                });
+
 		function copy_from_previous($newInstance) {
 			$prev = $newInstance.prevAll('.multipleTemplateInstance').first();
 			//console.log($newInstance);
