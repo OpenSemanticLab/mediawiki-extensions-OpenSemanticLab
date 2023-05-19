@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class OpenSemanticLab {
 
 	public static function onPageImporterRegisterPageLists( array &$pageLists ) {
@@ -346,7 +348,7 @@ class OpenSemanticLab {
 
 	}
 	
-	public static function onSkinTemplateNavigation( &$skin, &$links ) {
+	public static function onSkinTemplateNavigation_Universal( &$skin, &$links ) {
 		// Add an additional link
 		//https://stackoverflow.com/questions/18442495/how-to-get-current-page-url-in-mediawiki
 		//https://github.com/wikimedia/mediawiki/blob/bcaab3d057c8e550793100448f725761e1a8e017/includes/skins/SkinTemplate.php#L1018
@@ -357,24 +359,32 @@ class OpenSemanticLab {
 			'href' => $skin->makeInternalOrExternalUrl("CreatePage" . ?superpage=" . $skin->getTitle()->getFullText())
 		);*/
 
+		$user = $skin->getUser();
+		$namespace = $skin->getTitle()->getNamespace();
+		$page_title = $skin->getTitle()->getFullText();
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$user_can_edit = $permissionManager->userCan( 'edit', $user, $skin->getTitle(), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
+		$data_editable = in_array($namespace, [0, 6, 14, 7000]) && $page_title != "Main Page";
+
 		if ( $skin->getSkinName() === 'citizen' ) {
+
 			//views: always visible
-			$links['views']['edit-data'] = array(
+			if ( $user_can_edit && $data_editable ) $links['views']['edit-data'] = array(
 				'class' => "osw-links citizen-ve-edit-merged",
 				'text' => "Edit Data",
 				'href' => "javascript:osl.ui.editData();",
 			);
 
-			if ($skin->getTitle()->getNamespace() == 14) { //Category
-				$page_title = $skin->getTitle()->getFullText();
+			if ($namespace == 14) { //Category
+				
 			
-				$links['views']['create-subcategory'] = array(
+				if ( $user_can_edit ) $links['views']['create-subcategory'] = array(
 					'class' => "osw-links",
 					'text' => "Subcategory",
 					'href' => 'javascript:osl.ui.createSubcategory(["' . $page_title . '"]);' ,
 				);
 
-				$links['views']['create-instance'] = array(
+				if ( $user_can_edit ) $links['views']['create-instance'] = array(
 					'class' => "osw-links",
 					'text' => "Create",
 					'href' => 'javascript:osl.ui.createInstance(["' . $page_title . '"]);' ,
@@ -390,7 +400,7 @@ class OpenSemanticLab {
 			//$links['views']['ve-edit']['text'] = "Edit text"; //does not work, overwritten by js
 
 			//Actions: In sidebar
-			if ($skin->getTitle()->getNamespace() != 0) { //not "Main"
+			if ( $user_can_edit && $data_editable && $namespace != 0) { //not "Main"
 				$links['actions']['copy'] = array(
 					'class' => "",
 					'text' => "Copy",
