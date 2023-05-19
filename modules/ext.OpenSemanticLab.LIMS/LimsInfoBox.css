@@ -22,14 +22,15 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 
 .info_box th {
     background-color: #f1f3f3;
+    padding: 0 0.4em 0 0.4em;
 }
 
 .info_box td {
-
+    padding: 0 0.4em 0 0.4em;
 }
 
 /*subheading is used for the subheadings in the info box.*/
-.subheading {
+.info_box .subheading {
     text-align: center;
     background-color: gray;
     color: white;
@@ -37,14 +38,14 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
     border-radius: 4px;
 }
 
-.picture {
+.info_box .picture {
     text-align: center;
     padding: 10px 0;
     width: 1000px;
 }
 
 /*heading is used for the heading of the info box.*/
-.heading {
+.info_box .heading {
     width: 100%;
     text-align: center !important;
     background-color: #14866d !important;
