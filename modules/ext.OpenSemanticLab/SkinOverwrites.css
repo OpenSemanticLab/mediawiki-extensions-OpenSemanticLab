@@ -14,12 +14,21 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
 }
 
 /* Bootstrap / Skin:Timeless: ULS Languages are not fully visible (see https://www.mediawiki.org/wiki/Extension:Bootstrap) */
+
+.uls-language-block {
+    min-width: 600px !important;
+}
 .uls-language-list {
     display: block;
 }
-
 .uls-search {
     display: block;
+}
+.uls-search-input-wrapper {
+    margin-left: 10px;
+}
+.uls-filterinput {
+    width: unset !important;
 }
 
 /* Skin:Citizen: Preferences options are not fully visible */
