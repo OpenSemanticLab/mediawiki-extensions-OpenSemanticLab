@@ -341,6 +341,29 @@ class OpenSemanticLab {
 		$out->addModules( 'ext.OpenSemanticLab' );
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 		$out->addModules( 'ext.OpenSemanticLab.forms' );
+		
+		/*$out->addHeadItems('<script type="application/ld+json">
+		{
+			"@context": [{
+				"schema": "https://schema.org/",
+				"name": "schema:name",
+				"author": "schema:author",
+				"datePublished": "schema:datePublished",
+				"description": "schema:description",
+				"prepTime": "schema:prepTime"
+			}],
+			"_context": "/wiki/Category:OSW48b28afa86b446c883b7324f4819104d?action=raw&slot=jsonschema",
+			"@type": "schema:Recipe",
+			"name": "Party Coffee Cake",
+			"author": {
+			  "@type": "schema:Person",
+			  "name": "Mary Stone"
+			},
+			"datePublished": "2018-03-10",
+			"description": "This coffee cake is awesome and perfect for parties.",
+			"prepTime": "PT20M"
+		  }; 
+		</script>');*/
 
 		return true;
 
