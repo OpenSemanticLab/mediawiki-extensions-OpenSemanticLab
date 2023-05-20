@@ -2,6 +2,8 @@
 
 class OpenSemanticLab {
 
+	public static $content_modified = false;
+
 	public static function onPageImporterRegisterPageLists( array &$pageLists ) {
 
 		$pageLists['OpenSemanticLab'] = [
@@ -341,7 +343,7 @@ class OpenSemanticLab {
 		$out->addModules( 'ext.OpenSemanticLab' );
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 		$out->addModules( 'ext.OpenSemanticLab.forms' );
-
+		
 		return true;
 
 	}
@@ -366,5 +368,42 @@ class OpenSemanticLab {
 
         	return true;
         }
+
+	/**
+	 * Implements ParserBeforeInternalParse hook.
+	 * See https://www.mediawiki.org/wiki/Manual:Hooks/ParserBeforeInternalParse
+	 * Handle talk page title.
+	 *
+	 * @since 1.0
+	 * @param Parser $parser the Parser object
+	 * @param string &$text the text
+	 * @param StripState $strip_state the strip state
+	 */
+	public static function onParserBeforePreprocess( Parser $parser, string &$text = null, StripState $stripState ) {
+		$title = $parser->getTitle();
+		$revisionRecord = $parser->getRevisionRecordObject();
+		if ( !OpenSemanticLab::$content_modified && $revisionRecord !== null && $title !== null && $title->getNamespace() === 14) {
+			$text .= "<h1>Test</h1>";
+			OpenSemanticLab::$content_modified = true;
+		}
+		return true;
+	}
+
+	public static function onBeforeRevisionRenderSlot( Content &$content, string $role, array $hints, MediaWiki\Revision\RevisionRecord $revisionRecord, User $userObj = null) {
+			/*if ( $content->getModel() === CONTENT_MODEL_WIKITEXT && $role == MediaWiki\Revision\SlotRecord::MAIN ) {
+				$header = "";
+				$footer = "";
+				$ns_id = $revisionRecord->getPageAsLinkTarget()->getNamespace();
+
+				if ($ns_id === 14 || $ns_id === 7000) { //Category||Item
+					$header = "{{#invoke:Entity|header}}\n";
+					$footer = "\n{{#invoke:Entity|footer}}";
+				}
+		
+				$text = $header . $content->getText() . $footer;
+				$content = new WikitextContent($text);
+			}*/
+			return true;
+	}
 
 }

@@ -464,6 +464,10 @@
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
-		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation"
+		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation",
+		"BeforeRevisionRenderSlot": "OpenSemanticLab::onBeforeRevisionRenderSlot"
+	},
+	"ContentHandlers": {
+		"entity": "MediaWiki\\Extension\\OpenSemanticLab\\EntityContentHandler"
 	}
 }
