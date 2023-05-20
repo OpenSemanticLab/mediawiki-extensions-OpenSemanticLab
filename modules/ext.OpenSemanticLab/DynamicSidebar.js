@@ -14,3 +14,25 @@ $(document).ready( function() {
 		$('#p-navigation').prepend( data.parse.text['*'] );
 	});
 });
+
+//dynamic sitebar content from user subpage
+//$(document).ready( function() {
+	const user_lang = mw.config.get( 'wgUserLanguage' );
+	//const user_lang = window.navigator.userLanguage;
+	//const user_lang = window.uls-preferences.ime.language;
+	Array.from(document.getElementsByClassName('i18n-text')).forEach(
+		function(element, index, array) {
+			console.log(element.dataset);
+			if (element.getAttribute('lang') === user_lang) {
+				if (element.dataset.id) {
+					const target = document.getElementById(element.dataset.id);
+					target.textContent=element.dataset.text;
+					target.style.display='block';
+					if (element.dataset.id === 'firstHeading') document.title = element.dataset.text
+				}
+			}
+		}
+	);
+//});
+
+
