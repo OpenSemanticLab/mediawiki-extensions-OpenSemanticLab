@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class OpenSemanticLab {
 
 	public static function onPageImporterRegisterPageLists( array &$pageLists ) {
@@ -342,29 +344,83 @@ class OpenSemanticLab {
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 		$out->addModules( 'ext.OpenSemanticLab.forms' );
 
+		$out->addModules( 'ext.osw.ui.kanban' );
+
 		return true;
 
 	}
+	
+	public static function onSkinTemplateNavigation_Universal( &$skin, &$links ) {
+		// Add an additional link
+		//https://stackoverflow.com/questions/18442495/how-to-get-current-page-url-in-mediawiki
+		//https://github.com/wikimedia/mediawiki/blob/bcaab3d057c8e550793100448f725761e1a8e017/includes/skins/SkinTemplate.php#L1018
 
-        public static function onSkinTemplateNavigation( &$skin, &$links ) {
-       		// Add an additional link
-       		//https://stackoverflow.com/questions/18442495/how-to-get-current-page-url-in-mediawiki
-      		$links['views']['subpage'] = array(
+      	/*$links['actions']['subpage'] = array(
 			'class' => false, // false or 'selected', defines whether the tab should be highlighted
 			'text' => wfMessage('open-semantic-lab-create-subpage'), // what the tab says
-			'href' => "https://$_SERVER[HTTP_HOST]/wiki/CreatePage?superpage=" . $skin->getTitle()->getFullText(),
-		);
+			'href' => $skin->makeInternalOrExternalUrl("CreatePage" . ?superpage=" . $skin->getTitle()->getFullText())
+		);*/
 
-		//not placed properly with Skin:Timeless -> use javascript
-		//$request = $skin->getRequest();
-		//$reveal = $request->getText( 'reveal' );
-		//$links['actions']['slide'] = array(
-		//	'class' => ( $reveal == 'true') ? 'selected' : false,
-		//	'text' => "Slideshow",
-		//	'href' => $skin->makeArticleUrlDetails($skin->getTitle()->getFullText(), 'reveal=true' )['href']
-		//);
+		$user = $skin->getUser();
+		$namespace = $skin->getTitle()->getNamespace();
+		$page_title = $skin->getTitle()->getFullText();
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$user_can_edit = $permissionManager->userCan( 'edit', $user, $skin->getTitle(), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
+		$data_editable = in_array($namespace, [0, 6, 14, 7000]) && $page_title != "Main Page";
 
-        	return true;
-        }
+		if ( $skin->getSkinName() === 'citizen' ) {
 
+			//views: always visible
+			if ( $user_can_edit && $data_editable ) $links['views']['edit-data'] = array(
+				'class' => "osw-links citizen-ve-edit-merged",
+				'text' => "Edit Data",
+				'href' => "javascript:osl.ui.editData();",
+			);
+
+			if ($namespace == 14) { //Category
+				
+			
+				if ( $user_can_edit ) $links['views']['create-subcategory'] = array(
+					'class' => "osw-links",
+					'text' => "Subcategory",
+					'href' => 'javascript:osl.ui.createSubcategory(["' . $page_title . '"]);' ,
+				);
+
+				if ( $user_can_edit ) $links['views']['create-instance'] = array(
+					'class' => "osw-links",
+					'text' => "Create",
+					'href' => 'javascript:osl.ui.createInstance(["' . $page_title . '"]);' ,
+				);
+
+				$links['views']['query-instance'] = array(
+					'class' => "osw-links",
+					'text' => "Search",
+					'href' => 'javascript:osl.ui.queryInstance(["' . $page_title . '"]);' ,
+				);
+			}
+
+			//$links['views']['ve-edit']['text'] = "Edit text"; //does not work, overwritten by js
+
+			//Actions: In sidebar
+			if ( $user_can_edit && $data_editable && $namespace != 0) { //not "Main"
+				$links['actions']['copy'] = array(
+					'class' => "",
+					'text' => "Copy",
+					'href' => 'javascript:osl.ui.editData({"mode": "copy"});',
+				);
+			}
+
+			$links['actions']['export-pdf'] = array(
+				'class' => "",
+				'text' => "Export PDF",
+				'href' => 'javascript:osl.ui.printPage();',
+			);
+
+			// move history to "more"
+			$links['actions']['history'] = $links['views']['history'];
+			unset($links['views']['history']);
+		}
+
+		return true;
+	}
 }

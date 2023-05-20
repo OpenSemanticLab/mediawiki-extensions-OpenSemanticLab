@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.10.0",
+	"version": "0.11.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -464,6 +464,6 @@
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
-		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation"
+		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal"
 	}
 }
