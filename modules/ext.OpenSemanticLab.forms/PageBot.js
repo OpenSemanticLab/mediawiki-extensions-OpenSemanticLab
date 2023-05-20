@@ -849,6 +849,14 @@ osl.ui = class {
     }
 
     static createOrQueryInstance(categories = [mw.config.get( 'wgPageName' )], mode='default') {
+        /*var params = mwjson.util.mergeDeep({
+            categories: [mw.config.get( 'wgPageName' )],
+            mode: 'default',
+            dataslot: 'jsondata',
+            source_page: mw.config.get( 'wgPageName' ),
+            autosave: true,
+            reload: true,
+        }, params);*/
 
         var config = {
             JSONEditorConfig: {
@@ -885,12 +893,13 @@ osl.ui = class {
         const promise = new Promise((resolve, reject) => {
 
             $.when(
-                mwjson.editor.init()
+                mwjson.editor.init(),
+                //() => {mode === "copy" ? mwjson.api.getPage(source_page) : new Promise((resolve) => resolve())}
             ).done(function () {
 
                 config.schema = {"allOf": []}
                 
-                //if (mode !== 'query') 
+                //if (mode !== 'copy') {
                 config.data = {"type": []}
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
@@ -903,6 +912,7 @@ osl.ui = class {
                         return;
                     }
                 }
+                //}
 
                 if (mode === 'query') {
                     config.mode = mode;
