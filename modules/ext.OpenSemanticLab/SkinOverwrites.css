@@ -13,6 +13,11 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
     }
 }
 
+/* Indefinite content width for Skin:Citizen, see https://github.com/StarCitizenTools/mediawiki-skins-Citizen/wiki/Customizing-Citizen-styles  */
+:root {
+    --width-layout: 100vw;
+}
+
 /* Bootstrap / Skin:Timeless: ULS Languages are not fully visible (see https://www.mediawiki.org/wiki/Extension:Bootstrap) */
 
 .uls-language-block {
