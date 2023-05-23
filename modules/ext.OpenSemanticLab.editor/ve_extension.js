@@ -30,7 +30,7 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
     
     //$("div.custom-show-visual-section-edit-link").find("a")
     $(".mw-editsection").each(function(){
-        console.log(mw.config.get('wgPageName'));
+        if (mw.config.get("skin") == "citizen") return; // disable this feature in Skin:Citizen (edit-links always hidden)
         if (mw.config.get('wgPageName') === "Special:FormEdit" || mw.util.getParamValue('action') === "formedit") return; //no edit links in PageForms
         var allHidden = true;
         $(this).find("a").each(function(){

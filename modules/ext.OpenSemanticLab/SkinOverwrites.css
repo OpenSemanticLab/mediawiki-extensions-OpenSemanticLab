@@ -118,6 +118,10 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
 .mw-editsection {
     display: none;
 }
+/* more specific to overwrite Skin:Citizen css */
+.citizen-body .mw-editsection { 
+    display: none;
+}
 
 /* hide only  source edit links
 .mw-editsection a:nth-of-type(2) { display:none!important; }
