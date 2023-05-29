@@ -83,7 +83,7 @@ $(document).ready(function () {
                         "hide_title": true,
                         "hide_template": false,
                         "hide_template-preview": false,
-                        "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable/Template]]|?Display_title_of=HasDisplayName|?HasDescription"},
+                        "template_autocomplete": {"query": (input) => "[[Category:ELN/Order/Actionable/Template]][[Display_title_of::like:*" + input + "*]]|?Display_title_of=HasDisplayName|?HasDescription|limit=100"},
                         "modifications": [
                             {"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )},
                             {"template": "OslTemplate:ELN/Order/Actionable", "path": "IS_TEMPLATE", "value": 'No'},
