@@ -380,6 +380,13 @@ osl.util = class {
             //if (!page.slots['jsonschema']['properties'] || !page.slots['jsonschema']['properties']['type']) {
             //    page.slots['jsonschema']['properties']['type'] = {'default': [page.title]};
             //}
+            // remove type keyword in $ref (inserted by editing with jsonschema-jsonschema) causing errors in json-schema-ref-parser.js
+            if (page.slots['jsonschema']['allOf']) {
+                if (!Array.isArray(page.slots['jsonschema']['allOf'])) page.slots['jsonschema']['allOf'] = [page.slots['jsonschema']['allOf']];
+                for (const schema of page.slots['jsonschema']['allOf']) {
+                    if (mwjson.util.isObject(schema) &&  schema['$ref'] && schema['type']) delete schema['type']; 
+                }
+            }
         }
 
         const promise = new Promise((resolve, reject) => { 
