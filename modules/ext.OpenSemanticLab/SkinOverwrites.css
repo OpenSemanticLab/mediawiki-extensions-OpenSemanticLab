@@ -366,3 +366,8 @@ details.mw-slot-details[open] summary {
 .maps-leaflet {
     z-index: 0;
 }
+
+/* fix partial hidden autocomplete suggest list in json-editor array tables */
+.je-ready table {
+    overflow-x: unset;
+}
