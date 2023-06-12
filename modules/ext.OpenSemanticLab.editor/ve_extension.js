@@ -223,6 +223,7 @@ $(document).ready(function() {
             });		
         }
         
+        mw.hook( 'jsoneditor.file.uploaded' ).add( (file) => {fileUploadHandler("JsonEditor", file)});
         mw.hook( 'svgeditor.file.uploaded' ).add( (file) => {fileUploadHandler("SvgEditor", file)});
         mw.hook( 'wellplateeditor.file.uploaded' ).add( (file) => {fileUploadHandler("WellplateEditor", file)});
         mw.hook( 'drawioeditor.file.uploaded' ).add( (file) => {fileUploadHandler("DrawIoEditor", file)});
