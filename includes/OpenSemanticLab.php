@@ -373,8 +373,25 @@ class OpenSemanticLab {
 			//views: always visible
 			if ( $user_can_edit && $data_editable ) $links['views']['edit-data'] = array(
 				'class' => "osw-links citizen-ve-edit-merged",
-				'text' => "Edit Data",
+				'text' => wfMessage( 'open-semantic-lab-edit-page-data-short' )->text(),
+				'title' => wfMessage( 'open-semantic-lab-edit-page-data-tooltip' )->text(),
 				'href' => "javascript:osl.ui.editData();",
+			);
+			
+			//Actions: In sidebar
+			if ( $user_can_edit && $data_editable && $namespace != 0) { //not "Main"
+				$links['actions']['copy'] = array(
+					'class' => "",
+					'text' => wfMessage( 'open-semantic-lab-copy-page' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-copy-page-tooltip' )->text(),
+					'href' => 'javascript:osl.ui.editData({"mode": "copy"});',
+				);
+			}
+			$links['actions']['export-pdf'] = array(
+				'class' => "",
+				'text' => wfMessage( 'open-semantic-lab-print-page' )->text(),
+				'title' => wfMessage( 'open-semantic-lab-print-page-tooltip' )->text(),
+				'href' => 'javascript:osl.ui.printPage();',
 			);
 
 			if ($namespace == 14) { //Category
@@ -382,39 +399,41 @@ class OpenSemanticLab {
 			
 				if ( $user_can_edit ) $links['views']['create-subcategory'] = array(
 					'class' => "osw-links",
-					'text' => "Subcategory",
+					'text' => wfMessage( 'open-semantic-lab-create-subcategory-short' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-create-subcategory-tooltip' )->text(),
 					'href' => 'javascript:osl.ui.createSubcategory(["' . $page_title . '"]);' ,
 				);
 
 				if ( $user_can_edit ) $links['views']['create-instance'] = array(
 					'class' => "osw-links",
-					'text' => "Create",
+					'text' => wfMessage( 'open-semantic-lab-create-instance-short' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-create-instance-tooltip' )->text(),
 					'href' => 'javascript:osl.ui.createInstance(["' . $page_title . '"]);' ,
+				);
+
+				if ( $user_can_edit ) $links['actions']['edit-schema'] = array(
+					'class' => "osw-links",
+					'text' => wfMessage( 'open-semantic-lab-edit-page-schema' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-edit-page-schema-tooltip' )->text(),
+					'href' => "javascript:osl.ui.editData({dataslot: 'jsonschema'});" ,
+				);
+
+				if ( $user_can_edit ) $links['actions']['edit-slots'] = array(
+					'class' => "osw-links",
+					'text' => wfMessage( 'open-semantic-lab-edit-page-slots' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-edit-page-slots-tooltip' )->text(),
+					'href' => "javascript:osl.ui.editSlots({'include': ['jsonschema', 'jsondata'], 'hide': ['footer', 'header']});"
 				);
 
 				$links['views']['query-instance'] = array(
 					'class' => "osw-links",
-					'text' => "Search",
+					'text' => wfMessage( 'open-semantic-lab-query-instance-short' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-query-instance-tooltip' )->text(),
 					'href' => 'javascript:osl.ui.queryInstance(["' . $page_title . '"]);' ,
 				);
 			}
 
 			//$links['views']['ve-edit']['text'] = "Edit text"; //does not work, overwritten by js
-
-			//Actions: In sidebar
-			if ( $user_can_edit && $data_editable && $namespace != 0) { //not "Main"
-				$links['actions']['copy'] = array(
-					'class' => "",
-					'text' => "Copy",
-					'href' => 'javascript:osl.ui.editData({"mode": "copy"});',
-				);
-			}
-
-			$links['actions']['export-pdf'] = array(
-				'class' => "",
-				'text' => "Export PDF",
-				'href' => 'javascript:osl.ui.printPage();',
-			);
 
 			// move history to "more"
 			$links['actions']['history'] = $links['views']['history'];

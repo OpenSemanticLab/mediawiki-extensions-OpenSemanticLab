@@ -299,10 +299,10 @@ $(document).ready(function () {
         });*/
 
         //Create Slot edit link in the page tools sidebar
-        mwjson.util.addBarLink({
+        /*mwjson.util.addBarLink({
             "label": mw.message('open-semantic-lab-edit-page-slots'),
             "href": `javascript:osl.ui.editSlots({"include": ["jsonschema", "jsondata"], "hide": ["footer", "header"]});`
-        });
+        });*/
 
         /*if (mw.config.get( 'wgPageName' ).startsWith("Category:") && !["Category:Category", "Category:Entity"].includes(mw.config.get( 'wgPageName' ))) {
             mwjson.util.addBarLink({
