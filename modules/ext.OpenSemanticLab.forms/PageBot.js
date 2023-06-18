@@ -17,15 +17,19 @@ $(document).ready(function () {
         //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"),
     ).done(function () {
 
-        //Create Copy link in the page tools sidebar
-        let current_title = new mw.Title(mw.config.get("wgPageName"));
-        let namespace = current_title.getNamespacePrefix().replace(":", "");
-        //let title = current_title.getPrefixedDb() + " Copy";
-        //if (current_title.getMain().startsWith("OSW")) title = namespace + ":" + mwjson.util.OswId();
-        if (namespace === "") {  //Only in namespace main, otherwise (uu)ids need to be changed
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-copy-page'),
-                "href": `javascript:mwjson.editor.createCopyPageDialog({
+        $.when(
+            mwjson.api.getUserInfo()
+        ).done(function (userInfo) {
+
+            //Create Copy link in the page tools sidebar
+            let current_title = new mw.Title(mw.config.get("wgPageName"));
+            let namespace = current_title.getNamespacePrefix().replace(":", "");
+            //let title = current_title.getPrefixedDb() + " Copy";
+            //if (current_title.getMain().startsWith("OSW")) title = namespace + ":" + mwjson.util.OswId();
+            if (namespace === "") {  //Only in namespace main, otherwise (uu)ids need to be changed
+                mwjson.util.addBarLink({
+                    "label": mw.message('open-semantic-lab-copy-page'),
+                    "href": `javascript:mwjson.editor.createCopyPageDialog({
                     "msg": {
                         "continue": "${mw.message('open-semantic-lab-create-page-dialog-continue')}", 
                         "cancel": "${mw.message('open-semantic-lab-create-page-dialog-cancel')}",
@@ -34,32 +38,32 @@ $(document).ready(function () {
                         "page-exists-warning": "${mw.message('open-semantic-lab-create-page-dialog-page-exists-warning')}",
                     }
                 })`
-            });
-        }
+                });
+            }
 
-        $(".PageBot-Action").each(function () {
-            //see also: https://www.mediawiki.org/wiki/Manual:Interface/JavaScript
-            var defaultOptions = {
-                "type": "button",
-                "label": mw.message('open-semantic-lab-create-task-from-template').text(),
-            };
-            var userOptions = {};
+            $(".PageBot-Action").each(function () {
+                //see also: https://www.mediawiki.org/wiki/Manual:Interface/JavaScript
+                var defaultOptions = {
+                    "type": "button",
+                    "label": mw.message('open-semantic-lab-create-task-from-template').text(),
+                };
+                var userOptions = {};
 
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
 
-            if (config.type === "button") {
-                //var button = new OO.ui.ButtonWidget({
-                //    label: config.label
-                //});
-                //var $element = button.$element;
-                //button.setIcon( 'templateAdd' ); //does not work
-                //note: msgs need to be resolved here because they are prefetched
+                if (config.type === "button") {
+                    //var button = new OO.ui.ButtonWidget({
+                    //    label: config.label
+                    //});
+                    //var $element = button.$element;
+                    //button.setIcon( 'templateAdd' ); //does not work
+                    //note: msgs need to be resolved here because they are prefetched
 
-                var $element = $('<span class="actionable_button add_action" style="background-color:indigo"><a>' + config.label + '</a></span>');
-                $element.find('a').attr('href',
-                    `javascript:mwjson.editor.createPageDialog({
+                    var $element = $('<span class="actionable_button add_action" style="background-color:indigo"><a>' + config.label + '</a></span>');
+                    $element.find('a').attr('href',
+                        `javascript:mwjson.editor.createPageDialog({
                         "msg": { 
                             "dialog-title": "${mw.message('open-semantic-lab-create-task')}", 
                             "continue": "${mw.message('open-semantic-lab-create-page-dialog-continue')}", 
@@ -81,182 +85,207 @@ $(document).ready(function () {
                         ],
                         "redirect": (page) => new mw.Title( page.title ).getUrl({"action": "formedit", "returnto": mw.config.get( 'wgPageName' )})
                     })`
-                )
-                $(this).append($element);
-            }
-            /*mwjson.util.addBarLink({"label": mw.message('open-semantic-lab-copy-page'), 
-                "href": `javascript:mwjson.editor.createPageDialog({
-                    "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable]]|?Display_title_of=HasDisplayName|?HasDescription"},
-                    "modifications": [{"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )}]
+                    )
+                    $(this).append($element);
+                }
+                /*mwjson.util.addBarLink({"label": mw.message('open-semantic-lab-copy-page'), 
+                    "href": `javascript:mwjson.editor.createPageDialog({
+                        "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable]]|?Display_title_of=HasDisplayName|?HasDescription"},
+                        "modifications": [{"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )}]
+                    })
+                `});*/
+            });
+
+            $(".pagebot-button").each(function () {
+                var defaultOptions = {
+                    "action": "create-instance",
+                    "params": {},
+                    "class": "btn btn-primary",
+                    "target": this
+                };
+                var userOptions = {};
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                if (!userOptions.params) userOptions.params = {};
+                if (!userOptions.params.categories) userOptions.params.categories = [mw.config.get("wgPageName")];
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+
+                var configs = []
+                if (config.action === "menu-dropdown") {
+                    $(this).addClass("dropdown show");
+                    config.id = "dropdown-" + mwjson.util.getShortUid();
+                    const target = $(`<div class="dropdown-menu" aria-labelledby="${config.id}"></div>`);
+                    $(this).append(target);
+                    configs.push(config);
+                    for (var entry of config.menu_entries) {
+                        entry = mwjson.util.mergeDeep(defaultOptions, entry);
+                        entry.class += " dropdown-item";
+                        entry.target = target;
+                        configs.push(entry);
+                    }
+                }
+                else configs.push(config);
+
+                for (const config of configs) {
+                    var icon = "";
+                    if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
+                    var label = "";
+                    if (config.action === "create-instance") {
+                        label = mw.message('open-semantic-lab-create-instance').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "create-subcategory") {
+                        label = mw.message('open-semantic-lab-create-subcategory').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createSubcategory(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "query-instance") {
+                        label = mw.message('open-semantic-lab-query-instance').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.queryInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "edit-data") {
+                        label = mw.message('open-semantic-lab-edit-page-data').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "copy") {
+                        label = mw.message('open-semantic-lab-copy-page').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData({"mode": "copy"});'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "export") {
+                        label = mw.message('open-semantic-lab-print-page').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.printPage();'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "edit") {
+                        //label = mw.message('open-semantic-lab-edit-page-data').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='/wiki/${mw.config.get("wgPageName")}?veaction=edit'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "menu-dropdown") {
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class} dropdown-toggle" role="button" href='#' id="${config.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "dropdown-divider") {
+                        $(config.target).append($(`<div class="dropdown-divider"></div>`));
+                    }
+                    if (!config.tooltip && config.label === "") config.tooltip = label;
+                    if (config.tooltip && config.tooltip !== "") {
+                        $(config.target).attr("data-toggle", "tooltip");
+                        $(config.target).attr("title", config.tooltip);
+                    }
+                }
+            });
+
+            //Create tile that links to a popup editor
+            $(".pagebot-tile").each(function () {
+                var defaultOptions = {
+                    "type": "button",
+                    "action": "create-instance",
+                    "lang": mw.config.get('wgUserLanguage'),
+                    "icon": "🔒",
+                    "title": mw.message('open-semantic-lab-not-accessible').text(),
+                    "description": mw.message('open-semantic-lab-login-needed').parse()
+                };
+                var userOptions = {};
+
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                
+
+                mwjson.api.getPage(config.categories[0]).then((page) => {
+                    var schema = page.slots['jsonschema'];
+                    if (mwjson.util.isString(schema)) schema = JSON.parse(schema);
+                    config.title = schema["title"];
+                    if (schema['title*'] && schema['title*'][config.lang]) config.title = schema['title*'][config.lang];
+                    //else if (schema['label'] && schema['label']['en']) config.title = schema['label']['en'];
+                    config.description = schema["description"];
+                    if (schema['description*'] && schema['description*'][config.lang]) config.description = schema['description*'][config.lang];
+                    //else if (schema['description'] && schema['description']['en']) config.description = schema['description']['en'];
+                    //console.log(config.title, config.description);
+                    var jsondata = page.slots['jsondata'];
+                    if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
+
+                    if (jsondata.utf8_icon && mwjson.util.isString(jsondata.utf8_icon)) config.icon = jsondata.utf8_icon;
+                    else if (jsondata.utf8_icon && mwjson.util.isArray(jsondata.utf8_icon)) config.icon = jsondata.utf8_icon[0];
+
+                    if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(config.icon);
+                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="/wiki/' + config.categories[0] + '">' + config.title + '</a>'))
+                    if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").text(config.description);
+
+                    var url = mw.config.get('wgArticlePath').replace('$1', "Special:Login");
+
+                    if (config.action === "create-instance") {
+                        var label = mw.message('open-semantic-lab-create-instance').text();
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createInstance(["${config.categories[0]}"]);`
+                        else label =  "🔒 " + label;
+                        if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                    }
+                    if (config.action === "create-subcategory") {
+                        var label = mw.message('open-semantic-lab-create-subcategory').text();
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createSubcategory(["${config.categories[0]}"]);`
+                        else label =  "🔒 " + label;
+                        if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                    }
+                    else if (config.action === "query-instance") {
+                        var label = mw.message('open-semantic-lab-query-instance').text();
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.queryInstance(["${config.categories[0]}"]);`
+                        if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                    }
+
+                    $(this).css('visibility', 'visible');
+                    $(this).parent().removeClass('linear-background');
                 })
-            `});*/
-        });
+                .catch(error => {
+                    // typical: user has no read rights
+                    console.log("ERROR:", error)
 
-        $(".pagebot-button").each(function () {
-            var defaultOptions = {
-                "action": "create-instance",
-                "params": {},
-                "class": "btn btn-primary",
-                "target": this
-            };
-            var userOptions = {};
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            if (!userOptions.params) userOptions.params = {};
-            if (!userOptions.params.categories) userOptions.params.categories = [mw.config.get("wgPageName")];
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                    if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(config.icon);
+                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append(config.title);
+                    if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").html(config.description);
+                    
+                    $(this).css('visibility', 'visible');
+                    $(this).parent().removeClass('linear-background');
+                });
+            });
 
-            var configs = []
-            if (config.action === "menu-dropdown") {
-                $(this).addClass("dropdown show");
-                config.id = "dropdown-" + mwjson.util.getShortUid();
-                const target = $(`<div class="dropdown-menu" aria-labelledby="${config.id}"></div>`);
-                $(this).append(target);
-                configs.push(config);
-                for (var entry of config.menu_entries) {
-                    entry = mwjson.util.mergeDeep(defaultOptions, entry);
-                    entry.class += " dropdown-item";
-                    entry.target = target;
-                    configs.push(entry);
-                }
-            }
-            else configs.push(config);
+            $(".pagebot-preview").each(function () {
+                var defaultOptions = {
+                    container: this
+                };
+                var userOptions = {};
 
-            for (const config of configs) {
-                var icon = "";
-                if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
-                var label = "";
-                if (config.action === "create-instance") {
-                    label = mw.message('open-semantic-lab-create-instance').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "create-subcategory") {
-                    label = mw.message('open-semantic-lab-create-subcategory').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createSubcategory(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "query-instance") {
-                    label = mw.message('open-semantic-lab-query-instance').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.queryInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "edit-data") {
-                    label = mw.message('open-semantic-lab-edit-page-data').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "copy") {
-                    label = mw.message('open-semantic-lab-copy-page').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData({"mode": "copy"});'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "export") {
-                    label = mw.message('open-semantic-lab-print-page').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.printPage();'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "edit") {
-                    //label = mw.message('open-semantic-lab-edit-page-data').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='/wiki/${mw.config.get("wgPageName")}?veaction=edit'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "menu-dropdown") {
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class} dropdown-toggle" role="button" href='#' id="${config.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${icon + config.label}</a>`));
-                }
-                else if (config.action === "dropdown-divider") {
-                    $(config.target).append($(`<div class="dropdown-divider"></div>`));
-                }
-                if (!config.tooltip && config.label === "") config.tooltip = label;
-                if (config.tooltip && config.tooltip !== "") {
-                    $(config.target).attr("data-toggle", "tooltip");
-                    $(config.target).attr("title", config.tooltip);
-                }
-            }
-        });
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
 
-        //Create tile that links to a popup editor
-        $(".pagebot-tile").each(function () {
-            var defaultOptions = {
-                "type": "button",
-                "action": "create-instance"
-            };
-            var userOptions = {};
+                osl.ui.createPagePreview(config);
+            });
 
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            const user_lang = mw.config.get('wgUserLanguage');
+            $(".pagebot-preview-editor").each(function () {
+                var defaultOptions = {
+                    schema_editor: {
+                        include: ["jsonschema"],
+                        hide: ["footer", "header", "jsondata"]
+                    },
+                    data_editor: { container: this },
+                    preview: {}
+                };
+                var userOptions = {};
 
-            mwjson.api.getPage(config.categories[0]).then((page) => {
-                var schema = page.slots['jsonschema'];
-                if (mwjson.util.isString(schema)) schema = JSON.parse(schema);
-                var title = schema["title"];
-                if (schema['title*'] && schema['title*'][user_lang]) title = schema['title*'][user_lang];
-                //else if (schema['label'] && schema['label']['en']) title = schema['label']['en'];
-                var description = schema["description"];
-                if (schema['description*'] && schema['description*'][user_lang]) description = schema['description*'][user_lang];
-                //else if (schema['description'] && schema['description']['en']) description = schema['description']['en'];
-                //console.log(title, description);
-                var jsondata = page.slots['jsondata'];
-                if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
-                var icon = "";
-                if (jsondata.utf8_icon && mwjson.util.isString(jsondata.utf8_icon)) icon = jsondata.utf8_icon;
-                else if (jsondata.utf8_icon && mwjson.util.isArray(jsondata.utf8_icon)) icon = jsondata.utf8_icon[0];
-                console.log(icon);
-                if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(icon);
-                if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="/wiki/' + config.categories[0] + '">' + title + '</a>'))
-                if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").text(description);
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
 
-                if (config.action === "create-instance") {
-                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
-                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-instance').text()}</a>`))
-                }
-                if (config.action === "create-subcategory") {
-                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
-                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createSubcategory(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-subcategory').text()}</a>`))
-                }
-                else if (config.action === "query-instance") {
-                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
-                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.queryInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-query-instance').text()}</a>`))
-                }
-
-                $(this).css('visibility', 'visible');
-                $(this).parent().removeClass('linear-background');
+                config.schema_editor.container = document.getElementById(config.schema_editor.container_id);
+                config.preview.container = document.getElementById(config.preview.container_id);
+                osl.ui.createPreviewEditor(config);
             });
         });
-
-        $(".pagebot-preview").each(function () {
-            var defaultOptions = {
-                container: this
-            };
-            var userOptions = {};
-
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-
-            osl.ui.createPagePreview(config);
-        });
-
-        $(".pagebot-preview-editor").each(function () {
-            var defaultOptions = {
-                schema_editor: {
-                    include: ["jsonschema"],
-                    hide: ["footer", "header", "jsondata"]
-                },
-                data_editor: { container: this },
-                preview: {}
-            };
-            var userOptions = {};
-
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-
-            config.schema_editor.container = document.getElementById(config.schema_editor.container_id);
-            config.preview.container = document.getElementById(config.preview.container_id);
-            osl.ui.createPreviewEditor(config);
-        });
-
     });
 });
 

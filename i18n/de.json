@@ -6,6 +6,8 @@
 	},
 	"open-semantic-lab-desc": "Ein offenes und semantisches Laborinformations- und managementsystem basierend auf Semantic MediaWiki",
 	"open-semantic-lab-name": "OpenSemanticLab",
+	"open-semantic-lab-not-accessible": "Nicht verfügbar",
+	"open-semantic-lab-login-needed": "[[Special:Login|Einloggen]] oder Account wechseln um diese Funktion zu nutzen",
 	"open-semantic-lab-subpage": "Unterseite",
 	"open-semantic-lab-subcategory": "Unterkategorie",
 	"open-semantic-lab-instance": "Instanz",
