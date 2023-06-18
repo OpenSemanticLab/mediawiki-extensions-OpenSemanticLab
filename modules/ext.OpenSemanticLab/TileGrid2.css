@@ -29,10 +29,15 @@
   color: #14866d;
   z-index: 1;
   font-size: 100px; 
-  letter-spacing: -50px;
   vertical-align: middle;
   width: 100%;
   min-width: 220px;
+}
+
+/* remove space between main icon and right icon on if right icon is set */
+.custom-link-tile2_image[data-icon-2]:not([data-icon-2=""])
+{
+  letter-spacing: -50px;
 }
 
 @keyframes fadein {
