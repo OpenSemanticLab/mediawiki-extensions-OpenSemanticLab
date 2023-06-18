@@ -286,42 +286,6 @@ $(document).ready(function () {
             osl.ui.createPreviewEditor(config);
         });
 
-        //Create Print link in the page tools sidebar
-        /*mwjson.util.addBarLink({
-            "label": mw.message('open-semantic-lab-print-page'),
-            "href": `javascript:osl.ui.printPage();`
-        });*/
-
-        //Create Slot edit link in the page tools sidebar
-        /*mwjson.util.addBarLink({
-            "label": mw.message('open-semantic-lab-edit-page-data'),
-            "href": `javascript:osl.ui.editData({dataslot: 'jsondata'});`
-        });*/
-
-        //Create Slot edit link in the page tools sidebar
-        /*mwjson.util.addBarLink({
-            "label": mw.message('open-semantic-lab-edit-page-slots'),
-            "href": `javascript:osl.ui.editSlots({"include": ["jsonschema", "jsondata"], "hide": ["footer", "header"]});`
-        });*/
-
-        /*if (mw.config.get( 'wgPageName' ).startsWith("Category:") && !["Category:Category", "Category:Entity"].includes(mw.config.get( 'wgPageName' ))) {
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-edit-page-schema'),
-                "href": `javascript:osl.ui.editData({dataslot: 'jsonschema'});`
-            });
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-create-subcategory'),
-                "href": `javascript:osl.ui.createSubcategory();`
-            });
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-create-instance'),
-                "href": `javascript:osl.ui.createInstance();`
-            });
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-query-instance'),
-                "href": `javascript:osl.ui.queryInstance();`
-            });
-        }*/
     });
 });
 
