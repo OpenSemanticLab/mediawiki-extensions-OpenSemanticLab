@@ -47,8 +47,8 @@ $(document).ready(function () {
     ).done(function () {
 
         //Create Copy link in the page tools sidebar
-        let current_title = new mw.Title( mw.config.get("wgPageName") );
-        let namespace = current_title.getNamespacePrefix().replace(":",""); 
+        let current_title = new mw.Title(mw.config.get("wgPageName"));
+        let namespace = current_title.getNamespacePrefix().replace(":", "");
         //let title = current_title.getPrefixedDb() + " Copy";
         //if (current_title.getMain().startsWith("OSW")) title = namespace + ":" + mwjson.util.OswId();
         if (namespace === "") {  //Only in namespace main, otherwise (uu)ids need to be changed
@@ -215,7 +215,7 @@ $(document).ready(function () {
             if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
             else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
             var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            const user_lang = mw.config.get( 'wgUserLanguage' );
+            const user_lang = mw.config.get('wgUserLanguage');
 
             mwjson.api.getPage(config.categories[0]).then((page) => {
                 var schema = page.slots['jsonschema'];
@@ -263,24 +263,24 @@ $(document).ready(function () {
 
             if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
             var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            
+
             osl.ui.createPagePreview(config);
         });
 
         $(".pagebot-preview-editor").each(function () {
             var defaultOptions = {
                 schema_editor: {
-                    include: ["jsonschema"], 
+                    include: ["jsonschema"],
                     hide: ["footer", "header", "jsondata"]
                 },
-                data_editor: {container: this},
+                data_editor: { container: this },
                 preview: {}
             };
             var userOptions = {};
 
             if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
             var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            
+
             config.schema_editor.container = document.getElementById(config.schema_editor.container_id);
             config.preview.container = document.getElementById(config.preview.container_id);
             osl.ui.createPreviewEditor(config);
@@ -332,16 +332,16 @@ osl.util = class {
     static postProcessPage(page, categories = []) {
         //var namespace_prefix = new mw.Title(page.title).getNamespacePrefix();
         //if (namespace_prefix === "Item:" || namespace_prefix === "Category:" || namespace_prefix === "Property:") {
-            //could not be solved by modified RevisionRecord.php.
-			if (page.slots['header'] !== "{{#invoke:Entity|header}}") {
-				page.slots['header'] = "{{#invoke:Entity|header}}"
-				page.slots_changed['header'] = true;
-			}
-			if (page.slots['footer'] !== "{{#invoke:Entity|footer}}") {
-				page.slots['footer'] = "{{#invoke:Entity|footer}}"
-				page.slots_changed['footer'] = true;
-			}
-		//}
+        //could not be solved by modified RevisionRecord.php.
+        if (page.slots['header'] !== "{{#invoke:Entity|header}}") {
+            page.slots['header'] = "{{#invoke:Entity|header}}"
+            page.slots_changed['header'] = true;
+        }
+        if (page.slots['footer'] !== "{{#invoke:Entity|footer}}") {
+            page.slots['footer'] = "{{#invoke:Entity|footer}}"
+            page.slots_changed['footer'] = true;
+        }
+        //}
 
         if (page.slots['jsondata']) {
             if (mwjson.util.isString(page.slots['jsondata']))
@@ -358,7 +358,7 @@ osl.util = class {
                 name = mwjson.util.toPascalCase(name);
             }
             else name = org_name;
-            
+
             if (name != org_name) {
                 page.slots['jsondata']['name'] = name;
                 page.slots_changed['jsondata'] = true;
@@ -367,7 +367,7 @@ osl.util = class {
         if (page.slots['jsonschema']) {
             if (mwjson.util.isString(page.slots['jsonschema']))
                 page.slots['jsonschema'] = JSON.parse(page.slots['jsonschema'])
-            var org_title =  page.slots['jsonschema']['title'];
+            var org_title = page.slots['jsonschema']['title'];
             var title = "";
             if ((!org_title || org_title === "") && page.slots['jsondata']) {
                 title = page.slots['jsondata']['name'];
@@ -384,12 +384,12 @@ osl.util = class {
             if (page.slots['jsonschema']['allOf']) {
                 if (!Array.isArray(page.slots['jsonschema']['allOf'])) page.slots['jsonschema']['allOf'] = [page.slots['jsonschema']['allOf']];
                 for (const schema of page.slots['jsonschema']['allOf']) {
-                    if (mwjson.util.isObject(schema) &&  schema['$ref'] && schema['type']) delete schema['type']; 
+                    if (mwjson.util.isObject(schema) && schema['$ref'] && schema['type']) delete schema['type'];
                 }
             }
         }
 
-        const promise = new Promise((resolve, reject) => { 
+        const promise = new Promise((resolve, reject) => {
             var promises = [];
             for (const category of categories) {
                 const p = mwjson.api.getPage(category);
@@ -400,10 +400,10 @@ osl.util = class {
                     const category_page = result.value;
                     if (page.slots['jsondata'] && category_page.slots['schema_template']) {
                         var template_text = category_page.slots['schema_template'];
-                        Handlebars.registerPartial( "self", template_text );
+                        Handlebars.registerPartial("self", template_text);
                         var template = Handlebars.compile(template_text);
                         var json_schema_text = template(mwjson.util.mergeDeep(
-                            {'_page_title': page.title},
+                            { '_page_title': page.title },
                             page.slots['jsondata']
                         ));
                         //console.log("Set jsonschema: ", json_schema_text);
@@ -421,19 +421,19 @@ osl.util = class {
 }
 
 osl.ui = class {
-	constructor() {
+    constructor() {
     }
 
     static printPage() {
         console.log("Print PDF");
 
         var config = {
-            JSONEditorConfig: {disable_collapse: true},
-            popupConfig: {			
+            JSONEditorConfig: { disable_collapse: true },
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-print-settings').plain(),
-                    "continue": mw.message('open-semantic-lab-print-page').plain(), 
-                    "cancel": mw.message('open-semantic-lab-create-page-dialog-cancel').plain(), 
+                    "continue": mw.message('open-semantic-lab-print-page').plain(),
+                    "cancel": mw.message('open-semantic-lab-create-page-dialog-cancel').plain(),
                 }
             }
         };
@@ -515,18 +515,18 @@ osl.ui = class {
                         $('#' + key).hide();
                     }
                 }
-                const pageUrl = (mw.config.get( 'wgServer' ) + mw.config.get( 'wgArticlePath' )).replace('$1', mw.config.get( 'wgPageName' ));
-                $('<div id="firstHeadingCopy"><h1 class="firstHeading"><a class="external text" href="' + pageUrl + '">'+ $('#firstHeading').text() + '</a></h1></div>').insertBefore('#mw-content-text');
+                const pageUrl = (mw.config.get('wgServer') + mw.config.get('wgArticlePath')).replace('$1', mw.config.get('wgPageName'));
+                $('<div id="firstHeadingCopy"><h1 class="firstHeading"><a class="external text" href="' + pageUrl + '">' + $('#firstHeading').text() + '</a></h1></div>').insertBefore('#mw-content-text');
                 var opt = {
                     margin: 2,
                     //filename: 'myfile.pdf',
                     image: { type: 'jpeg', quality: 0.95 },
                     html2canvas: { scale: 2 },
                     //jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-                    jsPDF:        { format: 'a3', orientation: 'portrait' },
+                    jsPDF: { format: 'a3', orientation: 'portrait' },
                     //pagebreak: { mode: ['css', 'legacy'], before: ['.pdf-page-break-before'], avoid: 'img' },
                     //pagebreak: { mode: ['avoid-all'], before: ['.pdf-page-break-before'], avoid: 'img' },
-                    pagebreak: { mode: ['avoid-all'], avoid: 'img'},
+                    pagebreak: { mode: ['avoid-all'], avoid: 'img' },
                     //ignoreElements: (node) => { return node.className === 'noprint';}
                 };
                 //html2pdf(inputHtml,opt);
@@ -545,7 +545,7 @@ osl.ui = class {
                             }
                         }
                         //mw.config.get( 'wgTitle' ) + "_"
-                        pdfObject.save($('#firstHeading').text().replace(' ','_') + ".pdf");
+                        pdfObject.save($('#firstHeading').text().replace(' ', '_') + ".pdf");
                     })
             }
             var editor = new mwjson.editor(config)
@@ -555,7 +555,7 @@ osl.ui = class {
     static editData(params) {
         var params = mwjson.util.mergeDeep({
             dataslot: 'jsondata',
-            source_page: mw.config.get( 'wgPageName' ),
+            source_page: mw.config.get('wgPageName'),
             autosave: true,
             reload: true,
         }, params);
@@ -565,11 +565,11 @@ osl.ui = class {
             JSONEditorConfig: {
                 no_additional_properties: false
             },
-            popupConfig: {			
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
-                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
-                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             }
         };
@@ -577,7 +577,7 @@ osl.ui = class {
         const page_namespace = new mw.Title(params.source_page).getNamespacePrefix().replace(":", "");
 
         var page_load_promise = undefined;
-        if (params.source_page_obj) page_load_promise = new Promise((resolve, reject) => {resolve(params.source_page_obj);});
+        if (params.source_page_obj) page_load_promise = new Promise((resolve, reject) => { resolve(params.source_page_obj); });
         else page_load_promise = mwjson.api.getPage(params.source_page);
 
         const promise = new Promise((resolve, reject) => {
@@ -598,20 +598,20 @@ osl.ui = class {
                     config.JSONEditorConfig.show_opt_in = false;
                     config.JSONEditorConfig.display_required_only = false;
                     config.JSONEditorConfig.disable_array_reorder = true;
-			        config.JSONEditorConfig.disable_array_delete_all_rows = true;
-			        config.JSONEditorConfig.disable_array_delete_last_row = true;
+                    config.JSONEditorConfig.disable_array_delete_all_rows = true;
+                    config.JSONEditorConfig.disable_array_delete_last_row = true;
 
                     if (jsondata.type) {
-                        config.schema = {"allOf": []}
+                        config.schema = { "allOf": [] }
                         if (Array.isArray(jsondata.type)) {
                             for (const category of jsondata.type) {
                                 categories.push(category);
-                                config.schema["allOf"].push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"})
+                                config.schema["allOf"].push({ "$ref": "/wiki/" + category + "?action=raw&slot=jsonschema" })
                             }
                         }
                         else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
                             categories.push(jsondata.type);
-                            config.schema["allOf"].push({"$ref": "/wiki/" + jsondata.type + "?action=raw&slot=jsonschema"})
+                            config.schema["allOf"].push({ "$ref": "/wiki/" + jsondata.type + "?action=raw&slot=jsonschema" })
                         }
                         else {
                             console.log("Error: Page has no jsonschema");
@@ -620,15 +620,15 @@ osl.ui = class {
                     }
                     else if (page_namespace === "Category") {
                         categories.push("Category:Category");
-                        config.schema = {"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"};
+                        config.schema = { "$ref": "/wiki/Category:Category?action=raw&slot=jsonschema" };
                     }
                     else if (page_namespace === "") { //Main
                         categories.push("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26"); //Article
-                        config.schema = {"$ref": "/wiki/Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26?action=raw&slot=jsonschema"};
+                        config.schema = { "$ref": "/wiki/Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26?action=raw&slot=jsonschema" };
                     }
                     else if (page_namespace === "File") {
                         categories.push("Category:OSWff333fd349af4f65a69100405a9e60c7"); //File
-                        config.schema = {"$ref": "/wiki/Category:OSWff333fd349af4f65a69100405a9e60c7?action=raw&slot=jsonschema"};
+                        config.schema = { "$ref": "/wiki/Category:OSWff333fd349af4f65a69100405a9e60c7?action=raw&slot=jsonschema" };
                     }
                     else {
                         console.log("Error: Page has no jsonschema");
@@ -637,7 +637,7 @@ osl.ui = class {
                 }
                 else if (dataslot === 'jsonschema') {
                     config.schema = mwjson.schema.jsonschema_jsonschema;
-                    
+
                     config.JSONEditorConfig.disable_edit_json = false;
                     config.JSONEditorConfig.disable_properties = false;
                     config.JSONEditorConfig.show_errors = 'never';
@@ -662,14 +662,14 @@ osl.ui = class {
                         // Concatenate it to the matched count incremented by 1
                         label = label.substr(0, count.index) + (++count[0]);
                     }
-                    jsondata['label'][0] = {"text": label, "lang": lang};
+                    jsondata['label'][0] = { "text": label, "lang": lang };
                     page.title = page_namespace === "" ? mwjson.util.OswId(jsondata['uuid']) : page_namespace + ":" + mwjson.util.OswId(jsondata['uuid']);
                 }
 
                 config.data = jsondata;
 
                 config.onsubmit = (jsondata) => {
-                    
+
                     page.slots[dataslot] = jsondata;
                     page.slots_changed[dataslot] = true;
                     if (params.mode === "copy") {
@@ -729,7 +729,7 @@ osl.ui = class {
                 if (mwjson.util.isString(config.schema)) config.schema = JSON.parse(config.schema);
                 if (config && _config.hide) {
                     for (const slot_key of _config.hide) {
-                        if (config.schema.properties[slot_key]) config.schema.properties[slot_key]['options'] = {hidden: true};
+                        if (config.schema.properties[slot_key]) config.schema.properties[slot_key]['options'] = { hidden: true };
                     }
                 }
                 if (config && _config.include) {
@@ -738,7 +738,7 @@ osl.ui = class {
                         if (config.schema.properties[slot_key]) config.schema.defaultProperties.push(slot_key);
                     }
                 }
-                
+
                 config.data = page.slots;
 
                 config.onsubmit = (slots) => {
@@ -767,7 +767,7 @@ osl.ui = class {
         return promise;
     }
 
-    static createSubcategory(super_categories = [mw.config.get( 'wgPageName' )], meta_categories=["Category:Category"]) {
+    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"]) {
 
         var config = {
             JSONEditorConfig: {
@@ -779,11 +779,11 @@ osl.ui = class {
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true,
             },
-            popupConfig: {			
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
-                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
-                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             },
             target_namespace: "Category"
@@ -797,9 +797,9 @@ osl.ui = class {
             ).done(function (category_page) {
                 if (mwjson.util.isString(category_page.slots['jsondata'])) category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
                 if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
-                config.schema = {"allOf": []};
-                for (const meta_category of meta_categories) config.schema.allOf.push({"$ref": "/wiki/" + meta_category + "?action=raw&slot=jsonschema"});
-                config.data = {"subclass_of": []}
+                config.schema = { "allOf": [] };
+                for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": "/wiki/" + meta_category + "?action=raw&slot=jsonschema" });
+                config.data = { "subclass_of": [] }
                 for (const super_category of super_categories) {
                     if (super_category.startsWith("Category:")) {
                         config.data.subclass_of.push(super_category);
@@ -811,7 +811,7 @@ osl.ui = class {
                 }
 
                 config.onsubmit = (jsondata) => {
-                    
+
                     mwjson.api.getPage("Category:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
                         page.slots['jsondata'] = jsondata;
                         page.slots_changed['jsondata'] = true;
@@ -820,7 +820,7 @@ osl.ui = class {
                         meta_categories = ["Category:Category"]
                         for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
 
-                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0" ) {//Category:Category, Category:Entity
+                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
                                 meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
                             }
                         }
@@ -836,7 +836,7 @@ osl.ui = class {
                     });
 
                     return promise;
-                    
+
                 }
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
@@ -847,31 +847,31 @@ osl.ui = class {
         return promise;
     }
 
-    static createInstance(categories = [mw.config.get( 'wgPageName' )]) {
+    static createInstance(categories = [mw.config.get('wgPageName')]) {
         return osl.ui.createOrQueryInstance(categories, 'default');
     }
 
-    static queryInstance(categories = [mw.config.get( 'wgPageName' )]) {
+    static queryInstance(categories = [mw.config.get('wgPageName')]) {
         return osl.ui.createOrQueryInstance(categories, 'query');
     }
 
-    static createOrQueryInstance(categories = [mw.config.get( 'wgPageName' )], mode='default') {
+    static createOrQueryInstance(categories = [mw.config.get('wgPageName')], mode = 'default') {
 
         var config = {
             JSONEditorConfig: {
                 no_additional_properties: false
             },
-            popupConfig: {			
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
-                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
-                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             },
             target_namespace: "Item"
         };
 
-        if (mode==='query') {
+        if (mode === 'query') {
             config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-query-dialog-title").plain();
             config.popupConfig.msg["continue"] = mw.message("open-semantic-lab-query-dialog-continue").plain();
             config.popupConfig.msg["cancel"] = mw.message("open-semantic-lab-query-dialog-cancel").plain();
@@ -895,13 +895,13 @@ osl.ui = class {
                 mwjson.editor.init()
             ).done(function () {
 
-                config.schema = {"allOf": []}
-                
+                config.schema = { "allOf": [] }
+
                 //if (mode !== 'query') 
-                config.data = {"type": []}
+                config.data = { "type": [] }
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
-                        config.schema.allOf.push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"});
+                        config.schema.allOf.push({ "$ref": "/wiki/" + category + "?action=raw&slot=jsonschema" });
                         //if (mode !== 'query') 
                         config.data.type.push(category);
                     }
@@ -991,12 +991,12 @@ osl.ui = class {
         };
         var data_config = {
             JSONEditorConfig: {
-                disable_properties:  false,
-            show_opt_in:  false,
-            display_required_only:  false,
-            disable_array_reorder:  true,
-            disable_array_delete_all_rows:  true,
-            disable_array_delete_last_row:  true
+                disable_properties: false,
+                show_opt_in: false,
+                display_required_only: false,
+                disable_array_reorder: true,
+                disable_array_delete_all_rows: true,
+                disable_array_delete_last_row: true
             }
         }
         var preview_config = {
@@ -1026,7 +1026,7 @@ osl.ui = class {
                 if (mwjson.util.isString(schema_config.schema)) schema_config.schema = JSON.parse(schema_config.schema);
                 if (schema_config && schema_config.hide) {
                     for (const slot_key of schema_config.hide) {
-                        if (schema_config.schema.properties[slot_key]) schema_config.schema.properties[slot_key]['options'] = {hidden: true};
+                        if (schema_config.schema.properties[slot_key]) schema_config.schema.properties[slot_key]['options'] = { hidden: true };
                     }
                 }
                 if (schema_config && schema_config.include) {
@@ -1035,10 +1035,10 @@ osl.ui = class {
                         if (schema_config.schema.properties[slot_key]) schema_config.schema.defaultProperties.push(slot_key);
                     }
                 }
-                
+
                 if (schema_config.data) virtual_page.slots = schema_config.data;
                 else schema_config.data = virtual_page.slots;
-                virtual_page.schema.properties["jsonschema"] = { "type": "string", "format": "textarea", "options": {"wikieditor": "jsoneditors"} };
+                virtual_page.schema.properties["jsonschema"] = { "type": "string", "format": "textarea", "options": { "wikieditor": "jsoneditors" } };
                 if (data_config.data) virtual_page.slots['jsondata'] = data_config.data;
 
                 schema_config.onsubmit = (slots) => {
@@ -1047,7 +1047,7 @@ osl.ui = class {
                     //osl.util.postProcessPage(category_page).then((page) => {                        
                     //});
 
-                    data_editor.setSchema({schema: JSON.parse(virtual_page.slots['jsonschema'])});
+                    data_editor.setSchema({ schema: JSON.parse(virtual_page.slots['jsonschema']) });
                     data_editor.createUI();
                     //virtual_page.slots['jsondata'] = data_editor.getData(); //not loaded yet
                     //osl.ui.createPagePreview(preview_config);
@@ -1057,8 +1057,8 @@ osl.ui = class {
                     //virtual_page.slots = schema_editor.getData();
 
                     virtual_page.slots['jsondata'] = jsondata;
-                    if (mwjson.util.isString(virtual_page.slots['jsonschema'])) virtual_page.slots['jsonschema'] = JSON.parse(virtual_page.slots['jsonschema']); 
-                    osl.ui.createPagePreview(preview_config);  
+                    if (mwjson.util.isString(virtual_page.slots['jsonschema'])) virtual_page.slots['jsonschema'] = JSON.parse(virtual_page.slots['jsonschema']);
+                    osl.ui.createPagePreview(preview_config);
                 }
 
                 schema_editor = new mwjson.editor(schema_config);
