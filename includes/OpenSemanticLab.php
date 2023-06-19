@@ -418,13 +418,6 @@ class OpenSemanticLab {
 					'href' => "javascript:osl.ui.editData({dataslot: 'jsonschema'});" ,
 				);
 
-				if ( $user_can_edit ) $links['actions']['edit-slots'] = array(
-					'class' => "osw-links",
-					'text' => wfMessage( 'open-semantic-lab-edit-page-slots' )->text(),
-					'title' => wfMessage( 'open-semantic-lab-edit-page-slots-tooltip' )->text(),
-					'href' => "javascript:osl.ui.editSlots({'include': ['jsonschema', 'jsondata'], 'hide': ['footer', 'header']});"
-				);
-
 				$links['views']['query-instance'] = array(
 					'class' => "osw-links",
 					'text' => wfMessage( 'open-semantic-lab-query-instance-short' )->text(),
@@ -432,6 +425,13 @@ class OpenSemanticLab {
 					'href' => 'javascript:osl.ui.queryInstance(["' . $page_title . '"]);' ,
 				);
 			}
+
+			if ( $user_can_edit ) $links['actions']['edit-slots'] = array(
+				'class' => "osw-links",
+				'text' => wfMessage( 'open-semantic-lab-edit-page-slots' )->text(),
+				'title' => wfMessage( 'open-semantic-lab-edit-page-slots-tooltip' )->text(),
+				'href' => "javascript:osl.ui.editSlots({'include': ['jsonschema', 'jsondata'], 'hide': ['footer', 'header']});"
+			);
 
 			//$links['views']['ve-edit']['text'] = "Edit text"; //does not work, overwritten by js
 
