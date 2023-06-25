@@ -398,7 +398,8 @@ osl.ui = class {
                     "dialog-title": mw.message('open-semantic-lab-print-settings').plain(),
                     "continue": mw.message('open-semantic-lab-print-page').plain(),
                     "cancel": mw.message('open-semantic-lab-create-page-dialog-cancel').plain(),
-                }
+                },
+                edit_comment: false
             }
         };
 
@@ -443,7 +444,7 @@ osl.ui = class {
                 config.schema.required.push(element);
             });
 
-            config.onsubmit = (print_config) => {
+            config.onsubmit = (print_config, meta) => {
                 console.log(print_config);
                 //return;
                 var inputHtml = document.getElementById('bodyContent');
@@ -605,6 +606,7 @@ osl.ui = class {
                     config.JSONEditorConfig.disable_edit_json = false;
                     config.JSONEditorConfig.disable_properties = false;
                     config.JSONEditorConfig.show_errors = 'never';
+                    config.popupConfig.edit_comment_required = true // comment for documentation required
                 }
                 else {
                     console.log("Error: No jsonschema defined");
@@ -632,7 +634,7 @@ osl.ui = class {
 
                 config.data = jsondata;
 
-                config.onsubmit = (jsondata) => {
+                config.onsubmit = (jsondata, meta) => {
 
                     page.slots[dataslot] = jsondata;
                     page.slots_changed[dataslot] = true;
@@ -644,7 +646,7 @@ osl.ui = class {
                     osl.util.postProcessPage(page, categories).then((page) => {
                         //console.log(page);
                         if (params.autosave) {
-                            mwjson.api.updatePage(page).done((page) => {
+                            mwjson.api.updatePage(page, meta).done((page) => {
                                 resolve();
                                 if (params.reload) window.location.href = "/wiki/" + page.title;
                             });
@@ -677,7 +679,8 @@ osl.ui = class {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-slots-dialog-title').plain(),
                     "continue": mw.message('open-semantic-lab-edit-page-slots-dialog-continue').plain(),
                     "cancel": mw.message('open-semantic-lab-edit-page-slots-dialog-cancel').plain(),
-                }
+                },
+                edit_comment_required: true // comment for documentation required
             }
         };
 
@@ -705,7 +708,8 @@ osl.ui = class {
 
                 config.data = page.slots;
 
-                config.onsubmit = (slots) => {
+                config.onsubmit = (slots, meta) => {
+                    console.log(meta)
                     page.slots = slots;
                     console.log(page.slots);
                     for (var slot_key of Object.keys(page.slots)) {
@@ -714,7 +718,7 @@ osl.ui = class {
 
                     osl.util.postProcessPage(page).then((page) => {
 
-                        mwjson.api.updatePage(page).done((page) => {
+                        mwjson.api.updatePage(page, meta).done((page) => {
                             resolve();
                             window.location.href = window.location.href; //reload page
                         });
@@ -774,7 +778,7 @@ osl.ui = class {
                     }
                 }
 
-                config.onsubmit = (jsondata) => {
+                config.onsubmit = (jsondata, meta) => {
 
                     mwjson.api.getPage("Category:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
                         page.slots['jsondata'] = jsondata;
@@ -792,7 +796,7 @@ osl.ui = class {
                         osl.util.postProcessPage(page, meta_categories).then((page) => {
 
                             console.log(page);
-                            mwjson.api.updatePage(page).done((page) => {
+                            mwjson.api.updatePage(page, meta).done((page) => {
                                 resolve();
                                 window.location.href = "/wiki/" + page.title; //nav to new page
                             });
@@ -879,7 +883,7 @@ osl.ui = class {
                     config.mode = mode;
                 }
                 else {
-                    config.onsubmit = (jsondata) => {
+                    config.onsubmit = (jsondata, meta) => {
                         var title = mwjson.util.OswId(jsondata.uuid);
                         if (categories.includes("Category:Property") || editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
                             config.target_namespace = "Property";
@@ -893,7 +897,7 @@ osl.ui = class {
                             osl.util.postProcessPage(page, categories).then((page) => {
 
                                 console.log(page);
-                                mwjson.api.updatePage(page).done((page) => {
+                                mwjson.api.updatePage(page, meta).done((page) => {
                                     resolve();
                                     window.location.href = "/wiki/" + page.title; //nav to new page
                                 });
@@ -1005,7 +1009,7 @@ osl.ui = class {
                 virtual_page.schema.properties["jsonschema"] = { "type": "string", "format": "textarea", "options": { "wikieditor": "jsoneditors" } };
                 if (data_config.data) virtual_page.slots['jsondata'] = data_config.data;
 
-                schema_config.onsubmit = (slots) => {
+                schema_config.onsubmit = (slots, meta) => {
                     virtual_page.slots = slots;
 
                     //osl.util.postProcessPage(category_page).then((page) => {                        
@@ -1017,7 +1021,7 @@ osl.ui = class {
                     //osl.ui.createPagePreview(preview_config);
                 }
 
-                data_config.onsubmit = (jsondata) => {
+                data_config.onsubmit = (jsondata, meta) => {
                     //virtual_page.slots = schema_editor.getData();
 
                     virtual_page.slots['jsondata'] = jsondata;
