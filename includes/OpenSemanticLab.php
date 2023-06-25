@@ -366,7 +366,13 @@ class OpenSemanticLab {
 		$page_title = $skin->getTitle()->getFullText();
 		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 		$user_can_edit = $permissionManager->userCan( 'edit', $user, $skin->getTitle(), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
-		$data_editable = in_array($namespace, [0, 6, 14, 7000]) && $page_title != "Main Page";
+		$data_editable = in_array($namespace, [
+			0, // Main
+			6, // File
+			14, // Category
+			102, // Property
+			7000 // Item
+		]) && $page_title != "Main Page";
 
 		if ( $skin->getSkinName() === 'citizen' ) {
 
