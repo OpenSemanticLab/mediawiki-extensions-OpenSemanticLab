@@ -205,7 +205,7 @@ $(document).ready(function() {
 					if (name) id = name.split('[')[2].split(']')[0]; //select 'id' from 'template[index][id]' or 'template[index][id][]'
 					var value = $input.val();
 					if (id !== "") values[id] = value;
-					//console.log(id, value);
+					console.log(id, value);
 				});
 			}
 			$newInstance.find("[id^='input']").each(function() { //filter all childs with id=input*
@@ -233,9 +233,9 @@ $(document).ready(function() {
 					$incremented_field_div = $input.parents(".incrementField").first();
 					if (incremented_field) {
 						value = get_incremented_id(pattern, [value], number_pattern, increment); //create incremented value
+						$input.val(value).change(); //always update id
 					}
-					//console.log("set " + id + " = " + value);
-					$input.val(value).change();
+					if (!$input.val() || $input.val() == "") $input.val(value).change(); //only update empty fields
 				}
 
 			});
