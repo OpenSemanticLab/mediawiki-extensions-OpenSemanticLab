@@ -30,6 +30,10 @@ class SpecialAskResolver extends SpecialPage {
 
 		$request = $this->getRequest();
 		$query = $request->getText( 'query' );
+		$iri = $request->getText( 'iri' );
+		$uuid = $request->getText( 'uuid' );
+		if ($query === "" && $iri !== "") $query = "[[Equivalent_URI::$iri]]OR[[HasIri::$iri]]";
+		if ($query === "" && $uuid !== "") $query = "[[HasUuid::$uuid]]";
 		$params = ["query" => $query];
 
 		$parameterFormatter = new ApiRequestParameterFormatter( $params );
