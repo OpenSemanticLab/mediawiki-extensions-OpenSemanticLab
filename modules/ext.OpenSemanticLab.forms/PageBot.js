@@ -382,6 +382,37 @@ osl.util = class {
         });
         return promise;
     }
+
+    // gets the metaclasses/categories from the "nearest" superclass/category
+    static getMetaCategory(categories = []) {
+        const promise = new Promise((resolve, reject) => {
+            var promises = [];
+            for (const category of categories) {
+                const p = mwjson.api.getPage(category);
+                promises.push(p);
+            }
+            Promise.allSettled(promises).then((results) => {
+                var parents = [];
+                var meta_categories = [];
+                for (const result of results) {
+                    const category_page = result.value;
+                    if (category_page.slots['jsondata']) {
+                        if (mwjson.util.isString(category_page.slots['jsondata']))
+                            category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata'])
+                        if (category_page.slots['jsondata']['subclass_of'])
+                            parents = parents.concat(category_page.slots['jsondata']['subclass_of'])
+                        if (category_page.slots['jsondata']['metaclass'])
+                            meta_categories = meta_categories.concat(category_page.slots['jsondata']['metaclass'])
+                    }
+                }
+                if (!meta_categories.length && parents.length) {
+                    osl.util.getMetaCategory(parents).then((_meta_categories) => resolve(_meta_categories));
+                }
+                else resolve(meta_categories);
+            });
+        });
+        return promise;
+    }
 }
 
 osl.ui = class {
@@ -761,10 +792,12 @@ osl.ui = class {
 
             $.when(
                 mwjson.api.getPage(mw.config.get('wgPageName')),
+                osl.util.getMetaCategory(super_categories), //inherit metaclass/category from superclass/category
                 mwjson.editor.init()
-            ).done(function (category_page) {
+            ).done(function (category_page, _meta_categories) {
                 if (mwjson.util.isString(category_page.slots['jsondata'])) category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
                 if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
+                else meta_categories = _meta_categories;
                 config.schema = { "allOf": [] };
                 for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": "/wiki/" + meta_category + "?action=raw&slot=jsonschema" });
                 config.data = { "subclass_of": [] }
