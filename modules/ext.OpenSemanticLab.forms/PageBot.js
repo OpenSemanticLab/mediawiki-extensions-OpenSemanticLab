@@ -408,7 +408,10 @@ osl.util = class {
                 if (!meta_categories.length && parents.length) {
                     osl.util.getMetaCategory(parents).then((_meta_categories) => resolve(_meta_categories));
                 }
-                else resolve(meta_categories);
+                else {
+			if (!meta_categories.length) meta_categories = ["Category:Category"];
+			resolve(meta_categories);
+		}
             });
         });
         return promise;
