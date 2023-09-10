@@ -229,7 +229,7 @@ $(document).ready(function () {
         // get json-ld
         async function getJsonLd(params) {
             let title = params.wiki_page_title;
-            let url = '/w/index.php?action=raw&slot=jsondata&title=' + title;
+            let url = mw.config.get("wgScriptPath") + '/index.php?action=raw&slot=jsondata&title=' + title;
             let headers = new Headers();
 
             headers.append('Content-Type', 'application/json');
@@ -245,7 +245,7 @@ $(document).ready(function () {
         async function reverseLookup(params) {
             let title = params.target_node.wiki_page_title;
             let property = params.edge.wiki_property_name;
-            let url = '/w/api.php?action=ask&format=json&query=';
+            let url = mw.config.get("wgScriptPath") + '/api.php?action=ask&format=json&query=';
             //url += "[[" + encodeURIComponent(property) + "::" + encodeURIComponent(title) + "]]";
             url +=  encodeURIComponent("[[" +property + "::" + title + "]]");
 

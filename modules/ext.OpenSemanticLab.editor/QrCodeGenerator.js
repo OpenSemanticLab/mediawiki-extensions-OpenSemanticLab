@@ -26,7 +26,7 @@ $(document).ready(function () {
 			var default_config = {
 				// kjua settings. see https://larsjung.de/kjua/
 				"image": true, // displays an image in the center of the QR code
-				"image_src": "/w/logo.png", // the src of the image
+				"image_src": mw.config.get("wgScriptPath") + "/logo.png", // the src of the image
 				"label": false, // text displayed in the center of the QR code. Overwrites image
 				"print": false, // renders a print button
 				// jsPDF settings. see https://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html

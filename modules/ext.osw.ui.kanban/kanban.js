@@ -10,14 +10,24 @@ $(document).ready(function () {
         let config = {
             onCreate: (params) => {
                 console.log("Create", params);
-                let jsondata = { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4()};
+                let uuid = mwjson.util.uuidv4();
+                let jsondata = { 
+                    type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], 
+                    uuid: uuid,
+                    meta: { wiki_page: {
+                        namespace: "Item",
+                        title: mwjson.util.OswId(uuid)
+                    }}
+                };
                 if (params.tags) {
                     for (const tag of params.tags) {
                         if (tag.type === "string") jsondata[tag.key] = Object.keys(tag.values)[0];
                         else jsondata[tag.key] = Object.keys(tag.values);
                     }
                 }
-                mwjson.api.getPage("Item:" +  mwjson.util.OswId(jsondata.uuid))
+                let title = jsondata.meta.wiki_page.title;
+                if (jsondata.meta.wiki_page.namespace) {title = jsondata.meta.wiki_page.namespace + ":" + title; }
+                mwjson.api.getPage(title)
                 .then((page) => {
                     page.slots['jsondata'] = jsondata;
                     osl.ui.editData({
@@ -213,7 +223,7 @@ $(document).ready(function () {
             //});
 
             if (config.query && config.query.type === "smw") {
-                var query = "/w/api.php?action=ask&format=json&query=" + config.query.value;
+                var query = mw.config.get("wgScriptPath") + "/api.php?action=ask&format=json&query=" + config.query.value;
                 fetch(query)
                 .then(response => response.json())
                 .then(data => {
@@ -221,7 +231,15 @@ $(document).ready(function () {
                     for (const title of Object.keys(data.query.results)) {
                         mwjson.api.getPage(title).then((page) =>{
                             let jsondata = page.slots['jsondata'];
-                            if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
+                            if (mwjson.util.isString(jsondata)) {jsondata = JSON.parse(jsondata);}
+
+                            if (!jsondata.meta) {jsondata.meta = {};}
+                            if (!jsondata.meta.wiki_page) {jsondata.meta.wiki_page = {};}
+                            var tobject = new mw.Title( title );
+                            jsondata.meta.wiki_page.title = tobject.getMain();
+                            let namespace = tobject.getNamespacePrefix();
+                            if (namespace !== "") {jsondata.meta.wiki_page.namespace = namespace;}
+
                             board.insertTask({task:
                                 { jsondata: jsondata}
                             });
@@ -720,7 +738,9 @@ osl.kanban.Task = class {
         this.tag_container_id = `task_${this.id}_tag-container`;
         this.edit_button_id = `task_${this.id}_edit-button`;
         this.jsondata = params.jsondata;
-
+        // ToDo: move this to callbacks/more generic parameters
+        let article_path_parts = mw.config.get("wgArticlePath").split("$1"); // e. g. '/wiki/$1' or '/w/index.php?title=$1&some_other_param=1'
+        if (article_path_parts.length == 1) article_path_parts.push("");
         this.html_template = Handlebars.compile(`
         <div class="card draggable shadow-sm" id="{{container_id}}" draggable="true" _ondragstart="osl.kanban.drag(event)">
             <div class="card-body p-2">
@@ -729,9 +749,12 @@ osl.kanban.Task = class {
                     {{{badgeHtml}}}
                 </div>
                 <div class="card-title">
-                    
-                    {{#if jsondata.image}}<img src="/wiki/File:{{jsondata.image}}" class="rounded-circle float-right">{{/if}}
-                    <a href="" class="lead font-weight-light">{{jsondata.label.[0].text}}</a>
+            
+                    {{#if jsondata.image}}<img src="${mw.config.get("wgScriptPath")}/index.php?title=Special:Redirect/file/{{jsondata.image}}&width=66" 
+                        class="rounded-circle float-right">{{/if}}
+                    <a href="${article_path_parts[0]}{{#if jsondata.meta.wiki_page.namespace}}{{jsondata.meta.wiki_page.namespace}}:{{/if}}{{jsondata.meta.wiki_page.title}}${article_path_parts[1]}"
+                        class="lead font-weight-light">{{jsondata.label.[0].text}}
+                    </a>
                 </div>
                 <p class="card-text">
                     {{#if jsondata.description}}{{jsondata.description.[0].text}}{{/if}}

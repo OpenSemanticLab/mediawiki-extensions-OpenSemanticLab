@@ -30,8 +30,8 @@ class osl {
                 var context = [];
                 jsondata = JSON.parse(jsondata);
                 jsondata = jsondata2;
-                if (jsondata['type']) for (const type of jsondata['type']) context.push("/wiki/" + type + "?action=raw&slot=jsonschema");
-                if (jsondata['subclass_of']) context.push("/wiki/Category:Category?action=raw&slot=jsonschema");
+                if (jsondata['type']) for (const type of jsondata['type']) context.push("./" + type + "?action=raw&slot=jsonschema");
+                if (jsondata['subclass_of']) context.push("./Category:Category?action=raw&slot=jsonschema");
                 var jsonld = jsondata;
                 //jsonld['@context'] = context;
                 var script = document.createElement('script');
@@ -52,7 +52,7 @@ Array.from(document.getElementsByClassName('jsonld-header')).forEach(
 		var script = document.createElement('script');
 				jsonld = JSON.parse(element.dataset.jsonld);
 				for (var key of Object.keys(jsonld)) {
-					if (key === "image") jsonld[key] = jsonld[key].replaceAll("File:", "https://wiki-dev.open-semantic-lab.org/wiki/Special:Redirect/file/")
+					if (key === "image") jsonld[key] = jsonld[key].replaceAll("File:", "Special:Redirect/file/")
 				}
                 script.type = "application/ld+json";
                 script.innerHTML = JSON.stringify(jsonld, null, 4);

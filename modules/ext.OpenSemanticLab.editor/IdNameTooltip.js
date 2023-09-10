@@ -23,7 +23,7 @@ mw.hook( 've.activationComplete' ).add( function() {
 		//console.log("Selection: " + selection);
 		//if (!selection.toString().trim().length) return;
 	    //var selectedText = selection.toString();
-	    //var query = `/w/api.php?action=ask&query=[[:Category:${selectedText}]]OR[[~*${selectedText}*]]&format=json`;
+	    //var query = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[:Category:${selectedText}]]OR[[~*${selectedText}*]]&format=json`;
 	    
 	    IdNameTooltip_updateTooltip(context)();
 	    
@@ -43,7 +43,7 @@ var IdNameTooltip_updateTooltip = function(context) {
 		context.results = "";
 		const str = $(context.element).text();
 		let m;
-		var query = `/w/api.php?action=ask&query=`;
+		var query = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=`;
 		var count = 0;
 		regex_expr.forEach((item) => {
 			const matches = str.matchAll(item.regex);

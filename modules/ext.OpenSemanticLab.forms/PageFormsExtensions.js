@@ -24,7 +24,7 @@ $("div.custom-section-edit-form-link").each(function(){
 	$element.find('span.mw-headline').after(`
 	<span class="mw-editsection" style="display: inline-block !important;">
 	  <span class="mw-editsection-bracket">[</span>
-	    <a href="/w/index.php?title=Special:FormEdit&amp;form=${form_name}&amp;target=${mw.config.get('wgPageName')}${additional_params}" 
+	    <a href="${mw.config.get("wgScriptPath")}/index.php?title=Special:FormEdit&amp;form=${form_name}&amp;target=${mw.config.get('wgPageName')}${additional_params}" 
 	    target="_self" class="mw-editsection-visualeditor" title="${link_tooltip}" style="display: inline-block !important;">${link_label}</a>
 	  <span class="mw-editsection-bracket">]</span>
 	</span>`
@@ -314,7 +314,7 @@ $(document).ready(function() {
 			context.userName = mw.config.get("wgUserName");
 			var prequeries = [];
 	
-			var query = `/w/api.php?action=ask&query=[[User:${context.userName}]]|?HasAbbreviation&format=json`;
+			var query = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[User:${context.userName}]]|?HasAbbreviation&format=json`;
 			var receiveUserAbbreviationQuery = $.ajax({url : query, dataType: "json", cache: false,
 				success : function(data){
     				for (var key in data.query.results) {
@@ -357,7 +357,7 @@ $(document).ready(function() {
 				
 				var postqueries = [];
 				//retriev the existing property value with the highest value for the unique number
-				query = `/w/api.php?action=ask&query=[[${context.property}::~${context.value}]]|?${context.property}|sort=${context.property}|order=desc|limit=1&format=json`;
+				query = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[${context.property}::~${context.value}]]|?${context.property}|sort=${context.property}|order=desc|limit=1&format=json`;
 				var receiveHighestExistingValuesQuery = $.ajax({url : query, dataType: "json", cache: false,
 					success : function(data){
 						var number_pattern = "0000";

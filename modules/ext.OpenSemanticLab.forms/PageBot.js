@@ -162,7 +162,8 @@ $(document).ready(function () {
                     else if (config.action === "edit") {
                         //label = mw.message('open-semantic-lab-edit-page-data').text();
                         if (!config.label && config.label !== "") config.label = label;
-                        $(config.target).append($(`<a class="${config.class}" role="button" href='/wiki/${mw.config.get("wgPageName")}?veaction=edit'>${icon + config.label}</a>`));
+                        let url = mw.util.getUrl(mw.config.get("wgPageName"), {"veaction": "edit"});
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='${url}'>${icon + config.label}</a>`));
                     }
                     else if (config.action === "menu-dropdown") {
                         if (!config.label && config.label !== "") config.label = label;
@@ -213,7 +214,7 @@ $(document).ready(function () {
                     else if (jsondata.utf8_icon && mwjson.util.isArray(jsondata.utf8_icon)) config.icon = jsondata.utf8_icon[0];
 
                     if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(config.icon);
-                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="/wiki/' + config.categories[0] + '">' + config.title + '</a>'))
+                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="' + mw.util.getUrl(config.categories[0]) + '">' + config.title + '</a>'))
                     if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").text(config.description);
 
                     var url = mw.config.get('wgArticlePath').replace('$1', "Special:Login");
@@ -292,6 +293,20 @@ $(document).ready(function () {
 osl.util = class {
     constructor() {
     }
+
+    static getAbsoluteJsonSchemaUrl(title, pretty=true) {
+        if (title.startsWith("JsonSchema:")) {
+            return mwjson.util.getAbsolutePageUrl(title, {"action": "raw"}, pretty)
+        }
+		return mwjson.util.getAbsolutePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty)
+	}
+
+    static getRelativeJsonSchemaUrl(title, pretty=true) {
+        if (title.startsWith("JsonSchema:")) {
+            return mwjson.util.getRelativePageUrl(title, {"action": "raw"}, pretty)
+        }
+		return mwjson.util.getRelativePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty)
+	}
 
     static postProcessPage(page, categories = []) {
         //var namespace_prefix = new mw.Title(page.title).getNamespacePrefix();
@@ -605,12 +620,12 @@ osl.ui = class {
                         if (Array.isArray(jsondata.type)) {
                             for (const category of jsondata.type) {
                                 categories.push(category);
-                                config.schema["allOf"].push({ "$ref": "/wiki/" + category + "?action=raw&slot=jsonschema" })
+                                config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) })
                             }
                         }
                         else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
                             categories.push(jsondata.type);
-                            config.schema["allOf"].push({ "$ref": "/wiki/" + jsondata.type + "?action=raw&slot=jsonschema" })
+                            config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(jsondata.type) })
                         }
                         else {
                             console.log("Error: Page has no jsonschema");
@@ -619,15 +634,15 @@ osl.ui = class {
                     }
                     else if (page_namespace === "Category") {
                         categories.push("Category:Category");
-                        config.schema = { "$ref": "/wiki/Category:Category?action=raw&slot=jsonschema" };
+                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:Category") };
                     }
                     else if (page_namespace === "") { //Main
                         categories.push("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26"); //Article
-                        config.schema = { "$ref": "/wiki/Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26?action=raw&slot=jsonschema" };
+                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26") };
                     }
                     else if (page_namespace === "File") {
                         categories.push("Category:OSWff333fd349af4f65a69100405a9e60c7"); //File
-                        config.schema = { "$ref": "/wiki/Category:OSWff333fd349af4f65a69100405a9e60c7?action=raw&slot=jsonschema" };
+                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSWff333fd349af4f65a69100405a9e60c7") };
                     }
                     else {
                         console.log("Error: Page has no jsonschema");
@@ -682,7 +697,7 @@ osl.ui = class {
                         if (params.autosave) {
                             mwjson.api.updatePage(page, meta).done((page) => {
                                 resolve();
-                                if (params.reload) window.location.href = "/wiki/" + page.title;
+                                if (params.reload) window.location.href = mw.util.getUrl(page.title);
                             });
                         }
                         else resolve();
@@ -802,7 +817,7 @@ osl.ui = class {
                 if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
                 else meta_categories = _meta_categories;
                 config.schema = { "allOf": [] };
-                for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": "/wiki/" + meta_category + "?action=raw&slot=jsonschema" });
+                for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(meta_category) });
                 config.data = { "subclass_of": [] }
                 for (const super_category of super_categories) {
                     if (super_category.startsWith("Category:")) {
@@ -834,7 +849,7 @@ osl.ui = class {
                             console.log(page);
                             mwjson.api.updatePage(page, meta).done((page) => {
                                 resolve();
-                                window.location.href = "/wiki/" + page.title; //nav to new page
+                                window.location.href = mw.util.getUrl(page.title); //nav to new page
                             });
                         });
                     });
@@ -905,7 +920,7 @@ osl.ui = class {
                 config.data = { "type": [] }
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
-                        config.schema.allOf.push({ "$ref": "/wiki/" + category + "?action=raw&slot=jsonschema" });
+                        config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) });
                         //if (mode !== 'query') 
                         config.data.type.push(category);
                     }
@@ -935,7 +950,7 @@ osl.ui = class {
                                 console.log(page);
                                 mwjson.api.updatePage(page, meta).done((page) => {
                                     resolve();
-                                    window.location.href = "/wiki/" + page.title; //nav to new page
+                                    window.location.href = mw.util.getUrl(page.title); //nav to new page
                                 });
                             });
                         });

@@ -241,8 +241,8 @@ var template_tools = [
 				this.$body.append(this.content.$element);
 				new Autocomplete('#autocomplete', {
 					search: input => {
-						const url = `/w/api.php?action=ask&query=[[Category:SubstitutionTemplate]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
-						//const url = `/w/api.php?action=ask&query=[[Display_title_of::like:*${input}*]][[!~*QUERY*]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
+						const url = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[Category:SubstitutionTemplate]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
+						//const url = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[Display_title_of::like:*${input}*]][[!~*QUERY*]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
 						return new Promise(resolve => {
 							if (input.length < 0) { return resolve([]); }
 							fetch(url)
