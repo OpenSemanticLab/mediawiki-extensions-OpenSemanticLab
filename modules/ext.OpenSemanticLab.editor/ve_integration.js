@@ -17,6 +17,7 @@ function VeExtensions_init() {
 
 //const VeExt_pageName = mw.config.get('wgPageName');
 //const VeExt_id = (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, "").substring(0, 4);
+VeExt_emptyDefaultFileName = false; // if true, file name is fetched from Template
 var tool_groups = [];//[{name: 'labnote', label: 'LabNote'}];
 var template_tools = [
 	{
@@ -53,7 +54,7 @@ var template_tools = [
 		generate_uuid: true,
 		sequence: '{S}',
 		shortcut: 'ctrl+alt+s',
-		template: { target: { href: 'Template:Editor/SvgEdit', wt: 'Template:Editor/SvgEdit' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` sketch-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/SvgEdit', wt: 'Template:Editor/SvgEdit' }, params: { 'file_name': { wt: VeExt_emptyDefaultFileName ? "" : $('#firstHeading').text() + ` sketch-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -66,7 +67,7 @@ var template_tools = [
 		generate_uuid: true,
 		sequence: '{D}',
 		shortcut: 'ctrl+alt+d',
-		template: { target: { href: 'Template:Editor/DrawIO', wt: 'Template:Editor/DrawIO' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` diagram-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/DrawIO', wt: 'Template:Editor/DrawIO' }, params: { 'file_name': { wt: VeExt_emptyDefaultFileName ? "" : $('#firstHeading').text() + ` diagram-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -79,7 +80,7 @@ var template_tools = [
 		generate_uuid: true,
 		sequence: '{G}',
 		shortcut: 'ctrl+alt+g',
-		template: { target: { href: 'Template:Editor/Graph', wt: 'Template:Editor/Graph' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` graph-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'root': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Graph', wt: 'Template:Editor/Graph' }, params: { 'file_name': { wt: VeExt_emptyDefaultFileName ? "" : $('#firstHeading').text() + ` graph-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'root': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -92,7 +93,7 @@ var template_tools = [
 		generate_uuid: true,
 		sequence: '{E}',
 		shortcut: 'ctrl+alt+e',
-		template: { target: { href: 'Template:Editor/Spreadsheet', wt: 'Template:Editor/Spreadsheet' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` spreadsheet-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Spreadsheet', wt: 'Template:Editor/Spreadsheet' }, params: { 'file_name': { wt: VeExt_emptyDefaultFileName ? "" : $('#firstHeading').text() + ` spreadsheet-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	{
 		group: 'insert',
@@ -118,7 +119,7 @@ var template_tools = [
 		generate_uuid: true,
 		sequence: '{C}',
 		shortcut: 'ctrl+alt+c',
-		template: { target: { href: 'Template:Editor/Kekule', wt: 'Template:Editor/Kekule' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` chemdoc-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'format': { wt: 'json' } } }
+		template: { target: { href: 'Template:Editor/Kekule', wt: 'Template:Editor/Kekule' }, params: { 'file_name': { wt: VeExt_emptyDefaultFileName ? "" : $('#firstHeading').text() + ` chemdoc-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` }, 'format': { wt: 'json' } } }
 	},
 	{
 		group: 'insert',
@@ -131,7 +132,7 @@ var template_tools = [
 		generate_uuid: true,
 		sequence: '{W}',
 		shortcut: 'ctrl+alt+w',
-		template: { target: { href: 'Template:Editor/Wellplate', wt: 'Template:Editor/Wellplate' }, params: { 'file_name': { wt: $('#firstHeading').text() + ` wellplate-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
+		template: { target: { href: 'Template:Editor/Wellplate', wt: 'Template:Editor/Wellplate' }, params: { 'file_name': { wt: VeExt_emptyDefaultFileName ? "" : $('#firstHeading').text() + ` wellplate-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
 	/*{
 		group: 'insert',
@@ -240,8 +241,8 @@ var template_tools = [
 				this.$body.append(this.content.$element);
 				new Autocomplete('#autocomplete', {
 					search: input => {
-						const url = `/w/api.php?action=ask&query=[[Category:SubstitutionTemplate]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
-						//const url = `/w/api.php?action=ask&query=[[Display_title_of::like:*${input}*]][[!~*QUERY*]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
+						const url = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[Category:SubstitutionTemplate]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
+						//const url = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[Display_title_of::like:*${input}*]][[!~*QUERY*]]|?Display_title_of=HasDisplayName|?HasDescription&format=json`;
 						return new Promise(resolve => {
 							if (input.length < 0) { return resolve([]); }
 							fetch(url)

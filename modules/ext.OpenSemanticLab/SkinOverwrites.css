@@ -6,41 +6,73 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
 
 /* Indefinite content width for Skin:Timeless, see https://www.mediawiki.org/wiki/Skin:Timeless */
 @media screen and (min-width: 851px) {
+
     .color-middle-container,
-    .ts-inner { max-width: none !important; }
+    .ts-inner {
+        max-width: none !important;
+    }
 }
 
-/* Skin:Timeless, ULS Languages are not fully visible */
-.row.uls-language-block {
-	min-width: 600px !important;
+/* Indefinite content width for Skin:Citizen, see https://github.com/StarCitizenTools/mediawiki-skins-Citizen/wiki/Customizing-Citizen-styles  */
+:root {
+    --width-layout: 100vw;
+}
+
+/* Bootstrap / Skin:Timeless: ULS Languages are not fully visible (see https://www.mediawiki.org/wiki/Extension:Bootstrap) */
+
+.uls-language-block {
+    min-width: 600px !important;
+}
+.uls-language-list {
+    display: block;
+}
+.uls-search {
+    display: block;
+}
+.uls-search-input-wrapper {
+    margin-left: 10px;
+}
+.uls-filterinput {
+    width: unset !important;
+}
+
+/* Skin:Citizen: Preferences options are not fully visible */
+.citizen-pref-panel fieldset {
+    min-width: unset;
+}
+
+/* Skin:Citizen: Sidebar menu entries misaligned */
+.citizen-menu ul {
+    padding-left: unset;
 }
 
 /* prevent overwriting by bootstrap (use by jsoneditor) */
 /*body.mediawiki {
 	background: #72777d; => conflic with Reveals.js
-}*/ 
+}*/
 #mw-footer {
-	background: #72777d;
+    background: #72777d;
 }
 
 /*Prevents skin-chameleon from overwriting the info_box class when using {{#ask:}}.*/
 .skin-chameleon table th {
-  text-align: left
+    text-align: left
 }
 
 /* hide Export-PDF https://www.mediawiki.org/wiki/Manual:FAQ#How_do_I_remove_a_tab_on_all_pages */
 #ca-mpdf {
-  display: none !important;
+    display: none !important;
 }
 
 /* datetime input misaligned, see https://github.com/wikimedia/mediawiki-skins-Timeless/blob/078fc93ce1a7f33466213c7aaafb81909fb6057c/resources/forms.less#L7 */
 .mw-widgets-datetime-dateTimeInputWidget-editField {
-	vertical-align: middle !important;
-	padding: 0 !important;
+    vertical-align: middle !important;
+    padding: 0 !important;
 }
+
 .mw-widgets-datetime-dateTimeInputWidget-field {
-	vertical-align: middle !important;
-	padding: 0 !important;
+    vertical-align: middle !important;
+    padding: 0 !important;
 }
 
 /*Both select styles are used to give them the same size as the input fields in the forms.*/
@@ -51,52 +83,87 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
 
 /* generic classes to hide elements, used by PageForms_Extensions */
 .generic-hide {
-	display: none;
+    display: none;
 }
+
 .generic-hide-force {
-	display: none !important;
+    display: none !important;
 }
 
 .select2-container--default {
- width: 227px !important;
+    width: 227px !important;
 }
 
 /*smaller multi instance template forms*/
-.multipleTemplateWrapper {width: 1100px;}
+.multipleTemplateWrapper {
+    width: 1100px;
+}
 
 /*PF simple upload form buttons misaligned*/
 .oo-ui-selectFileInputWidget {
-	width: auto !important;
-	padding-bottom: 15px;
+    width: auto !important;
+    padding-bottom: 15px;
 }
 
 /* VE editor: gaps unter headings in edit mode
  interferes with CodeMirror, so only apply in visual edit mode */
 .ve-ui-surface-visual .ve-ce-contentBranchNode {
-	white-space: inherit !important;
+    white-space: inherit !important;
 }
 
 /* fix vor VEForAll, see https://www.mediawiki.org/w/index.php?title=Topic:W1y9hyi4png1fpbo&topic_showPostId=w59ol98lmpj1gk17#flow-post-w59ol98lmpj1gk17 */
 /*.mw-parser-output table {border-collapse: inherit;} */
 
 /* hide section edit links, see https://www.mediawiki.org/wiki/Manual:Section_editing */
-.mw-editsection { display:none; }
+.mw-editsection {
+    display: none;
+}
+/* more specific to overwrite Skin:Citizen css */
+.citizen-body .mw-editsection { 
+    display: none;
+}
+
 /* hide only  source edit links
 .mw-editsection a:nth-of-type(2) { display:none!important; }
 .mw-editsection>a[href*="section=T-"] { display:none!important; }
 .mw-editsection>a[href*="veaction=editsource"] { display:none!important; }*/
 /*.mw-editsection a:not(.mw-editsection-visualeditor) { display:none; }*/
 /* also hide section edit links within header-tabs / pageforms */
-.ht-editsection { display:none!important; }
+.ht-editsection {
+    display: none !important;
+}
 
 /* hide / display element in VE editor */
-div.ve-visible.ve-ce-leafNode.ve-ce-mwTransclusionNode { display:block!important; }
-div.ve-hidden.ve-ce-leafNode.ve-ce-mwTransclusionNode { display:none!important; }
+div.ve-visible.ve-ce-leafNode.ve-ce-mwTransclusionNode {
+    display: block !important;
+}
+
+div.ve-hidden.ve-ce-leafNode.ve-ce-mwTransclusionNode {
+    display: none !important;
+}
+
+/* prevent overlapping of editors */
+.ve-visible {
+    clear: both;
+}
+.ve-hidden {
+    clear: both;
+}
+
 /* hide oo-ui button elements in visual editor*/
-.ve-ce-leafNode .oo-ui-image-progressive { display:none!important; }
+.ve-ce-leafNode .oo-ui-image-progressive {
+    display: none !important;
+}
+
 /* hide SimpleBatchUploader elements globally */
-.fileupload-container label { display:none!important; }
-.fileupload-container textarea { display:none!important; }
+.fileupload-container label {
+    display: none !important;
+}
+
+.fileupload-container textarea {
+    display: none !important;
+}
+
 /* alterative / partially solution:
 https://www.mediawiki.org/wiki/Topic:W3nu90pl5m3trwiz
 https://github.com/wikimedia/parsoid/blob/master/src/Config/WikitextConstants.php#L86-L113
@@ -106,7 +173,108 @@ https://github.com/wikimedia/parsoid/blob/master/src/Config/WikitextConstants.ph
 
 /* for DynamicFormLinks.js */
 .dynamic-page-form-link {
-	display: none;
+    display: none;
+}
+
+/* Menus and buttons */
+.citizen-ve-edit-merged#ca-edit-data>a {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.citizen-ve-edit-merged#ca-edit-data>a {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: var(--border-radius--medium);
+}
+
+.page-actions ::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.citizen-ve-edit-merged#ca-edit-data->a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f022";
+    /* https://fontawesome.com/v5/icons/list-alt?f=classic&s=solid */
+}
+
+/* use svg logo */
+.citizen-ve-edit-merged#ca-edit-data>a::before {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Cpath%20d%3D%22M464%2032H48C21.49%2032%200%2053.49%200%2080v352c0%2026.51%2021.49%2048%2048%2048h416c26.51%200%2048-21.49%2048-48V80c0-26.51-21.49-48-48-48zm-6%20400H54a6%206%200%200%201-6-6V86a6%206%200%200%201%206-6h404a6%206%200%200%201%206%206v340a6%206%200%200%201-6%206zm-42-92v24c0%206.627-5.373%2012-12%2012H204c-6.627%200-12-5.373-12-12v-24c0-6.627%205.373-12%2012-12h200c6.627%200%2012%205.373%2012%2012zm0-96v24c0%206.627-5.373%2012-12%2012H204c-6.627%200-12-5.373-12-12v-24c0-6.627%205.373-12%2012-12h200c6.627%200%2012%205.373%2012%2012zm0-96v24c0%206.627-5.373%2012-12%2012H204c-6.627%200-12-5.373-12-12v-24c0-6.627%205.373-12%2012-12h200c6.627%200%2012%205.373%2012%2012zm-252%2012c0%2019.882-16.118%2036-36%2036s-36-16.118-36-36%2016.118-36%2036-36%2036%2016.118%2036%2036zm0%2096c0%2019.882-16.118%2036-36%2036s-36-16.118-36-36%2016.118-36%2036-36%2036%2016.118%2036%2036zm0%2096c0%2019.882-16.118%2036-36%2036s-36-16.118-36-36%2016.118-36%2036-36%2036%2016.118%2036%2036z%22%2F%3E%3C%2Fsvg%3E");
+    background-position: center;
+    width: var(--size-icon);
+    height: var(--size-icon);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: var(--size-icon);
+    filter: invert(1);
+}
+
+#ca-copy>a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f0c5";
+    /* https://fontawesome.com/v5/icons/copy?f=classic&s=solid */
+}
+
+#ca-export-pdf>a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f56e";
+    /* https://fontawesome.com/v5/icons/file-export?f=classic&s=solid */
+}
+
+#ca-create-instance {
+    order: 198
+}
+
+#ca-create-instance>a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f0fe";
+    /* https://fontawesome.com/v5/icons/plus-square?f=classic&s=solid */
+}
+
+#ca-create-subcategory {
+    order: 197
+}
+
+#ca-create-subcategory>a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f3be";
+    /* https://fontawesome.com/v5/icons/level-down-alt?f=classic&s=solid */
+}
+
+#ca-query-instance {
+    order: 199
+}
+
+#ca-query-instance>a::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f002";
+    /* https://fontawesome.com/v5/icons/search?f=classic&s=solid */
+}
+
+#t-reveal>a::before {
+    content: "";
+    mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20640%20512%22%3E%3Cpath%20d%3D%22M96%2064h448v352h64V40c0-22.06-17.94-40-40-40H72C49.94%200%2032%2017.94%2032%2040v376h64V64zm528%20384H480v-64H288v64H16c-8.84%200-16%207.16-16%2016v32c0%208.84%207.16%2016%2016%2016h608c8.84%200%2016-7.16%2016-16v-32c0-8.84-7.16-16-16-16z%22%2F%3E%3C%2Fsvg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20640%20512%22%3E%3Cpath%20d%3D%22M96%2064h448v352h64V40c0-22.06-17.94-40-40-40H72C49.94%200%2032%2017.94%2032%2040v376h64V64zm528%20384H480v-64H288v64H16c-8.84%200-16%207.16-16%2016v32c0%208.84%207.16%2016%2016%2016h608c8.84%200%2016-7.16%2016-16v-32c0-8.84-7.16-16-16-16z%22%2F%3E%3C%2Fsvg%3E");
+    width: var(--size-icon);
+    height: var(--size-icon);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    background-color: gray;
+    /* any color */
+    mask-position: center;
+    -webkit-mask-position: center;
 }
 
 /*collapsible slot */
@@ -114,16 +282,16 @@ details.mw-slot-details {
     border: 1px solid #aaa;
     border-radius: 4px;
     padding: 0.5em 0.5em 0;
-	margin-top: 10px;
-	margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 summary.mw-slot-details-summary {
     font-weight: bold;
     margin: -0.5em -0.5em 0;
     padding: 0.5em;
-	cursor: pointer;
-	display: list-item;
+    cursor: pointer;
+    display: list-item;
 }
 
 details.mw-slot-details[open] {
@@ -140,7 +308,66 @@ details.mw-slot-details[open] summary {
 }*/
 
 .osw-table-details {
-	display: none;
+    display: none;
 }
 
-   
+/* to device wikipages into multiple section with VisualEditor support */
+.layout-table {
+    width: 100%;
+    display: table;
+}
+
+.layout-table-auto {
+    table-layout: auto;
+}
+
+.layout-table-fixed {
+    table-layout: fixed;
+}
+
+.layout-table td {
+    overflow-y: auto;
+    padding: 5px;
+}
+
+/* scale parsed preview content */
+.layout-table .mw-parser-output {
+    scale: 0.5
+}
+
+.InteractiveSemanticGraph {
+    width: unset !important;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    min-width: 500px;
+}
+
+.SvgEdit {
+    width: unset !important;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    display: flex;
+    min-width: 500px;
+}
+
+.SvgEdit div {
+    width: 100%;
+    min-width: 500px;
+}
+
+.Kanban {
+    display: flex;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    min-width: 500px;
+}
+
+/* fix overlaying map, see https://github.com/StarCitizenTools/mediawiki-skins-Citizen/issues/577 */
+.maps-leaflet {
+    z-index: 0;
+}
+
+/* fix partial hidden autocomplete suggest list in json-editor array tables */
+.je-ready table {
+    overflow-x: unset;
+}

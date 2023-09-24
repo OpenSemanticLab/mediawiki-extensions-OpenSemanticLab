@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class OpenSemanticLab {
 
 	public static function onPageImporterRegisterPageLists( array &$pageLists ) {
@@ -367,29 +369,108 @@ class OpenSemanticLab {
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 		$out->addModules( 'ext.OpenSemanticLab.forms' );
 
+		$out->addModules( 'ext.osw.ui.kanban' );
+
 		return true;
 
 	}
+	
+	public static function onSkinTemplateNavigation_Universal( &$skin, &$links ) {
+		// Add an additional link
+		//https://stackoverflow.com/questions/18442495/how-to-get-current-page-url-in-mediawiki
+		//https://github.com/wikimedia/mediawiki/blob/bcaab3d057c8e550793100448f725761e1a8e017/includes/skins/SkinTemplate.php#L1018
 
-        public static function onSkinTemplateNavigation( &$skin, &$links ) {
-       		// Add an additional link
-       		//https://stackoverflow.com/questions/18442495/how-to-get-current-page-url-in-mediawiki
-      		$links['views']['subpage'] = array(
+      	/*$links['actions']['subpage'] = array(
 			'class' => false, // false or 'selected', defines whether the tab should be highlighted
 			'text' => wfMessage('open-semantic-lab-create-subpage'), // what the tab says
-			'href' => "https://$_SERVER[HTTP_HOST]/wiki/CreatePage?superpage=" . $skin->getTitle()->getFullText(),
-		);
+			'href' => $skin->makeInternalOrExternalUrl("CreatePage" . ?superpage=" . $skin->getTitle()->getFullText())
+		);*/
 
-		//not placed properly with Skin:Timeless -> use javascript
-		//$request = $skin->getRequest();
-		//$reveal = $request->getText( 'reveal' );
-		//$links['actions']['slide'] = array(
-		//	'class' => ( $reveal == 'true') ? 'selected' : false,
-		//	'text' => "Slideshow",
-		//	'href' => $skin->makeArticleUrlDetails($skin->getTitle()->getFullText(), 'reveal=true' )['href']
-		//);
+		$user = $skin->getUser();
+		$namespace = $skin->getTitle()->getNamespace();
+		$page_title = $skin->getTitle()->getFullText();
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$user_can_edit = $permissionManager->userCan( 'edit', $user, $skin->getTitle(), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
+		$data_editable = in_array($namespace, [
+			0, // Main
+			6, // File
+			14, // Category
+			102, // Property
+			7000 // Item
+		]) && $page_title != "Main Page";
 
-        	return true;
-        }
+		if ( $skin->getSkinName() === 'citizen' ) {
 
+			//views: always visible
+			if ( $user_can_edit && $data_editable ) $links['views']['edit-data'] = array(
+				'class' => "osw-links citizen-ve-edit-merged",
+				'text' => wfMessage( 'open-semantic-lab-edit-page-data-short' )->text(),
+				'title' => wfMessage( 'open-semantic-lab-edit-page-data-tooltip' )->text(),
+				'href' => "javascript:osl.ui.editData();",
+			);
+			
+			//Actions: In sidebar
+			if ( $user_can_edit && $data_editable && $namespace != 0) { //not "Main"
+				$links['actions']['copy'] = array(
+					'class' => "",
+					'text' => wfMessage( 'open-semantic-lab-copy-page' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-copy-page-tooltip' )->text(),
+					'href' => 'javascript:osl.ui.editData({"mode": "copy"});',
+				);
+			}
+			$links['actions']['export-pdf'] = array(
+				'class' => "",
+				'text' => wfMessage( 'open-semantic-lab-print-page' )->text(),
+				'title' => wfMessage( 'open-semantic-lab-print-page-tooltip' )->text(),
+				'href' => 'javascript:osl.ui.printPage();',
+			);
+
+			if ($namespace == 14) { //Category
+				
+			
+				if ( $user_can_edit ) $links['views']['create-subcategory'] = array(
+					'class' => "osw-links",
+					'text' => wfMessage( 'open-semantic-lab-create-subcategory-short' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-create-subcategory-tooltip' )->text(),
+					'href' => 'javascript:osl.ui.createSubcategory(["' . $page_title . '"]);' ,
+				);
+
+				if ( $user_can_edit ) $links['views']['create-instance'] = array(
+					'class' => "osw-links",
+					'text' => wfMessage( 'open-semantic-lab-create-instance-short' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-create-instance-tooltip' )->text(),
+					'href' => 'javascript:osl.ui.createInstance(["' . $page_title . '"]);' ,
+				);
+
+				if ( $user_can_edit ) $links['actions']['edit-schema'] = array(
+					'class' => "osw-links",
+					'text' => wfMessage( 'open-semantic-lab-edit-page-schema' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-edit-page-schema-tooltip' )->text(),
+					'href' => "javascript:osl.ui.editData({dataslot: 'jsonschema'});" ,
+				);
+
+				$links['views']['query-instance'] = array(
+					'class' => "osw-links",
+					'text' => wfMessage( 'open-semantic-lab-query-instance-short' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-query-instance-tooltip' )->text(),
+					'href' => 'javascript:osl.ui.queryInstance(["' . $page_title . '"]);' ,
+				);
+			}
+
+			if ( $user_can_edit ) $links['actions']['edit-slots'] = array(
+				'class' => "osw-links",
+				'text' => wfMessage( 'open-semantic-lab-edit-page-slots' )->text(),
+				'title' => wfMessage( 'open-semantic-lab-edit-page-slots-tooltip' )->text(),
+				'href' => "javascript:osl.ui.editSlots({'include': ['jsonschema', 'jsondata'], 'hide': ['footer', 'header']});"
+			);
+
+			//$links['views']['ve-edit']['text'] = "Edit text"; //does not work, overwritten by js
+
+			// move history to "more"
+			$links['actions']['history'] = $links['views']['history'];
+			unset($links['views']['history']);
+		}
+
+		return true;
+	}
 }

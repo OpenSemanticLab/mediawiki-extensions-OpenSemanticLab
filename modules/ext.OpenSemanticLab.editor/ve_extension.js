@@ -25,12 +25,12 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
         //window.location.search += '&action=purge';
     });
     
-    $(".custom-ve-edit-button").html('<form action="/w/index.php?title=' + mw.config.get("wgPageName") + '&veaction=edit" method="post" target="_self"><span aria-disabled="false" class="oo-ui-widget oo-ui-widget-enabled oo-ui-flaggedElement-progressive oo-ui-inputWidget oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-buttonInputWidget"><button type="submit" tabindex="0" aria-disabled="false" value="" class="oo-ui-inputWidget-input oo-ui-buttonElement-button webfonts-changed"><span class="oo-ui-iconElement-icon oo-ui-icon-next oo-ui-image-progressive"></span><span class="oo-ui-labelElement-label">Inhalt bearbeiten</span><span class="oo-ui-indicatorElement-indicator oo-ui-image-progressive"></span></button></span></form>');
-    $(".custom-ve-edit-button-section-1").html('<form action="/w/index.php?title=' + mw.config.get("wgPageName") + '&veaction=edit&section=1" method="post" target="_self"><span aria-disabled="false" class="oo-ui-widget oo-ui-widget-enabled oo-ui-flaggedElement-progressive oo-ui-inputWidget oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-buttonInputWidget"><button type="submit" tabindex="0" aria-disabled="false" value="" class="oo-ui-inputWidget-input oo-ui-buttonElement-button webfonts-changed"><span class="oo-ui-iconElement-icon oo-ui-icon-next oo-ui-image-progressive"></span><span class="oo-ui-labelElement-label">Inhalt bearbeiten</span><span class="oo-ui-indicatorElement-indicator oo-ui-image-progressive"></span></button></span></form>');
+    $(".custom-ve-edit-button").html('<form action="' + mw.config.get("wgScriptPath") + ' /index.php?title=' + mw.config.get("wgPageName") + '&veaction=edit" method="post" target="_self"><span aria-disabled="false" class="oo-ui-widget oo-ui-widget-enabled oo-ui-flaggedElement-progressive oo-ui-inputWidget oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-buttonInputWidget"><button type="submit" tabindex="0" aria-disabled="false" value="" class="oo-ui-inputWidget-input oo-ui-buttonElement-button webfonts-changed"><span class="oo-ui-iconElement-icon oo-ui-icon-next oo-ui-image-progressive"></span><span class="oo-ui-labelElement-label">Inhalt bearbeiten</span><span class="oo-ui-indicatorElement-indicator oo-ui-image-progressive"></span></button></span></form>');
+    $(".custom-ve-edit-button-section-1").html('<form action="' + mw.config.get("wgScriptPath") + '/index.php?title=' + mw.config.get("wgPageName") + '&veaction=edit&section=1" method="post" target="_self"><span aria-disabled="false" class="oo-ui-widget oo-ui-widget-enabled oo-ui-flaggedElement-progressive oo-ui-inputWidget oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-buttonInputWidget"><button type="submit" tabindex="0" aria-disabled="false" value="" class="oo-ui-inputWidget-input oo-ui-buttonElement-button webfonts-changed"><span class="oo-ui-iconElement-icon oo-ui-icon-next oo-ui-image-progressive"></span><span class="oo-ui-labelElement-label">Inhalt bearbeiten</span><span class="oo-ui-indicatorElement-indicator oo-ui-image-progressive"></span></button></span></form>');
     
     //$("div.custom-show-visual-section-edit-link").find("a")
     $(".mw-editsection").each(function(){
-        console.log(mw.config.get('wgPageName'));
+        if (mw.config.get("skin") == "citizen") return; // disable this feature in Skin:Citizen (edit-links always hidden)
         if (mw.config.get('wgPageName') === "Special:FormEdit" || mw.util.getParamValue('action') === "formedit") return; //no edit links in PageForms
         var allHidden = true;
         $(this).find("a").each(function(){
@@ -223,6 +223,7 @@ $(document).ready(function() {
             });		
         }
         
+        mw.hook( 'jsoneditor.file.uploaded' ).add( (file) => {fileUploadHandler("JsonEditor", file)});
         mw.hook( 'svgeditor.file.uploaded' ).add( (file) => {fileUploadHandler("SvgEditor", file)});
         mw.hook( 'wellplateeditor.file.uploaded' ).add( (file) => {fileUploadHandler("WellplateEditor", file)});
         mw.hook( 'drawioeditor.file.uploaded' ).add( (file) => {fileUploadHandler("DrawIoEditor", file)});

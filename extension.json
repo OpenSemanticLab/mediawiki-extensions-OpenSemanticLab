@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.6.2",
+	"version": "0.16.2",
 	"author": [
 		"Simon Stier"
 	],
@@ -17,7 +17,7 @@
 			"WSSlots": "*",
 			"SimpleBatchUpload": ">= 1.8.2.2-dev",
 			"DrawioEditor": ">= 1.1.2-dev",
-			"MwJson": ">= 0.6.0",
+			"MwJson": ">= 0.13.0",
 			"WellplateEditor": ">= 0.1.0",
 			"SvgEditor": ">= 0.1.0",
 			"SpreadsheetEditor": "0.3.0",
@@ -49,7 +49,8 @@
 				"osl.js",
 				"Tiles.js",
 				"DynamicSidebar.js",
-				"D3graphviz.js"
+				"D3graphviz.js",
+				"prefect.js"
 			],
 			"position": "bottom"
 		},
@@ -83,6 +84,37 @@
 			"styles": [
 				"DynamicPageFormsTables.css"
 			],
+			"messages": [
+				"open-semantic-lab-not-accessible",
+				"open-semantic-lab-login-needed",
+				"open-semantic-lab-copy-page",
+				"open-semantic-lab-print-page",
+				"open-semantic-lab-print-settings",
+				"open-semantic-lab-print-section-settings",
+				"open-semantic-lab-create-page-dialog-continue",
+				"open-semantic-lab-create-page-dialog-cancel",
+				"open-semantic-lab-create-page-dialog-title-label",
+				"open-semantic-lab-create-page-dialog-template-label",
+				"open-semantic-lab-create-page-dialog-page-exists-warning",
+				"open-semantic-lab-create-task",
+				"open-semantic-lab-create-task-from-template",
+				"open-semantic-lab-edit-page-schema",
+				"open-semantic-lab-edit-page-data",
+				"open-semantic-lab-edit-page-data-dialog-title",
+				"open-semantic-lab-edit-page-data-dialog-continue", 
+				"open-semantic-lab-edit-page-data-dialog-cancel", 
+				"open-semantic-lab-edit-page-slots",
+				"open-semantic-lab-edit-page-slots-dialog-title",
+				"open-semantic-lab-edit-page-slots-dialog-continue", 
+				"open-semantic-lab-edit-page-slots-dialog-cancel", 
+				"open-semantic-lab-create-subcategory",
+				"open-semantic-lab-create-instance",
+				"open-semantic-lab-query-instance",
+				"open-semantic-lab-query-dialog-title",
+				"open-semantic-lab-query-dialog-continue", 
+				"open-semantic-lab-query-dialog-cancel", 
+				"open-semantic-lab-preview"
+			],
 			"position": "top"
 		},
 		"ext.OpenSemanticLab.LIMS.styles": {
@@ -100,6 +132,19 @@
 				"html2pdf.bundle.min.js"
 			],
 			"position": "top"
+		},
+		"ext.osw.ui.kanban": {
+			"localBasePath": "modules/ext.osw.ui.kanban",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.osw.ui.kanban",
+			"dependencies": [
+                "ext.OpenSemanticLab"
+            ],
+			"scripts": [
+				"kanban.js"
+			],
+			"styles": [
+				"kanban.css"
+			]
 		}
 	},
 	"namespaces": [
@@ -446,11 +491,15 @@
 		}
 	},
 	"AutoloadClasses": {
-		"OpenSemanticLab": "includes/OpenSemanticLab.php"
+		"OpenSemanticLab": "includes/OpenSemanticLab.php",
+		"SpecialAskResolver": "special/AskResolver.php"
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
-		"SkinTemplateNavigation": "OpenSemanticLab::onSkinTemplateNavigation"
-	}
+		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal"
+	},
+    "SpecialPages": {
+        "AskResolver": "SpecialAskResolver"
+    }
 }

@@ -15,46 +15,21 @@ $(document).ready(function () {
         //$.getScript("//cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.12/purify.min.js"),
         //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"),
         //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"),
-        new mw.Api().loadMessagesIfMissing([
-            'open-semantic-lab-copy-page',
-            'open-semantic-lab-print-page',
-            'open-semantic-lab-print-settings',
-            'open-semantic-lab-print-section-settings',
-            "open-semantic-lab-create-page-dialog-continue",
-            "open-semantic-lab-create-page-dialog-cancel",
-            "open-semantic-lab-create-page-dialog-title-label",
-            "open-semantic-lab-create-page-dialog-template-label",
-            "open-semantic-lab-create-page-dialog-page-exists-warning",
-            "open-semantic-lab-create-task",
-            "open-semantic-lab-create-task-from-template",
-            "open-semantic-lab-edit-page-schema",
-            "open-semantic-lab-edit-page-data",
-            "open-semantic-lab-edit-page-data-dialog-title",
-            "open-semantic-lab-edit-page-data-dialog-continue", 
-            "open-semantic-lab-edit-page-data-dialog-cancel", 
-            "open-semantic-lab-edit-page-slots",
-            "open-semantic-lab-edit-page-slots-dialog-title",
-            "open-semantic-lab-edit-page-slots-dialog-continue", 
-            "open-semantic-lab-edit-page-slots-dialog-cancel", 
-            "open-semantic-lab-create-subcategory",
-            "open-semantic-lab-create-instance",
-            "open-semantic-lab-query-instance",
-            "open-semantic-lab-query-dialog-title",
-            "open-semantic-lab-query-dialog-continue", 
-            "open-semantic-lab-query-dialog-cancel", 
-            "open-semantic-lab-preview",
-        ])
     ).done(function () {
 
-        //Create Copy link in the page tools sidebar
-        let current_title = new mw.Title( mw.config.get("wgPageName") );
-        let namespace = current_title.getNamespacePrefix().replace(":",""); 
-        //let title = current_title.getPrefixedDb() + " Copy";
-        //if (current_title.getMain().startsWith("OSW")) title = namespace + ":" + mwjson.util.OswId();
-        if (namespace === "") {  //Only in namespace main, otherwise (uu)ids need to be changed
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-copy-page'),
-                "href": `javascript:mwjson.editor.createCopyPageDialog({
+        $.when(
+            mwjson.api.getUserInfo()
+        ).done(function (userInfo) {
+
+            //Create Copy link in the page tools sidebar
+            let current_title = new mw.Title(mw.config.get("wgPageName"));
+            let namespace = current_title.getNamespacePrefix().replace(":", "");
+            //let title = current_title.getPrefixedDb() + " Copy";
+            //if (current_title.getMain().startsWith("OSW")) title = namespace + ":" + mwjson.util.OswId();
+            if (namespace === "") {  //Only in namespace main, otherwise (uu)ids need to be changed
+                mwjson.util.addBarLink({
+                    "label": mw.message('open-semantic-lab-copy-page'),
+                    "href": `javascript:mwjson.editor.createCopyPageDialog({
                     "msg": {
                         "continue": "${mw.message('open-semantic-lab-create-page-dialog-continue')}", 
                         "cancel": "${mw.message('open-semantic-lab-create-page-dialog-cancel')}",
@@ -63,32 +38,32 @@ $(document).ready(function () {
                         "page-exists-warning": "${mw.message('open-semantic-lab-create-page-dialog-page-exists-warning')}",
                     }
                 })`
-            });
-        }
+                });
+            }
 
-        $(".PageBot-Action").each(function () {
-            //see also: https://www.mediawiki.org/wiki/Manual:Interface/JavaScript
-            var defaultOptions = {
-                "type": "button",
-                "label": mw.message('open-semantic-lab-create-task-from-template').text(),
-            };
-            var userOptions = {};
+            $(".PageBot-Action").each(function () {
+                //see also: https://www.mediawiki.org/wiki/Manual:Interface/JavaScript
+                var defaultOptions = {
+                    "type": "button",
+                    "label": mw.message('open-semantic-lab-create-task-from-template').text(),
+                };
+                var userOptions = {};
 
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
 
-            if (config.type === "button") {
-                //var button = new OO.ui.ButtonWidget({
-                //    label: config.label
-                //});
-                //var $element = button.$element;
-                //button.setIcon( 'templateAdd' ); //does not work
-                //note: msgs need to be resolved here because they are prefetched
+                if (config.type === "button") {
+                    //var button = new OO.ui.ButtonWidget({
+                    //    label: config.label
+                    //});
+                    //var $element = button.$element;
+                    //button.setIcon( 'templateAdd' ); //does not work
+                    //note: msgs need to be resolved here because they are prefetched
 
-                var $element = $('<span class="actionable_button add_action" style="background-color:indigo"><a>' + config.label + '</a></span>');
-                $element.find('a').attr('href',
-                    `javascript:mwjson.editor.createPageDialog({
+                    var $element = $('<span class="actionable_button add_action" style="background-color:indigo"><a>' + config.label + '</a></span>');
+                    $element.find('a').attr('href',
+                        `javascript:mwjson.editor.createPageDialog({
                         "msg": { 
                             "dialog-title": "${mw.message('open-semantic-lab-create-task')}", 
                             "continue": "${mw.message('open-semantic-lab-create-page-dialog-continue')}", 
@@ -110,187 +85,208 @@ $(document).ready(function () {
                         ],
                         "redirect": (page) => new mw.Title( page.title ).getUrl({"action": "formedit", "returnto": mw.config.get( 'wgPageName' )})
                     })`
-                )
-                $(this).append($element);
-            }
-            /*mwjson.util.addBarLink({"label": mw.message('open-semantic-lab-copy-page'), 
-                "href": `javascript:mwjson.editor.createPageDialog({
-                    "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable]]|?Display_title_of=HasDisplayName|?HasDescription"},
-                    "modifications": [{"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )}]
+                    )
+                    $(this).append($element);
+                }
+                /*mwjson.util.addBarLink({"label": mw.message('open-semantic-lab-copy-page'), 
+                    "href": `javascript:mwjson.editor.createPageDialog({
+                        "template_autocomplete": {"query": () => "[[Category:ELN/Order/Actionable]]|?Display_title_of=HasDisplayName|?HasDescription"},
+                        "modifications": [{"template": "OslTemplate:ELN/Order/Actionable", "path": "RELATED_ARTICLE", "value": mw.config.get( 'wgPageName' )}]
+                    })
+                `});*/
+            });
+
+            $(".pagebot-button").each(function () {
+                var defaultOptions = {
+                    "action": "create-instance",
+                    "params": {},
+                    "class": "btn btn-primary",
+                    "target": this
+                };
+                var userOptions = {};
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                if (!userOptions.params) userOptions.params = {};
+                if (!userOptions.params.categories) userOptions.params.categories = [mw.config.get("wgPageName")];
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+
+                var configs = []
+                if (config.action === "menu-dropdown") {
+                    $(this).addClass("dropdown show");
+                    config.id = "dropdown-" + mwjson.util.getShortUid();
+                    const target = $(`<div class="dropdown-menu" aria-labelledby="${config.id}"></div>`);
+                    $(this).append(target);
+                    configs.push(config);
+                    for (var entry of config.menu_entries) {
+                        entry = mwjson.util.mergeDeep(defaultOptions, entry);
+                        entry.class += " dropdown-item";
+                        entry.target = target;
+                        configs.push(entry);
+                    }
+                }
+                else configs.push(config);
+
+                for (const config of configs) {
+                    var icon = "";
+                    if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
+                    var label = "";
+                    if (config.action === "create-instance") {
+                        label = mw.message('open-semantic-lab-create-instance').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "create-subcategory") {
+                        label = mw.message('open-semantic-lab-create-subcategory').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createSubcategory(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "query-instance") {
+                        label = mw.message('open-semantic-lab-query-instance').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.queryInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "edit-data") {
+                        label = mw.message('open-semantic-lab-edit-page-data').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "copy") {
+                        label = mw.message('open-semantic-lab-copy-page').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData({"mode": "copy"});'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "export") {
+                        label = mw.message('open-semantic-lab-print-page').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.printPage();'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "edit") {
+                        //label = mw.message('open-semantic-lab-edit-page-data').text();
+                        if (!config.label && config.label !== "") config.label = label;
+                        let url = mw.util.getUrl(mw.config.get("wgPageName"), {"veaction": "edit"});
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='${url}'>${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "menu-dropdown") {
+                        if (!config.label && config.label !== "") config.label = label;
+                        $(config.target).append($(`<a class="${config.class} dropdown-toggle" role="button" href='#' id="${config.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${icon + config.label}</a>`));
+                    }
+                    else if (config.action === "dropdown-divider") {
+                        $(config.target).append($(`<div class="dropdown-divider"></div>`));
+                    }
+                    if (!config.tooltip && config.label === "") config.tooltip = label;
+                    if (config.tooltip && config.tooltip !== "") {
+                        $(config.target).attr("data-toggle", "tooltip");
+                        $(config.target).attr("title", config.tooltip);
+                    }
+                }
+            });
+
+            //Create tile that links to a popup editor
+            $(".pagebot-tile").each(function () {
+                var defaultOptions = {
+                    "type": "button",
+                    "action": "create-instance",
+                    "lang": mw.config.get('wgUserLanguage'),
+                    "icon": "🔒",
+                    "title": mw.message('open-semantic-lab-not-accessible').text(),
+                    "description": mw.message('open-semantic-lab-login-needed').parse()
+                };
+                var userOptions = {};
+
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                
+
+                mwjson.api.getPage(config.categories[0]).then((page) => {
+                    var schema = page.slots['jsonschema'];
+                    if (mwjson.util.isString(schema)) schema = JSON.parse(schema);
+                    config.title = schema["title"];
+                    if (schema['title*'] && schema['title*'][config.lang]) config.title = schema['title*'][config.lang];
+                    //else if (schema['label'] && schema['label']['en']) config.title = schema['label']['en'];
+                    config.description = schema["description"];
+                    if (schema['description*'] && schema['description*'][config.lang]) config.description = schema['description*'][config.lang];
+                    //else if (schema['description'] && schema['description']['en']) config.description = schema['description']['en'];
+                    //console.log(config.title, config.description);
+                    var jsondata = page.slots['jsondata'];
+                    if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
+
+                    if (jsondata.utf8_icon && mwjson.util.isString(jsondata.utf8_icon)) config.icon = jsondata.utf8_icon;
+                    else if (jsondata.utf8_icon && mwjson.util.isArray(jsondata.utf8_icon)) config.icon = jsondata.utf8_icon[0];
+
+                    if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(config.icon);
+                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="' + mw.util.getUrl(config.categories[0]) + '">' + config.title + '</a>'))
+                    if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").text(config.description);
+
+                    var url = mw.config.get('wgArticlePath').replace('$1', "Special:Login");
+
+                    if (config.action === "create-instance") {
+                        var label = mw.message('open-semantic-lab-create-instance').text();
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createInstance(["${config.categories[0]}"]);`
+                        else label =  "🔒 " + label;
+                        if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                    }
+                    if (config.action === "create-subcategory") {
+                        var label = mw.message('open-semantic-lab-create-subcategory').text();
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createSubcategory(["${config.categories[0]}"]);`
+                        else label =  "🔒 " + label;
+                        if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                    }
+                    else if (config.action === "query-instance") {
+                        var label = mw.message('open-semantic-lab-query-instance').text();
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.queryInstance(["${config.categories[0]}"]);`
+                        if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                    }
+
+                    $(this).css('visibility', 'visible');
+                    $(this).parent().removeClass('linear-background');
                 })
-            `});*/
-        });
+                .catch(error => {
+                    // typical: user has no read rights
+                    console.log("ERROR:", error)
 
-        $(".pagebot-button").each(function () {
-            var defaultOptions = {
-                "action": "create-instance",
-                "params": {},
-                "class": "btn btn-primary",
-                "target": this
-            };
-            var userOptions = {};
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            if (!userOptions.params) userOptions.params = {};
-            if (!userOptions.params.categories) userOptions.params.categories = [mw.config.get("wgPageName")];
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                    if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(config.icon);
+                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append(config.title);
+                    if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").html(config.description);
+                    
+                    $(this).css('visibility', 'visible');
+                    $(this).parent().removeClass('linear-background');
+                });
+            });
 
-            var configs = []
-            if (config.action === "menu-dropdown") {
-                $(this).addClass("dropdown show");
-                config.id = "dropdown-" + mwjson.util.getShortUid();
-                const target = $(`<div class="dropdown-menu" aria-labelledby="${config.id}"></div>`);
-                $(this).append(target);
-                configs.push(config);
-                for (var entry of config.menu_entries) {
-                    entry = mwjson.util.mergeDeep(defaultOptions, entry);
-                    entry.class += " dropdown-item";
-                    entry.target = target;
-                    configs.push(entry);
-                }
-            }
-            else configs.push(config);
+            $(".pagebot-preview").each(function () {
+                var defaultOptions = {
+                    container: this
+                };
+                var userOptions = {};
 
-            for (const config of configs) {
-                var icon = "";
-                if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
-                var label = "";
-                if (config.action === "create-instance") {
-                    label = mw.message('open-semantic-lab-create-instance').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "create-subcategory") {
-                    label = mw.message('open-semantic-lab-create-subcategory').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createSubcategory(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "query-instance") {
-                    label = mw.message('open-semantic-lab-query-instance').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.queryInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "edit-data") {
-                    label = mw.message('open-semantic-lab-edit-page-data').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "copy") {
-                    label = mw.message('open-semantic-lab-copy-page').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData({"mode": "copy"});'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "export") {
-                    label = mw.message('open-semantic-lab-print-page').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.printPage();'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "edit") {
-                    //label = mw.message('open-semantic-lab-edit-page-data').text();
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class}" role="button" href='/wiki/${mw.config.get("wgPageName")}?veaction=edit'>${icon + config.label}</a>`));
-                }
-                else if (config.action === "menu-dropdown") {
-                    if (!config.label && config.label !== "") config.label = label;
-                    $(config.target).append($(`<a class="${config.class} dropdown-toggle" role="button" href='#' id="${config.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${icon + config.label}</a>`));
-                }
-                else if (config.action === "dropdown-divider") {
-                    $(config.target).append($(`<div class="dropdown-divider"></div>`));
-                }
-                if (!config.tooltip && config.label === "") config.tooltip = label;
-                if (config.tooltip && config.tooltip !== "") {
-                    $(config.target).attr("data-toggle", "tooltip");
-                    $(config.target).attr("title", config.tooltip);
-                }
-            }
-        });
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
 
-        //Create tile that links to a popup editor
-        $(".pagebot-tile").each(function () {
-            var defaultOptions = {
-                "type": "button",
-                "action": "create-instance"
-            };
-            var userOptions = {};
+                osl.ui.createPagePreview(config);
+            });
 
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            else if (this.innerText !== "") userOptions = JSON.parse(this.innerText); //Legacy support
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            const user_lang = mw.config.get( 'wgUserLanguage' );
+            $(".pagebot-preview-editor").each(function () {
+                var defaultOptions = {
+                    schema_editor: {
+                        include: ["jsonschema"],
+                        hide: ["footer", "header", "jsondata"]
+                    },
+                    data_editor: { container: this },
+                    preview: {}
+                };
+                var userOptions = {};
 
-            mwjson.api.getPage(config.categories[0]).then((page) => {
-                var schema = page.slots['jsonschema'];
-                if (mwjson.util.isString(schema)) schema = JSON.parse(schema);
-                var title = schema["title"];
-                if (schema['title*'] && schema['title*'][user_lang]) title = schema['title*'][user_lang];
-                //else if (schema['label'] && schema['label']['en']) title = schema['label']['en'];
-                var description = schema["description"];
-                if (schema['description*'] && schema['description*'][user_lang]) description = schema['description*'][user_lang];
-                //else if (schema['description'] && schema['description']['en']) description = schema['description']['en'];
-                //console.log(title, description);
-                var jsondata = page.slots['jsondata'];
-                if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
-                var icon = "";
-                if (jsondata.utf8_icon && mwjson.util.isString(jsondata.utf8_icon)) icon = jsondata.utf8_icon;
-                else if (jsondata.utf8_icon && mwjson.util.isArray(jsondata.utf8_icon)) icon = jsondata.utf8_icon[0];
-                console.log(icon);
-                if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(icon);
-                if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="/wiki/' + config.categories[0] + '">' + title + '</a>'))
-                if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").text(description);
+                if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
 
-                if (config.action === "create-instance") {
-                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
-                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-instance').text()}</a>`))
-                }
-                if (config.action === "create-subcategory") {
-                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
-                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.createSubcategory(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-create-subcategory').text()}</a>`))
-                }
-                else if (config.action === "query-instance") {
-                    if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
-                    $(this).find(".custom-link-tile2_btn").append($(`<a href='javascript:osl.ui.queryInstance(["${config.categories[0]}"]);'>${mw.message('open-semantic-lab-query-instance').text()}</a>`))
-                }
-
-                $(this).css('visibility', 'visible');
-                $(this).parent().removeClass('linear-background');
+                config.schema_editor.container = document.getElementById(config.schema_editor.container_id);
+                config.preview.container = document.getElementById(config.preview.container_id);
+                osl.ui.createPreviewEditor(config);
             });
         });
-
-        //Create Print link in the page tools sidebar
-        /*mwjson.util.addBarLink({
-            "label": mw.message('open-semantic-lab-print-page'),
-            "href": `javascript:osl.ui.printPage();`
-        });*/
-
-        //Create Slot edit link in the page tools sidebar
-        /*mwjson.util.addBarLink({
-            "label": mw.message('open-semantic-lab-edit-page-data'),
-            "href": `javascript:osl.ui.editData({dataslot: 'jsondata'});`
-        });*/
-
-        //Create Slot edit link in the page tools sidebar
-        mwjson.util.addBarLink({
-            "label": mw.message('open-semantic-lab-edit-page-slots'),
-            "href": `javascript:osl.ui.editSlots({"include": ["jsonschema", "jsondata"], "hide": ["footer", "header"]});`
-        });
-
-        /*if (mw.config.get( 'wgPageName' ).startsWith("Category:") && !["Category:Category", "Category:Entity"].includes(mw.config.get( 'wgPageName' ))) {
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-edit-page-schema'),
-                "href": `javascript:osl.ui.editData({dataslot: 'jsonschema'});`
-            });
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-create-subcategory'),
-                "href": `javascript:osl.ui.createSubcategory();`
-            });
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-create-instance'),
-                "href": `javascript:osl.ui.createInstance();`
-            });
-            mwjson.util.addBarLink({
-                "label": mw.message('open-semantic-lab-query-instance'),
-                "href": `javascript:osl.ui.queryInstance();`
-            });
-        }*/
     });
 });
 
@@ -298,19 +294,33 @@ osl.util = class {
     constructor() {
     }
 
+    static getAbsoluteJsonSchemaUrl(title, pretty=true) {
+        if (title.startsWith("JsonSchema:")) {
+            return mwjson.util.getAbsolutePageUrl(title, {"action": "raw"}, pretty)
+        }
+		return mwjson.util.getAbsolutePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty)
+	}
+
+    static getRelativeJsonSchemaUrl(title, pretty=true) {
+        if (title.startsWith("JsonSchema:")) {
+            return mwjson.util.getRelativePageUrl(title, {"action": "raw"}, pretty)
+        }
+		return mwjson.util.getRelativePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty)
+	}
+
     static postProcessPage(page, categories = []) {
         //var namespace_prefix = new mw.Title(page.title).getNamespacePrefix();
         //if (namespace_prefix === "Item:" || namespace_prefix === "Category:" || namespace_prefix === "Property:") {
-            //could not be solved by modified RevisionRecord.php.
-			if (page.slots['header'] !== "{{#invoke:Entity|header}}") {
-				page.slots['header'] = "{{#invoke:Entity|header}}"
-				page.slots_changed['header'] = true;
-			}
-			if (page.slots['footer'] !== "{{#invoke:Entity|footer}}") {
-				page.slots['footer'] = "{{#invoke:Entity|footer}}"
-				page.slots_changed['footer'] = true;
-			}
-		//}
+        //could not be solved by modified RevisionRecord.php.
+        if (page.slots['header'] !== "{{#invoke:Entity|header}}") {
+            page.slots['header'] = "{{#invoke:Entity|header}}"
+            page.slots_changed['header'] = true;
+        }
+        if (page.slots['footer'] !== "{{#invoke:Entity|footer}}") {
+            page.slots['footer'] = "{{#invoke:Entity|footer}}"
+            page.slots_changed['footer'] = true;
+        }
+        //}
 
         if (page.slots['jsondata']) {
             if (mwjson.util.isString(page.slots['jsondata']))
@@ -327,7 +337,7 @@ osl.util = class {
                 name = mwjson.util.toPascalCase(name);
             }
             else name = org_name;
-            
+
             if (name != org_name) {
                 page.slots['jsondata']['name'] = name;
                 page.slots_changed['jsondata'] = true;
@@ -336,7 +346,7 @@ osl.util = class {
         if (page.slots['jsonschema']) {
             if (mwjson.util.isString(page.slots['jsonschema']))
                 page.slots['jsonschema'] = JSON.parse(page.slots['jsonschema'])
-            var org_title =  page.slots['jsonschema']['title'];
+            var org_title = page.slots['jsonschema']['title'];
             var title = "";
             if ((!org_title || org_title === "") && page.slots['jsondata']) {
                 title = page.slots['jsondata']['name'];
@@ -349,9 +359,16 @@ osl.util = class {
             //if (!page.slots['jsonschema']['properties'] || !page.slots['jsonschema']['properties']['type']) {
             //    page.slots['jsonschema']['properties']['type'] = {'default': [page.title]};
             //}
+            // remove type keyword in $ref (inserted by editing with jsonschema-jsonschema) causing errors in json-schema-ref-parser.js
+            if (page.slots['jsonschema']['allOf']) {
+                if (!Array.isArray(page.slots['jsonschema']['allOf'])) page.slots['jsonschema']['allOf'] = [page.slots['jsonschema']['allOf']];
+                for (const schema of page.slots['jsonschema']['allOf']) {
+                    if (mwjson.util.isObject(schema) && schema['$ref'] && schema['type']) delete schema['type'];
+                }
+            }
         }
 
-        const promise = new Promise((resolve, reject) => { 
+        const promise = new Promise((resolve, reject) => {
             var promises = [];
             for (const category of categories) {
                 const p = mwjson.api.getPage(category);
@@ -362,10 +379,10 @@ osl.util = class {
                     const category_page = result.value;
                     if (page.slots['jsondata'] && category_page.slots['schema_template']) {
                         var template_text = category_page.slots['schema_template'];
-                        Handlebars.registerPartial( "self", template_text );
+                        Handlebars.registerPartial("self", template_text);
                         var template = Handlebars.compile(template_text);
                         var json_schema_text = template(mwjson.util.mergeDeep(
-                            {'_page_title': page.title},
+                            { '_page_title': page.title },
                             page.slots['jsondata']
                         ));
                         //console.log("Set jsonschema: ", json_schema_text);
@@ -380,23 +397,58 @@ osl.util = class {
         });
         return promise;
     }
+
+    // gets the metaclasses/categories from the "nearest" superclass/category
+    static getMetaCategory(categories = []) {
+        const promise = new Promise((resolve, reject) => {
+            var promises = [];
+            for (const category of categories) {
+                const p = mwjson.api.getPage(category);
+                promises.push(p);
+            }
+            Promise.allSettled(promises).then((results) => {
+                var parents = [];
+                var meta_categories = [];
+                for (const result of results) {
+                    const category_page = result.value;
+                    if (category_page.slots['jsondata']) {
+                        if (mwjson.util.isString(category_page.slots['jsondata']))
+                            category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata'])
+                        if (category_page.slots['jsondata']['subclass_of'])
+                            parents = parents.concat(category_page.slots['jsondata']['subclass_of'])
+                        if (category_page.slots['jsondata']['metaclass'])
+                            meta_categories = meta_categories.concat(category_page.slots['jsondata']['metaclass'])
+                    }
+                }
+                if (!meta_categories.length && parents.length) {
+                    osl.util.getMetaCategory(parents).then((_meta_categories) => resolve(_meta_categories));
+                }
+                else {
+			if (!meta_categories.length) meta_categories = ["Category:Category"];
+			resolve(meta_categories);
+		}
+            });
+        });
+        return promise;
+    }
 }
 
 osl.ui = class {
-	constructor() {
+    constructor() {
     }
 
     static printPage() {
         console.log("Print PDF");
 
         var config = {
-            JSONEditorConfig: {disable_collapse: true},
-            popupConfig: {			
+            JSONEditorConfig: { disable_collapse: true },
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-print-settings').plain(),
-                    "continue": mw.message('open-semantic-lab-print-page').plain(), 
-                    "cancel": mw.message('open-semantic-lab-create-page-dialog-cancel').plain(), 
-                }
+                    "continue": mw.message('open-semantic-lab-print-page').plain(),
+                    "cancel": mw.message('open-semantic-lab-create-page-dialog-cancel').plain(),
+                },
+                edit_comment: false
             }
         };
 
@@ -441,7 +493,7 @@ osl.ui = class {
                 config.schema.required.push(element);
             });
 
-            config.onsubmit = (print_config) => {
+            config.onsubmit = (print_config, meta) => {
                 console.log(print_config);
                 //return;
                 var inputHtml = document.getElementById('bodyContent');
@@ -477,18 +529,18 @@ osl.ui = class {
                         $('#' + key).hide();
                     }
                 }
-                const pageUrl = (mw.config.get( 'wgServer' ) + mw.config.get( 'wgArticlePath' )).replace('$1', mw.config.get( 'wgPageName' ));
-                $('<div id="firstHeadingCopy"><h1 class="firstHeading"><a class="external text" href="' + pageUrl + '">'+ $('#firstHeading').text() + '</a></h1></div>').insertBefore('#mw-content-text');
+                const pageUrl = (mw.config.get('wgServer') + mw.config.get('wgArticlePath')).replace('$1', mw.config.get('wgPageName'));
+                $('<div id="firstHeadingCopy"><h1 class="firstHeading"><a class="external text" href="' + pageUrl + '">' + $('#firstHeading').text() + '</a></h1></div>').insertBefore('#mw-content-text');
                 var opt = {
                     margin: 2,
                     //filename: 'myfile.pdf',
                     image: { type: 'jpeg', quality: 0.95 },
                     html2canvas: { scale: 2 },
                     //jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
-                    jsPDF:        { format: 'a3', orientation: 'portrait' },
+                    jsPDF: { format: 'a3', orientation: 'portrait' },
                     //pagebreak: { mode: ['css', 'legacy'], before: ['.pdf-page-break-before'], avoid: 'img' },
                     //pagebreak: { mode: ['avoid-all'], before: ['.pdf-page-break-before'], avoid: 'img' },
-                    pagebreak: { mode: ['avoid-all'], avoid: 'img'},
+                    pagebreak: { mode: ['avoid-all'], avoid: 'img' },
                     //ignoreElements: (node) => { return node.className === 'noprint';}
                 };
                 //html2pdf(inputHtml,opt);
@@ -507,7 +559,7 @@ osl.ui = class {
                             }
                         }
                         //mw.config.get( 'wgTitle' ) + "_"
-                        pdfObject.save($('#firstHeading').text().replace(' ','_') + ".pdf");
+                        pdfObject.save($('#firstHeading').text().replace(' ', '_') + ".pdf");
                     })
             }
             var editor = new mwjson.editor(config)
@@ -517,7 +569,9 @@ osl.ui = class {
     static editData(params) {
         var params = mwjson.util.mergeDeep({
             dataslot: 'jsondata',
-            source_page: mw.config.get( 'wgPageName' )
+            source_page: mw.config.get('wgPageName'),
+            autosave: true,
+            reload: true,
         }, params);
         var dataslot = params.dataslot;
 
@@ -525,21 +579,25 @@ osl.ui = class {
             JSONEditorConfig: {
                 no_additional_properties: false
             },
-            popupConfig: {			
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
-                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
-                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             }
         };
 
         const page_namespace = new mw.Title(params.source_page).getNamespacePrefix().replace(":", "");
 
+        var page_load_promise = undefined;
+        if (params.source_page_obj) page_load_promise = new Promise((resolve, reject) => { resolve(params.source_page_obj); });
+        else page_load_promise = mwjson.api.getPage(params.source_page);
+
         const promise = new Promise((resolve, reject) => {
 
             $.when(
-                mwjson.api.getPage(params.source_page),
+                page_load_promise,
                 mwjson.editor.init()
             ).done(function (page) {
 
@@ -554,20 +612,20 @@ osl.ui = class {
                     config.JSONEditorConfig.show_opt_in = false;
                     config.JSONEditorConfig.display_required_only = false;
                     config.JSONEditorConfig.disable_array_reorder = true;
-			        config.JSONEditorConfig.disable_array_delete_all_rows = true;
-			        config.JSONEditorConfig.disable_array_delete_last_row = true;
+                    config.JSONEditorConfig.disable_array_delete_all_rows = true;
+                    config.JSONEditorConfig.disable_array_delete_last_row = true;
 
                     if (jsondata.type) {
-                        config.schema = {"allOf": []}
+                        config.schema = { "allOf": [] }
                         if (Array.isArray(jsondata.type)) {
                             for (const category of jsondata.type) {
                                 categories.push(category);
-                                config.schema["allOf"].push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"})
+                                config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) })
                             }
                         }
                         else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
                             categories.push(jsondata.type);
-                            config.schema["allOf"].push({"$ref": "/wiki/" + jsondata.type + "?action=raw&slot=jsonschema"})
+                            config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(jsondata.type) })
                         }
                         else {
                             console.log("Error: Page has no jsonschema");
@@ -576,15 +634,15 @@ osl.ui = class {
                     }
                     else if (page_namespace === "Category") {
                         categories.push("Category:Category");
-                        config.schema = {"$ref": "/wiki/Category:Category?action=raw&slot=jsonschema"};
+                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:Category") };
                     }
                     else if (page_namespace === "") { //Main
                         categories.push("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26"); //Article
-                        config.schema = {"$ref": "/wiki/Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26?action=raw&slot=jsonschema"};
+                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26") };
                     }
                     else if (page_namespace === "File") {
                         categories.push("Category:OSWff333fd349af4f65a69100405a9e60c7"); //File
-                        config.schema = {"$ref": "/wiki/Category:OSWff333fd349af4f65a69100405a9e60c7?action=raw&slot=jsonschema"};
+                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSWff333fd349af4f65a69100405a9e60c7") };
                     }
                     else {
                         console.log("Error: Page has no jsonschema");
@@ -593,10 +651,11 @@ osl.ui = class {
                 }
                 else if (dataslot === 'jsonschema') {
                     config.schema = mwjson.schema.jsonschema_jsonschema;
-                    
+
                     config.JSONEditorConfig.disable_edit_json = false;
                     config.JSONEditorConfig.disable_properties = false;
                     config.JSONEditorConfig.show_errors = 'never';
+                    config.popupConfig.edit_comment_required = true // comment for documentation required
                 }
                 else {
                     console.log("Error: No jsonschema defined");
@@ -618,14 +677,14 @@ osl.ui = class {
                         // Concatenate it to the matched count incremented by 1
                         label = label.substr(0, count.index) + (++count[0]);
                     }
-                    jsondata['label'][0] = {"text": label, "lang": lang};
+                    jsondata['label'][0] = { "text": label, "lang": lang };
                     page.title = page_namespace === "" ? mwjson.util.OswId(jsondata['uuid']) : page_namespace + ":" + mwjson.util.OswId(jsondata['uuid']);
                 }
 
                 config.data = jsondata;
 
-                config.onsubmit = (jsondata) => {
-                    
+                config.onsubmit = (jsondata, meta) => {
+
                     page.slots[dataslot] = jsondata;
                     page.slots_changed[dataslot] = true;
                     if (params.mode === "copy") {
@@ -635,10 +694,13 @@ osl.ui = class {
 
                     osl.util.postProcessPage(page, categories).then((page) => {
                         //console.log(page);
-                        mwjson.api.updatePage(page).done((page) => {
-                            resolve();
-                            window.location.href = "/wiki/" + page.title;
-                        });
+                        if (params.autosave) {
+                            mwjson.api.updatePage(page, meta).done((page) => {
+                                resolve();
+                                if (params.reload) window.location.href = mw.util.getUrl(page.title);
+                            });
+                        }
+                        else resolve();
                     });
 
                     return promise;
@@ -666,7 +728,8 @@ osl.ui = class {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-slots-dialog-title').plain(),
                     "continue": mw.message('open-semantic-lab-edit-page-slots-dialog-continue').plain(),
                     "cancel": mw.message('open-semantic-lab-edit-page-slots-dialog-cancel').plain(),
-                }
+                },
+                edit_comment_required: true // comment for documentation required
             }
         };
 
@@ -682,7 +745,7 @@ osl.ui = class {
                 if (mwjson.util.isString(config.schema)) config.schema = JSON.parse(config.schema);
                 if (config && _config.hide) {
                     for (const slot_key of _config.hide) {
-                        if (config.schema.properties[slot_key]) config.schema.properties[slot_key]['options'] = {hidden: true};
+                        if (config.schema.properties[slot_key]) config.schema.properties[slot_key]['options'] = { hidden: true };
                     }
                 }
                 if (config && _config.include) {
@@ -691,10 +754,11 @@ osl.ui = class {
                         if (config.schema.properties[slot_key]) config.schema.defaultProperties.push(slot_key);
                     }
                 }
-                
+
                 config.data = page.slots;
 
-                config.onsubmit = (slots) => {
+                config.onsubmit = (slots, meta) => {
+                    console.log(meta)
                     page.slots = slots;
                     console.log(page.slots);
                     for (var slot_key of Object.keys(page.slots)) {
@@ -703,7 +767,7 @@ osl.ui = class {
 
                     osl.util.postProcessPage(page).then((page) => {
 
-                        mwjson.api.updatePage(page).done((page) => {
+                        mwjson.api.updatePage(page, meta).done((page) => {
                             resolve();
                             window.location.href = window.location.href; //reload page
                         });
@@ -720,7 +784,7 @@ osl.ui = class {
         return promise;
     }
 
-    static createSubcategory(super_categories = [mw.config.get( 'wgPageName' )], meta_categories=["Category:Category"]) {
+    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"]) {
 
         var config = {
             JSONEditorConfig: {
@@ -732,11 +796,11 @@ osl.ui = class {
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true,
             },
-            popupConfig: {			
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
-                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
-                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             },
             target_namespace: "Category"
@@ -746,13 +810,15 @@ osl.ui = class {
 
             $.when(
                 mwjson.api.getPage(mw.config.get('wgPageName')),
+                osl.util.getMetaCategory(super_categories), //inherit metaclass/category from superclass/category
                 mwjson.editor.init()
-            ).done(function (category_page) {
+            ).done(function (category_page, _meta_categories) {
                 if (mwjson.util.isString(category_page.slots['jsondata'])) category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
                 if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
-                config.schema = {"allOf": []};
-                for (const meta_category of meta_categories) config.schema.allOf.push({"$ref": "/wiki/" + meta_category + "?action=raw&slot=jsonschema"});
-                config.data = {"subclass_of": []}
+                else meta_categories = _meta_categories;
+                config.schema = { "allOf": [] };
+                for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(meta_category) });
+                config.data = { "subclass_of": [] }
                 for (const super_category of super_categories) {
                     if (super_category.startsWith("Category:")) {
                         config.data.subclass_of.push(super_category);
@@ -763,8 +829,8 @@ osl.ui = class {
                     }
                 }
 
-                config.onsubmit = (jsondata) => {
-                    
+                config.onsubmit = (jsondata, meta) => {
+
                     mwjson.api.getPage("Category:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
                         page.slots['jsondata'] = jsondata;
                         page.slots_changed['jsondata'] = true;
@@ -773,7 +839,7 @@ osl.ui = class {
                         meta_categories = ["Category:Category"]
                         for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
 
-                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0" ) {//Category:Category, Category:Entity
+                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
                                 meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
                             }
                         }
@@ -781,15 +847,15 @@ osl.ui = class {
                         osl.util.postProcessPage(page, meta_categories).then((page) => {
 
                             console.log(page);
-                            mwjson.api.updatePage(page).done((page) => {
+                            mwjson.api.updatePage(page, meta).done((page) => {
                                 resolve();
-                                window.location.href = "/wiki/" + page.title; //nav to new page
+                                window.location.href = mw.util.getUrl(page.title); //nav to new page
                             });
                         });
                     });
 
                     return promise;
-                    
+
                 }
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
@@ -800,31 +866,31 @@ osl.ui = class {
         return promise;
     }
 
-    static createInstance(categories = [mw.config.get( 'wgPageName' )]) {
+    static createInstance(categories = [mw.config.get('wgPageName')]) {
         return osl.ui.createOrQueryInstance(categories, 'default');
     }
 
-    static queryInstance(categories = [mw.config.get( 'wgPageName' )]) {
+    static queryInstance(categories = [mw.config.get('wgPageName')]) {
         return osl.ui.createOrQueryInstance(categories, 'query');
     }
 
-    static createOrQueryInstance(categories = [mw.config.get( 'wgPageName' )], mode='default') {
+    static createOrQueryInstance(categories = [mw.config.get('wgPageName')], mode = 'default') {
 
         var config = {
             JSONEditorConfig: {
                 no_additional_properties: false
             },
-            popupConfig: {			
+            popupConfig: {
                 msg: {
                     "dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
-                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(), 
-                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(), 
+                    "continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+                    "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             },
             target_namespace: "Item"
         };
 
-        if (mode==='query') {
+        if (mode === 'query') {
             config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-query-dialog-title").plain();
             config.popupConfig.msg["continue"] = mw.message("open-semantic-lab-query-dialog-continue").plain();
             config.popupConfig.msg["cancel"] = mw.message("open-semantic-lab-query-dialog-cancel").plain();
@@ -848,13 +914,13 @@ osl.ui = class {
                 mwjson.editor.init()
             ).done(function () {
 
-                config.schema = {"allOf": []}
-                
+                config.schema = { "allOf": [] }
+
                 //if (mode !== 'query') 
-                config.data = {"type": []}
+                config.data = { "type": [] }
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
-                        config.schema.allOf.push({"$ref": "/wiki/" + category + "?action=raw&slot=jsonschema"});
+                        config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) });
                         //if (mode !== 'query') 
                         config.data.type.push(category);
                     }
@@ -868,7 +934,7 @@ osl.ui = class {
                     config.mode = mode;
                 }
                 else {
-                    config.onsubmit = (jsondata) => {
+                    config.onsubmit = (jsondata, meta) => {
                         var title = mwjson.util.OswId(jsondata.uuid);
                         if (categories.includes("Category:Property") || editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
                             config.target_namespace = "Property";
@@ -882,9 +948,9 @@ osl.ui = class {
                             osl.util.postProcessPage(page, categories).then((page) => {
 
                                 console.log(page);
-                                mwjson.api.updatePage(page).done((page) => {
+                                mwjson.api.updatePage(page, meta).done((page) => {
                                     resolve();
-                                    window.location.href = "/wiki/" + page.title; //nav to new page
+                                    window.location.href = mw.util.getUrl(page.title); //nav to new page
                                 });
                             });
                         });
@@ -899,5 +965,128 @@ osl.ui = class {
         });
         if (mode === 'query') return;
         else return promise;
+    }
+
+    static createPagePreview(params) {
+        var defaultOptions = {
+            display_mode: "embedded"
+        };
+        var config = mwjson.util.mergeDeep(defaultOptions, params);
+
+        if (!config.jsonschema && config.page && config.page.slots["jsonschema"]) config.jsonschema = config.page.slots["jsonschema"];
+        if (!config.jsondata && config.page && config.page.slots["jsondata"]) config.jsondata = config.page.slots["jsondata"];
+        if (!config.header_template && config.page && config.page.slots["header_template"]) config.header_template = config.page.slots["header_template"];
+        if (!config.footer_template && config.page && config.page.slots["footer_template"]) config.footer_template = config.page.slots["footer_template"];
+        if (!config.wikitext && config.page && config.page.slots["main"]) config.wikitext = config.page.slots["main"];
+
+        var wikitext = "{{#invoke: Entity|header";
+        if (config.jsonschema) wikitext += "|jsonschema=" + JSON.stringify(config.jsonschema).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.jsondata) wikitext += "|jsondata=" + JSON.stringify(config.jsondata).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.header_template) wikitext += "|template=<nowiki>" + config.header_template + "</nowiki>";
+        wikitext += " }}\n";
+        if (config.wikitext) wikitext += config.wikitext;
+        wikitext += "\n{{#invoke: Entity|footer";
+        if (config.jsonschema) wikitext += "|jsonschema=" + JSON.stringify(config.jsonschema).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.jsondata) wikitext += "|jsondata=" + JSON.stringify(config.jsondata).replaceAll("{{", " { { ").replaceAll("}}", " } } ");
+        if (config.footer_template) wikitext += "|template=<nowiki>" + config.footer_template + "</nowiki>";
+        wikitext += " }}";
+        console.log(wikitext);
+        mwjson.api.parseWikiText({
+            container: params.container,
+            text: wikitext,
+            display_mode: config.display_mode,
+            copy_parent_frame_style: true
+        });
+    }
+
+    static createPreviewEditor(params) {
+        var schema_config = {
+            JSONEditorConfig: {
+                disable_collapse: true,
+                disable_edit_json: false,
+                disable_properties: false,
+                no_additional_properties: false,
+            }
+        };
+        var data_config = {
+            JSONEditorConfig: {
+                disable_properties: false,
+                show_opt_in: false,
+                display_required_only: false,
+                disable_array_reorder: true,
+                disable_array_delete_all_rows: true,
+                disable_array_delete_last_row: true
+            }
+        }
+        var preview_config = {
+
+        }
+        schema_config = mwjson.util.mergeDeep(schema_config, params.schema_editor);
+        data_config = mwjson.util.mergeDeep(data_config, params.data_editor);
+        preview_config = mwjson.util.mergeDeep(preview_config, params.preview);
+
+        data_config.schema = mwjson.util.deepCopy(schema_config.data.jsonschema);
+
+        console.log(schema_config, data_config, preview_config)
+
+        const promise = new Promise((resolve, reject) => {
+
+            $.when(
+                //mw.loader.using('ext.mwjson.editor.ace'),
+                mwjson.api.getPage("Category:DummyCategory"),
+                mwjson.editor.init()
+            ).done(function (virtual_page) {
+
+                var schema_editor = undefined;
+                var data_editor = undefined;
+                preview_config.page = virtual_page;
+
+                schema_config.schema = virtual_page.schema;
+                if (mwjson.util.isString(schema_config.schema)) schema_config.schema = JSON.parse(schema_config.schema);
+                if (schema_config && schema_config.hide) {
+                    for (const slot_key of schema_config.hide) {
+                        if (schema_config.schema.properties[slot_key]) schema_config.schema.properties[slot_key]['options'] = { hidden: true };
+                    }
+                }
+                if (schema_config && schema_config.include) {
+                    for (const slot_key of schema_config.include) {
+                        schema_config.schema.defaultProperties = [];
+                        if (schema_config.schema.properties[slot_key]) schema_config.schema.defaultProperties.push(slot_key);
+                    }
+                }
+
+                if (schema_config.data) virtual_page.slots = schema_config.data;
+                else schema_config.data = virtual_page.slots;
+                virtual_page.schema.properties["jsonschema"] = { "type": "string", "format": "textarea", "options": { "wikieditor": "jsoneditors" } };
+                if (data_config.data) virtual_page.slots['jsondata'] = data_config.data;
+
+                schema_config.onsubmit = (slots, meta) => {
+                    virtual_page.slots = slots;
+
+                    //osl.util.postProcessPage(category_page).then((page) => {                        
+                    //});
+
+                    data_editor.setSchema({ schema: JSON.parse(virtual_page.slots['jsonschema']) });
+                    data_editor.createUI();
+                    //virtual_page.slots['jsondata'] = data_editor.getData(); //not loaded yet
+                    //osl.ui.createPagePreview(preview_config);
+                }
+
+                data_config.onsubmit = (jsondata, meta) => {
+                    //virtual_page.slots = schema_editor.getData();
+
+                    virtual_page.slots['jsondata'] = jsondata;
+                    if (mwjson.util.isString(virtual_page.slots['jsonschema'])) virtual_page.slots['jsonschema'] = JSON.parse(virtual_page.slots['jsonschema']);
+                    osl.ui.createPagePreview(preview_config);
+                }
+
+                schema_editor = new mwjson.editor(schema_config);
+                data_editor = new mwjson.editor(data_config);
+
+                osl.ui.createPagePreview(preview_config);
+            });
+        });
+
+        return promise;
     }
 }

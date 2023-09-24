@@ -20,7 +20,7 @@ $(document).ready(function() {
 	
 	var ajax_array = [];
 	
-	query = `/w/api.php?action=ask&query=[[Category:LIMS/Person/User]][[HasUsername::${context.userName}]]|?HasAbbreviation&format=json`;
+	query = mw.config.get("wgScriptPath") + `/api.php?action=ask&query=[[Category:LIMS/Person/User]][[HasUsername::${context.userName}]]|?HasAbbreviation&format=json`;
 	var receiveUserAbbreviationQuery = $.ajax({
 		url : query,
 		dataType: "json",
