@@ -19,6 +19,7 @@ $(document).ready(function () {
                         title: mwjson.util.OswId(uuid)
                     }}
                 };
+                jsondata = mwjson.util.mergeDeep(jsondata, params.board.default_jsondata);
                 if (params.tags) {
                     for (const tag of params.tags) {
                         if (tag.type === "string") jsondata[tag.key] = Object.keys(tag.values)[0];
@@ -91,7 +92,8 @@ $(document).ready(function () {
         $(".Kanban").each(function () {
             var defaultOptions = {
                 "type": "button",
-                "action": "create-instance"
+                "action": "create-instance",
+                "default_jsondata": {}
             };
             var userOptions = {};
 
@@ -103,6 +105,7 @@ $(document).ready(function () {
                 container: this,
                 label: "Kanban",
                 description: "Drag & Drop to edit",
+                default_jsondata: config.default_jsondata,
                 tags: [{
                     key: "prio",
                     type: "string",
@@ -434,6 +437,7 @@ osl.kanban.Board = class {
         this.lanes = [];
         for (const lane of params.lanes) this.addLane(lane);
         this.updateDropzones();
+        this.default_jsondata = params.default_jsondata || {};
     }
 
     getHtml() {
