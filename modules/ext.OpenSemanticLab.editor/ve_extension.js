@@ -21,7 +21,7 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
     mw.hook( 've.deactivationComplete' ).add( function() {
         //console.log('ve.deactivationComplete');
         //reload page
-        location.reload(); 
+        //location.reload(); 
         //window.location.search += '&action=purge';
     });
     
