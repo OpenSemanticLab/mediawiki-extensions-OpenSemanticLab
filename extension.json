@@ -36,7 +36,6 @@
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
 			"styles": [
 				"SkinOverwrites.css",
-				"TileGrid.css",
 				"TileGrid2.css",
 				"placeholder.css"
 			],
@@ -101,18 +100,18 @@
 				"open-semantic-lab-edit-page-schema",
 				"open-semantic-lab-edit-page-data",
 				"open-semantic-lab-edit-page-data-dialog-title",
-				"open-semantic-lab-edit-page-data-dialog-continue", 
-				"open-semantic-lab-edit-page-data-dialog-cancel", 
+				"open-semantic-lab-edit-page-data-dialog-continue",
+				"open-semantic-lab-edit-page-data-dialog-cancel",
 				"open-semantic-lab-edit-page-slots",
 				"open-semantic-lab-edit-page-slots-dialog-title",
-				"open-semantic-lab-edit-page-slots-dialog-continue", 
-				"open-semantic-lab-edit-page-slots-dialog-cancel", 
+				"open-semantic-lab-edit-page-slots-dialog-continue",
+				"open-semantic-lab-edit-page-slots-dialog-cancel",
 				"open-semantic-lab-create-subcategory",
 				"open-semantic-lab-create-instance",
 				"open-semantic-lab-query-instance",
 				"open-semantic-lab-query-dialog-title",
-				"open-semantic-lab-query-dialog-continue", 
-				"open-semantic-lab-query-dialog-cancel", 
+				"open-semantic-lab-query-dialog-continue",
+				"open-semantic-lab-query-dialog-cancel",
 				"open-semantic-lab-preview"
 			],
 			"position": "top"
@@ -137,8 +136,8 @@
 			"localBasePath": "modules/ext.osw.ui.kanban",
 			"remoteExtPath": "OpenSemanticLab/modules/ext.osw.ui.kanban",
 			"dependencies": [
-                "ext.OpenSemanticLab"
-            ],
+				"ext.OpenSemanticLab"
+			],
 			"scripts": [
 				"kanban.js"
 			],
@@ -499,7 +498,7 @@
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
 		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal"
 	},
-    "SpecialPages": {
-        "AskResolver": "SpecialAskResolver"
-    }
+	"SpecialPages": {
+		"AskResolver": "SpecialAskResolver"
+	}
 }
