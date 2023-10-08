@@ -17,12 +17,20 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
     clear: right;
     text-align: left !important;
     border-collapse: collapse;
-    border-radius: 4px;
+    border-radius: 8px;
+}
+.skin-citizen-dark .info_box {
+    color: var(--color-base);
+    background: var(--color-surface-0);
 }
 
 .info_box th {
     background-color: #f1f3f3;
     padding: 0 0.4em 0 0.4em;
+}
+.skin-citizen-dark .info_box th {
+    background: var(--color-surface-0);
+    color: white;
 }
 
 .info_box td {
