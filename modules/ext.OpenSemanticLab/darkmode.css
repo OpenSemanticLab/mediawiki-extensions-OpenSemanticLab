@@ -1,0 +1,60 @@
+/* This file inverts the color of various extension
+generated element if Skin:Citizen darkmode is active */
+
+
+/* Loading placeholder */
+.skin-citizen-dark .linear-background {
+    background-color: var(--color-surface-4);
+    background: linear-gradient(to right, var(--color-surface-4) 8%, var(--bs-body-bg) 18%, var(--color-surface-4) 33%);
+}
+
+/* Tiles */
+.skin-citizen-dark .custom-link-tile2 {
+    background-color: var(--color-surface-4);
+}
+
+/* InfoBox */
+.skin-citizen-dark .info_box {
+    color: var(--color-base);
+    background: var(--color-surface-0);
+}
+.skin-citizen-dark .info_box th {
+    background: var(--color-surface-0);
+    color: white;
+}
+
+/* All IFrame editors */
+/*.skin-citizen-dark iframe {
+    filter: invert(1);
+}*/
+.skin-citizen-dark .osw-editor-container {
+    filter: invert(1);
+}
+/* keep edit link uninverted */
+.skin-citizen-dark .mw-editdrawio {
+    filter: invert(1);
+}
+.skin-citizen-dark .mw-svgedit {
+    filter: invert(1);
+}
+
+/* SciFileHandler */
+.skin-citizen-dark .SciFileHandler {
+    filter: invert(1);
+}
+
+/* InteractiveSemanticGraph */
+.skin-citizen-dark .InteractiveSemanticGraph {
+    filter: invert(1);
+}
+.skin-citizen-dark .custom-menu {
+    filter: invert(0.9);
+}
+.skin-citizen-dark .vis-network button {
+    color: black; /* gets inverted to white */
+}
+
+/* SimpleFileUpload */
+.skin-citizen-dark .fileupload-container {
+    filter: invert(0.9);
+}
