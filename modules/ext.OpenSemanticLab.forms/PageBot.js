@@ -296,9 +296,9 @@ osl.util = class {
 
     static getAbsoluteJsonSchemaUrl(title, pretty=true) {
         if (title.startsWith("JsonSchema:")) {
-            return mwjson.util.getAbsolutePageUrl(title, {"action": "raw"}, pretty)
+            return mwjson.util.getAbsolutePageUrl("Special:SlotResolver", pretty) + "/" + title.replace(":", "/") + ".slot_main.json";
         }
-		return mwjson.util.getAbsolutePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty)
+        return mwjson.util.getAbsolutePageUrl("Special:SlotResolver", pretty) + "/" + title.replace(":", "/") + ".slot_jsonschema.json";
 	}
 
     static getRelativeJsonSchemaUrl(title, pretty=true) {
