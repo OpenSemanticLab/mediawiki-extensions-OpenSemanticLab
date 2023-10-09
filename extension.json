@@ -36,6 +36,7 @@
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
 			"styles": [
 				"SkinOverwrites.css",
+				"darkmode.css",
 				"TileGrid2.css",
 				"placeholder.css"
 			],
