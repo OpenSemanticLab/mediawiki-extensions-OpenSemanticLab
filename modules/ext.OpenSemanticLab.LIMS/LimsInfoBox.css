@@ -18,6 +18,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
     text-align: left !important;
     border-collapse: collapse;
     border-radius: 8px;
+    word-break: break-all; /*break long links and names.*/
 }
 
 .info_box th {
