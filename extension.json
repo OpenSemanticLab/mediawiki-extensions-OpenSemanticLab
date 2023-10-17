@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.19.2",
+	"version": "0.20.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -405,6 +405,24 @@
 	],
 	"config_prefix": "",
 	"config": {
+		"wgContentNamespaces": {
+			"value": [
+				2,
+				14,
+				7000,
+				7010,
+				7020,
+				7030,
+				7040,
+				7050,
+				7060,
+				7070,
+				7100,
+				7300,
+				7310
+			],
+			"merge_strategy": "array_plus"
+		},
 		"smwgNamespacesWithSemanticLinks": {
 			"value": {
 				"7000": true,
