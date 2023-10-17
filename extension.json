@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.20.0",
+	"version": "0.20.1",
 	"author": [
 		"Simon Stier"
 	],
@@ -20,7 +20,7 @@
 			"MwJson": ">= 0.15.0",
 			"WellplateEditor": ">= 0.1.0",
 			"SvgEditor": ">= 0.1.0",
-			"SpreadsheetEditor": "0.3.0",
+			"SpreadsheetEditor": ">= 0.3.0",
 			"ChemEditor": ">= 0.4.0"
 		}
 	},
