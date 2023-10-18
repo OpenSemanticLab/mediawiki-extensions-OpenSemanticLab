@@ -240,7 +240,7 @@ $(document).ready(function () {
                             if (!jsondata.meta.wiki_page) {jsondata.meta.wiki_page = {};}
                             var tobject = new mw.Title( title );
                             jsondata.meta.wiki_page.title = tobject.getMain();
-                            let namespace = tobject.getNamespacePrefix();
+                            let namespace = tobject.getNamespacePrefix().replace(':', '');
                             if (namespace !== "") {jsondata.meta.wiki_page.namespace = namespace;}
 
                             board.insertTask({task:
