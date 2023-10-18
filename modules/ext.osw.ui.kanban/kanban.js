@@ -12,7 +12,7 @@ $(document).ready(function () {
                 console.log("Create", params);
                 let uuid = mwjson.util.uuidv4();
                 let jsondata = { 
-                    type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], 
+                    type: params.board.default_jsonschema, //["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], //Task
                     uuid: uuid,
                     meta: { wiki_page: {
                         namespace: "Item",
@@ -93,19 +93,20 @@ $(document).ready(function () {
             var defaultOptions = {
                 "type": "button",
                 "action": "create-instance",
-                "default_jsondata": {}
             };
             var userOptions = {};
 
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            const user_lang = mw.config.get( 'wgUserLanguage' );
+            var board_base = {
+                container: this,
+                default_jsondata: {},
+            }
 
-            let board = kanban.addBoard({
+            var board_prio_backlog_inwork_done = {
                 container: this,
                 label: "Kanban",
                 description: "Drag & Drop to edit",
-                default_jsondata: config.default_jsondata,
+                default_jsondata: {},
+                default_jsonschema: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], // Category:Task
                 tags: [{
                     key: "prio",
                     type: "string",
@@ -220,7 +221,23 @@ $(document).ready(function () {
                         ]
                     }
                 ]
-            });
+            };
+
+            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+            // legacy support default_jsondata
+            if (userOptions.board_preset && userOptions.board_preset === "none") {
+                //custom board
+                defaultOptions.board = board_base;
+            }
+            else {
+                defaultOptions.board = board_prio_backlog_inwork_done;
+                if (userOptions.default_jsondata) defaultOptions.board.default_jsondata = mwjson.util.mergeDeep(defaultOptions.board.default_jsondata, userOptions.default_jsondata);   
+            }
+            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+
+            const user_lang = mw.config.get( 'wgUserLanguage' );
+
+            let board = kanban.addBoard(config.board);
             //board.insertTask({task:
             //    { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), name: "Test", label: [{ "text": "My new test task", "lang": "en" }], status: "backlog", prio: "low", due_date: "2023-03-01", progress: "50"} }
             //});
@@ -438,6 +455,7 @@ osl.kanban.Board = class {
         for (const lane of params.lanes) this.addLane(lane);
         this.updateDropzones();
         this.default_jsondata = params.default_jsondata || {};
+        this.default_jsonschema = params.default_jsonschema || {};
     }
 
     getHtml() {
@@ -465,11 +483,12 @@ osl.kanban.Board = class {
                 for (const tag of lane.config.tags)
                     if (params.task.jsondata[tag.key])
                         for (const value of Object.keys(tag.values))
-                            if (tag.type === "string")
+                            if (tag.type === "string") {
                                 if (params.task.jsondata[tag.key] === value) {
                                     res.task = lane.insertTask(params);
                                     res.inserted = true;
                                 }
+                            }
                             else if (params.task.jsondata[tag.key].includes(value)) {
                                 res.task = lane.insertTask(params);
                                 res.inserted = true;
@@ -833,7 +852,8 @@ osl.kanban.Task = class {
                 }
                 else
                     for (const value of this.jsondata[tag.key])
-                        this.badgeHtml += this.getBadgeHtml({ label: tag.label + ":" + tag.values[value].label, color: tag.values[value].color });
+                        if (tag.values[value]) // use only defined tags
+                            this.badgeHtml += this.getBadgeHtml({ label: tag.label + ":" + tag.values[value].label, color: tag.values[value].color });
 
         this.html = this.html_template(this);
         //console.log("Refresh");
