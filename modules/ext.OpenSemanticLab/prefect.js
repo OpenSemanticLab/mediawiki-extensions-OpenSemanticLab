@@ -300,7 +300,7 @@ $(document).ready(function () {
                 });
                 if (services.source_nodes && services.source_nodes[0]) {
                     let service = await getJsonLd(services.source_nodes[0]);
-                    if (!config.host && service.domain) config.host = workflow.domain;
+                    if (!config.host && service.domain) config.host = service.domain;
                     if (!config.flow_id && service.flow_id) config.flow_id = service.flow_id;
                     else if (!config.flow_id && service.uuid) config.flow_id = service.uuid;
                 }
