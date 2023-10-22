@@ -5,9 +5,9 @@ $(document).ready(function () {
     ).done(function () {
 
         const badgeTemplate = Handlebars.compile(`
-        <button id="prefect-state-badge_{{uuid}}" type="button" class="btn badge-pill btn-{{class}}" style="margin:5px">
+        <button id="prefect-state-badge_{{uuid}}" type="button" class="btn badge-pill badge rounded-pill btn-{{class}}" style="margin:5px">
             <span class="sr-only">Workflow status</span>
-            {{text}} <span class="badge-pill badge-light">{{msg}}</span>
+            {{text}} <span class="badge-pill badge-light badge rounded-pill bg-light" style="color:black">{{msg}}</span>
         </button>
         `);
 
