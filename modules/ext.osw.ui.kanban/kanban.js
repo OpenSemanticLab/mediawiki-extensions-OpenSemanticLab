@@ -434,9 +434,7 @@ osl.kanban.Board = class {
         this.autosave = params.autosave || false;
         this.button_html = "";
         if (!(this.parent instanceof osl.kanban.Lane)) this.button_html = `
-        <button id="${this.autosave_button_id}", type="button" class="btn btn-primary " data-toggle="button" aria-pressed="false" autocomplete="off">
-            Auto-Save
-        </button>
+        <input id="${this.autosave_button_id}" type="checkbox" ${this.autosave ? 'checked' : ''} data-toggle="toggle" data-onlabel="Autosave on" data-offlabel="Autosave off">
         <button id="${this.save_button_id}", type="button" class="btn btn-success">Save</button>`;
         this.html = `
         <div id="${this.container_id}" class="kanban-board container-fluid pt-3">
@@ -451,7 +449,11 @@ osl.kanban.Board = class {
         </div>
         `;
         if (params.container_id) $("#" + params.container_id).append($(this.getHtml()));
-        $("#" + this.autosave_button_id).on('click', () => this.onToggleAutosave());
+        // init buttons
+        document.querySelectorAll('input[type=checkbox][data-toggle="toggle"]').forEach(function(ele) {
+            ele.bootstrapToggle();
+        });
+        $("#" + this.autosave_button_id).on('change', () => this.onToggleAutosave());
         $("#" + this.save_button_id).on('click', () => this.onSave());
         this.lanes = [];
         for (const lane of params.lanes) this.addLane(lane);
