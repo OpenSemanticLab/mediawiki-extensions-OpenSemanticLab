@@ -98,11 +98,13 @@ $(document).ready(function () {
 
             var board_base = {
                 container: this,
+                autosave: true,
                 default_jsondata: {},
             }
 
             var board_prio_backlog_inwork_done = {
                 container: this,
+                autosave: true,
                 label: "Kanban",
                 description: "Drag & Drop to edit",
                 default_jsondata: {},
@@ -229,7 +231,7 @@ $(document).ready(function () {
                 //custom board
                 defaultOptions.board = board_base;
             }
-            else {
+            else { //preset = "prio_backlog_inwork_done"
                 defaultOptions.board = board_prio_backlog_inwork_done;
                 if (userOptions.default_jsondata) defaultOptions.board.default_jsondata = mwjson.util.mergeDeep(defaultOptions.board.default_jsondata, userOptions.default_jsondata);   
             }
@@ -429,7 +431,7 @@ osl.kanban.Board = class {
         this.anchor_id = `board_${this.id}_anchor`;
         this.autosave_button_id = `board_${this.id}_autosave-button`;
         this.save_button_id = `board_${this.id}_save-button`;
-        this.autosave = false;
+        this.autosave = params.autosave || false;
         this.button_html = "";
         if (!(this.parent instanceof osl.kanban.Lane)) this.button_html = `
         <button id="${this.autosave_button_id}", type="button" class="btn btn-primary " data-toggle="button" aria-pressed="false" autocomplete="off">
@@ -521,8 +523,10 @@ osl.kanban.Board = class {
     }
 
     onToggleAutosave() {
-        console.log("toggleAutosave");
         this.autosave = !this.autosave;
+        console.log("toggleAutosave =>", this.autosave);
+        // save all pending changes if autosafe gets enabled
+        if (this.autosave) this.onSave();
     }
 
     onSave(params = {}) {
