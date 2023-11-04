@@ -610,7 +610,7 @@ osl.ui = class {
 
                     config.JSONEditorConfig.disable_properties = false;
                     config.JSONEditorConfig.show_opt_in = false;
-                    config.JSONEditorConfig.display_required_only = false;
+                    config.JSONEditorConfig.display_required_only = true;
                     config.JSONEditorConfig.disable_array_reorder = true;
                     config.JSONEditorConfig.disable_array_delete_all_rows = true;
                     config.JSONEditorConfig.disable_array_delete_last_row = true;
@@ -791,7 +791,7 @@ osl.ui = class {
                 no_additional_properties: false,
                 disable_properties: false,
                 show_opt_in: false,
-                display_required_only: false,
+                display_required_only: true,
                 disable_array_reorder: true,
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true,
@@ -902,7 +902,7 @@ osl.ui = class {
 
             config.JSONEditorConfig.disable_properties = false;
             config.JSONEditorConfig.show_opt_in = false;
-            config.JSONEditorConfig.display_required_only = false;
+            config.JSONEditorConfig.display_required_only = true;
             config.JSONEditorConfig.disable_array_reorder = true;
             config.JSONEditorConfig.disable_array_delete_all_rows = true;
             config.JSONEditorConfig.disable_array_delete_last_row = true;
@@ -917,12 +917,12 @@ osl.ui = class {
                 config.schema = { "allOf": [] }
 
                 //if (mode !== 'query') 
-                config.data = { "type": [] }
+                //config.data = { "type": [] } // prevents json-editor from displaying defaultProperties not contained in config.data
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
                         config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) });
                         //if (mode !== 'query') 
-                        config.data.type.push(category);
+                        //config.data.type.push(category); // allready covered by schema.type.default value
                     }
                     else {
                         console.log("Error: Cannot create an instance of " + category);
@@ -1012,7 +1012,7 @@ osl.ui = class {
             JSONEditorConfig: {
                 disable_properties: false,
                 show_opt_in: false,
-                display_required_only: false,
+                display_required_only: true,
                 disable_array_reorder: true,
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true
