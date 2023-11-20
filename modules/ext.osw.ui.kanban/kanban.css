@@ -2,7 +2,7 @@
     margin-bottom: 0.5rem;
     cursor: grab;
 }
-
+  
 .droppable {
     background-color: var(--success);
     min-height: 120px;
@@ -16,6 +16,7 @@
 .kanban-board .items {
     max-height: 500px;
     overflow: auto;
+    margin: 0 0.1rem
 }
 
 .kanban-board .kanban-board .items {
@@ -29,4 +30,24 @@
 
 .kanban-board .kanban-board .card-text {
     font-size: 0.6rem;
+}
+
+
+/* DARK MODE */
+html[data-bs-theme="dark"] .kanban-board {
+    filter: invert(1);
+}
+
+html[data-bs-theme="dark"] .kanban-board .items {
+    box-shadow: inset;
+    filter: invert(1);
+}
+
+html[data-bs-theme="dark"] .kanban-board .card-body .p-2 {
+    filter: invert(1);
+}
+
+html[data-bs-theme="dark"] .card .draggable {
+    background-color: inherit;
+    border-color: inherit;
 }
