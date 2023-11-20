@@ -943,6 +943,11 @@ osl.ui = class {
                             //title = mwjson.util.toPascalCase(jsondata.label[0].text);
                             title = jsondata.name;
                         }
+                        if (editor.jsonschema.subschemas_uuids.includes("11a53cdf-bdc2-4524-bf8a-c435cbf65d9d")) { //uuid of Category:WikiFile
+                            config.target_namespace = "File";
+                            // check if target title was already defined by file upload
+                            if (editor.config.target && editor.config.target !== "") title = editor.config.target.replace(editor.config.target_namespace + ":", "");
+                        }
                         mwjson.api.getPage(config.target_namespace + ":" + title).then((page) => {
                             page.slots['jsondata'] = jsondata;
                             page.slots_changed['jsondata'] = true;
