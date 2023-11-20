@@ -16,7 +16,6 @@
 .kanban-board .items {
     max-height: 500px;
     overflow: auto;
-    margin: 0 0.1rem
 }
 
 .kanban-board .kanban-board .items {
