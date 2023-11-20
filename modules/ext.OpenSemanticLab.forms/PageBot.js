@@ -129,10 +129,11 @@ $(document).ready(function () {
                     var icon = "";
                     if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
                     var label = "";
+                    var default_data = config.params.jsondata ? ", " + JSON.stringify(config.params.jsondata) : "null"
                     if (config.action === "create-instance") {
                         label = mw.message('open-semantic-lab-create-instance').text();
                         if (!config.label && config.label !== "") config.label = label;
-                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]${default_data});'>${icon + config.label}</a>`));
                     }
                     else if (config.action === "create-subcategory") {
                         label = mw.message('open-semantic-lab-create-subcategory').text();
@@ -866,15 +867,15 @@ osl.ui = class {
         return promise;
     }
 
-    static createInstance(categories = [mw.config.get('wgPageName')]) {
-        return osl.ui.createOrQueryInstance(categories, 'default');
+    static createInstance(categories = [mw.config.get('wgPageName')], default_data) {
+        return osl.ui.createOrQueryInstance(categories, 'default', default_data);
     }
 
     static queryInstance(categories = [mw.config.get('wgPageName')]) {
         return osl.ui.createOrQueryInstance(categories, 'query');
     }
 
-    static createOrQueryInstance(categories = [mw.config.get('wgPageName')], mode = 'default') {
+    static createOrQueryInstance(categories = [mw.config.get('wgPageName')], mode = 'default', default_data) {
 
         var config = {
             JSONEditorConfig: {
@@ -918,6 +919,7 @@ osl.ui = class {
 
                 //if (mode !== 'query') 
                 //config.data = { "type": [] } // prevents json-editor from displaying defaultProperties not contained in config.data
+                config.data = default_data;
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
                         config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) });
