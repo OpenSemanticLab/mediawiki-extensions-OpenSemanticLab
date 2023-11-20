@@ -21,7 +21,7 @@ VeExt_emptyDefaultFileName = false; // if true, file name is fetched from Templa
 var tool_groups = [];//[{name: 'labnote', label: 'LabNote'}];
 var template_tools = [
 	{
-		group: 'textStyle', //built in: format, textStyle, cite, insert
+		group: 'textStyle', //built in: 'meta' (root level), 'format', 'textStyle', 'cite', 'insert'
 		custom_group: false,
 		title_msg: 'visualeditor-tool-annotation-toolname', //'Annotation',
 		icon: 'error', //https://doc.wikimedia.org/oojs-ui/master/demos/?page=icons&theme=wikimediaui&direction=ltr&platform=desktop
@@ -134,53 +134,344 @@ var template_tools = [
 		shortcut: 'ctrl+alt+w',
 		template: { target: { href: 'Template:Editor/Wellplate', wt: 'Template:Editor/Wellplate' }, params: { 'file_name': { wt: VeExt_emptyDefaultFileName ? "" : $('#firstHeading').text() + ` wellplate-01` }, 'page_name': { wt: `${mw.config.get('wgPageName')}` } } }
 	},
-	/*{
-		group: 'insert',
-		custom_group: false,
-		title: 'ParamSet',
-		icon: 'table',
-		name: 'parameter_set',
-		dialog: true,
-		dialog_type: 'template',
-		sequence: '{P}',
-		shortcut: 'ctrl+alt+p',
-		template: { target: { href: 'Template:Editor/ParamSet', wt: 'Template:Editor/ParamSet' }, params: { 'name': { wt: `ParamSet 1` }, 'id': { wt: `0001` } } }
-	},*/
-	/*{
-			group: 'insert',
-			custom_group: false,
-			title: 'ID-Link',
-			icon: 'link',
-			name: 'id_link',
-			dialog: true,
-			dialog_type: 'custom_command',
-			edit_dialog: false,
-			sequence: '{L}',
-			shortcut: 'ctrl+alt+l',
-			template: { target: {href: '<gets replaced by dialog result', wt: 'subst:<gets replaced by dialog result'} },
-			custom_command:  function( surface, args ) {
-					args = args || this.args;
-
-							//store current position
-							var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
-							OO.ui.prompt( 'Select Building Block (CC)', { textInput: { placeholder: 'Pagename' } } ).done( function ( result ) {
-									if ( result !== null ) {
-											console.log( 'User typed "' + result + '" then clicked "OK".' );
-											//restore position
-											//surface.getModel().setLinearSelection(new ve.Range( 0, currentPos ) );
-											//surface.getModel().getFragment().collapseToEnd().insertContent( args[0], args[1] ).select();
-											var title = mw.Title.newFromText( result ), linkAnnotation = ve.dm.MWInternalLinkAnnotation.static.newFromTitle( title );
-											//surface.getModel().getFragment().annotateContent( 'set', 'link/mwInternal', linkAnnotation.element );
-					//surface.getModel().getFragment().collapseToEnd().insertContent( [linkAnnotation.element,{ type: '/link/mwInternal' }] );
-					surface.getModel().getFragment().collapseToEnd().insertContent( [{ type: 'link/mwInternal', attributes: {title: 'Foo/Bar', origTitle: 'Foo/Bar', normalizedTitle: 'Foo/Bar', lookupTitle: 'Foo/Bar'} }] ).select();
-									} else {
-											//console.log( 'User clicked "Cancel" or closed the dialog.' );
-									}
-							} );
-
-			},
-},*/
 	{
+		group: 'meta',
+		custom_group: false,
+		title: 'ID-Link',
+		icon: 'link',
+		name: 'id_link',
+		dialog: true,
+		dialog_type: 'custom_dialog',
+		edit_dialog: false,
+		is_edit_dialog: true, //also edit existing template with this dialog
+		overrides: ['link'], //replaces build-in command 'link'
+		transclusion_type: 'mwTransclusionInline', //default: mwTransclusionBlock
+		handle_types: ['mwTransclusionInline'], // not 'link/mwInternal'
+		sequence: '{L}',
+		shortcut: 'ctrl+alt+l',
+		template: { target: { href: 'Template:Link', wt: 'Template:Link' } },
+		custom_dialog: function (surface, template) {
+
+			var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
+				JSONEditorConfig: {
+					no_additional_properties: false,
+					//keep_oneof_values: true,
+					//keep_only_existing_values: true,
+				},
+				popupConfig: {
+					edit_comment: false,
+					msg: {
+						"dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
+						"continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+						"cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
+					}
+				},
+				target_namespace: "Item"
+			});
+
+			if (template.params) {
+				console.log("Params: ", template.params);
+				config.data = {};
+				config.data.page = template.params.page?.wt;
+				config.data.url = template.params.url?.wt;
+				config.data.label = template.params.label?.wt;
+			}
+
+			// use selected text as label if available
+			if (!config.data?.label) {
+				var selectedText = surface.getModel().getFragment().getText();
+				if (selectedText && selectedText !== "") {
+					if (!config.data) config.data = {};
+					config.data.label = selectedText;
+				}
+			}
+
+			var deferred = $.Deferred();
+
+			const promise = new Promise((resolve, reject) => {
+
+				$.when(
+					mwjson.editor.init()
+				).done(function () {
+
+					config.schema = {
+						"title": "Link",
+						"title*": {"de": "Link"},
+						"description": "Link to an internal or external page",
+						"description*": {"de": "Link zu einer internen or externen Seite"},
+						"required": ["page",  "url", "label"],
+						//"required": ["label"],
+						//"defaultProperties": ["label"],
+						"properties": {
+
+							"label": {
+								"title": "Label (optional)",
+								"title*": {"de": "Beschriftung (optional)"},
+								"description": "If not set, the no text (external) or the page name (internal) will be displayed.",
+								"description*": {"de": "Falls nicht gesetzt wird kein Text (extern) oder der Seitenname (intern) angezeigt."},
+								"type": "string",
+								"format": "text"
+							},
+						/*},
+						"oneOf": [
+							{
+								"title": "Internal", 
+								"required": ["page"], 
+								"properties": {*/
+									"page": {
+										"title": "Page (internal link)",
+										"title*": {"de": "Seite (interner Link)"},
+										"description": "Type in the field so select an existing page or create a new one using the button on the right.",
+										"description*": {"de": "Durch Tippen in das Feld kann eine existierende Seite ausgewählt oder eine neue mit der Schaltfläche rechts erstellt werden."},
+										"type": "string",
+										"format": "autocomplete",
+										"options": {
+											"autocomplete": {
+												"category": "Category:Entity"
+											},
+											"_dependencies": {
+												"root.url": ""
+											}
+										}
+									},
+								/*}
+							},
+							{
+								"title": "External", 
+								"required": ["url"], 
+								"properties": {*/
+									"url": {
+										"title": "URL (external link)",
+										"title*": {"de": "URL (externer Link)"},
+										"description": "Links to an external page. Skip the internal page field in this case.",
+										"description*": {"de": "Link zu einer externen Seite. Das Feld für die interne Seite sollte in diesem Fall leer gelassen werden."},
+										"type": "string",
+										"format": "url",
+										"options": {
+											"_dependencies": {
+												"root.target": ""
+											}
+										}
+									},
+								},
+							//},
+						//],
+
+					}
+
+					//const editor_promise = new Promise((editor_resolve, editor_reject) => {
+						config.onsubmit = (jsondata) => {
+							//mwjson.api.getPage(jsondata.page).then((page) => {
+
+								template.target = { href: 'Template:Link', wt: 'Template:Link' };
+								template.params = { 
+										'page': { wt: jsondata.page }, 
+										'url': { wt: jsondata.url }, 
+										'label': { wt: jsondata.label } 
+								};
+								//editor_resolve();
+								
+								resolve();
+								//resolve(template);
+								deferred.resolve(template);
+							//});
+							//return editor_promise;
+							return promise;
+						}
+					//});
+					
+					config.popupConfig.size = "medium";
+					config.popupConfig.toggle_fullscreen = true;
+					var editor = new mwjson.editor(config)
+				});
+
+			});
+			//return promise;
+			return deferred.promise();
+		},
+	},
+	{
+		group: 'meta',
+		custom_group: false,
+		title: 'ID-Media',
+		icon: 'media',
+		name: 'id_media',
+		dialog: true,
+		dialog_type: 'custom_dialog',
+		edit_dialog: false,
+		is_edit_dialog: true, //also edit existing template with this dialog
+		overrides: ['media', 'gallery'], //replaces build-in command 'media'
+		transclusion_type: 'mwTransclusionBlock', //default: mwTransclusionBlock
+		handle_types: ['mwTransclusionBlock'], // not 'link/mwInternal'
+		sequence: '{L}',
+		shortcut: 'ctrl+alt+l',
+		template: { target: { href: 'Template:Media', wt: 'Template:Media' } },
+		custom_dialog: function (surface, template) {
+
+			var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
+				JSONEditorConfig: {
+					no_additional_properties: false,
+					//keep_oneof_values: true,
+					//keep_only_existing_values: true,
+				},
+				popupConfig: {
+					edit_comment: false,
+					msg: {
+						"dialog-title": mw.message('open-semantic-lab-edit-page-data-dialog-title').plain(),
+						"continue": mw.message('open-semantic-lab-edit-page-data-dialog-continue').plain(),
+						"cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
+					}
+				},
+				target_namespace: "Item"
+			});
+
+			if (template.params) {
+				//console.log("Params: ", template.params);
+				config.data = {};
+				config.data.image_size = template.params.image_size?.wt;
+				if (template.params.textdata?.wt) {
+					var lines = template.params.textdata.wt.split(";");
+					config.data.elements = [];
+					for (var line of lines) {
+						line = line.replace(/^\s+|\s+$/g, ''); //trim whitespace
+						if (line === "") continue;
+						config.data.elements.push({
+							file: line.split("{{!}}")[0].replace(/^\s+|\s+$/g, ''), //trim whitespace
+							description: line.split("{{!}}")[1]
+						})
+					}
+				}
+			}
+
+			var deferred = $.Deferred();
+
+			const promise = new Promise((resolve, reject) => {
+
+				$.when(
+					mwjson.editor.init()
+				).done(function () {
+
+					config.schema = {
+						"title": "Multimedia",
+						"title*": {"de": "Multimedia"},
+						"description": "Gallery of one or multiple images / videos",
+						"description*": {"de": "Galerie mit einem oder mehreren Bilder / Videos"},
+						"required": ["elements",  "image_size"],
+						//"required": ["label"],
+						//"defaultProperties": ["label"],
+						"properties": {
+							"image_size": {
+								"title": "Size in px",
+								"title*": {"de": "Größe in px"},
+								"description": "Size of the elements in pixels",
+								"description*": {"de": "Größe der Elemente in Pixeln"},
+								"type": "string",
+								"format": "number",
+								"default": "300"
+							},
+							"elements": {
+									"title": "Media elements",
+									"title*": {"de": "Medienelemente"},
+									"description": "Images and videos to insert",
+									"description*": {"de": "Bilder und Videos die eingefügt werden sollen"},
+									"type": "array",
+									"format": "table",
+									"items": {
+										"type": "object",
+										"title": "Element",
+										"title*": {"de": "Element"},
+										"required": ["file",  "description"],
+										"properties": {
+											"file": {
+												"title": "File",
+												"title*": {"de": "Datei"},
+												"type": "string",
+												"format": "autocomplete",
+												"range": "Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d",
+												"options": {
+													"autocomplete": {
+														"$comment": "instance of WikiFile",
+														"category": "Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d"
+													}
+												},
+												"links": [
+													{
+													  "href": "{{#if self}}/w/index.php?title=Special:Redirect/file/{{self}}&width=200&height=200{{/if}}",
+													  "mediaType": "image",
+													  "_mediaType": "{{#when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mp4'}}video{{else when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mov'}}video{{else}}image{{/when}}"
+													}
+												  ]
+											},
+											"description": {
+												"title": "Description",
+												"title*": {"de": "Beschreibung"},
+												"description": "Gets displayed below the element",
+												"description*": {"de": "Wird unter dem Element angezeigt"},
+												"type": "string",
+												"format": "textarea"
+											}
+										}
+									}
+								}
+							}
+					}
+
+					//const editor_promise = new Promise((editor_resolve, editor_reject) => {
+						config.onsubmit = (jsondata) => {
+							mwjson.api.getPage(mw.config.get('wgPageName')).then((page) => {
+								var page_jsondata = page.slots['jsondata'];
+								if (mwjson.util.isString(page_jsondata)) page_jsondata = JSON.parse(page_jsondata);
+								//template.target.href = dialog_result.fulltext;
+								//template.target.wt = "subst:" + dialog_result.fulltext;
+								console.log(template);
+								template.target = { href: 'Template:Media', wt: 'Template:Media' };
+								template.params = { 
+										'image_size': { wt: jsondata.image_size },
+								};
+								if (jsondata.elements) {
+									var textdata = "";
+									if (!page_jsondata.attachments) page_jsondata.attachments = [];
+
+									for (const element of jsondata.elements) {
+										var description = element.description ? element.description : "";
+										textdata += "\n" + element.file + "{{!}}" + description + ";";
+
+										if (!page_jsondata.attachments.includes(element.file)) {
+											page_jsondata.attachments.push(element.file);
+											console.log("Add attachement:", element.file);
+											page.slots_changed['jsondata'] = true;
+										}
+									}
+									template.params['textdata'] = {wt: textdata};
+									
+									page.slots['jsondata'] = page_jsondata;
+									mwjson.api.updatePage(page, {comment: "Add attachment"}).done((page) => {
+							
+									});
+								}
+								console.log(template);
+								//editor_resolve();
+								
+								resolve();
+								//resolve(template);
+								deferred.resolve(template);
+							});
+							//return editor_promise;
+							return promise;
+						}
+					//});
+					
+					config.popupConfig.size = "large";
+					config.popupConfig.toggle_fullscreen = true;
+					var editor = new mwjson.editor(config)
+				});
+
+			});
+			//return promise;
+			return deferred.promise();
+		},
+	},
+	/*{
 		group: 'insert',
 		custom_group: false,
 		title: 'Building Block',
@@ -213,7 +504,7 @@ var template_tools = [
 			});
 
 		},
-		custom_dialog2: function (template) {
+		custom_dialog2: function (surface, template) {
 			return OO.ui.prompt('Select Building Block (CD2)', { textInput: { placeholder: 'Pagename' } }).then(function (result) {
 				if (result !== null) {
 					template.target.href = result;
@@ -223,7 +514,7 @@ var template_tools = [
 				return null;
 			});
 		},
-		custom_dialog: function (template) {
+		custom_dialog: function (surface, template) {
 			var dialog_result = null;
 			var textInput = new OO.ui.TextInputWidget({ placeholder: 'Pagename' });
 			function ProcessDialog(config) { ProcessDialog.super.call(this, config); }
@@ -311,7 +602,7 @@ var template_tools = [
 			return deferred.promise();
 		}
 
-	}
+	}*/
 ];
 
 
@@ -369,16 +660,56 @@ function VeExtensions_create() {
 				else if (template_tool.dialog_type === 'custom_dialog') {
 					//store current position
 					var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
-					template_tool.custom_dialog(args[0][0].attributes.mw.parts[0].template).done(function (template) {
-						if (template !== null) {
-							//restore position
-							surface.getModel().setLinearSelection(new ve.Range(0, currentPos));
-							//insert template
-							surface.getModel().getFragment().collapseToEnd().insertContent(args[0], args[1]).select();
-							//open template edit dialog if requested
-							if (template_tool.edit_dialog) surface.execute('window', 'open', 'transclusion');
-						}
-					});
+
+					if (args[0] === "transclusion") {
+						//console.log("Edit existing template");
+						var existing_template = surface.getModel().documentModel.data.data[currentPos].attributes.mw.parts[0].template;
+						//console.log(existing_template);
+						template_tool.custom_dialog(surface, existing_template).done(function (template) {
+							if (template !== null) {
+								//console.log("edited", template);
+								args[1].onTearDownCallback();
+								var surfaceModel = surface.getModel();
+								var selection = surfaceModel.getSelection();
+								// If selection is an instance of ve.dm.LinearSelection (as opposed to NullSelection or TableSelection)
+								// you can get a range (start and end offset) using:
+								var range = selection.getRange();
+								// Get the current position "from"
+								//var selectedRange = new ve.Range(range.from);
+								var fragment = surface.getModel().getFragment(); //surfaceModel.getLinearFragment( range );
+								new_args = [{ type: template_tool.transclusion_type, attributes: { mw: { parts: [{ template: template }] } } }, { type: '/' + template_tool.transclusion_type }];
+								fragment.insertContent(new_args, false).select();
+
+								//restore position
+								//surface.getModel().setLinearSelection(new ve.Range(0, currentPos));
+								//insert template
+								//surface.getModel().getFragment().collapseToEnd().insertContent(args[0], args[1]).select();
+								//open template edit dialog if requested
+								//if (template_tool.edit_dialog) surface.execute('window', 'open', 'transclusion');
+							}
+						});
+					}
+					else {
+						//var fresh_template = JSON.parse(JSON.stringify(args[0][0].attributes.mw.parts[0].template)); //deepcopy
+						var fresh_template = args[0][0].attributes.mw.parts[0].template;
+						fresh_template.params = {}; //reset params
+						template_tool.custom_dialog(surface, fresh_template).done(function (template) {
+							if (template !== null) {
+
+								//restore position
+								//console.log("Restore position ", currentPos);
+								//surface.getModel().setLinearSelection(new ve.Range(0, currentPos));
+
+								//insert template (don't replace existing)
+								//surface.getModel().getFragment().collapseToEnd().insertContent(args[0], args[1]).select();
+								//insert template (replace existing)
+								surface.getModel().getFragment().insertContent(args[0], args[1]).select();
+
+								//open template edit dialog if requested
+								if (template_tool.edit_dialog) surface.execute('window', 'open', 'transclusion');
+							}
+						});
+					}
 				}
 				else {
 					//call custom command
@@ -413,24 +744,26 @@ function VeExtensions_create() {
 		//	);
 		//}
 
-		//Create and register tool
-		function CustomTool() {
-			CustomTool.parent.apply(this, arguments);
-		}
-		if (template_tool.dialog_type === 'custom_command') OO.inheritClass(CustomTool, ve.ui.Tool);
-		else OO.inheritClass(CustomTool, ve.ui.MWTransclusionDialogTool);
+		//Create and register tool (skip for tools overriding build-ins)
+		if (!template_tool.overrides) {
+			function CustomTool() {
+				CustomTool.parent.apply(this, arguments);
+			}
+			if (template_tool.dialog_type === 'custom_command') OO.inheritClass(CustomTool, ve.ui.Tool);
+			else OO.inheritClass(CustomTool, ve.ui.MWTransclusionDialogTool);
 
-		CustomTool.static.name = template_tool.name;
-		CustomTool.static.group = template_tool.group;
-		if (template_tool.custom_group) {
-			CustomTool.static.autoAddToCatchall = false;
-			CustomTool.static.autoAddToGroup = true;
+			CustomTool.static.name = template_tool.name;
+			CustomTool.static.group = template_tool.group;
+			if (template_tool.custom_group) {
+				CustomTool.static.autoAddToCatchall = false;
+				CustomTool.static.autoAddToGroup = true;
+			}
+			if ('title_msg' in template_tool) CustomTool.static.title = OO.ui.deferMsg(template_tool.title_msg);
+			else CustomTool.static.title = template_tool.title;
+			CustomTool.static.icon = template_tool.icon;
+			CustomTool.static.commandName = template_tool.command_name;
+			ve.ui.toolFactory.register(CustomTool);
 		}
-		if ('title_msg' in template_tool) CustomTool.static.title = OO.ui.deferMsg(template_tool.title_msg);
-		else CustomTool.static.title = template_tool.title;
-		CustomTool.static.icon = template_tool.icon;
-		CustomTool.static.commandName = template_tool.command_name;
-		ve.ui.toolFactory.register(CustomTool);
 
 		//Register keyboard shortcut
 		if ('shortcut' in template_tool) {
@@ -445,4 +778,70 @@ function VeExtensions_create() {
 			ve.ui.sequenceRegistry.register(new ve.ui.Sequence(template_tool.name + '_sequence', template_tool.command_name, template_tool.sequence, template_tool.sequence.length));
 		}
 	});
+
+	// monkey patch command registry
+	// look if a command handles a specific template
+	// if yes, call it directly to edit the already existing template
+	ve.ui.commandRegistry.lookup = function(name) {
+
+		var replacement_name = null;
+		var replacement_tool = null;
+		for(let template_tool of template_tools) {
+			if (template_tool.overrides) {
+				if (!Array.isArray(template_tool.overrides)) template_tool.overrides = [template_tool.overrides];
+				if (template_tool.overrides.includes(name)) {
+					replacement_name = template_tool.name + "_command";
+					replacement_tool = template_tool;
+					break;
+				}
+			}
+		};
+
+		//console.log(name);
+		if (name === 'transclusion' && ve.init.target.getSurface() && ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange()) {
+			var currentPos = ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange().start;
+			var data = ve.init.target.getSurface().getModel().documentModel.data.data[currentPos];
+			//console.log(data);
+			var annotations = ve.init.target.getSurface().getModel().getFragment().getAnnotations(true);
+			//	.filter( function ( annotation ) {
+			//	return annotation.getType() === 'link/mwInternal';
+			//} );
+			if (annotations?.storeHashes) {
+				for (let hash of annotations.storeHashes) {
+					var annotation = annotations.store.hashStore[hash].element;
+					//console.log(annotation);
+					if (annotation.type !== 'mwTransclusionBlock') {
+						replacement_name = null;
+						replacement_tool = null;
+					}
+				}
+			}
+
+			var template = null;
+			if (data.attributes)
+				if (data.attributes.mw)
+					if (data.attributes.mw.parts)
+						if (data.attributes.mw.parts[0])
+							if (data.attributes.mw.parts[0].template)
+								template = data.attributes.mw.parts[0].template;
+			//console.log(template);
+			if (template)
+				for(let template_tool of template_tools) {
+					if (template_tool.is_edit_dialog) {
+						var tool_template = template_tool.template.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, ''); //normalize, trim whitespace
+						var wt_template = template.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, ''); //normalize, trim whitespace
+						if (tool_template === wt_template) {
+							name = template_tool.name + "_command";
+							break;
+						}
+					}
+				};
+		}
+		//console.log(name);
+		//if (hasOwn.call(this.registry, name)) {
+		if (replacement_name) name = replacement_name;
+		if (this.registry.hasOwnProperty(name)) {
+			return this.registry[name];
+		}
+	}
 }
