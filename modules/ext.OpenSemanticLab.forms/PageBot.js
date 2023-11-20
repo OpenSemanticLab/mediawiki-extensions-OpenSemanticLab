@@ -567,6 +567,13 @@ osl.ui = class {
         });
     }
 
+    static getDefaultEditorConfig(){
+        return {
+            onEditInline: (params) => osl.ui.editData({source_page: params.page_title, reload: false}),
+            onCreateInline: (params) => osl.ui.createOrQueryInstance(params.categories, "inline")
+        }
+    }
+
     static editData(params) {
         var params = mwjson.util.mergeDeep({
             dataslot: 'jsondata',
@@ -576,7 +583,7 @@ osl.ui = class {
         }, params);
         var dataslot = params.dataslot;
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
                 no_additional_properties: false
             },
@@ -587,7 +594,7 @@ osl.ui = class {
                     "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             }
-        };
+        });
 
         const page_namespace = new mw.Title(params.source_page).getNamespacePrefix().replace(":", "");
 
@@ -697,11 +704,11 @@ osl.ui = class {
                         //console.log(page);
                         if (params.autosave) {
                             mwjson.api.updatePage(page, meta).done((page) => {
-                                resolve();
+                                resolve(page);
                                 if (params.reload) window.location.href = mw.util.getUrl(page.title);
                             });
                         }
-                        else resolve();
+                        else resolve(page);
                     });
 
                     return promise;
@@ -717,7 +724,7 @@ osl.ui = class {
 
     static editSlots(_config) {
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
                 disable_collapse: true,
                 disable_edit_json: false,
@@ -732,7 +739,7 @@ osl.ui = class {
                 },
                 edit_comment_required: true // comment for documentation required
             }
-        };
+        });
 
         const promise = new Promise((resolve, reject) => {
 
@@ -787,7 +794,7 @@ osl.ui = class {
 
     static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"]) {
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
                 no_additional_properties: false,
                 disable_properties: false,
@@ -805,7 +812,7 @@ osl.ui = class {
                 }
             },
             target_namespace: "Category"
-        };
+        });
 
         const promise = new Promise((resolve, reject) => {
 
@@ -877,7 +884,7 @@ osl.ui = class {
 
     static createOrQueryInstance(categories = [mw.config.get('wgPageName')], mode = 'default', default_data) {
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
                 no_additional_properties: false
             },
@@ -889,7 +896,7 @@ osl.ui = class {
                 }
             },
             target_namespace: "Item"
-        };
+        });
 
         if (mode === 'query') {
             config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-query-dialog-title").plain();
@@ -956,8 +963,8 @@ osl.ui = class {
 
                                 console.log(page);
                                 mwjson.api.updatePage(page, meta).done((page) => {
-                                    resolve();
-                                    window.location.href = mw.util.getUrl(page.title); //nav to new page
+                                    resolve(page);
+                                    if (mode !== "inline") window.location.href = mw.util.getUrl(page.title); //nav to new page
                                 });
                             });
                         });
