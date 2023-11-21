@@ -58,3 +58,8 @@ generated element if Skin:Citizen darkmode is active */
 .skin-citizen-dark .fileupload-container {
     filter: invert(0.9);
 }
+
+/* 3DAlloy */
+.skin-citizen-dark .threed-container {
+    filter: invert(0.9);
+}
