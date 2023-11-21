@@ -246,6 +246,7 @@ $(document).ready(function () {
 
             if (config.query && config.query.type === "smw") {
                 var query = mw.config.get("wgScriptPath") + "/api.php?action=ask&format=json&query=" + config.query.value;
+                if (!config.query.value.includes("|limit=")) query += "|limit=100";
                 fetch(query)
                 .then(response => response.json())
                 .then(data => {
