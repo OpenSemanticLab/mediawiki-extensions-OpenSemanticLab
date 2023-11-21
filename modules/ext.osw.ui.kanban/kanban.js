@@ -284,7 +284,7 @@ osl.kanban = class {
     }
 
     static getDropzoneHtml() {
-        return '<div class="dropzone rounded" ondragover="osl.kanban.allowDrop(event)" ondragleave="osl.kanban.clearDrop(event)"> &nbsp; </div>';
+        return '<div class="dropzone rounded m-2" ondragover="osl.kanban.allowDrop(event)" ondragleave="osl.kanban.clearDrop(event)"> &nbsp; </div>';
     }
 
     static allowDrop = (ev) => {
@@ -570,12 +570,12 @@ osl.kanban.Lane = class {
         if (params.style && params.style.class) classes += " " + params.style.class;
         this.html = `
         <div id="${this.container_id}" class="${classes}">
-            <div class="card bg-light">
+            <div class="card">
                 <div class="card-body p-1">
                     <div id="${this.tag_container_id}">
                     </div>
                     <h6 id="${this.label_id}" class="card-title text-uppercase text-truncate py-2 m-0">${this.label}</h6>
-                    <div id="${this.anchor_id}" class="items border border-light">
+                    <div id="${this.anchor_id}" class="items border rounded">
                     </div>
                 </div>
             </div>
@@ -771,10 +771,10 @@ osl.kanban.Task = class {
         let article_path_parts = mw.config.get("wgArticlePath").split("$1"); // e. g. '/wiki/$1' or '/w/index.php?title=$1&some_other_param=1'
         if (article_path_parts.length == 1) article_path_parts.push("");
         this.html_template = Handlebars.compile(`
-        <div class="card draggable shadow-sm" id="{{container_id}}" draggable="true" _ondragstart="osl.kanban.drag(event)">
+        <div class="card draggable shadow-sm m-1" id="{{container_id}}" draggable="true" _ondragstart="osl.kanban.drag(event)">
             <div class="card-body p-2">
                 <div id="{{tag_container_id}}">
-                <button id="{{edit_button_id}}" class="btn btn-light btn-sm float-right"><i class="fa fa-edit"></i></button>
+                <button id="{{edit_button_id}}" class="btn btn-sm float-right"><i class="fa fa-edit"></i></button>
                     {{{badgeHtml}}}
                 </div>
                 <div class="card-title">
