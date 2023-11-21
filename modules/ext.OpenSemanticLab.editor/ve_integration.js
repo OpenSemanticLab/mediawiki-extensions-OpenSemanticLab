@@ -329,6 +329,7 @@ var template_tools = [
 				//console.log("Params: ", template.params);
 				config.data = {};
 				config.data.image_size = template.params.image_size?.wt;
+				config.data.mode = template.params.mode?.wt;
 				if (template.params.textdata?.wt) {
 					var lines = template.params.textdata.wt.split(";");
 					config.data.elements = [];
@@ -356,9 +357,7 @@ var template_tools = [
 						"title*": {"de": "Multimedia"},
 						"description": "Gallery of one or multiple images / videos",
 						"description*": {"de": "Galerie mit einem oder mehreren Bilder / Videos"},
-						"required": ["elements",  "image_size"],
-						//"required": ["label"],
-						//"defaultProperties": ["label"],
+						"required": ["elements",  "image_size", "mode"],
 						"properties": {
 							"image_size": {
 								"title": "Size in px",
@@ -368,6 +367,19 @@ var template_tools = [
 								"type": "string",
 								"format": "number",
 								"default": "300"
+							},
+							"mode": {
+								"title": "Display mode",
+								"title*": {"de": "Anzeigemodus"},
+								"description": "Defines  how the elements are displayed",
+								"description*": {"de": "Definiert wie die Elemente angezeigt werden"},
+								"type": "string",
+								"enum": ["default", "slideshow"],
+								"default": "default",
+								"options": {
+									"enum_titles": ["Default (show all elements side by side)", "Slideshow (Navigate through the elements one by one)"],
+									"enum_titles*": {"de": ["Standard (alle Elemente nebeneinander anzeigen)", "Diashow (nacheinander durch die Elemente navigieren)"]}
+								}
 							},
 							"elements": {
 									"title": "Media elements",
@@ -419,37 +431,39 @@ var template_tools = [
 					//const editor_promise = new Promise((editor_resolve, editor_reject) => {
 						config.onsubmit = (jsondata) => {
 							mwjson.api.getPage(mw.config.get('wgPageName')).then((page) => {
-								var page_jsondata = page.slots['jsondata'];
-								if (mwjson.util.isString(page_jsondata)) page_jsondata = JSON.parse(page_jsondata);
+								var page_jsondata = page.slots['jsondata']; // note: if undefinded we are on a "classic" page without jsondata slot 
+								if (page_jsondata && mwjson.util.isString(page_jsondata)) page_jsondata = JSON.parse(page_jsondata);
 								//template.target.href = dialog_result.fulltext;
 								//template.target.wt = "subst:" + dialog_result.fulltext;
 								console.log(template);
 								template.target = { href: 'Template:Media', wt: 'Template:Media' };
 								template.params = { 
 										'image_size': { wt: jsondata.image_size },
+										'mode': { wt: jsondata.mode },
 								};
 								if (jsondata.elements) {
 									var textdata = "";
-									if (!page_jsondata.attachments) page_jsondata.attachments = [];
+									if (page_jsondata && !page_jsondata.attachments) page_jsondata.attachments = [];
 
 									for (const element of jsondata.elements) {
 										var description = element.description ? element.description : "";
 										textdata += "\n" + element.file + "{{!}}" + description + ";";
 
-										if (!page_jsondata.attachments.includes(element.file)) {
+										if (page_jsondata && !page_jsondata.attachments.includes(element.file)) {
 											page_jsondata.attachments.push(element.file);
-											console.log("Add attachement:", element.file);
+											//console.log("Add attachement:", element.file);
 											page.slots_changed['jsondata'] = true;
 										}
 									}
 									template.params['textdata'] = {wt: textdata};
 									
-									page.slots['jsondata'] = page_jsondata;
-									mwjson.api.updatePage(page, {comment: "Add attachment"}).done((page) => {
-							
-									});
+									if (page_jsondata) {
+										page.slots['jsondata'] = page_jsondata;
+										mwjson.api.updatePage(page, {comment: "Add attachment"}).done((page) => {
+								
+										});
+									}
 								}
-								console.log(template);
 								//editor_resolve();
 								
 								resolve();
