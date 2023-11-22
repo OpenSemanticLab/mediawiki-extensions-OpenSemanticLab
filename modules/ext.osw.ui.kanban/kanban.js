@@ -34,7 +34,7 @@ $(document).ready(function () {
                     osl.ui.editData({
                         source_page_obj: page,
                         reload: false,
-                        autosave: false
+                        autosave: params.board.autosave
                     }).then(() => {
                         console.log("Edited", page);
                         params.board.insertTask({task: {jsondata: page.slots.jsondata}});
