@@ -607,7 +607,7 @@ osl.kanban.Lane = class {
         let label = params.tag.values[params.value].label;
         let color = params.tag.values[params.value].color || 'grey';
         let textColor = params.textColor || osl.kanban.defineTextColor(color);
-        $("#" + this.tag_container_id).append(`<a href="#"  class="badge float-right" style="background-color:${color}; color:${textColor}">+${label}</a>`)
+        $("#" + this.tag_container_id).append(`<a class="badge float-right" style="background-color:${color}; color:${textColor}">+${label}</a>`)
         .on('click', () => this.onNewTask()); //ToDo: add only single tag from this lane badge, but all tags from parent lanes
     }
 
