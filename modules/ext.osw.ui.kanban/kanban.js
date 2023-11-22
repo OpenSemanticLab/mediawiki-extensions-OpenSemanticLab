@@ -391,6 +391,7 @@ osl.kanban.Kanban = class {
     }
 
     removeTask(params) {
+        this.tasks = this.tasks.filter(task => task.id !== params.task.id );
     }
 
     getTagConfig() {
@@ -654,7 +655,7 @@ osl.kanban.Lane = class {
     }
 
     removeTask(params) {
-        this.tasks = this.tasks.filter(function(t) { return t.id != params.task.id; }); 
+        this.tasks = this.tasks.filter(task => task.id !== params.task.id );
         if (this.config.tags)
             for (const tag of this.config.tags)
                 if (!(tag.auto_unset === false) || params.unset_tag) params.task.removeTag({ tag: tag });
