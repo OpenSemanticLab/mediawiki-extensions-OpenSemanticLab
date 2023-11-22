@@ -149,7 +149,7 @@ var template_tools = [
 		handle_types: ['mwTransclusionInline'], // not 'link/mwInternal'
 		sequence: '{L}',
 		shortcut: 'ctrl+alt+l',
-		template: { target: { href: 'Template:Link', wt: 'Template:Link' } },
+		template: { target: { href: 'Template:Viewer/Link', wt: 'Template:Viewer/Link' } },
 		custom_dialog: function (surface, template) {
 
 			var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
@@ -263,7 +263,7 @@ var template_tools = [
 						config.onsubmit = (jsondata) => {
 							//mwjson.api.getPage(jsondata.page).then((page) => {
 
-								template.target = { href: 'Template:Link', wt: 'Template:Link' };
+								template.target = { href: 'Template:Viewer/Link', wt: 'Template:Viewer/Link' };
 								template.params = { 
 										'page': { wt: jsondata.page }, 
 										'url': { wt: jsondata.url }, 
@@ -305,7 +305,7 @@ var template_tools = [
 		handle_types: ['mwTransclusionBlock'], // not 'link/mwInternal'
 		sequence: '{L}',
 		shortcut: 'ctrl+alt+l',
-		template: { target: { href: 'Template:Media', wt: 'Template:Media' } },
+		template: { target: { href: 'Template:Viewer/Media', wt: 'Template:Viewer/Media' } },
 		custom_dialog: function (surface, template) {
 
 			var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
@@ -436,7 +436,7 @@ var template_tools = [
 								//template.target.href = dialog_result.fulltext;
 								//template.target.wt = "subst:" + dialog_result.fulltext;
 								console.log(template);
-								template.target = { href: 'Template:Media', wt: 'Template:Media' };
+								template.target = { href: 'Template:Viewer/Media', wt: 'Template:Viewer/Media' };
 								template.params = { 
 										'image_size': { wt: jsondata.image_size },
 										'mode': { wt: jsondata.mode },
