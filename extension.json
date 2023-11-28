@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.26.10",
+	"version": "0.26.11",
 	"author": [
 		"Simon Stier"
 	],
@@ -107,6 +107,7 @@
 				"open-semantic-lab-edit-page-slots-dialog-title",
 				"open-semantic-lab-edit-page-slots-dialog-continue",
 				"open-semantic-lab-edit-page-slots-dialog-cancel",
+				"open-semantic-lab-edit-page-visual-cancel",
 				"open-semantic-lab-create-subcategory",
 				"open-semantic-lab-create-instance",
 				"open-semantic-lab-query-instance",

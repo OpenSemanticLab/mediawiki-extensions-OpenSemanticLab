@@ -539,6 +539,9 @@ class OpenSemanticLab {
 			// move history to "more"
 			$links['actions']['history'] = $links['views']['history'];
 			unset($links['views']['history']);
+
+			// rename "Read" button (visible when VisualEditor is active)
+			$links['views']['view']['text'] = wfMessage( 'open-semantic-lab-edit-page-visual-cancel' )->text();
 		}
 
 		return true;

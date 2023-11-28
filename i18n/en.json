@@ -47,6 +47,7 @@
 	"open-semantic-lab-edit-page-slots-dialog-title": "Slot-Editor",
 	"open-semantic-lab-edit-page-slots-dialog-continue": "Save", 
 	"open-semantic-lab-edit-page-slots-dialog-cancel": "Cancel", 
+	"open-semantic-lab-edit-page-visual-cancel": "Cancel", 
 	"open-semantic-lab-print-page": "Print / Export PDF",
 	"open-semantic-lab-print-page-tooltip": "Export this page as PDF",
 	"open-semantic-lab-print-settings": "Print Settings",
