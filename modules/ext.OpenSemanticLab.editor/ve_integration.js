@@ -812,7 +812,7 @@ function VeExtensions_create() {
 		};
 
 		//console.log(name);
-		if (name === 'transclusion' && ve.init.target.getSurface() && ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange()) {
+		if ((name === 'transclusion' || name === 'link') && ve.init.target.getSurface() && ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange()) {
 			var currentPos = ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange().start;
 			var data = ve.init.target.getSurface().getModel().documentModel.data.data[currentPos];
 			//console.log(data);
@@ -823,8 +823,10 @@ function VeExtensions_create() {
 			if (annotations?.storeHashes) {
 				for (let hash of annotations.storeHashes) {
 					var annotation = annotations.store.hashStore[hash].element;
-					//console.log(annotation);
-					if (annotation.type !== 'mwTransclusionBlock') {
+					console.log(annotation);
+					if ((name === 'transclusion' && annotation.type !== 'mwTransclusionBlock')
+						|| (name === 'link' && (annotation.type === 'link/mwExternal' || annotation.type === 'link/mwInternal')) // ignore existing and direct pasted urls
+					) {
 						replacement_name = null;
 						replacement_tool = null;
 					}
