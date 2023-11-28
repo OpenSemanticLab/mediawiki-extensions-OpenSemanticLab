@@ -394,25 +394,52 @@ var template_tools = [
 										"title*": {"de": "Element"},
 										"required": ["file",  "description"],
 										"properties": {
+											
 											"file": {
-												"title": "File",
-												"title*": {"de": "Datei"},
-												"type": "string",
-												"format": "autocomplete",
-												"range": "Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d",
-												"options": {
-													"autocomplete": {
-														"$comment": "instance of WikiFile",
-														"category": "Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d"
-													}
-												},
-												"links": [
+												"title": "Search",
+												"title*": {"de": "Suche"},
+												"anyOf": [
 													{
-													  "href": "{{#if self}}/w/index.php?title=Special:Redirect/file/{{self}}&width=200&height=200{{/if}}",
-													  "mediaType": "image",
-													  "_mediaType": "{{#when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mp4'}}video{{else when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mov'}}video{{else}}image{{/when}}"
+														"title": "Attached File",
+														"title*": {"de": "im Anhang"},
+														"type": "string",
+														"format": "autocomplete",
+														"range": "Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d",
+														"options": {
+															"autocomplete": {
+																"$comment": "attached file of the current page",
+																"query": "[[-HasFileAttachment::" + mw.config.get("wgPageName") + "]][[Display_title_of_normalized::like:*{{{_user_input_normalized}}}*]]|?Display_title_of=label|?HasImage=image|?HasDescription=description"
+															}
+														},
+														"links": [
+															{
+															"href": "{{#if self}}/w/index.php?title=Special:Redirect/file/{{self}}&width=200&height=200{{/if}}",
+															"mediaType": "image",
+															"_mediaType": "{{#when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mp4'}}video{{else when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mov'}}video{{else}}image{{/when}}"
+															}
+														]
+													},
+													{
+														"title": "Any File",
+														"title*": {"de": "überall"},
+														"type": "string",
+														"format": "autocomplete",
+														"range": "Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d",
+														"options": {
+															"autocomplete": {
+																"$comment": "instance of WikiFile",
+																"category": "Category:OSW11a53cdfbdc24524bf8ac435cbf65d9d"
+															}
+														},
+														"links": [
+															{
+															"href": "{{#if self}}/w/index.php?title=Special:Redirect/file/{{self}}&width=200&height=200{{/if}}",
+															"mediaType": "image",
+															"_mediaType": "{{#when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mp4'}}video{{else when {{#split '.' -1}}{{self}}{{/split}} 'eq' 'mov'}}video{{else}}image{{/when}}"
+															}
+														]
 													}
-												  ]
+												]
 											},
 											"description": {
 												"title": "Description",
