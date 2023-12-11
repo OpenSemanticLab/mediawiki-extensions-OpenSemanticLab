@@ -63,3 +63,9 @@ generated element if Skin:Citizen darkmode is active */
 .skin-citizen-dark .threed-container {
     filter: invert(0.9);
 }
+
+/* ResultFormat Tree 
+apply only in the content body, not in the sidebar */
+.skin-citizen-dark #content .fancytree {
+    filter: invert(1.0);
+}
