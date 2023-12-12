@@ -221,7 +221,7 @@ $(document).ready(function () {
                     var url = mw.config.get('wgArticlePath').replace('$1', "Special:Login");
 
                     if (config.action === "create-instance") {
-                        var label = mw.message('open-semantic-lab-create-instance').text();
+                        var label = mw.message('open-semantic-lab-create-instance-short').text();
                         if (userInfo.userCanEdit) url = `javascript:osl.ui.createInstance(["${config.categories[0]}"]);`
                         else label =  "🔒 " + label;
                         if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
@@ -235,7 +235,7 @@ $(document).ready(function () {
                         $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
                     }
                     else if (config.action === "query-instance") {
-                        var label = mw.message('open-semantic-lab-query-instance').text();
+                        var label = mw.message('open-semantic-lab-query-instance-short').text();
                         if (userInfo.userCanEdit) url = `javascript:osl.ui.queryInstance(["${config.categories[0]}"]);`
                         if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
                         $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
