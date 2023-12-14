@@ -190,6 +190,7 @@ $(document).ready(function() {
 
         function fileUploadHandler(editor, file){
             if (debug) console.log("File uploaded with " +  editor + ": " + file.name + " (" + file.label + "), exists: " + file.exists);
+            mwjson.api.purgePage(mw.config.get('wgPageName')); // this will ensure correspoding templates are refreshed
             const file_page = "File:" + file.name;
             const legacy_mode = !file.name.startsWith("OSW");
             const uuid = legacy_mode ? mwjson.util.uuidv4() : mwjson.util.uuidv4(file.name.split(".")[0]); // e.g. OSW<uuid>.svg
