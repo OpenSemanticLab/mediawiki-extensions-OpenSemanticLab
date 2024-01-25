@@ -570,7 +570,10 @@ osl.ui = class {
     static getDefaultEditorConfig(){
         return {
             onEditInline: (params) => osl.ui.editData({source_page: params.page_title, reload: false}),
-            onCreateInline: (params) => osl.ui.createOrQueryInstance(params.categories, "inline")
+            onCreateInline: (params) => {
+                if (params.super_categories) return osl.ui.createSubcategory(params.super_categories, params.categories, "inline");
+                else if (params.categories) return osl.ui.createOrQueryInstance(params.categories, "inline");
+            }
         }
     }
 
@@ -792,7 +795,7 @@ osl.ui = class {
         return promise;
     }
 
-    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"]) {
+    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"], mode = 'default', default_data = {}) {
 
         var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
@@ -826,7 +829,7 @@ osl.ui = class {
                 else meta_categories = _meta_categories;
                 config.schema = { "allOf": [] };
                 for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(meta_category) });
-                config.data = { "subclass_of": [] }
+                config.data = mwjson.util.mergeDeep({ "subclass_of": [] }, default_data);
                 for (const super_category of super_categories) {
                     if (super_category.startsWith("Category:")) {
                         config.data.subclass_of.push(super_category);
@@ -856,8 +859,8 @@ osl.ui = class {
 
                             console.log(page);
                             mwjson.api.updatePage(page, meta).done((page) => {
-                                resolve();
-                                window.location.href = mw.util.getUrl(page.title); //nav to new page
+                                resolve(page);
+                                if (mode !== "inline") window.location.href = mw.util.getUrl(page.title); //nav to new page
                             });
                         });
                     });
