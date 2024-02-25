@@ -129,7 +129,8 @@ $(document).ready(function () {
                     var icon = "";
                     if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
                     var label = "";
-                    var default_data = config.params.jsondata ? ", " + JSON.stringify(config.params.jsondata) : "null"
+                    config.params = config.params || {};
+                    var default_data = config.params.jsondata ? ", " + JSON.stringify(config.params.jsondata) : "null";
                     if (config.action === "create-instance") {
                         label = mw.message('open-semantic-lab-create-instance').text();
                         if (!config.label && config.label !== "") config.label = label;
@@ -148,7 +149,7 @@ $(document).ready(function () {
                     else if (config.action === "edit-data") {
                         label = mw.message('open-semantic-lab-edit-page-data').text();
                         if (!config.label && config.label !== "") config.label = label;
-                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData(${JSON.stringify(config.params)});'>${icon + config.label}</a>`));
                     }
                     else if (config.action === "copy") {
                         label = mw.message('open-semantic-lab-copy-page').text();
@@ -583,6 +584,7 @@ osl.ui = class {
             source_page: mw.config.get('wgPageName'),
             autosave: true,
             reload: true,
+            //categories //to override the schema
         }, params);
         var dataslot = params.dataslot;
 
@@ -625,6 +627,8 @@ osl.ui = class {
                     config.JSONEditorConfig.disable_array_reorder = true;
                     config.JSONEditorConfig.disable_array_delete_all_rows = true;
                     config.JSONEditorConfig.disable_array_delete_last_row = true;
+
+                    if (params.categories) jsondata.type = params.categories; //override type / schema
 
                     if (jsondata.type) {
                         config.schema = { "allOf": [] }
