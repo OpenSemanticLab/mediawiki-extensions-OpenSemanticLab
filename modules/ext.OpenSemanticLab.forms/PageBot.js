@@ -574,6 +574,32 @@ osl.ui = class {
             onCreateInline: (params) => {
                 if (params.super_categories) return osl.ui.createSubcategory(params.super_categories, params.categories, "inline");
                 else if (params.categories) return osl.ui.createOrQueryInstance(params.categories, "inline");
+            },
+            getSubjectId: (params) => {
+                var title = mwjson.util.OswId(params.jsondata.uuid);
+                var target = title;
+                var target_namespace = params.editor.config.target_namespace;
+
+                // can be replace by the following if missing uuid in Category:Category jsonschema is fixed
+                /*var target_namespace = "Item"; 
+                if (params.editor.jsonschema.subschemas_uuids.includes("89aafe6d-ae5a-4f29-97ff-df7736d4cab6")) { //uuid of Category:Category
+                    target_namespace = "Category";
+                }*/
+
+                // Handle special Item types
+                if (params.editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
+                    target_namespace = "Property";
+                    //title = mwjson.util.toPascalCase(params.jsondata.label[0].text);
+                    title = params.jsondata.name;
+                }
+                if (params.editor.jsonschema.subschemas_uuids.includes("11a53cdf-bdc2-4524-bf8a-c435cbf65d9d")) { //uuid of Category:WikiFile
+                    target_namespace = "File";
+                    // check if target title was already defined by file upload
+                    if (params.editor.config.target && params.editor.config.target !== "") title = params.editor.config.target.replace(params.editor.config.target_namespace + ":", "");
+                }
+                target = target_namespace + ":" + title; //set final target   
+                console.log(params.editor.jsonschema.subschemas_uuids, " => ", target);  
+                return target;
             }
         }
     }
@@ -845,12 +871,12 @@ osl.ui = class {
                 }
 
                 config.onsubmit = (jsondata, meta) => {
-
-                    mwjson.api.getPage("Category:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
+                    config.target = editor.config.target; // already set by getSubjectId callback
+                    mwjson.api.getPage(config.target).then((page) => {
                         page.slots['jsondata'] = jsondata;
                         page.slots_changed['jsondata'] = true;
 
-                        console.log(editor.jsonschema.subschemas_uuids);
+                        //console.log(editor.jsonschema.subschemas_uuids);
                         meta_categories = ["Category:Category"]
                         for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
 
@@ -858,7 +884,7 @@ osl.ui = class {
                                 meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
                             }
                         }
-                        console.log(meta_categories);
+                        //console.log(meta_categories);
                         osl.util.postProcessPage(page, meta_categories).then((page) => {
 
                             console.log(page);
@@ -951,18 +977,8 @@ osl.ui = class {
                 }
                 else {
                     config.onsubmit = (jsondata, meta) => {
-                        var title = mwjson.util.OswId(jsondata.uuid);
-                        if (categories.includes("Category:Property") || editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
-                            config.target_namespace = "Property";
-                            //title = mwjson.util.toPascalCase(jsondata.label[0].text);
-                            title = jsondata.name;
-                        }
-                        if (editor.jsonschema.subschemas_uuids.includes("11a53cdf-bdc2-4524-bf8a-c435cbf65d9d")) { //uuid of Category:WikiFile
-                            config.target_namespace = "File";
-                            // check if target title was already defined by file upload
-                            if (editor.config.target && editor.config.target !== "") title = editor.config.target.replace(editor.config.target_namespace + ":", "");
-                        }
-                        mwjson.api.getPage(config.target_namespace + ":" + title).then((page) => {
+                        config.target = editor.config.target; // already set by getSubjectId callback
+                        mwjson.api.getPage(config.target).then((page) => {
                             page.slots['jsondata'] = jsondata;
                             page.slots_changed['jsondata'] = true;
 
