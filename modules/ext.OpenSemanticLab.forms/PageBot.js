@@ -857,12 +857,13 @@ osl.ui = class {
                 if (mwjson.util.isString(category_page.slots['jsondata'])) category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
                 if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
                 else meta_categories = _meta_categories;
-                config.schema = { "allOf": [] };
+                // we will store supercategories in the schema as default and not in config.data
+                // otherwise defaultProperties in the schema are ignored
+                config.schema = { "allOf": [], properties: {subclass_of:{ default: []}} };
                 for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(meta_category) });
-                config.data = mwjson.util.mergeDeep({ "subclass_of": [] }, default_data);
                 for (const super_category of super_categories) {
                     if (super_category.startsWith("Category:")) {
-                        config.data.subclass_of.push(super_category);
+                        config.schema.properties.subclass_of.default.push(super_category);
                     }
                     else {
                         console.log("Error: Cannot create an subclass of " + super_category);
@@ -870,6 +871,7 @@ osl.ui = class {
                     }
                 }
 
+                config.data = default_data; // note: any default data will disable defaultProperties defined in the schema
                 config.onsubmit = (jsondata, meta) => {
                     config.target = editor.config.target; // already set by getSubjectId callback
                     mwjson.api.getPage(config.target).then((page) => {
