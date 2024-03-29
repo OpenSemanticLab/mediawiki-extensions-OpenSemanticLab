@@ -849,7 +849,7 @@ osl.ui = class {
         return promise;
     }
 
-    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"], mode = 'default', default_data = {}) {
+    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"], mode = 'default', default_data) {
 
         var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
