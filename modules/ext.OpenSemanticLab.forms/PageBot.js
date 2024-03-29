@@ -514,7 +514,7 @@ osl.ui = class {
                 /*var jsPDF = window.jspdf.jsPDF;
                 var doc = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes: ["px_scaling"]});
                 
-                //http://raw.githack.com/MrRio/jsPDF/master/docs/module-html.html
+                //https://raw.githack.com/MrRio/jsPDF/master/docs/module-html.html
                 doc.html(inputHtml, {
                     autoPaging: 'text',
                     //margin: [10, 10, 10, 10],
@@ -536,6 +536,18 @@ osl.ui = class {
                 //$('.printonly').show();
                 $('.printonly').addClass('printonly-print').removeClass('printonly');
                 $('#toc').hide();
+
+                let detachedElements = [];
+                // hidden visnetwork graphs cause silent 'CanvasRenderingContext2D' exception => detach them temporarly
+                $('.section-collapsible--collapsed').find('.InteractiveSemanticGraph').each(function() {
+                    let e = $( this );
+                    detachedElements.push({
+                        parent: e.parent(),
+                        index: e.parent().children().index(e),
+                        element: e.detach()
+                    });
+                });
+
                 //$('.mw-editsection').hide(); //confict with ve_extensions
                 for (var key of Object.keys(print_config)) {
                     if (!print_config[key]) { //hide unselected elements
@@ -572,7 +584,11 @@ osl.ui = class {
                                 $('#' + key).show();
                             }
                         }
-                        //mw.config.get( 'wgTitle' ) + "_"
+                        // reinsert detached elements
+                        for (var detached of detachedElements) {
+                            if (detached.index === 0) detached.parent.prepend(detached.element);
+                            else detached.parent.children().eq(detached.index-1).after(detached.bar);
+                        }
                         pdfObject.save($('#firstHeading').text().replace(' ', '_') + ".pdf");
                     })
             }
