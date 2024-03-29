@@ -380,18 +380,30 @@ osl.util = class {
                 for (const result of results) {
                     const category_page = result.value;
                     if (page.slots['jsondata'] && category_page.slots['schema_template']) {
-                        var template_text = category_page.slots['schema_template'];
-                        Handlebars.registerPartial("self", template_text);
-                        var template = Handlebars.compile(template_text);
-                        var json_schema_text = template(mwjson.util.mergeDeep(
-                            { '_page_title': page.title },
-                            page.slots['jsondata']
-                        ));
-                        //console.log("Set jsonschema: ", json_schema_text);
-                        if (!page.slots['jsonschema']) page.slots['jsonschema'] = {};
-                        page.slots['jsonschema'] = mwjson.util.mergeDeep(page.slots['jsonschema'], JSON.parse(json_schema_text));
-                        //console.log(page.slots['jsonschema']);
-                        page.slots_changed['jsonschema'] = true;
+                        var json_schema_text = "";
+                        try {
+                            var template_text = category_page.slots['schema_template'];
+                            Handlebars.registerPartial("self", template_text);
+                            var template = Handlebars.compile(template_text);
+                            json_schema_text = template(mwjson.util.mergeDeep(
+                                { '_page_title': page.title },
+                                page.slots['jsondata']
+                            ));
+                        } catch (error) {
+                            console.error("Error while parsing handlebars template schema_template: ", template_text, error)
+                        }
+
+                        try {
+                            if (json_schema_text !== "") {
+                                //console.log("Set jsonschema: ", json_schema_text);
+                                if (!page.slots['jsonschema']) page.slots['jsonschema'] = {};
+                                page.slots['jsonschema'] = mwjson.util.mergeDeep(page.slots['jsonschema'], JSON.parse(json_schema_text));
+                                page.slots_changed['jsonschema'] = true;
+                                //console.log(page.slots['jsonschema']);
+                            }
+                        } catch (error) {
+                            console.error("Error while parsing JSON from schema_template: ", json_schema_text, error);
+                        }
                     }
                 }
                 resolve(page);
@@ -731,6 +743,18 @@ osl.ui = class {
                     if (params.mode === "copy") {
                         for (const slot of Object.keys(page.slots)) page.slots_changed[slot] = true;
                         page.exists = false;
+                    }
+
+                    if (page_namespace === "Category") {
+                        // determine metacategories as in createSubcategory
+                        let meta_categories = ["Category:Category"]
+                        for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
+
+                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
+                                meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
+                            }
+                        }
+                        categories = meta_categories;
                     }
 
                     osl.util.postProcessPage(page, categories).then((page) => {
