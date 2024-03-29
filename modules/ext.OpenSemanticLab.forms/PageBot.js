@@ -592,7 +592,8 @@ osl.ui = class {
                         pdfObject.save($('#firstHeading').text().replace(' ', '_') + ".pdf");
                     })
             }
-            var editor = new mwjson.editor(config)
+            if (classes.length) var editor = new mwjson.editor(config)
+            else config.onsubmit({}, {});
         });
     }
 
