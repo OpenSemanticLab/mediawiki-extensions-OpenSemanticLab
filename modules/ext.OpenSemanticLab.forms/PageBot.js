@@ -566,8 +566,9 @@ osl.ui = class {
                     jsPDF: { format: 'a3', orientation: 'portrait' },
                     //pagebreak: { mode: ['css', 'legacy'], before: ['.pdf-page-break-before'], avoid: 'img' },
                     //pagebreak: { mode: ['avoid-all'], before: ['.pdf-page-break-before'], avoid: 'img' },
-                    pagebreak: { mode: ['avoid-all'], avoid: 'img' },
-                    //ignoreElements: (node) => { return node.className === 'noprint';}
+                    //pagebreak: { mode: ['avoid-all'], avoid: 'img' },
+                    pagebreak: { avoid: 'img' },
+                    //ignoreElements: (node) => { return node.className === 'noprint';} // never executed?
                 };
                 //html2pdf(inputHtml,opt);
                 html2pdf().from(inputHtml).set(opt).toPdf().get('pdf')//.save();

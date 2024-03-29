@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.29.3",
+	"version": "0.29.4",
 	"author": [
 		"Simon Stier"
 	],
@@ -149,6 +149,12 @@
 			"styles": [
 				"kanban.css"
 			]
+		},
+		"ext.osw.cards": {
+			"es6": false,
+            "scripts": [
+                "modules/ext.osw.cards/vue-tiles/dist/assets/index-f08cfb57.js"
+            ]
 		}
 	},
 	"namespaces": [
@@ -514,7 +520,8 @@
 	},
 	"AutoloadClasses": {
 		"OpenSemanticLab": "includes/OpenSemanticLab.php",
-		"SpecialAskResolver": "special/AskResolver.php"
+		"SpecialAskResolver": "special/AskResolver.php",
+		"ApiCategories": "includes/api/Category.php"
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
@@ -523,5 +530,10 @@
 	},
 	"SpecialPages": {
 		"AskResolver": "SpecialAskResolver"
+	},
+	"APIModules": {
+		"categories": {
+			"class": "ApiCategories"
+		}
 	}
 }
