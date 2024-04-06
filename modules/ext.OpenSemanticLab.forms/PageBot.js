@@ -606,6 +606,10 @@ osl.ui = class {
                 else if (params.categories) return osl.ui.createOrQueryInstance(params.categories, "inline");
             },
             getSubjectId: (params) => {
+                if (params.editor.config.target_exists && params.editor.config.target && params.editor.config.target != "") {
+                    //console.log("target exists and params.editor.config.target already set: ", params.editor.config.target)
+                    return params.editor.config.target;
+                }
                 var title = mwjson.util.OswId(params.jsondata.uuid);
                 var target = title;
                 var target_namespace = params.editor.config.target_namespace;
@@ -645,6 +649,7 @@ osl.ui = class {
         var dataslot = params.dataslot;
 
         var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
+            target: params.source_page,
             JSONEditorConfig: {
                 no_additional_properties: false
             },
@@ -749,8 +754,16 @@ osl.ui = class {
                         label = label.substr(0, count.index) + (++count[0]);
                     }
                     jsondata['label'][0] = { "text": label, "lang": lang };
+                    // ToDo: apply copy_exclude config
+                    
+                    let file_extension = "";
+                    if (page_namespace === "File") file_extension = page.title.split('.').pop();
                     page.title = page_namespace === "" ? mwjson.util.OswId(jsondata['uuid']) : page_namespace + ":" + mwjson.util.OswId(jsondata['uuid']);
+                    if (file_extension !== "") page.title = page.title + "." + file_extension;
+                    page.exists = false;
                 }
+                config.target = page.title;
+                config.target_exists = page.exists;
 
                 config.data = jsondata;
 
