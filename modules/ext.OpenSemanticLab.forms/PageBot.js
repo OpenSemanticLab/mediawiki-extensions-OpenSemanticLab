@@ -739,6 +739,7 @@ osl.ui = class {
                 }
 
                 if (params.mode === 'copy') {
+                    config.copy = true;
                     jsondata['uuid'] = mwjson.util.uuidv4();
                     jsondata['name'] = undefined;
                     jsondata['based_on'] = [params.source_page];
