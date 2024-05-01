@@ -130,7 +130,7 @@ $(document).ready(function () {
                     if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
                     var label = "";
                     config.params = config.params || {};
-                    var default_data = config.params.jsondata ? ", " + JSON.stringify(config.params.jsondata) : "null";
+                    var default_data = config.params.jsondata ? ", " + JSON.stringify(config.params.jsondata) : ", null";
                     if (config.action === "create-instance") {
                         label = mw.message('open-semantic-lab-create-instance').text();
                         if (!config.label && config.label !== "") config.label = label;
