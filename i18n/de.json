@@ -47,6 +47,7 @@
 	"open-semantic-lab-edit-page-slots-dialog-title": "Slot-Editor",
 	"open-semantic-lab-edit-page-slots-dialog-continue": "Speichern", 
 	"open-semantic-lab-edit-page-slots-dialog-cancel": "Abbrechen", 
+	"open-semantic-lab-edit-page-visual-cancel": "Abbrechen", 
 	"open-semantic-lab-print-page": "Drucken / PDF Export",
 	"open-semantic-lab-print-page-tooltip": "Diese Seite als PDF exportieren",
 	"open-semantic-lab-print-settings": "Einstellungen Druckausgabe",
@@ -65,5 +66,10 @@
 	"osl-order-actionable-description": "Kurzbeschreibung",
 	"osl-order-actionable-description-tooltip": "max. 150 Zeichen",
 	"osl-order-actionable-related-articles": "Zugehöriger Auftrag",
-	"osl-order-actionable-related-objects": "Zugehörige Proben"
+	"osl-order-actionable-related-objects": "Zugehörige Proben",
+	"open-semantic-lab-webdav-ci-open-with-tool": "Mit $1 öffnen",
+	"open-semantic-lab-webdav-ci-edit-with-tool": "Mit $1 bearbeiten",
+	"open-semantic-lab-webdav-ci-ms-word": "Word",
+	"open-semantic-lab-webdav-ci-ms-excel": "Excel",
+	"open-semantic-lab-webdav-ci-ms-powerpoint": "Powerpoint"
 }

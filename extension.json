@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.16.2",
+	"version": "0.31.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -17,10 +17,10 @@
 			"WSSlots": "*",
 			"SimpleBatchUpload": ">= 1.8.2.2-dev",
 			"DrawioEditor": ">= 1.1.2-dev",
-			"MwJson": ">= 0.13.0",
+			"MwJson": ">= 0.28.0",
 			"WellplateEditor": ">= 0.1.0",
 			"SvgEditor": ">= 0.1.0",
-			"SpreadsheetEditor": "0.3.0",
+			"SpreadsheetEditor": ">= 0.3.0",
 			"ChemEditor": ">= 0.4.0"
 		}
 	},
@@ -36,7 +36,7 @@
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab",
 			"styles": [
 				"SkinOverwrites.css",
-				"TileGrid.css",
+				"darkmode.css",
 				"TileGrid2.css",
 				"placeholder.css"
 			],
@@ -60,8 +60,7 @@
 			"scripts": [
 				"ve_integration.js",
 				"ve_extension.js",
-				"IdNameTooltip.js",
-				"QrCodeGenerator.js"
+				"IdNameTooltip.js"
 			],
 			"position": "bottom",
 			"messages": [
@@ -101,18 +100,22 @@
 				"open-semantic-lab-edit-page-schema",
 				"open-semantic-lab-edit-page-data",
 				"open-semantic-lab-edit-page-data-dialog-title",
-				"open-semantic-lab-edit-page-data-dialog-continue", 
-				"open-semantic-lab-edit-page-data-dialog-cancel", 
+				"open-semantic-lab-edit-page-data-dialog-continue",
+				"open-semantic-lab-edit-page-data-dialog-cancel",
 				"open-semantic-lab-edit-page-slots",
 				"open-semantic-lab-edit-page-slots-dialog-title",
-				"open-semantic-lab-edit-page-slots-dialog-continue", 
-				"open-semantic-lab-edit-page-slots-dialog-cancel", 
+				"open-semantic-lab-edit-page-slots-dialog-continue",
+				"open-semantic-lab-edit-page-slots-dialog-cancel",
+				"open-semantic-lab-edit-page-visual-cancel",
 				"open-semantic-lab-create-subcategory",
 				"open-semantic-lab-create-instance",
 				"open-semantic-lab-query-instance",
+				"open-semantic-lab-create-subcategory-short",
+				"open-semantic-lab-create-instance-short",
+				"open-semantic-lab-query-instance-short",
 				"open-semantic-lab-query-dialog-title",
-				"open-semantic-lab-query-dialog-continue", 
-				"open-semantic-lab-query-dialog-cancel", 
+				"open-semantic-lab-query-dialog-continue",
+				"open-semantic-lab-query-dialog-cancel",
 				"open-semantic-lab-preview"
 			],
 			"position": "top"
@@ -133,12 +136,24 @@
 			],
 			"position": "top"
 		},
+		"ext.osw.ui.qr": {
+			"localBasePath": "modules/ext.osw.ui.qr",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.osw.ui.qr",
+			"dependencies": [
+				"ext.OpenSemanticLab.print"
+			],
+			"scripts": [
+				"kjua.min.js",
+				"QrCodeGenerator.js"
+			],
+			"position": "bottom"
+		},
 		"ext.osw.ui.kanban": {
 			"localBasePath": "modules/ext.osw.ui.kanban",
 			"remoteExtPath": "OpenSemanticLab/modules/ext.osw.ui.kanban",
 			"dependencies": [
-                "ext.OpenSemanticLab"
-            ],
+				"ext.OpenSemanticLab"
+			],
 			"scripts": [
 				"kanban.js"
 			],
@@ -405,6 +420,24 @@
 	],
 	"config_prefix": "",
 	"config": {
+		"wgContentNamespaces": {
+			"value": [
+				2,
+				14,
+				7000,
+				7010,
+				7020,
+				7030,
+				7040,
+				7050,
+				7060,
+				7070,
+				7100,
+				7300,
+				7310
+			],
+			"merge_strategy": "array_plus"
+		},
 		"smwgNamespacesWithSemanticLinks": {
 			"value": {
 				"7000": true,
@@ -499,7 +532,7 @@
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
 		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal"
 	},
-    "SpecialPages": {
-        "AskResolver": "SpecialAskResolver"
-    }
+	"SpecialPages": {
+		"AskResolver": "SpecialAskResolver"
+	}
 }

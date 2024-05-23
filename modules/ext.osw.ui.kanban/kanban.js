@@ -12,13 +12,14 @@ $(document).ready(function () {
                 console.log("Create", params);
                 let uuid = mwjson.util.uuidv4();
                 let jsondata = { 
-                    type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], 
+                    type: params.board.default_jsonschema, //["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], //Task
                     uuid: uuid,
                     meta: { wiki_page: {
                         namespace: "Item",
                         title: mwjson.util.OswId(uuid)
                     }}
                 };
+                jsondata = mwjson.util.mergeDeep(jsondata, params.board.default_jsondata);
                 if (params.tags) {
                     for (const tag of params.tags) {
                         if (tag.type === "string") jsondata[tag.key] = Object.keys(tag.values)[0];
@@ -33,7 +34,7 @@ $(document).ready(function () {
                     osl.ui.editData({
                         source_page_obj: page,
                         reload: false,
-                        autosave: false
+                        autosave: params.board.autosave
                     }).then(() => {
                         console.log("Edited", page);
                         params.board.insertTask({task: {jsondata: page.slots.jsondata}});
@@ -91,18 +92,23 @@ $(document).ready(function () {
         $(".Kanban").each(function () {
             var defaultOptions = {
                 "type": "button",
-                "action": "create-instance"
+                "action": "create-instance",
             };
             var userOptions = {};
 
-            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
-            const user_lang = mw.config.get( 'wgUserLanguage' );
-
-            let board = kanban.addBoard({
+            var board_base = {
                 container: this,
+                autosave: true,
+                default_jsondata: {},
+            }
+
+            var board_prio_backlog_inwork_done = {
+                container: this,
+                autosave: true,
                 label: "Kanban",
                 description: "Drag & Drop to edit",
+                default_jsondata: {},
+                default_jsonschema: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], // Category:Task
                 tags: [{
                     key: "prio",
                     type: "string",
@@ -217,13 +223,30 @@ $(document).ready(function () {
                         ]
                     }
                 ]
-            });
+            };
+
+            if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+            // legacy support default_jsondata
+            if (userOptions.board_preset && userOptions.board_preset === "none") {
+                //custom board
+                defaultOptions.board = board_base;
+            }
+            else { //preset = "prio_backlog_inwork_done"
+                defaultOptions.board = board_prio_backlog_inwork_done;
+                if (userOptions.default_jsondata) defaultOptions.board.default_jsondata = mwjson.util.mergeDeep(defaultOptions.board.default_jsondata, userOptions.default_jsondata);   
+            }
+            var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+
+            const user_lang = mw.config.get( 'wgUserLanguage' );
+
+            let board = kanban.addBoard(config.board);
             //board.insertTask({task:
             //    { jsondata: { type: ["Category:OSWc5d4829ed2744a219ba027171c75fa1d"], uuid: mwjson.util.uuidv4(), name: "Test", label: [{ "text": "My new test task", "lang": "en" }], status: "backlog", prio: "low", due_date: "2023-03-01", progress: "50"} }
             //});
 
             if (config.query && config.query.type === "smw") {
                 var query = mw.config.get("wgScriptPath") + "/api.php?action=ask&format=json&query=" + config.query.value;
+                if (!config.query.value.includes("|limit=")) query += "|limit=100";
                 fetch(query)
                 .then(response => response.json())
                 .then(data => {
@@ -237,7 +260,7 @@ $(document).ready(function () {
                             if (!jsondata.meta.wiki_page) {jsondata.meta.wiki_page = {};}
                             var tobject = new mw.Title( title );
                             jsondata.meta.wiki_page.title = tobject.getMain();
-                            let namespace = tobject.getNamespacePrefix();
+                            let namespace = tobject.getNamespacePrefix().replace(':', '');
                             if (namespace !== "") {jsondata.meta.wiki_page.namespace = namespace;}
 
                             board.insertTask({task:
@@ -262,7 +285,7 @@ osl.kanban = class {
     }
 
     static getDropzoneHtml() {
-        return '<div class="dropzone rounded" ondragover="osl.kanban.allowDrop(event)" ondragleave="osl.kanban.clearDrop(event)"> &nbsp; </div>';
+        return '<div class="dropzone rounded m-2" ondragover="osl.kanban.allowDrop(event)" ondragleave="osl.kanban.clearDrop(event)"> &nbsp; </div>';
     }
 
     static allowDrop = (ev) => {
@@ -368,6 +391,7 @@ osl.kanban.Kanban = class {
     }
 
     removeTask(params) {
+        this.tasks = this.tasks.filter(task => task.id !== params.task.id );
     }
 
     getTagConfig() {
@@ -409,12 +433,10 @@ osl.kanban.Board = class {
         this.anchor_id = `board_${this.id}_anchor`;
         this.autosave_button_id = `board_${this.id}_autosave-button`;
         this.save_button_id = `board_${this.id}_save-button`;
-        this.autosave = false;
+        this.autosave = params.autosave || false;
         this.button_html = "";
         if (!(this.parent instanceof osl.kanban.Lane)) this.button_html = `
-        <button id="${this.autosave_button_id}", type="button" class="btn btn-primary " data-toggle="button" aria-pressed="false" autocomplete="off">
-            Auto-Save
-        </button>
+        <input id="${this.autosave_button_id}" type="checkbox" ${this.autosave ? 'checked' : ''} data-toggle="toggle" data-onlabel="Autosave on" data-offlabel="Autosave off">
         <button id="${this.save_button_id}", type="button" class="btn btn-success">Save</button>`;
         this.html = `
         <div id="${this.container_id}" class="kanban-board container-fluid pt-3">
@@ -429,11 +451,17 @@ osl.kanban.Board = class {
         </div>
         `;
         if (params.container_id) $("#" + params.container_id).append($(this.getHtml()));
-        $("#" + this.autosave_button_id).on('click', () => this.onToggleAutosave());
+        // init buttons
+        document.querySelectorAll('input[type=checkbox][data-toggle="toggle"]').forEach(function(ele) {
+            ele.bootstrapToggle();
+        });
+        $("#" + this.autosave_button_id).on('change', () => this.onToggleAutosave());
         $("#" + this.save_button_id).on('click', () => this.onSave());
         this.lanes = [];
         for (const lane of params.lanes) this.addLane(lane);
         this.updateDropzones();
+        this.default_jsondata = params.default_jsondata || {};
+        this.default_jsonschema = params.default_jsonschema || {};
     }
 
     getHtml() {
@@ -461,11 +489,12 @@ osl.kanban.Board = class {
                 for (const tag of lane.config.tags)
                     if (params.task.jsondata[tag.key])
                         for (const value of Object.keys(tag.values))
-                            if (tag.type === "string")
+                            if (tag.type === "string") {
                                 if (params.task.jsondata[tag.key] === value) {
                                     res.task = lane.insertTask(params);
                                     res.inserted = true;
                                 }
+                            }
                             else if (params.task.jsondata[tag.key].includes(value)) {
                                 res.task = lane.insertTask(params);
                                 res.inserted = true;
@@ -498,8 +527,10 @@ osl.kanban.Board = class {
     }
 
     onToggleAutosave() {
-        console.log("toggleAutosave");
         this.autosave = !this.autosave;
+        console.log("toggleAutosave =>", this.autosave);
+        // save all pending changes if autosafe gets enabled
+        if (this.autosave) this.onSave();
     }
 
     onSave(params = {}) {
@@ -541,12 +572,12 @@ osl.kanban.Lane = class {
         if (params.style && params.style.class) classes += " " + params.style.class;
         this.html = `
         <div id="${this.container_id}" class="${classes}">
-            <div class="card bg-light">
+            <div class="card">
                 <div class="card-body p-1">
                     <div id="${this.tag_container_id}">
                     </div>
                     <h6 id="${this.label_id}" class="card-title text-uppercase text-truncate py-2 m-0">${this.label}</h6>
-                    <div id="${this.anchor_id}" class="items border border-light">
+                    <div id="${this.anchor_id}" class="items border rounded">
                     </div>
                 </div>
             </div>
@@ -577,7 +608,7 @@ osl.kanban.Lane = class {
         let label = params.tag.values[params.value].label;
         let color = params.tag.values[params.value].color || 'grey';
         let textColor = params.textColor || osl.kanban.defineTextColor(color);
-        $("#" + this.tag_container_id).append(`<a href="#"  class="badge float-right" style="background-color:${color}; color:${textColor}">+${label}</a>`)
+        $("#" + this.tag_container_id).append(`<a class="badge float-right" style="background-color:${color}; color:${textColor}">+${label}</a>`)
         .on('click', () => this.onNewTask()); //ToDo: add only single tag from this lane badge, but all tags from parent lanes
     }
 
@@ -624,7 +655,7 @@ osl.kanban.Lane = class {
     }
 
     removeTask(params) {
-        this.tasks = this.tasks.filter(function(t) { return t.id != params.task.id; }); 
+        this.tasks = this.tasks.filter(task => task.id !== params.task.id );
         if (this.config.tags)
             for (const tag of this.config.tags)
                 if (!(tag.auto_unset === false) || params.unset_tag) params.task.removeTag({ tag: tag });
@@ -742,10 +773,10 @@ osl.kanban.Task = class {
         let article_path_parts = mw.config.get("wgArticlePath").split("$1"); // e. g. '/wiki/$1' or '/w/index.php?title=$1&some_other_param=1'
         if (article_path_parts.length == 1) article_path_parts.push("");
         this.html_template = Handlebars.compile(`
-        <div class="card draggable shadow-sm" id="{{container_id}}" draggable="true" _ondragstart="osl.kanban.drag(event)">
+        <div class="card draggable shadow-sm m-1" id="{{container_id}}" draggable="true" _ondragstart="osl.kanban.drag(event)">
             <div class="card-body p-2">
                 <div id="{{tag_container_id}}">
-                <button id="{{edit_button_id}}" class="btn btn-light btn-sm float-right"><i class="fa fa-edit"></i></button>
+                <button id="{{edit_button_id}}" class="btn btn-sm float-right"><i class="fa fa-edit"></i></button>
                     {{{badgeHtml}}}
                 </div>
                 <div class="card-title">
@@ -829,7 +860,8 @@ osl.kanban.Task = class {
                 }
                 else
                     for (const value of this.jsondata[tag.key])
-                        this.badgeHtml += this.getBadgeHtml({ label: tag.label + ":" + tag.values[value].label, color: tag.values[value].color });
+                        if (tag.values[value]) // use only defined tags
+                            this.badgeHtml += this.getBadgeHtml({ label: tag.label + ":" + tag.values[value].label, color: tag.values[value].color });
 
         this.html = this.html_template(this);
         //console.log("Refresh");

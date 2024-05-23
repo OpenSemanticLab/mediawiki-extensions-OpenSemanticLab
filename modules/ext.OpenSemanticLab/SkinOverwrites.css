@@ -155,6 +155,25 @@ div.ve-hidden.ve-ce-leafNode.ve-ce-mwTransclusionNode {
     display: none !important;
 }
 
+/* gallery not displayed correctly in VisualEditor
+this is due to  max-width:120px; in
+/var/www/html/w/resources/src/mediawiki.page.gallery.styles/gallery.less
+*/
+ul.gallery.mw-gallery-slideshow.ve-ce-leafNode .gallerybox > div {
+    max-width: unset;
+}
+
+/* hide "from <Wiki Site Name> */
+#siteSub {
+    display: none !important;
+}
+
+/* hide real title - better set in Extension:DisplayTitle? */
+#contentSub
+{
+    display: none !important;
+}
+
 /* hide SimpleBatchUploader elements globally */
 .fileupload-container label {
     display: none !important;
@@ -365,9 +384,4 @@ details.mw-slot-details[open] summary {
 /* fix overlaying map, see https://github.com/StarCitizenTools/mediawiki-skins-Citizen/issues/577 */
 .maps-leaflet {
     z-index: 0;
-}
-
-/* fix partial hidden autocomplete suggest list in json-editor array tables */
-.je-ready table {
-    overflow-x: unset;
 }

@@ -129,10 +129,12 @@ $(document).ready(function () {
                     var icon = "";
                     if (config.icon_class) icon = '<i class="' + config.icon_class + '"></i> ';
                     var label = "";
+                    config.params = config.params || {};
+                    var default_data = config.params.jsondata ? ", " + JSON.stringify(config.params.jsondata) : ", null";
                     if (config.action === "create-instance") {
                         label = mw.message('open-semantic-lab-create-instance').text();
                         if (!config.label && config.label !== "") config.label = label;
-                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]);'>${icon + config.label}</a>`));
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.createInstance(["${config.params.categories[0]}"]${default_data});'>${icon + config.label}</a>`));
                     }
                     else if (config.action === "create-subcategory") {
                         label = mw.message('open-semantic-lab-create-subcategory').text();
@@ -147,7 +149,7 @@ $(document).ready(function () {
                     else if (config.action === "edit-data") {
                         label = mw.message('open-semantic-lab-edit-page-data').text();
                         if (!config.label && config.label !== "") config.label = label;
-                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData();'>${icon + config.label}</a>`));
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData(${JSON.stringify(config.params)});'>${icon + config.label}</a>`));
                     }
                     else if (config.action === "copy") {
                         label = mw.message('open-semantic-lab-copy-page').text();
@@ -220,7 +222,7 @@ $(document).ready(function () {
                     var url = mw.config.get('wgArticlePath').replace('$1', "Special:Login");
 
                     if (config.action === "create-instance") {
-                        var label = mw.message('open-semantic-lab-create-instance').text();
+                        var label = mw.message('open-semantic-lab-create-instance-short').text();
                         if (userInfo.userCanEdit) url = `javascript:osl.ui.createInstance(["${config.categories[0]}"]);`
                         else label =  "🔒 " + label;
                         if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
@@ -234,7 +236,7 @@ $(document).ready(function () {
                         $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
                     }
                     else if (config.action === "query-instance") {
-                        var label = mw.message('open-semantic-lab-query-instance').text();
+                        var label = mw.message('open-semantic-lab-query-instance-short').text();
                         if (userInfo.userCanEdit) url = `javascript:osl.ui.queryInstance(["${config.categories[0]}"]);`
                         if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
                         $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
@@ -296,9 +298,9 @@ osl.util = class {
 
     static getAbsoluteJsonSchemaUrl(title, pretty=true) {
         if (title.startsWith("JsonSchema:")) {
-            return mwjson.util.getAbsolutePageUrl(title, {"action": "raw"}, pretty)
+            return mwjson.util.getAbsolutePageUrl("Special:SlotResolver", pretty) + "/" + title.replace(":", "/") + ".slot_main.json";
         }
-		return mwjson.util.getAbsolutePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty)
+        return mwjson.util.getAbsolutePageUrl("Special:SlotResolver", pretty) + "/" + title.replace(":", "/") + ".slot_jsonschema.json";
 	}
 
     static getRelativeJsonSchemaUrl(title, pretty=true) {
@@ -378,18 +380,30 @@ osl.util = class {
                 for (const result of results) {
                     const category_page = result.value;
                     if (page.slots['jsondata'] && category_page.slots['schema_template']) {
-                        var template_text = category_page.slots['schema_template'];
-                        Handlebars.registerPartial("self", template_text);
-                        var template = Handlebars.compile(template_text);
-                        var json_schema_text = template(mwjson.util.mergeDeep(
-                            { '_page_title': page.title },
-                            page.slots['jsondata']
-                        ));
-                        //console.log("Set jsonschema: ", json_schema_text);
-                        if (!page.slots['jsonschema']) page.slots['jsonschema'] = {};
-                        page.slots['jsonschema'] = mwjson.util.mergeDeep(page.slots['jsonschema'], JSON.parse(json_schema_text));
-                        //console.log(page.slots['jsonschema']);
-                        page.slots_changed['jsonschema'] = true;
+                        var json_schema_text = "";
+                        try {
+                            var template_text = category_page.slots['schema_template'];
+                            Handlebars.registerPartial("self", template_text);
+                            var template = Handlebars.compile(template_text);
+                            json_schema_text = template(mwjson.util.mergeDeep(
+                                { '_page_title': page.title },
+                                page.slots['jsondata']
+                            ));
+                        } catch (error) {
+                            console.error("Error while parsing handlebars template schema_template: ", template_text, error)
+                        }
+
+                        try {
+                            if (json_schema_text !== "") {
+                                //console.log("Set jsonschema: ", json_schema_text);
+                                if (!page.slots['jsonschema']) page.slots['jsonschema'] = {};
+                                page.slots['jsonschema'] = mwjson.util.mergeDeep(page.slots['jsonschema'], JSON.parse(json_schema_text));
+                                page.slots_changed['jsonschema'] = true;
+                                //console.log(page.slots['jsonschema']);
+                            }
+                        } catch (error) {
+                            console.error("Error while parsing JSON from schema_template: ", json_schema_text, error);
+                        }
                     }
                 }
                 resolve(page);
@@ -500,7 +514,7 @@ osl.ui = class {
                 /*var jsPDF = window.jspdf.jsPDF;
                 var doc = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes: ["px_scaling"]});
                 
-                //http://raw.githack.com/MrRio/jsPDF/master/docs/module-html.html
+                //https://raw.githack.com/MrRio/jsPDF/master/docs/module-html.html
                 doc.html(inputHtml, {
                     autoPaging: 'text',
                     //margin: [10, 10, 10, 10],
@@ -522,6 +536,18 @@ osl.ui = class {
                 //$('.printonly').show();
                 $('.printonly').addClass('printonly-print').removeClass('printonly');
                 $('#toc').hide();
+
+                let detachedElements = [];
+                // hidden visnetwork graphs cause silent 'CanvasRenderingContext2D' exception => detach them temporarly
+                $('.section-collapsible--collapsed').find('.InteractiveSemanticGraph').each(function() {
+                    let e = $( this );
+                    detachedElements.push({
+                        parent: e.parent(),
+                        index: e.parent().children().index(e),
+                        element: e.detach()
+                    });
+                });
+
                 //$('.mw-editsection').hide(); //confict with ve_extensions
                 for (var key of Object.keys(print_config)) {
                     if (!print_config[key]) { //hide unselected elements
@@ -540,8 +566,9 @@ osl.ui = class {
                     jsPDF: { format: 'a3', orientation: 'portrait' },
                     //pagebreak: { mode: ['css', 'legacy'], before: ['.pdf-page-break-before'], avoid: 'img' },
                     //pagebreak: { mode: ['avoid-all'], before: ['.pdf-page-break-before'], avoid: 'img' },
-                    pagebreak: { mode: ['avoid-all'], avoid: 'img' },
-                    //ignoreElements: (node) => { return node.className === 'noprint';}
+                    //pagebreak: { mode: ['avoid-all'], avoid: 'img' },
+                    pagebreak: { avoid: 'img' },
+                    //ignoreElements: (node) => { return node.className === 'noprint';} // never executed?
                 };
                 //html2pdf(inputHtml,opt);
                 html2pdf().from(inputHtml).set(opt).toPdf().get('pdf')//.save();
@@ -558,12 +585,57 @@ osl.ui = class {
                                 $('#' + key).show();
                             }
                         }
-                        //mw.config.get( 'wgTitle' ) + "_"
+                        // reinsert detached elements
+                        for (var detached of detachedElements) {
+                            if (detached.index === 0) detached.parent.prepend(detached.element);
+                            else detached.parent.children().eq(detached.index-1).after(detached.bar);
+                        }
                         pdfObject.save($('#firstHeading').text().replace(' ', '_') + ".pdf");
                     })
             }
-            var editor = new mwjson.editor(config)
+            if (classes.length) var editor = new mwjson.editor(config)
+            else config.onsubmit({}, {});
         });
+    }
+
+    static getDefaultEditorConfig(){
+        return {
+            onEditInline: (params) => osl.ui.editData({source_page: params.page_title, reload: false}),
+            onCreateInline: (params) => {
+                if (params.super_categories) return osl.ui.createSubcategory(params.super_categories, params.categories, "inline");
+                else if (params.categories) return osl.ui.createOrQueryInstance(params.categories, "inline");
+            },
+            getSubjectId: (params) => {
+                if (params.editor.config.target_exists && params.editor.config.target && params.editor.config.target != "") {
+                    //console.log("target exists and params.editor.config.target already set: ", params.editor.config.target)
+                    return params.editor.config.target;
+                }
+                var title = mwjson.util.OswId(params.jsondata.uuid);
+                var target = title;
+                var target_namespace = params.editor.config.target_namespace;
+
+                // can be replace by the following if missing uuid in Category:Category jsonschema is fixed
+                /*var target_namespace = "Item"; 
+                if (params.editor.jsonschema.subschemas_uuids.includes("89aafe6d-ae5a-4f29-97ff-df7736d4cab6")) { //uuid of Category:Category
+                    target_namespace = "Category";
+                }*/
+
+                // Handle special Item types
+                if (params.editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
+                    target_namespace = "Property";
+                    //title = mwjson.util.toPascalCase(params.jsondata.label[0].text);
+                    title = params.jsondata.name;
+                }
+                if (params.editor.jsonschema.subschemas_uuids.includes("11a53cdf-bdc2-4524-bf8a-c435cbf65d9d")) { //uuid of Category:WikiFile
+                    target_namespace = "File";
+                    // check if target title was already defined by file upload
+                    if (params.editor.config.target && params.editor.config.target !== "") title = params.editor.config.target.replace(params.editor.config.target_namespace + ":", "");
+                }
+                target = target_namespace + ":" + title; //set final target   
+                console.log(params.editor.jsonschema.subschemas_uuids, " => ", target);  
+                return target;
+            }
+        }
     }
 
     static editData(params) {
@@ -572,10 +644,12 @@ osl.ui = class {
             source_page: mw.config.get('wgPageName'),
             autosave: true,
             reload: true,
+            //categories //to override the schema
         }, params);
         var dataslot = params.dataslot;
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
+            target: params.source_page,
             JSONEditorConfig: {
                 no_additional_properties: false
             },
@@ -586,7 +660,7 @@ osl.ui = class {
                     "cancel": mw.message('open-semantic-lab-edit-page-data-dialog-cancel').plain(),
                 }
             }
-        };
+        });
 
         const page_namespace = new mw.Title(params.source_page).getNamespacePrefix().replace(":", "");
 
@@ -610,10 +684,12 @@ osl.ui = class {
 
                     config.JSONEditorConfig.disable_properties = false;
                     config.JSONEditorConfig.show_opt_in = false;
-                    config.JSONEditorConfig.display_required_only = false;
+                    config.JSONEditorConfig.display_required_only = true;
                     config.JSONEditorConfig.disable_array_reorder = true;
                     config.JSONEditorConfig.disable_array_delete_all_rows = true;
                     config.JSONEditorConfig.disable_array_delete_last_row = true;
+
+                    if (params.categories) jsondata.type = params.categories; //override type / schema
 
                     if (jsondata.type) {
                         config.schema = { "allOf": [] }
@@ -663,6 +739,7 @@ osl.ui = class {
                 }
 
                 if (params.mode === 'copy') {
+                    config.copy = true;
                     jsondata['uuid'] = mwjson.util.uuidv4();
                     jsondata['name'] = undefined;
                     jsondata['based_on'] = [params.source_page];
@@ -678,8 +755,16 @@ osl.ui = class {
                         label = label.substr(0, count.index) + (++count[0]);
                     }
                     jsondata['label'][0] = { "text": label, "lang": lang };
+                    // ToDo: apply copy_exclude config
+                    
+                    let file_extension = "";
+                    if (page_namespace === "File") file_extension = page.title.split('.').pop();
                     page.title = page_namespace === "" ? mwjson.util.OswId(jsondata['uuid']) : page_namespace + ":" + mwjson.util.OswId(jsondata['uuid']);
+                    if (file_extension !== "") page.title = page.title + "." + file_extension;
+                    page.exists = false;
                 }
+                config.target = page.title;
+                config.target_exists = page.exists;
 
                 config.data = jsondata;
 
@@ -692,15 +777,27 @@ osl.ui = class {
                         page.exists = false;
                     }
 
+                    if (page_namespace === "Category") {
+                        // determine metacategories as in createSubcategory
+                        let meta_categories = ["Category:Category"]
+                        for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
+
+                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
+                                meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
+                            }
+                        }
+                        categories = meta_categories;
+                    }
+
                     osl.util.postProcessPage(page, categories).then((page) => {
                         //console.log(page);
                         if (params.autosave) {
                             mwjson.api.updatePage(page, meta).done((page) => {
-                                resolve();
+                                resolve(page);
                                 if (params.reload) window.location.href = mw.util.getUrl(page.title);
                             });
                         }
-                        else resolve();
+                        else resolve(page);
                     });
 
                     return promise;
@@ -716,7 +813,7 @@ osl.ui = class {
 
     static editSlots(_config) {
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
                 disable_collapse: true,
                 disable_edit_json: false,
@@ -731,7 +828,7 @@ osl.ui = class {
                 },
                 edit_comment_required: true // comment for documentation required
             }
-        };
+        });
 
         const promise = new Promise((resolve, reject) => {
 
@@ -784,14 +881,14 @@ osl.ui = class {
         return promise;
     }
 
-    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"]) {
+    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"], mode = 'default', default_data) {
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
                 no_additional_properties: false,
                 disable_properties: false,
                 show_opt_in: false,
-                display_required_only: false,
+                display_required_only: true,
                 disable_array_reorder: true,
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true,
@@ -804,7 +901,7 @@ osl.ui = class {
                 }
             },
             target_namespace: "Category"
-        };
+        });
 
         const promise = new Promise((resolve, reject) => {
 
@@ -816,12 +913,13 @@ osl.ui = class {
                 if (mwjson.util.isString(category_page.slots['jsondata'])) category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
                 if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
                 else meta_categories = _meta_categories;
-                config.schema = { "allOf": [] };
+                // we will store supercategories in the schema as default and not in config.data
+                // otherwise defaultProperties in the schema are ignored
+                config.schema = { "allOf": [], properties: {subclass_of:{ default: []}} };
                 for (const meta_category of meta_categories) config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(meta_category) });
-                config.data = { "subclass_of": [] }
                 for (const super_category of super_categories) {
                     if (super_category.startsWith("Category:")) {
-                        config.data.subclass_of.push(super_category);
+                        config.schema.properties.subclass_of.default.push(super_category);
                     }
                     else {
                         console.log("Error: Cannot create an subclass of " + super_category);
@@ -829,13 +927,14 @@ osl.ui = class {
                     }
                 }
 
+                config.data = default_data; // note: any default data will disable defaultProperties defined in the schema
                 config.onsubmit = (jsondata, meta) => {
-
-                    mwjson.api.getPage("Category:" + mwjson.util.OslId(jsondata.uuid)).then((page) => {
+                    config.target = editor.config.target; // already set by getSubjectId callback
+                    mwjson.api.getPage(config.target).then((page) => {
                         page.slots['jsondata'] = jsondata;
                         page.slots_changed['jsondata'] = true;
 
-                        console.log(editor.jsonschema.subschemas_uuids);
+                        //console.log(editor.jsonschema.subschemas_uuids);
                         meta_categories = ["Category:Category"]
                         for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
 
@@ -843,13 +942,13 @@ osl.ui = class {
                                 meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
                             }
                         }
-                        console.log(meta_categories);
+                        //console.log(meta_categories);
                         osl.util.postProcessPage(page, meta_categories).then((page) => {
 
                             console.log(page);
                             mwjson.api.updatePage(page, meta).done((page) => {
-                                resolve();
-                                window.location.href = mw.util.getUrl(page.title); //nav to new page
+                                resolve(page);
+                                if (mode !== "inline") window.location.href = mw.util.getUrl(page.title); //nav to new page
                             });
                         });
                     });
@@ -866,17 +965,17 @@ osl.ui = class {
         return promise;
     }
 
-    static createInstance(categories = [mw.config.get('wgPageName')]) {
-        return osl.ui.createOrQueryInstance(categories, 'default');
+    static createInstance(categories = [mw.config.get('wgPageName')], default_data) {
+        return osl.ui.createOrQueryInstance(categories, 'default', default_data);
     }
 
     static queryInstance(categories = [mw.config.get('wgPageName')]) {
         return osl.ui.createOrQueryInstance(categories, 'query');
     }
 
-    static createOrQueryInstance(categories = [mw.config.get('wgPageName')], mode = 'default') {
+    static createOrQueryInstance(categories = [mw.config.get('wgPageName')], mode = 'default', default_data) {
 
-        var config = {
+        var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
                 no_additional_properties: false
             },
@@ -888,7 +987,7 @@ osl.ui = class {
                 }
             },
             target_namespace: "Item"
-        };
+        });
 
         if (mode === 'query') {
             config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-query-dialog-title").plain();
@@ -902,7 +1001,7 @@ osl.ui = class {
 
             config.JSONEditorConfig.disable_properties = false;
             config.JSONEditorConfig.show_opt_in = false;
-            config.JSONEditorConfig.display_required_only = false;
+            config.JSONEditorConfig.display_required_only = true;
             config.JSONEditorConfig.disable_array_reorder = true;
             config.JSONEditorConfig.disable_array_delete_all_rows = true;
             config.JSONEditorConfig.disable_array_delete_last_row = true;
@@ -917,12 +1016,13 @@ osl.ui = class {
                 config.schema = { "allOf": [] }
 
                 //if (mode !== 'query') 
-                config.data = { "type": [] }
+                //config.data = { "type": [] } // prevents json-editor from displaying defaultProperties not contained in config.data
+                config.data = default_data;
                 for (const category of categories) {
                     if (category.startsWith("Category:")) {
                         config.schema.allOf.push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) });
                         //if (mode !== 'query') 
-                        config.data.type.push(category);
+                        //config.data.type.push(category); // allready covered by schema.type.default value
                     }
                     else {
                         console.log("Error: Cannot create an instance of " + category);
@@ -935,13 +1035,8 @@ osl.ui = class {
                 }
                 else {
                     config.onsubmit = (jsondata, meta) => {
-                        var title = mwjson.util.OswId(jsondata.uuid);
-                        if (categories.includes("Category:Property") || editor.jsonschema.subschemas_uuids.includes("19a1a69a-6843-442c-a9cf-b8e884db7047")) { //uuid of Category:Property
-                            config.target_namespace = "Property";
-                            //title = mwjson.util.toPascalCase(jsondata.label[0].text);
-                            title = jsondata.name;
-                        }
-                        mwjson.api.getPage(config.target_namespace + ":" + title).then((page) => {
+                        config.target = editor.config.target; // already set by getSubjectId callback
+                        mwjson.api.getPage(config.target).then((page) => {
                             page.slots['jsondata'] = jsondata;
                             page.slots_changed['jsondata'] = true;
 
@@ -949,8 +1044,8 @@ osl.ui = class {
 
                                 console.log(page);
                                 mwjson.api.updatePage(page, meta).done((page) => {
-                                    resolve();
-                                    window.location.href = mw.util.getUrl(page.title); //nav to new page
+                                    resolve(page);
+                                    if (mode !== "inline") window.location.href = mw.util.getUrl(page.title); //nav to new page
                                 });
                             });
                         });
@@ -1012,7 +1107,7 @@ osl.ui = class {
             JSONEditorConfig: {
                 disable_properties: false,
                 show_opt_in: false,
-                display_required_only: false,
+                display_required_only: true,
                 disable_array_reorder: true,
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true

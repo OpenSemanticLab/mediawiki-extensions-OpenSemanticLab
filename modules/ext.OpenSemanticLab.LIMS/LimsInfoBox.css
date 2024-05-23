@@ -17,7 +17,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
     clear: right;
     text-align: left !important;
     border-collapse: collapse;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .info_box th {
@@ -27,6 +27,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 
 .info_box td {
     padding: 0 0.4em 0 0.4em;
+    word-break: break-all; /*break long links and names.*/
 }
 
 /*subheading is used for the subheadings in the info box.*/

@@ -369,6 +369,7 @@ class OpenSemanticLab {
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 		$out->addModules( 'ext.OpenSemanticLab.forms' );
 
+		$out->addModules( 'ext.osw.ui.qr' );
 		$out->addModules( 'ext.osw.ui.kanban' );
 
 		return true;
@@ -457,6 +458,101 @@ class OpenSemanticLab {
 				);
 			}
 
+			if ($namespace == 6) { //File
+
+				if ( ExtensionRegistry::getInstance()->isLoaded( 'WebDAV' ) ) {
+					// display an "Edit with ..." button to open files directly in a desktop app, e. g. MS WORD
+
+					$webDAVUrlProvider = MediaWikiServices::getInstance()->getService( 'WebDAVUrlProvider' );
+					$webDAVUrl = $webDAVUrlProvider->getUrl( $skin->getTitle() );
+
+					// static token e. g. to mount as a drive - not supported yet
+					#$webDAVTokenizer = MediaWikiServices::getInstance()->getService( 'WebDAVTokenizer' );
+					#$webDAVTokenizer->setUser( $user );
+					#$staticToken = $webDAVTokenizer->getStaticToken( );
+					
+					// Adapted from https://de.wiki.bluespice.com/wiki/Referenz:BlueSpiceWebDAVClientIntegration
+					$apps = [
+						'webdav-ci-ms-word' => [
+							'icon' => 'icon-file-word',
+							'extensions' => ['doc', 'docx', 'dot', 'dotx', 'rtf', 'docm', 'dotm', 'odt'],
+							'protocol' => 'ms-word', 
+						], 
+						'webdav-ci-ms-excel' => [
+							'icon' => 'icon-file-excel',
+							'extensions' => ['xls', 'xlsx', 'csv', 'tsv', 'xlsm'],
+							'protocol' => 'ms-excel',
+						], 
+						'webdav-ci-ms-powerpoint' => [
+							'icon' => 'icon-file-powerpoint', 
+							'extensions' => [0 => 'ppt', 1 => 'pptx'], 
+							'protocol' => 'ms-powerpoint', 
+						], 
+						'webdav-ci-archive' => [
+							'icon' => 'icon-file-zip', 
+							'extensions' => [0 => 'zip'], 
+						], 
+						'webdav-ci-generic' => [
+							'icon' => 'icon-file', 
+						], 
+						'@Not yet supported!' => [],
+						'@webdav-ci-ms-visio' => [
+							'icon' => 'icon-file-visio', 
+							'extensions' => [], 
+							'protocol' => 'ms-visio', 
+						], 
+						'@webdav-ci-ms-access' => [
+							'icon' => 'icon-file-access', 
+							'extensions' => [], 
+							'protocol' => 'ms-access', 
+						], 
+						'@webdav-ci-ms-project' => [
+							'icon' => 'icon-file-project', 
+							'extensions' => [], 
+							'protocol' => 'ms-project', 
+						], 
+						'@webdav-ci-ms-publisher' => [
+							'icon' => 'icon-file-publisher', 
+							'extensions' => [], 
+							'protocol' => 'ms-publisher', 
+						], 
+						'@webdav-ci-ms-spd' => [
+							'icon' => 'icon-file-spd', 
+							'extensions' => [], 
+							'protocol' => 'ms-spd', 
+						], 
+						'@webdav-ci-ms-infopath' => [
+							'icon' => 'icon-file-infopath', 
+							'extensions' => [], 
+							'protocol' => 'ms-infopath', 
+						], 
+					];
+
+					$file_extension = end(explode('.', $page_title));
+					$protocol = null;
+					$app_id = null;
+					foreach ( $apps as $key => $app ) {
+						if ( array_key_exists('extensions', $app) && array_key_exists('protocol', $app) ) {
+							if ( in_array( $file_extension, $app['extensions'] ) ) {
+								$protocol = $app['protocol'];
+								$app_id = $key;
+								break;
+							}
+						}
+					}
+					if ($protocol) {
+						$links['views']['create-subcategory'] = array(
+							'class' => "osw-links",
+							'text' => wfMessage( 'open-semantic-lab-webdav-ci-open-with-tool' )->params(
+								wfMessage( 'open-semantic-lab-' . $app_id )
+							)->plain(),
+							'title' => "Opens the file in a desktop app",
+							'href' => $protocol . ':ofe|u|' . $webDAVUrl,
+						);
+					}
+				}
+			}
+
 			if ( $user_can_edit ) $links['actions']['edit-slots'] = array(
 				'class' => "osw-links",
 				'text' => wfMessage( 'open-semantic-lab-edit-page-slots' )->text(),
@@ -469,6 +565,9 @@ class OpenSemanticLab {
 			// move history to "more"
 			$links['actions']['history'] = $links['views']['history'];
 			unset($links['views']['history']);
+
+			// rename "Read" button (visible when VisualEditor is active)
+			$links['views']['view']['text'] = wfMessage( 'open-semantic-lab-edit-page-visual-cancel' )->text();
 		}
 
 		return true;
