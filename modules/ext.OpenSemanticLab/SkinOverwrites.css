@@ -163,6 +163,17 @@ ul.gallery.mw-gallery-slideshow.ve-ce-leafNode .gallerybox > div {
     max-width: unset;
 }
 
+/* hide "from <Wiki Site Name> */
+#siteSub {
+    display: none !important;
+}
+
+/* hide real title - better set in Extension:DisplayTitle? */
+#contentSub
+{
+    display: none !important;
+}
+
 /* hide SimpleBatchUploader elements globally */
 .fileupload-container label {
     display: none !important;
