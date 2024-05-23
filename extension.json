@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.30.3",
+	"version": "0.30.4",
 	"author": [
 		"Simon Stier"
 	],
@@ -139,9 +139,10 @@
 		"ext.osw.ui.qr": {
 			"localBasePath": "modules/ext.osw.ui.qr",
 			"remoteExtPath": "OpenSemanticLab/modules/ext.osw.ui.qr",
+			"dependencies": [
+				"ext.OpenSemanticLab.print"
+			],
 			"scripts": [
-				"html2canvas.min.js",
-				"jspdf.umd.min.js",
 				"kjua.min.js",
 				"QrCodeGenerator.js"
 			],
