@@ -344,6 +344,7 @@ class OpenSemanticLab {
 		$out->addModules( 'ext.OpenSemanticLab.editor' );
 		$out->addModules( 'ext.OpenSemanticLab.forms' );
 
+		$out->addModules( 'ext.osw.ui.qr' );
 		$out->addModules( 'ext.osw.ui.kanban' );
 
 		return true;

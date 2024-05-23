@@ -1,15 +1,11 @@
 /* 
 Creates QR-codes dynamically
-DEV: MediaWiki:QrCodeGenerator.js
-REL: modules/ext.OpenSemanticLab.LIMS/QrCodeGenerator.js
 */
 
 $(document).ready(function () {
 	if ($('.QrCodeGenerator').length === 0) return; //only on pages with a QrCodeGenerator-div
 	$.when(
-		$.getScript("//larsjung.de/kjua/latest/kjua-0.9.0.min.js"),
-		$.getScript("//cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.js"),
-		$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.1.5/html2canvas.js"),
+		mw.loader.using( 'ext.osw.ui.qr'),
 		mw.loader.using( 'oojs-ui-core'),
 		$.Deferred(function (deferred) {
 			$(deferred.resolve);
