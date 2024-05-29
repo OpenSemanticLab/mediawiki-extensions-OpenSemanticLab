@@ -600,7 +600,7 @@ osl.ui = class {
 
     static getDefaultEditorConfig(){
         return {
-            onEditInline: (params) => osl.ui.editData({source_page: params.page_title, reload: false}),
+            onEditInline: (params) => osl.ui.editData({source_page: params.page_title, reload: false, mode: params.mode}),
             onCreateInline: (params) => {
                 if (params.super_categories) return osl.ui.createSubcategory(params.super_categories, params.categories, "inline");
                 else if (params.categories) return osl.ui.createOrQueryInstance(params.categories, "inline");
