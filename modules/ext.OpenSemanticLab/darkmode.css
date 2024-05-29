@@ -69,3 +69,11 @@ apply only in the content body, not in the sidebar */
 .skin-citizen-dark #content .fancytree {
     filter: invert(1.0);
 }
+
+/* ResultFormat DataTable */
+.skin-citizen-dark .dtsp-searchPanes { 
+    filter: invert(0.9); color: black;
+}
+.skin-citizen-dark .dt-buttons { 
+    filter: invert(0.9); 
+}
