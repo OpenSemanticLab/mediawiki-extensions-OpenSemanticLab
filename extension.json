@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.32.0",
+	"version": "0.32.1",
 	"author": [
 		"Simon Stier"
 	],
@@ -132,7 +132,10 @@
 			"localBasePath": "modules/ext.OpenSemanticLab.print",
 			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.print",
 			"scripts": [
-				"html2pdf.bundle.min.js"
+				"es6-promise.auto.min.js",
+				"jspdf.umd.min.js",
+				"html2canvas.min.js",
+				"html2pdf.min.js"
 			],
 			"position": "top"
 		},
