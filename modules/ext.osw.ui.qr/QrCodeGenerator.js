@@ -66,6 +66,7 @@ $(document).ready(function () {
 				for (var i = 0; i < config['text'].length; i++) {
 					var $div = $('<div></div>');
 					$div.css("text-align", "center");
+					$div.css("word-break", "break-all"); //force break of long strings
 
 					if (config['heading']) {
 						var $heading = $('<big></big>');
