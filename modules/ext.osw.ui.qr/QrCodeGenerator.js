@@ -5,20 +5,20 @@ Creates QR-codes dynamically
 $(document).ready(function () {
 	if ($('.QrCodeGenerator').length === 0) return; //only on pages with a QrCodeGenerator-div
 	$.when(
-		mw.loader.using( 'ext.osw.ui.qr'),
-		mw.loader.using( 'oojs-ui-core'),
+		mw.loader.using('ext.osw.ui.qr'),
+		mw.loader.using('oojs-ui-core'),
 		$.Deferred(function (deferred) {
 			$(deferred.resolve);
 		})
 	).done(function () {
-		$(".QrCodeGenerator").each( function() {
+		$(".QrCodeGenerator").each(function () {
 			var $element = $(this);
 			var $grid = $('<div></div>')
 			$grid.css("display", "grid");
 			$grid.css("grid-gap", "0px");
-			
+
 			$element.append($grid);
-			
+
 			var default_config = {
 				// kjua settings. see https://larsjung.de/kjua/
 				"image": true, // displays an image in the center of the QR code
@@ -30,111 +30,96 @@ $(document).ready(function () {
 				"print_format": "a4", // the format of the printed pdf. Default "a4"
 				"print_unit": "px", // the unit of specified dimensions. Default "px"
 				// jsPDF.html settings. see https://raw.githack.com/MrRio/jsPDF/master/docs/module-html.html
-				"print_margin": [0,0,0,0], // Page margins [top, right, bottom, left]. Default is 0.
+				"print_margin": [0, 0, 0, 0], // Page margins [top, right, bottom, left]. Default is 0.
 				// html2canvas settings. see https://html2canvas.hertzen.com/configuration
 				//"print_scale": window.devicePixelRatio, // scaling in mm/px. Should default to window.devicePixelRatio but behaves differently when undefined
 			};
-			var config = {...default_config, ...$element.data('config')};
+			var config = { ...default_config, ...$element.data('config') };
 			if (config.print_name === "") config.print_name = config.heading + " " + config.caption + ".pdf";
 			config.print_name = config.print_name.trim();
-			
-			var print_button = new OO.ui.ButtonWidget( {
+
+			var print_button = new OO.ui.ButtonWidget({
 				label: 'Print'
-			} );
+			});
 			if (config.print) $element.append(print_button.$element);
-			
-			//if (config['image'] == true) {
-				var imgBuffer = new Image();
-				imgBuffer.onload = function() { //image needs to be loaded first!
-					//see https://larsjung.de/kjua/
-					var mode = 'plain';
-					var mSize = 30; //size of image or label
-					if (config['image']) {
-						mode = 'image';
-					}
-					else if (config['label']) {
-						mode = 'label';
-						mSize = 10;
-					}
-					if (!Array.isArray(config['text'])) config['text'] = [config['text']]; //normalize to array
-					if (config['heading']) if (!Array.isArray(config['heading'])) config['heading'] = [config['heading']]; //normalize to array
-					if (config['caption']) if (!Array.isArray(config['caption'])) config['caption'] = [config['caption']]; //normalize to array
-					if (config['text'].length > 1) {
-						$grid.css("grid-template-columns", "auto auto auto auto"); //multiple QR codes
-						$grid.css("width", "800px");
-					}
 
-					for (var i = 0; i < config['text'].length; i++) {
-						var $div = $('<div></div>');
-						$div.css("text-align", "center");
-						
-						if (config['heading']) {
-							var $heading = $('<big></big>');
-							if (i < config['heading'].length) $heading.text(config['heading'][i]);
-							else $heading.text(config['heading'][config['heading'].length - 1]);
-							$div.append($heading);
-							$div.append($('<br>'));
-						}
-						
-						var el = kjua({
-							text: config['text'][i], 
-							ecLevel: 'Q', //otherwise images will not work?
-							label: config['label'], 
-							mode: mode, 
-							image: imgBuffer, 
-							//size: 500,
-							mSize: mSize,
-							//mPosX: 50, 
-							//mposY: 50,
-							fontcolor: "#ff9818",
-						});
-						$div.append(el);
-						
-						if (config['caption']) {
-							var $caption = $('<p></p>');
-							if (i < config['caption'].length) $caption.text(config['caption'][i]);  
-							else $caption.text(config['caption'][config['caption'].length - 1]); 
-							$div.append($caption);
-						}
-						
-						$grid.append($div);
-					}
-					
-				};
-				imgBuffer.src = config['image_src'];
-			//}
-			/*else {
-				var el;
-				if (config['label']) {
-					el = kjua({
-						text: config['text'],  
-						label: config['label'], 
-						mode: 'label', 
-					});
+			var imgBuffer = new Image();
+			imgBuffer.onload = function () { //image needs to be loaded first!
+				//see https://larsjung.de/kjua/
+				var mode = 'plain';
+				var mSize = 30; //size of image or label
+				if (config['image']) {
+					mode = 'image';
 				}
-				else el = kjua({text: config['text']});
-				$element.append(el);
-				$element.append(print_button.$element);
-			}*/
+				else if (config['label']) {
+					mode = 'label';
+					mSize = 10;
+				}
+				if (!Array.isArray(config['text'])) config['text'] = [config['text']]; //normalize to array
+				if (config['heading']) if (!Array.isArray(config['heading'])) config['heading'] = [config['heading']]; //normalize to array
+				if (config['caption']) if (!Array.isArray(config['caption'])) config['caption'] = [config['caption']]; //normalize to array
+				if (config['text'].length > 1) {
+					$grid.css("grid-template-columns", "auto auto auto auto"); //multiple QR codes
+					$grid.css("width", "800px");
+				}
 
-			print_button.on( 'click', function () {
+				for (var i = 0; i < config['text'].length; i++) {
+					var $div = $('<div></div>');
+					$div.css("text-align", "center");
+
+					if (config['heading']) {
+						var $heading = $('<big></big>');
+						if (i < config['heading'].length) $heading.text(config['heading'][i]);
+						else $heading.text(config['heading'][config['heading'].length - 1]);
+						$div.append($heading);
+						$div.append($('<br>'));
+					}
+
+					var el = kjua({
+						text: config['text'][i],
+						ecLevel: 'Q', //otherwise images will not work?
+						label: config['label'],
+						mode: mode,
+						image: imgBuffer,
+						//size: 500,
+						mSize: mSize,
+						//mPosX: 50, 
+						//mposY: 50,
+						fontcolor: "#ff9818",
+					});
+					$div.append(el);
+
+					if (config['caption']) {
+						var $caption = $('<p></p>');
+						if (i < config['caption'].length) $caption.text(config['caption'][i]);
+						else $caption.text(config['caption'][config['caption'].length - 1]);
+						$div.append($caption);
+					}
+
+					$grid.append($div);
+				}
+
+			};
+			imgBuffer.src = config['image_src'];
+
+			print_button.on('click', function () {
 				var jsPDF = window.jspdf.jsPDF;
 				// see: https://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 				var doc = new jsPDF({
-					orientation:'portrait', 
-					unit:config.print_unit, 
-					format:config.print_format, 
+					orientation: 'portrait',
+					unit: config.print_unit,
+					format: config.print_format,
 					hotfixes: ["px_scaling"]
 				});
 				var inputHtml = $element[0];//document.getElementById();
-				var html2canvas_options = {  
+				var html2canvas_options = {
 					//async: true,
 					//logging: true,
 					//backgroundColor: null,
 					//allowTaint: true,
 					//foreignObjectRendering: true, //creates svg images, not supported by pdfjs yet
 					//removeContainer: true,
-					ignoreElements: (element) => {return element.classList.contains('oo-ui-widget');} //hide button
+					ignoreElements: (element) => { return element.classList.contains('oo-ui-widget'); } //hide button
 				};
 				if (config.print_scale) html2canvas_options.scale = config.print_scale; // behaves differently when undefined
 				doc.html(inputHtml, {
