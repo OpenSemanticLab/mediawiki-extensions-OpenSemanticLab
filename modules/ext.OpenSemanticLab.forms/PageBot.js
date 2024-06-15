@@ -881,7 +881,7 @@ osl.ui = class {
         return promise;
     }
 
-    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories = ["Category:Category"], mode = 'default', default_data) {
+    static createSubcategory(super_categories = [mw.config.get('wgPageName')], meta_categories, mode = 'default', default_data) {
 
         var config = mwjson.util.mergeDeep(osl.ui.getDefaultEditorConfig(), {
             JSONEditorConfig: {
@@ -906,13 +906,11 @@ osl.ui = class {
         const promise = new Promise((resolve, reject) => {
 
             $.when(
-                mwjson.api.getPage(mw.config.get('wgPageName')),
                 osl.util.getMetaCategory(super_categories), //inherit metaclass/category from superclass/category
                 mwjson.editor.init()
-            ).done(function (category_page, _meta_categories) {
-                if (mwjson.util.isString(category_page.slots['jsondata'])) category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
-                if (category_page.slots['jsondata']['metaclass']) meta_categories = category_page.slots['jsondata']['metaclass']
-                else meta_categories = _meta_categories;
+            ).done(function (_meta_categories) {
+                // use the meta_categories specified per argument, with metaclass specification in the target superclass(es) as fallback (defaults to Category:Category)
+                if (!meta_categories) meta_categories = _meta_categories; 
                 // we will store supercategories in the schema as default and not in config.data
                 // otherwise defaultProperties in the schema are ignored
                 config.schema = { "allOf": [], properties: {subclass_of:{ default: []}} };
