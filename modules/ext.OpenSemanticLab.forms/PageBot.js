@@ -105,9 +105,10 @@ $(document).ready(function () {
                 };
                 var userOptions = {};
                 if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
-                if (!userOptions.params) userOptions.params = {};
-                if (!userOptions.params.categories) userOptions.params.categories = [mw.config.get("wgPageName")];
+                if (!userOptions.params) userOptions.params = {};           
                 var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                // edit-data should use the type of the existing entity as default
+                if (config.action !== "edit-data" && !config.params.categories) config.params.categories = [mw.config.get("wgPageName")];
 
                 var configs = []
                 if (config.action === "menu-dropdown") {
