@@ -96,6 +96,36 @@ $(document).ready(function () {
                 `});*/
             });
 
+            /* global click handler */
+            document.getElementsByTagName("body")[0].addEventListener('click', function(event) {
+                //console.log('clicked', event);
+                let element = null;
+                /* filter elements of target class */
+                if (event.target?.classList?.contains("pagebutton")) element = event.target;
+                else if (event.target?.parentElement?.classList?.contains("pagebutton")) element = event.target.parentElement;
+                else if (event.target?.parentElement?.parentElement?.classList?.contains("pagebutton")) element = event.target.parentElement.parentElement;
+
+                if (element) {
+                    event.preventDefault();
+                    var defaultOptions = {
+                        "action": "create-instance",
+                        "params": {},
+                        "class": "btn btn-primary",
+                        "target": element
+                    };
+                    var userOptions = {};
+                    if (element.dataset.config) userOptions = JSON.parse(element.dataset.config);
+                    if (!userOptions.params) userOptions.params = {};           
+                    var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+                    // edit-data should use the type of the existing entity as default
+                    if (config.action !== "edit-data" && !config.params.categories) config.params.categories = [mw.config.get("wgPageName")];
+
+                    if (config.action === "edit-data") osl.ui.editData(config.params);
+                    if (config.action === "create-instance") osl.ui.createInstance(config.params.categories);
+                    if (config.action === "create-subcategory") osl.ui.createSubcategory(config.params.categories);
+                }
+            });
+
             $(".pagebot-button").each(function () {
                 var defaultOptions = {
                     "action": "create-instance",
