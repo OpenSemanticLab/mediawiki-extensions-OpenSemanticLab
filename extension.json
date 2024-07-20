@@ -50,7 +50,8 @@
 				"Tiles.js",
 				"DynamicSidebar.js",
 				"D3graphviz.js",
-				"prefect.js"
+				"prefect.js",
+				"finales.js"
 			],
 			"position": "bottom"
 		},

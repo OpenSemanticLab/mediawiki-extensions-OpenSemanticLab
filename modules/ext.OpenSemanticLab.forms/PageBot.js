@@ -703,6 +703,16 @@ osl.ui = class {
                         page.exists = false;
                     }
 
+                    if (page_namespace === "Category") {
+                        let meta_categories = ["Category:Category"]
+                        for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
+
+                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
+                                meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
+                            }
+                        }
+                        categories = meta_categories;
+                    }
                     osl.util.postProcessPage(page, categories).then((page) => {
                         //console.log(page);
                         if (params.autosave) {
