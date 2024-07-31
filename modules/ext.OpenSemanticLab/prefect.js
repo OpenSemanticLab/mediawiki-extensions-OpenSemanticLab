@@ -292,7 +292,8 @@ $(document).ready(function () {
             }
             if (config.workflow_title) {
                 let workflow = await fetchWorkflowMetadata(config);
-                if (workflow.name) config.label = workflow.name;
+                if (workflow['label'] && workflow['label'][0] && workflow['label'][0]['text']) config.label = workflow['label'][0]['text'];
+                else if (workflow.name) config.label = workflow.name;
 
                 let services = await reverseLookup({
                     target_node: {wiki_page_title: config.workflow_title},
