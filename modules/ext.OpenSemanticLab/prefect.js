@@ -7,8 +7,9 @@ $(document).ready(function () {
         const badgeTemplate = Handlebars.compile(`
         <button id="prefect-state-badge_{{uuid}}" type="button" class="btn badge-pill badge rounded-pill btn-{{class}}" style="margin:5px">
             <span class="sr-only">Workflow status</span>
-            {{text}} <span class="badge-pill badge-light badge rounded-pill bg-light" style="color:black">{{msg}}</span>
+            {{text}} {{#if msg}}<span class="badge-pill badge-light badge rounded-pill bg-light" style="color:black">{{msg}}</span>{{/if}}
         </button>
+        {{#if url}}<a class="prefect-run-link" href="{{url}}" target="_blank" style="display: inline;" title="Open run"></a>{{/if}}
         `);
 
         const states = {
@@ -20,7 +21,8 @@ $(document).ready(function () {
             "Scheduled": {
                 "description": "The run will begin at a particular time in the future.",
                 "color": "blue",
-                "class": "primary"
+                "class": "primary",
+                "api_id": "SCHEDULED"
             },
             "Late": {
                 "description": "The run's scheduled start time has passed, but it has not transitioned to PENDING (5 seconds by default).",
@@ -35,12 +37,14 @@ $(document).ready(function () {
             "Pending": {
                 "description": "The run has been submitted to run, but is waiting on necessary preconditions to be satisfied.",
                 "color": "red",
-                "class": "warning"
+                "class": "warning",
+                "api_id": "PENDING"
             },
             "Running": {
                 "description": "The run code is currently executing.",
                 "color": "orange",
-                "class": "warning"
+                "class": "warning",
+                "api_id": "RUNNING"
             },
             "Retrying": {
                 "description": "The run code is currently executing after previously not completing successfully.",
@@ -50,32 +54,38 @@ $(document).ready(function () {
             "Paused": {
                 "description": "The run code has stopped executing until it receives manual approval to proceed.",
                 "color": "teal",
-                "class": "secondary"
+                "class": "secondary",
+                "api_id": "PAUSED"
             },
             "Cancelling": {
                 "description": "The infrastructure on which the code was running is being cleaned up.",
                 "color": "gray",
-                "class": "secondary"
+                "class": "secondary",
+                "api_id": "CANCELLING"
             },
             "Cancelled": {
                 "description": "The run did not complete because a user determined that it should not.",
                 "color": "brown",
-                "class": "secondary"
+                "class": "secondary",
+                "api_id": "CANCELLED"
             },
             "Completed": {
                 "description": "The run completed successfully.",
                 "color": "lime",
-                "class": "success"
+                "class": "success",
+                "api_id": "COMPLETED"
             },
             "Failed": {
                 "description": "The run did not complete because of a code issue and had no remaining retry attempts.",
                 "color": "pink",
-                "class": "danger"
+                "class": "danger",
+                "api_id": "FAILED"
             },
             "Crashed": {
                 "description": "The run did not complete because of an infrastructure issue.",
                 "color": "maroon",
-                "class": "danger"
+                "class": "danger",
+                "api_id": "CRASHED"
             }
         };
 
@@ -120,6 +130,29 @@ $(document).ready(function () {
                     "parameters": config.parameters,
                     "idempotency_key": config.uuid // use to get run later,
                 })
+            });
+            const json = await response.json();
+            return json;
+        }
+
+        async function setFlowState(config) {
+            let id = config.run_id;
+            let url = 'https://' + config.host + '/api/flow_runs/' + id + '/set_state';
+            let headers = new Headers();
+            let state_id = states[config.state_name].api_id;
+            //{"state":{"name":"AwaitingRetry","message":"Retry from the UI","type":"SCHEDULED"},"force":true}
+            //{"state":{"name":"Cancelling","type":"CANCELLING"},"force":true}
+            headers.append('Content-Type', 'application/json');
+            const response = await fetch(url, {
+                headers: headers,
+                method: 'POST',
+                body: JSON.stringify({
+                    "state":{
+                        "name": config.state_name,
+                        "message": config.message,
+                        "type": state_id
+                    },
+                    "force":true})
             });
             const json = await response.json();
             return json;
@@ -195,6 +228,7 @@ $(document).ready(function () {
             //let state = { name: "Unknown" };
             //if (config.run_id) {
             state = await fetchStatus(config);
+            if (state?.state_details?.flow_run_id) config.run_id = state?.state_details?.flow_run_id;
             //}
 
             /*if (!config.test) {
@@ -205,22 +239,34 @@ $(document).ready(function () {
             console.log(state.name);
             const state_name = state.name;
             const stateInfo = states[state_name];
-            let msg = "Open Run";
+            let msg = null;
             if (state_name === "Unknown") msg = "Run";
+            else if ( ["Cancelling", "Cancelled", "Failed", "Crashed", "Completed"].includes(state.name) ) msg = "Retry";
+            else if ( ["Scheduled", "Pending", "Running", "Late"].includes(state.name) ) msg = "Cancel";
 
-            config.container.innerHTML = badgeTemplate({ uuid: config.uuid, text: config.label + ": " + state_name, msg: msg, class: stateInfo.class });
+            let run_url = null;
+            if (config.run_id) run_url = 'https://' + config.host + '/flow-runs/flow-run/' + config.run_id;
+            config.container.innerHTML = badgeTemplate({ uuid: config.uuid, text: config.label + ": " + state_name, msg: msg, class: stateInfo.class, url: run_url });
 
             const btn = document.getElementById("prefect-state-badge_" + config.uuid);
             btn.onclick = async () => {
-                console.log("Click");
+                //console.log("Click");
                 if (!config.run_id) {
                     let run = await runFlow(config);
                     config.run_id = run.id;
                     updateBadge(config);
                 }
-                else {
-                    window.open('https://' + config.host + '/flow-runs/flow-run/' + config.run_id, '_blank');
+                else if ( ["Cancelling", "Cancelled", "Failed", "Crashed", "Completed"].includes(state.name) )
+                {
+                    await setFlowState({...config, ...{state_name: "Scheduled", message: "Resheduled from OSW UI"}})
                 }
+                else if ( ["Scheduled", "Pending", "Running", "Late"].includes(state.name) )
+                {
+                    await setFlowState({...config, ...{state_name: "Cancelling", message: "Cancelled from OSW UI"}})
+                }
+                /*else {
+                    window.open('https://' + config.host + '/flow-runs/flow-run/' + config.run_id, '_blank');
+                }*/
             };
             //btn.className = "btn badge-pill btn-" + stateInfo.class;
             //btn.innerText = stateInfo.name;
