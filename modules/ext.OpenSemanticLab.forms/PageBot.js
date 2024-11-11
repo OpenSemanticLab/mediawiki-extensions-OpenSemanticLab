@@ -123,6 +123,17 @@ $(document).ready(function () {
                     if (config.action === "edit-data") osl.ui.editData(config.params);
                     if (config.action === "create-instance") osl.ui.createInstance(config.params.categories);
                     if (config.action === "create-subcategory") osl.ui.createSubcategory(config.params.categories);
+
+                    if (config.action === "reload") window.location.reload();
+
+                    if (config.action === "purge") {
+                        mwjson.api.purgePage(mw.config.get('wgPageName'),
+                            {
+                                "forcelinkupdate": false,
+                                "forcerecursivelinkupdate": false
+                            }).then(() => window.location.reload() 
+                        );
+                    }
                 }
             });
 
