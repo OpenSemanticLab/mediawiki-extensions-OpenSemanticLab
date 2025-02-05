@@ -207,7 +207,7 @@ var template_tools = [
 							"label": {
 								"title": "Label (optional)",
 								"title*": {"de": "Beschriftung (optional)"},
-								"description": "If not set, the no text (external) or the page name (internal) will be displayed.",
+								"description": "If not set, no text (external) or the page name (internal) will be displayed.",
 								"description*": {"de": "Falls nicht gesetzt wird kein Text (extern) oder der Seitenname (intern) angezeigt."},
 								"type": "string",
 								"format": "text"
@@ -227,7 +227,8 @@ var template_tools = [
 										"format": "autocomplete",
 										"options": {
 											"autocomplete": {
-												"category": "Category:Entity"
+												"$comment": "filter only on labels per user input",
+												"query": ""
 											},
 											"_dependencies": {
 												"root.url": ""
@@ -371,7 +372,7 @@ var template_tools = [
 							"mode": {
 								"title": "Display mode",
 								"title*": {"de": "Anzeigemodus"},
-								"description": "Defines  how the elements are displayed",
+								"description": "Defines how the elements are displayed",
 								"description*": {"de": "Definiert wie die Elemente angezeigt werden"},
 								"type": "string",
 								"enum": ["default", "slideshow"],
@@ -408,7 +409,7 @@ var template_tools = [
 														"options": {
 															"autocomplete": {
 																"$comment": "attached file of the current page",
-																"query": "[[-HasFileAttachment::" + mw.config.get("wgPageName") + "]][[Display_title_of_normalized::like:*{{{_user_input_normalized}}}*]]|?Display_title_of=label|?HasImage=image|?HasDescription=description"
+																"query": "[[-HasFileAttachment::" + mw.config.get("wgPageName") + "]]"
 															}
 														},
 														"links": [
