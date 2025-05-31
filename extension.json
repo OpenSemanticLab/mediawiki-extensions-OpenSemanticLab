@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.36.3",
+	"version": "0.37.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -147,6 +147,7 @@
 			],
 			"scripts": [
 				"kjua.min.js",
+				"JsBarcode.all.min.js",
 				"QrCodeGenerator.js"
 			],
 			"position": "bottom"

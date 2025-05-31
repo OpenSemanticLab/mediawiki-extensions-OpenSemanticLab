@@ -20,7 +20,8 @@ $(document).ready(function () {
 			$element.append($grid);
 
 			var default_config = {
-				// kjua settings. see https://larsjung.de/kjua/
+				"type": "2D",
+				// kjua settings for format == QR. see https://larsjung.de/kjua/
 				"image": true, // displays an image in the center of the QR code
 				"image_src": mw.config.get("wgScriptPath") + "/logo.png", // the src of the image
 				"label": false, // text displayed in the center of the QR code. Overwrites image
@@ -32,7 +33,8 @@ $(document).ready(function () {
 				// jsPDF.html settings. see https://raw.githack.com/MrRio/jsPDF/master/docs/module-html.html
 				"print_margin": [0, 0, 0, 0], // Page margins [top, right, bottom, left]. Default is 0.
 				// html2canvas settings. see https://html2canvas.hertzen.com/configuration
-				//"print_scale": window.devicePixelRatio, // scaling in mm/px. Should default to window.devicePixelRatio but behaves differently when undefined
+				//"print_scale": window.devicePixelRatio, // scaling in mm/px. Should default to window.devicePixelRatio but behaves differently when undefined,
+				"print_orientation": "portrait", // format [10,20] => [20,10] does not rotate the page, orientation='landscape' needs to be set
 			};
 			var config = { ...default_config, ...$element.data('config') };
 			if (config.print_name === "") config.print_name = config.heading + " " + config.caption + ".pdf";
@@ -76,19 +78,39 @@ $(document).ready(function () {
 						$div.append($('<br>'));
 					}
 
-					var el = kjua({
-						text: config['text'][i],
-						ecLevel: 'Q', //otherwise images will not work?
-						label: config['label'],
-						mode: mode,
-						image: imgBuffer,
-						//size: 500,
-						mSize: mSize,
-						//mPosX: 50, 
-						//mposY: 50,
-						fontcolor: "#ff9818",
-					});
-					$div.append(el);
+					if (config["type"] === "2D") {
+						// only config["format"] === "QR" supported
+						var el = kjua({
+							text: config['text'][i],
+							ecLevel: 'Q', //otherwise images will not work?
+							label: config['label'],
+							mode: mode,
+							image: imgBuffer,
+							//size: 500,
+							mSize: mSize,
+							//mPosX: 50, 
+							//mposY: 50,
+							fontcolor: "#ff9818",
+						});
+						$div.append(el);
+					}
+					if (config["type"] === "1D") {
+						config["format"] = config["format"] || "CODE128";
+						config["width"] = config["width"] || 2;
+						config["height"] = config["height"] || 100;
+						config["margin"] = config["margin"] || 10;
+						var $el = $('<canvas></canvas>');
+						// settings for format == 1D. see https://github.com/lindell/JsBarcode?tab=readme-ov-file#options
+						JsBarcode($el[0], config['text'][i], {
+							format: config["format"],
+							text: config['caption'],
+							//lineColor: "#ff9818",
+							width: config['width'],
+							height: config['height'],
+							displayValue: false,
+						});
+						$div.append($el);
+					}
 
 					if (config['caption']) {
 						var $caption = $('<p></p>');
@@ -107,7 +129,7 @@ $(document).ready(function () {
 				var jsPDF = window.jspdf.jsPDF;
 				// see: https://raw.githack.com/MrRio/jsPDF/master/docs/jsPDF.html
 				var doc = new jsPDF({
-					orientation: 'portrait',
+					orientation: config.print_orientation,
 					unit: config.print_unit,
 					format: config.print_format,
 					hotfixes: ["px_scaling"]
