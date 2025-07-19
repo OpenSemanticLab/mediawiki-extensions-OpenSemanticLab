@@ -781,143 +781,280 @@ osl.ui = class {
             }
         });
 
-        const page_namespace = new mw.Title(params.source_page).getNamespacePrefix().replace(":", "");
+        if (dataslot === 'jsondata') {
+
+            config.JSONEditorConfig.disable_properties = false;
+            config.JSONEditorConfig.show_opt_in = false;
+            config.JSONEditorConfig.display_required_only = true;
+            config.JSONEditorConfig.disable_array_reorder = true;
+            config.JSONEditorConfig.disable_array_delete_all_rows = true;
+            config.JSONEditorConfig.disable_array_delete_last_row = true;
+        }
+        else if (dataslot === 'jsonschema') {
+
+            config.JSONEditorConfig.disable_edit_json = false;
+            config.JSONEditorConfig.disable_properties = false;
+            config.JSONEditorConfig.show_errors = 'never';
+            config.popupConfig.edit_comment_required = true // comment for documentation required
+        }
+
+        var multi_edit = true;
+        if (!mwjson.util.isArray(params.source_page)) {
+            params.source_page = [params.source_page];
+            multi_edit = false;
+        }
 
         var page_load_promise = undefined;
+
         if (params.source_page_obj) page_load_promise = new Promise((resolve, reject) => { resolve(params.source_page_obj); });
-        else page_load_promise = mwjson.api.getPage(params.source_page);
+        else page_load_promise = mwjson.api.getPages(params.source_page);
 
         const promise = new Promise((resolve, reject) => {
 
             $.when(
                 page_load_promise,
                 mwjson.editor.init()
-            ).done(function (page) {
+            ).done(function (pages) {
 
                 //build schema
-                var jsondata = page.slots[dataslot] ? page.slots[dataslot] : {};
-                if (mwjson.util.isString(jsondata)) jsondata = JSON.parse(jsondata);
+                var jsondata_array = []
 
-                var categories = [];
-                if (dataslot === 'jsondata') {
-
-                    config.JSONEditorConfig.disable_properties = false;
-                    config.JSONEditorConfig.show_opt_in = false;
-                    config.JSONEditorConfig.display_required_only = true;
-                    config.JSONEditorConfig.disable_array_reorder = true;
-                    config.JSONEditorConfig.disable_array_delete_all_rows = true;
-                    config.JSONEditorConfig.disable_array_delete_last_row = true;
-
-                    if (params.categories) jsondata.type = params.categories; //override type / schema
-
-                    if (jsondata.type) {
+                if (!pages || pages.length === 0) {
+                    if (params.categories) {
                         config.schema = { "allOf": [] }
-                        if (Array.isArray(jsondata.type)) {
-                            for (const category of jsondata.type) {
-                                categories.push(category);
-                                config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) })
+                        if (!Array.isArray(params.categories)) params.categories = [params.categories];
+                        for (const category of params.categories) {
+                            config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) })
+                        }
+                    }
+                }
+
+                for (var page of pages) {
+
+                    var jsondata = page.slots[dataslot] ? page.slots[dataslot] : {};
+                    if (mwjson.util.isString(jsondata)) {
+                        jsondata = JSON.parse(jsondata);
+                        page.slots[dataslot] = jsondata; // store parsed data
+                    }
+
+                    var categories = [];
+                    if (dataslot === 'jsondata') {
+
+                        if (params.categories) jsondata.type = params.categories; //override type / schema
+
+                        const page_namespace = new mw.Title(page.title).getNamespacePrefix().replace(":", "");
+
+                        if (jsondata.type) {
+                            config.schema = { "allOf": [] }
+                            if (Array.isArray(jsondata.type)) {
+                                for (const category of jsondata.type) {
+                                    categories.push(category);
+                                    config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) })
+                                }
+                            }
+                            else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
+                                categories.push(jsondata.type);
+                                config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(jsondata.type) })
+                            }
+                            else {
+                                console.log("Error: Page has no jsonschema");
+                                return;
                             }
                         }
-                        else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
-                            categories.push(jsondata.type);
-                            config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(jsondata.type) })
+                        else if (page_namespace === "Category") {
+                            categories.push("Category:Category");
+                            config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:Category") };
+                        }
+                        else if (page_namespace === "") { //Main
+                            categories.push("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26"); //Article
+                            config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26") };
+                        }
+                        else if (page_namespace === "File") {
+                            categories.push("Category:OSWff333fd349af4f65a69100405a9e60c7"); //File
+                            config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSWff333fd349af4f65a69100405a9e60c7") };
                         }
                         else {
                             console.log("Error: Page has no jsonschema");
                             return;
                         }
                     }
-                    else if (page_namespace === "Category") {
-                        categories.push("Category:Category");
-                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:Category") };
-                    }
-                    else if (page_namespace === "") { //Main
-                        categories.push("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26"); //Article
-                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSW92cc6b1a2e6b4bb7bad470dfdcfdaf26") };
-                    }
-                    else if (page_namespace === "File") {
-                        categories.push("Category:OSWff333fd349af4f65a69100405a9e60c7"); //File
-                        config.schema = { "$ref": osl.util.getAbsoluteJsonSchemaUrl("Category:OSWff333fd349af4f65a69100405a9e60c7") };
+                    else if (dataslot === 'jsonschema') {
+                        config.schema = mwjson.schema.jsonschema_jsonschema;
                     }
                     else {
-                        console.log("Error: Page has no jsonschema");
+                        console.log("Error: No jsonschema defined");
                         return;
                     }
-                }
-                else if (dataslot === 'jsonschema') {
-                    config.schema = mwjson.schema.jsonschema_jsonschema;
 
-                    config.JSONEditorConfig.disable_edit_json = false;
-                    config.JSONEditorConfig.disable_properties = false;
-                    config.JSONEditorConfig.show_errors = 'never';
-                    config.popupConfig.edit_comment_required = true // comment for documentation required
-                }
-                else {
-                    console.log("Error: No jsonschema defined");
-                    return;
-                }
-
-                if (params.mode === 'copy') {
-                    config.copy = true;
-                    jsondata['uuid'] = mwjson.util.uuidv4();
-                    jsondata['name'] = undefined;
-                    jsondata['based_on'] = [params.source_page];
-                    var label = jsondata['label'] ? jsondata['label'][0]['text'] : "";
-                    var lang = jsondata['label'] ? jsondata['label'][0]['lang'] : "en";
-                    if (!label.includes("Copy")) label += " Copy 1"
-                    else {
-                        // From: https://stackoverflow.com/questions/21122338/how-to-increment-a-string-in-javascript
-                        // Find the trailing number or it will match the empty string
-                        var count = label.match(/\d*$/);
-                        // Take the substring up until where the integer was matched
-                        // Concatenate it to the matched count incremented by 1
-                        label = label.substr(0, count.index) + (++count[0]);
-                    }
-                    jsondata['label'][0] = { "text": label, "lang": lang };
-                    // ToDo: apply copy_exclude config
-                    
-                    let file_extension = "";
-                    if (page_namespace === "File") file_extension = page.title.split('.').pop();
-                    page.title = page_namespace === "" ? mwjson.util.OswId(jsondata['uuid']) : page_namespace + ":" + mwjson.util.OswId(jsondata['uuid']);
-                    if (file_extension !== "") page.title = page.title + "." + file_extension;
-                    page.exists = false;
-                }
-                config.target = page.title;
-                config.target_exists = page.exists;
-
-                config.data = jsondata;
-
-                config.onsubmit = (jsondata, meta) => {
-
-                    page.slots[dataslot] = jsondata;
-                    page.slots_changed[dataslot] = true;
-                    if (params.mode === "copy") {
-                        for (const slot of Object.keys(page.slots)) page.slots_changed[slot] = true;
+                    if (params.mode === 'copy') {
+                        config.copy = true;
+                        jsondata['uuid'] = mwjson.util.uuidv4();
+                        jsondata['name'] = undefined;
+                        jsondata['based_on'] = [params.source_page];
+                        var label = jsondata['label'] ? jsondata['label'][0]['text'] : "";
+                        var lang = jsondata['label'] ? jsondata['label'][0]['lang'] : "en";
+                        if (!label.includes("Copy")) label += " Copy 1"
+                        else {
+                            // From: https://stackoverflow.com/questions/21122338/how-to-increment-a-string-in-javascript
+                            // Find the trailing number or it will match the empty string
+                            var count = label.match(/\d*$/);
+                            // Take the substring up until where the integer was matched
+                            // Concatenate it to the matched count incremented by 1
+                            label = label.substr(0, count.index) + (++count[0]);
+                        }
+                        jsondata['label'][0] = { "text": label, "lang": lang };
+                        // apply copy_ignore config
+                        
+                        let file_extension = "";
+                        if (page_namespace === "File") file_extension = page.title.split('.').pop();
+                        page.title = page_namespace === "" ? mwjson.util.OswId(jsondata['uuid']) : page_namespace + ":" + mwjson.util.OswId(jsondata['uuid']);
+                        if (file_extension !== "") page.title = page.title + "." + file_extension;
                         page.exists = false;
                     }
 
-                    if (page_namespace === "Category") {
-                        // determine all metacategories. Different from createSubcategory, where we lookup only the nearest metacategory
-                        let meta_categories = ["Category:Category"]
-                        for (const subschema_uuid of editor.jsonschema.subschemas_uuids) { // note: this also includes Characteristic-Categories
+                    jsondata_array.push(jsondata)
+                }
 
-                            if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
-                                meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
-                            }
+                if (multi_edit) {
+                    //config.target = pages[0].title; // ToDo: What to do for zero or multiple pages?
+                    //config.target_exists = pages[0].exists; // ToDo: What to do for zero or multiple pages?
+                    config.data = jsondata_array;
+                    config.multi = true;
+                    config.flatten = true;
+                    config.include_properties = params.include_properties; // space for table columns is limited => allow to specify properties to include
+                    config.hide_properties = params.hide_properties; // usually auto-generated properties like uuid that need to be included but can be hidden
+                }
+                else {
+                    config.target = pages[0].title;
+                    config.target_exists = pages[0].exists;
+                    config.data = jsondata_array[0];
+                }
+
+                config.onsubmit = (jsondata, meta) => {
+
+                    var _jsondata_array;
+                    if (multi_edit) _jsondata_array = jsondata;
+                    else _jsondata_array = [jsondata];
+
+                    var _pages_to_delete = [];
+                    var _pages_to_update = [];
+                    var _pages_to_create = [];
+
+                    let modifications = mwjson.util.compareEntityArrays(jsondata_array, _jsondata_array);
+
+                    // remove deleted pages
+                    for (let e of modifications["removed"]) {
+                        // find the page by matching the uuid
+                        let page_index = pages.findIndex(page => page.slots[dataslot] && page.slots[dataslot]['uuid'] === e['uuid']);
+                        if (page_index !== -1) {
+                            var _page = pages[page_index];
+                            _pages_to_delete.push(_page);
                         }
-                        categories = meta_categories;
                     }
 
-                    osl.util.postProcessPage(page, categories).then((page) => {
-                        //console.log(page);
-                        if (params.autosave) {
-                            mwjson.api.updatePage(page, meta).done((page) => {
-                                resolve(page);
-                                if (params.reload) window.location.href = mw.util.getUrl(page.title);
-                            });
+                    // update changed pages
+                    for (let e of modifications["changed"]) {
+                        // find the page by matching the uuid
+                        let page_index = pages.findIndex(page => page.slots[dataslot] && page.slots[dataslot]['uuid'] === e['uuid']);
+                        if (page_index !== -1) {
+                            var _page = pages[page_index];
+                            _page.slots[dataslot] = e;
+                            _page.slots_changed[dataslot] = true;
+                            _pages_to_update.push(_page);
                         }
-                        else resolve(page);
-                    });
+                    }
+
+                    // add new pages
+                    for (let e of modifications["added"]) {
+                        var _page = {
+                            title: "Item" + ":" + mwjson.util.OswId(e['uuid']), // ToDo: Detect namespace
+                            exists: false, changed: true, content: "",
+                            slots: { main: "" }, slots_changed: { main: true }, content_model: { main: "wikitext" },
+                        }
+                        _page.slots[dataslot] = e;
+                        _page.slots_changed[dataslot] = true;
+                        _page.content_model[dataslot] = "json";
+                        _pages_to_create.push(_page);
+                    }
+
+                    // print page lists
+                    // console.log("Pages to delete: ", _pages_to_delete);
+                    // console.log("Pages to update: ", _pages_to_update);
+                    // console.log("Pages to create: ", _pages_to_create);
+
+                    const postprocessing_promises = [];
+                    const delete_promises = [];
+                    //let index = 0;
+                    for (var page of _pages_to_update.concat(_pages_to_create)) {
+
+                        if (params.mode === "copy") {
+                            for (const slot of Object.keys(page.slots)) page.slots_changed[slot] = true;
+                            page.exists = false;
+                        }
+
+                        const page_namespace = new mw.Title(page.title).getNamespacePrefix().replace(":", "");
+                        if (page_namespace === "Category") {
+                            // determine all metacategories. Different from createSubcategory, where we lookup only the nearest metacategory
+                            let meta_categories = ["Category:Category"]
+                            for (const subschema_uuid of editor.jsonschema.subschemas_uuids) { // note: this also includes Characteristic-Categories
+
+                                if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
+                                    meta_categories.push("Category:" + mwjson.util.OswId(subschema_uuid));
+                                }
+                            }
+                            categories = meta_categories;
+                        }
+
+                        const postprocessing_promise = new Promise((resolve, reject) => {
+                            osl.util.postProcessPage(page, categories)
+                                .then((processedPage) => {
+                                    if (params.autosave) {
+                                        mwjson.api.updatePage(processedPage, meta)
+                                            .done((updatedPage) => {
+                                                resolve(updatedPage);
+                                                if (params.reload && !multi_edit) {
+                                                    window.location.href = mw.util.getUrl(updatedPage.title);
+                                                }
+                                            })
+                                            .fail((err) => reject(err));
+                                    } else {
+                                        resolve(processedPage);
+                                    }
+                                })
+                                .catch((err) => reject(err));
+                        });
+                        postprocessing_promises.push(postprocessing_promise);
+                    }
+
+                    // delete pages
+                    for (var page of _pages_to_delete) {
+                        const delete_promise = new Promise((resolve, reject) => {
+                            mwjson.api.deletePage(page.title, meta)
+                                .done(() => {
+                                    console.log("Deleted page: ", page.title);
+                                    resolve(page);
+                                })
+                                .fail((err) => {
+                                    console.error("Error while deleting page: ", page.title, err);
+                                    reject(err);
+                                });
+                        });
+                        delete_promises.push(delete_promise);
+                    }
+                      
+                    Promise.allSettled(postprocessing_promises.concat(delete_promises))
+                        .then((results) => {
+                            const processedPages = results
+                                .filter((result) => result.status === "fulfilled")
+                                .map((result) => result.value);
+                            if (multi_edit) {
+                                resolve(processedPages);
+                                // reload current page
+                                if (params.reload) 
+                                    window.location.href = window.location.href;
+                            }
+                            else resolve(processedPages[0])
+                        });
 
                     return promise;
                 }
