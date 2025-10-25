@@ -391,7 +391,12 @@ class OpenSemanticLab {
 		$namespace = $skin->getTitle()->getNamespace();
 		$page_title = $skin->getTitle()->getFullText();
 		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$dummy_page_title = "_-DUMMY--";
+		$user_can_read = $permissionManager->userCan( 'read', $user, $skin->getTitle(), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
 		$user_can_edit = $permissionManager->userCan( 'edit', $user, $skin->getTitle(), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
+		$user_can_edit_ns = $permissionManager->userCan( 'create', $user, Title::newFromText( $namespace . ":" . $dummy_page_title), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
+		$user_can_subclass = $permissionManager->userCan( 'create', $user, Title::newFromText("Category:" . $dummy_page_title), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
+		$user_can_instanciate = $permissionManager->userCan( 'create', $user, Title::newFromText("Item:" . $dummy_page_title), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
 		$data_editable = in_array($namespace, [
 			0, // Main
 			6, // File
@@ -411,7 +416,7 @@ class OpenSemanticLab {
 			);
 			
 			//Actions: In sidebar
-			if ( $user_can_edit && $data_editable && $namespace != 0) { //not "Main"
+			if ( $user_can_edit_ns && $data_editable && $namespace != 0) { //not "Main"
 				$links['actions']['copy'] = array(
 					'class' => "",
 					'text' => wfMessage( 'open-semantic-lab-copy-page' )->text(),
@@ -419,24 +424,26 @@ class OpenSemanticLab {
 					'href' => 'javascript:osl.ui.editData({"mode": "copy"});',
 				);
 			}
-			$links['actions']['export-pdf'] = array(
-				'class' => "",
-				'text' => wfMessage( 'open-semantic-lab-print-page' )->text(),
-				'title' => wfMessage( 'open-semantic-lab-print-page-tooltip' )->text(),
-				'href' => 'javascript:osl.ui.printPage();',
-			);
+			if ( $user_can_read ) {
+				$links['actions']['export-pdf'] = array(
+					'class' => "",
+					'text' => wfMessage( 'open-semantic-lab-print-page' )->text(),
+					'title' => wfMessage( 'open-semantic-lab-print-page-tooltip' )->text(),
+					'href' => 'javascript:osl.ui.printPage();',
+				);
+			}
 
 			if ($namespace == 14) { //Category
 				
 			
-				if ( $user_can_edit ) $links['views']['create-subcategory'] = array(
+				if ( $user_can_subclass ) $links['views']['create-subcategory'] = array(
 					'class' => "osw-links",
 					'text' => wfMessage( 'open-semantic-lab-create-subcategory-short' )->text(),
 					'title' => wfMessage( 'open-semantic-lab-create-subcategory-tooltip' )->text(),
 					'href' => 'javascript:osl.ui.createSubcategory(["' . $page_title . '"]);' ,
 				);
 
-				if ( $user_can_edit ) $links['views']['create-instance'] = array(
+				if ( $user_can_instanciate ) $links['views']['create-instance'] = array(
 					'class' => "osw-links",
 					'text' => wfMessage( 'open-semantic-lab-create-instance-short' )->text(),
 					'title' => wfMessage( 'open-semantic-lab-create-instance-tooltip' )->text(),
