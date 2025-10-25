@@ -450,19 +450,21 @@ class OpenSemanticLab {
 					'href' => 'javascript:osl.ui.createInstance(["' . $page_title . '"]);' ,
 				);
 
-				if ( $user_can_edit ) $links['actions']['edit-schema'] = array(
+				// not in a useful state, disable for now
+				/*if ( $user_can_edit ) $links['actions']['edit-schema'] = array(
 					'class' => "osw-links",
 					'text' => wfMessage( 'open-semantic-lab-edit-page-schema' )->text(),
 					'title' => wfMessage( 'open-semantic-lab-edit-page-schema-tooltip' )->text(),
 					'href' => "javascript:osl.ui.editData({dataslot: 'jsonschema'});" ,
-				);
+				);*/
 
-				$links['views']['query-instance'] = array(
+				// not in a useful state, disable for now
+				/*$links['views']['query-instance'] = array(
 					'class' => "osw-links",
 					'text' => wfMessage( 'open-semantic-lab-query-instance-short' )->text(),
 					'title' => wfMessage( 'open-semantic-lab-query-instance-tooltip' )->text(),
 					'href' => 'javascript:osl.ui.queryInstance(["' . $page_title . '"]);' ,
-				);
+				);	*/
 			}
 
 			if ($namespace == 6) { //File
