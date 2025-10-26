@@ -764,6 +764,7 @@ osl.ui = class {
             autosave: true,
             reload: true,
             //categories //to override the schema
+            //source_page_obj // already loaded page object(s), e.g. from kanban board
         }, params);
         var dataslot = params.dataslot;
 
@@ -806,8 +807,15 @@ osl.ui = class {
 
         var page_load_promise = undefined;
 
-        if (params.source_page_obj) page_load_promise = new Promise((resolve, reject) => { resolve(params.source_page_obj); });
-        else page_load_promise = mwjson.api.getPages(params.source_page);
+        if (params.source_page_obj) {
+            if (!mwjson.util.isArray(params.source_page_obj)) {
+                params.source_page_obj = [params.source_page_obj];
+                multi_edit = false;
+            }
+            page_load_promise = new Promise((resolve, reject) => { resolve(params.source_page_obj); });
+        } else {
+            page_load_promise = mwjson.api.getPages(params.source_page);
+        }
 
         const promise = new Promise((resolve, reject) => {
 
