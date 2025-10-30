@@ -846,11 +846,11 @@ osl.ui = class {
                     }
 
                     var categories = [];
+                    const page_namespace = new mw.Title(page.title).getNamespacePrefix().replace(":", "");
+
                     if (dataslot === 'jsondata') {
 
                         if (params.categories) jsondata.type = params.categories; //override type / schema
-
-                        const page_namespace = new mw.Title(page.title).getNamespacePrefix().replace(":", "");
 
                         if (jsondata.type) {
                             config.schema = { "allOf": [] }
