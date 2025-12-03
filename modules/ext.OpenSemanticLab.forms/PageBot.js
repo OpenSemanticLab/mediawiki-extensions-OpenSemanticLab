@@ -837,7 +837,9 @@ osl.ui = class {
                     }
                 }
 
+                var page_index = -1;
                 for (var page of pages) {
+                    page_index += 1;
 
                     var jsondata = page.slots[dataslot] ? page.slots[dataslot] : {};
                     if (mwjson.util.isString(jsondata)) {
@@ -898,7 +900,7 @@ osl.ui = class {
                         config.copy = true;
                         jsondata['uuid'] = mwjson.util.uuidv4();
                         jsondata['name'] = undefined;
-                        jsondata['based_on'] = [params.source_page];
+                        jsondata['based_on'] = [params.source_page[page_index]];
                         var label = jsondata['label'] ? jsondata['label'][0]['text'] : "";
                         var lang = jsondata['label'] ? jsondata['label'][0]['lang'] : "en";
                         if (!label.includes("Copy")) label += " Copy 1"
