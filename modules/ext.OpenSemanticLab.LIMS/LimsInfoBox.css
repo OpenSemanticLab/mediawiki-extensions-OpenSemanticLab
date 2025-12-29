@@ -56,6 +56,17 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
     padding: 5px;
 }
 
+.info_box .fancytree .fancytree-container {
+    border: none;
+    margin: 0;
+    white-space: wrap;
+    background: transparent;
+}
+
+.info_box .fancytree .fancytree-title {
+    display: unset;
+}
+
 /*device is used in templates for the boxes within the wiki text.*/
 .device {
     border: 1px solid #000000;
