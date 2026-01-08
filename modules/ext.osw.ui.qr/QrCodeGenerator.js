@@ -13,7 +13,7 @@ $(document).ready(function () {
 	).done(function () {
 		$(".QrCodeGenerator").each(function () {
 			var $element = $(this);
-			var $grid = $('<div></div>')
+			var $grid = $('<div></div>');
 			$grid.css("display", "grid");
 			$grid.css("grid-gap", "0px");
 

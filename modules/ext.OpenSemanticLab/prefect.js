@@ -258,11 +258,11 @@ $(document).ready(function () {
                 }
                 else if ( ["Cancelling", "Cancelled", "Failed", "Crashed", "Completed"].includes(state.name) )
                 {
-                    await setFlowState({...config, ...{state_name: "Scheduled", message: "Resheduled from OSW UI"}})
+                    await setFlowState({...config, ...{state_name: "Scheduled", message: "Resheduled from OSW UI"}});
                 }
                 else if ( ["Scheduled", "Pending", "Running", "Late"].includes(state.name) )
                 {
-                    await setFlowState({...config, ...{state_name: "Cancelling", message: "Cancelled from OSW UI"}})
+                    await setFlowState({...config, ...{state_name: "Cancelling", message: "Cancelled from OSW UI"}});
                 }
                 /*else {
                     window.open('https://' + config.host + '/flow-runs/flow-run/' + config.run_id, '_blank');
@@ -309,14 +309,14 @@ $(document).ready(function () {
                 for (const node in json['query']['results']) {
                     params.source_nodes.push({
                         wiki_page_title: node
-                    })
+                    });
                 }
             }
             return params;
         }
 
         async function fetchWorkflowMetadata(config) {
-            return await getJsonLd({wiki_page_title: config.workflow_title})
+            return await getJsonLd({wiki_page_title: config.workflow_title});
         }
 
         async function fetchWorkflowRunMetadata(config) {

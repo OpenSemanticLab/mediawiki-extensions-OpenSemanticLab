@@ -52,7 +52,7 @@ Array.from(document.getElementsByClassName('jsonld-header')).forEach(
 		var script = document.createElement('script');
 				jsonld = JSON.parse(element.dataset.jsonld);
 				for (var key of Object.keys(jsonld)) {
-					if (key === "image") jsonld[key] = jsonld[key].replaceAll("File:", "Special:Redirect/file/")
+					if (key === "image") jsonld[key] = jsonld[key].replaceAll("File:", "Special:Redirect/file/");
 				}
                 script.type = "application/ld+json";
                 script.innerHTML = JSON.stringify(jsonld, null, 4);

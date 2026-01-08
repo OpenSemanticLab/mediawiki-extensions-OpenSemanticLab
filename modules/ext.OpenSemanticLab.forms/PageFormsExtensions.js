@@ -195,7 +195,7 @@ $(document).ready(function() {
 				$prev.find("[id^='input']").each(function() { //filter all childs with id=input*
 					$input = $(this);
 					var id = "";//$input.attr('origname');
-					var name = $input.attr('name')
+					var name = $input.attr('name');
 					if (name) id = name.split('[')[2].split(']')[0]; //select 'id' from 'template[index][id]' or 'template[index][id][]'
 					var value = $input.val();
 					if (id !== "") values[id] = value;
@@ -220,10 +220,10 @@ $(document).ready(function() {
 				}
 
 				var id = "";//$input.attr('origname');
-				var name = $input.attr('name')
+				var name = $input.attr('name');
 				if (name) id = name.split('[')[2].split(']')[0]; //select 'id' from 'template[index][id]' or 'template[index][id][]'
 				if (id !== "" && values[id]) {
-					var value = values[id]
+					var value = values[id];
 					$incremented_field_div = $input.parents(".incrementField").first();
 					if (incremented_field) {
 						value = get_incremented_id(pattern, [value], number_pattern, increment); //create incremented value
@@ -383,9 +383,9 @@ $(document).ready(function() {
 				$.when.apply($, postqueries).done(function(){
 					if (context.debug) console.log("all post-queries done");
 					//$('[name=wpSave]').prop("disabled",false);
-				})
+				});
 			
-			})
+			});
 		});
 	//});
 });

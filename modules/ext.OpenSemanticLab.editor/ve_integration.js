@@ -258,7 +258,7 @@ var template_tools = [
 							//},
 						//],
 
-					}
+					};
 
 					//const editor_promise = new Promise((editor_resolve, editor_reject) => {
 						config.onsubmit = (jsondata) => {
@@ -278,12 +278,12 @@ var template_tools = [
 							//});
 							//return editor_promise;
 							return promise;
-						}
+						};
 					//});
 					
 					config.popupConfig.size = "medium";
 					config.popupConfig.toggle_fullscreen = true;
-					var editor = new mwjson.editor(config)
+					var editor = new mwjson.editor(config);
 				});
 
 			});
@@ -340,7 +340,7 @@ var template_tools = [
 						config.data.elements.push({
 							file: line.split("{{!}}")[0].replace(/^\s+|\s+$/g, ''), //trim whitespace
 							description: line.split("{{!}}")[1]
-						})
+						});
 					}
 				}
 			}
@@ -454,7 +454,7 @@ var template_tools = [
 									}
 								}
 							}
-					}
+					};
 
 					//const editor_promise = new Promise((editor_resolve, editor_reject) => {
 						config.onsubmit = (jsondata) => {
@@ -500,12 +500,12 @@ var template_tools = [
 							});
 							//return editor_promise;
 							return promise;
-						}
+						};
 					//});
 					
 					config.popupConfig.size = "large";
 					config.popupConfig.toggle_fullscreen = true;
-					var editor = new mwjson.editor(config)
+					var editor = new mwjson.editor(config);
 				});
 
 			});
@@ -887,5 +887,5 @@ function VeExtensions_create() {
 		if (this.registry.hasOwnProperty(name)) {
 			return this.registry[name];
 		}
-	}
+	};
 }

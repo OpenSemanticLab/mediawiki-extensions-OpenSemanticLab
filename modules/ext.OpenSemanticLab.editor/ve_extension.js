@@ -41,18 +41,18 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
                 //allHidden = false;
             }*/
             if ($(this).attr("href").includes("veaction=editsource") || ($(this).attr("href").includes("action=edit") && !$(this).attr("href").includes("veaction"))) { //source edit link
-                $(this).attr('style', function(i,s) { return (s || '') + 'display: none !important;' });
+                $(this).attr('style', function(i,s) { return (s || '') + 'display: none !important;'; });
                 //allHidden = false;
             }
             if ($(this).attr("href").includes("veaction=edit&")) { //visual edit link
-                if ($(this).attr("href").includes("section=T-")) $(this).attr('style', function(i,s) { return (s || '') + 'display: none !important;' }); 
+                if ($(this).attr("href").includes("section=T-")) $(this).attr('style', function(i,s) { return (s || '') + 'display: none !important;'; }); 
                 else {
-                    $(this).attr('style', function(i,s) { return (s || '') + 'display: inline-block !important;' }); 
+                    $(this).attr('style', function(i,s) { return (s || '') + 'display: inline-block !important;'; }); 
                     allHidden = false;
                 }
             }
         });
-        if (!allHidden) $(this).attr('style', function(i,s) { return (s || '') + 'display: inline-block !important;' }); 
+        if (!allHidden) $(this).attr('style', function(i,s) { return (s || '') + 'display: inline-block !important;'; }); 
     });
     $("#custom-ve-new-section-link").append(`<span class="mw-editsection" style="display: inline-block !important;"><span class="mw-editsection-bracket">[</span><a href="/wiki/${mw.config.get('wgPageName')}?veaction=edit&section=new" class="mw-editsection-visualeditor" title="Bearbeiten" style="display: inline-block !important;">Abschnitt hinzufügen</a><span class="mw-editsection-bracket">]</span></span>`);
     $("#custom-ve-add-first-section-link").each(function() {
@@ -203,7 +203,7 @@ $(document).ready(function() {
                     label: [{"text": file.label, "lang": "en"}],
                     editor: ["User:" + mw.config.get('wgUserName')],
                     editing_context: [mw.config.get('wgPageName')]
-                }
+                };
                 
                 page.slots['jsondata'] = mwjson.util.mergeDeep(jsondata, page.slots['jsondata']);
                 page.slots['jsondata']['editor'] = mwjson.util.uniqueArray(page.slots['jsondata']['editor']);
@@ -215,22 +215,22 @@ $(document).ready(function() {
                 osl.util.postProcessPage(page).then((page) => {
                     if (page.exists) {
                         if (debug) console.log("Page exists with content: ", page);
-                        mwjson.api.updatePage(page, `Edited with ${editor}`)
+                        mwjson.api.updatePage(page, `Edited with ${editor}`);
                     }
                     else {
-                        mwjson.api.updatePage(page, `Created with ${editor}`).then( () => {if (debug) console.log("Page created")});
+                        mwjson.api.updatePage(page, `Created with ${editor}`).then( () => {if (debug) console.log("Page created");});
                     }
                 });
             });		
         }
         
-        mw.hook( 'jsoneditor.file.uploaded' ).add( (file) => {fileUploadHandler("JsonEditor", file)});
-        mw.hook( 'svgeditor.file.uploaded' ).add( (file) => {fileUploadHandler("SvgEditor", file)});
-        mw.hook( 'wellplateeditor.file.uploaded' ).add( (file) => {fileUploadHandler("WellplateEditor", file)});
-        mw.hook( 'drawioeditor.file.uploaded' ).add( (file) => {fileUploadHandler("DrawIoEditor", file)});
-        mw.hook( 'kekuleeditor.file.uploaded' ).add( (file) => {fileUploadHandler("KekuleEditor", file)});
-        mw.hook( 'spreadsheeteditor.file.uploaded' ).add( (file) => {fileUploadHandler("LuckySheetEditor", file)});
-        mw.hook( 'simplebatchupload.file.uploaded' ).add( (file) => {fileUploadHandler("SimpleBatchUpload", file)}); 
+        mw.hook( 'jsoneditor.file.uploaded' ).add( (file) => {fileUploadHandler("JsonEditor", file);});
+        mw.hook( 'svgeditor.file.uploaded' ).add( (file) => {fileUploadHandler("SvgEditor", file);});
+        mw.hook( 'wellplateeditor.file.uploaded' ).add( (file) => {fileUploadHandler("WellplateEditor", file);});
+        mw.hook( 'drawioeditor.file.uploaded' ).add( (file) => {fileUploadHandler("DrawIoEditor", file);});
+        mw.hook( 'kekuleeditor.file.uploaded' ).add( (file) => {fileUploadHandler("KekuleEditor", file);});
+        mw.hook( 'spreadsheeteditor.file.uploaded' ).add( (file) => {fileUploadHandler("LuckySheetEditor", file);});
+        mw.hook( 'simplebatchupload.file.uploaded' ).add( (file) => {fileUploadHandler("SimpleBatchUpload", file);}); 
         mw.hook( 'simplebatchupload.files.uploaded' ).add( (result) => {
             console.log(result.files);
             mwjson.api.getPage(mw.config.get('wgPageName')).then( (page) => {

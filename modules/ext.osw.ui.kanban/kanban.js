@@ -52,7 +52,7 @@ $(document).ready(function () {
                         autosave: params.board.autosave
                     }).then(() => {
                         console.log("Edited", page);
-                        params.task.remove()
+                        params.task.remove();
                         //params.task.jsondata = page.slots.jsondata;
                         params.board.insertTask({task: {jsondata: page.slots.jsondata}});
                         //params.task.refresh();
@@ -67,7 +67,7 @@ $(document).ready(function () {
                         osl.util.postProcessPage(page).then((page) => {   
                             page.slots['jsondata'] = params.task.jsondata;
                             page.slots_changed['jsondata'] = true;
-                            mwjson.api.updatePage(page, "Edited with Kanban-Board")                     
+                            mwjson.api.updatePage(page, "Edited with Kanban-Board");                     
                         });
                     });
                 }
@@ -80,12 +80,12 @@ $(document).ready(function () {
                         osl.util.postProcessPage(page).then((page) => {
                             page.slots['jsondata'] = task.jsondata;
                             page.slots_changed['jsondata'] = true;
-                            mwjson.api.updatePage(page, "Edited with Kanban-Board")
+                            mwjson.api.updatePage(page, "Edited with Kanban-Board");
                         });
                     });
                 }
             }
-        }
+        };
 
         window.kanban = new osl.kanban.Kanban(config);
         console.log("Kanban init");
@@ -100,7 +100,7 @@ $(document).ready(function () {
                 container: this,
                 autosave: true,
                 default_jsondata: {},
-            }
+            };
 
             var board_prio_backlog_inwork_done = {
                 container: this,
@@ -293,11 +293,11 @@ osl.kanban = class {
         if (osl.kanban.hasClass(ev.target, "dropzone")) {
             osl.kanban.addClass(ev.target, "droppable");
         }
-    }
+    };
 
     static clearDrop = (ev) => {
         osl.kanban.removeClass(ev.target, "droppable");
-    }
+    };
 
     // helpers
     static hasClass(target, className) {
@@ -322,10 +322,10 @@ osl.kanban = class {
     static mergeObjectArray(a, b, key) {
         let a_dict = {};
         let b_dict = {};
-        for (const ai of a) a_dict[ai[key]] = ai
-        for (const bi of b) b_dict[bi[key]] = bi
-        let dict = mwjson.util.mergeDeep(a_dict, b_dict)
-        let arr = []
+        for (const ai of a) a_dict[ai[key]] = ai;
+        for (const bi of b) b_dict[bi[key]] = bi;
+        let dict = mwjson.util.mergeDeep(a_dict, b_dict);
+        let arr = [];
         for (const i of Object.keys(dict)) arr.push(dict[i]);
         return arr;
     }
@@ -360,14 +360,14 @@ osl.kanban = class {
         else return ("#ffffff");
     }
 
-}
+};
 
 osl.kanban.Kanban = class {
     constructor(params) {
         params = params || {};
         this.config = params;
         this.id = params.id ? params.id : mwjson.util.uuidv4();
-        this.tasks = []
+        this.tasks = [];
     }
 
     static version = "0.0.1";
@@ -419,7 +419,7 @@ osl.kanban.Kanban = class {
     onChange(params) {
         if (this.config.onChange) this.config.onChange(params);
     }
-}
+};
 
 osl.kanban.Board = class {
     constructor(params) {
@@ -481,7 +481,7 @@ osl.kanban.Board = class {
     }
 
     insertTask(params) {
-        console.log("board insertTask")
+        console.log("board insertTask");
         let res = {};
         res.inserted = false;
         for (const lane of this.lanes)
@@ -554,7 +554,7 @@ osl.kanban.Board = class {
         params.board = this;
         this.parent.onChange(params);
     }
-}
+};
 
 osl.kanban.Lane = class {
     constructor(params) {
@@ -597,7 +597,7 @@ osl.kanban.Lane = class {
             params.board.parent = this;
             this.nested_board = new osl.kanban.Board(params.board);
         }
-        this.refresh()
+        this.refresh();
     }
 
     getHtml() {
@@ -757,7 +757,7 @@ osl.kanban.Lane = class {
         this.parent.onEdit(params);
     }
 
-}
+};
 
 osl.kanban.Task = class {
     constructor(params) {
@@ -872,7 +872,7 @@ osl.kanban.Task = class {
     }
 
     getTagConfig() {
-        return this.parent.getTagConfig()
+        return this.parent.getTagConfig();
     }
 
     getHtml() {
@@ -911,5 +911,5 @@ osl.kanban.Task = class {
         this.refresh();
     }
 
-}
+};
 

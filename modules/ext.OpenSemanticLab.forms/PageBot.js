@@ -85,7 +85,7 @@ $(document).ready(function () {
                         ],
                         "redirect": (page) => new mw.Title( page.title ).getUrl({"action": "formedit", "returnto": mw.config.get( 'wgPageName' )})
                     })`
-                    )
+                    );
                     $(this).append($element);
                 }
                 /*mwjson.util.addBarLink({"label": mw.message('open-semantic-lab-copy-page'), 
@@ -151,7 +151,7 @@ $(document).ready(function () {
                 // edit-data should use the type of the existing entity as default
                 if (config.action !== "edit-data" && !config.params.categories) config.params.categories = [mw.config.get("wgPageName")];
 
-                var configs = []
+                var configs = [];
                 if (config.action === "menu-dropdown") {
                     $(this).addClass("dropdown show");
                     config.id = "dropdown-" + mwjson.util.getShortUid();
@@ -258,30 +258,30 @@ $(document).ready(function () {
                     else if (jsondata.utf8_icon && mwjson.util.isArray(jsondata.utf8_icon)) config.icon = jsondata.utf8_icon[0];
 
                     if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(config.icon);
-                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="' + mw.util.getUrl(config.categories[0]) + '">' + config.title + '</a>'))
+                    if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append($('<a href="' + mw.util.getUrl(config.categories[0]) + '">' + config.title + '</a>'));
                     if ($(this).find(".custom-link-tile2_text").text() === "") $(this).find(".custom-link-tile2_text").text(config.description);
 
                     var url = mw.config.get('wgArticlePath').replace('$1', "Special:Login");
 
                     if (config.action === "create-instance") {
                         var label = mw.message('open-semantic-lab-create-instance-short').text();
-                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createInstance(["${config.categories[0]}"]);`
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createInstance(["${config.categories[0]}"]);`;
                         else label =  "🔒 " + label;
                         if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
-                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`));
                     }
                     if (config.action === "create-subcategory") {
                         var label = mw.message('open-semantic-lab-create-subcategory').text();
-                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createSubcategory(["${config.categories[0]}"]);`
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.createSubcategory(["${config.categories[0]}"]);`;
                         else label =  "🔒 " + label;
                         if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "➕");
-                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`));
                     }
                     else if (config.action === "query-instance") {
                         var label = mw.message('open-semantic-lab-query-instance-short').text();
-                        if (userInfo.userCanEdit) url = `javascript:osl.ui.queryInstance(["${config.categories[0]}"]);`
+                        if (userInfo.userCanEdit) url = `javascript:osl.ui.queryInstance(["${config.categories[0]}"]);`;
                         if ($(this).find(".custom-link-tile2_image").attr('data-icon-2') === "") $(this).find(".custom-link-tile2_image").attr('data-icon-2', "🔍");
-                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`))
+                        $(this).find(".custom-link-tile2_btn").append($(`<a href='${url}'>${label}</a>`));
                     }
 
                     $(this).css('visibility', 'visible');
@@ -289,7 +289,7 @@ $(document).ready(function () {
                 })
                 .catch(error => {
                     // typical: user has no read rights
-                    console.log("ERROR:", error)
+                    console.log("ERROR:", error);
 
                     if ($(this).find(".custom-link-tile2_image").text() === "") $(this).find(".custom-link-tile2_image").text(config.icon);
                     if ($(this).find(".custom-link-tile2_title").text() === "") $(this).find(".custom-link-tile2_title").append(config.title);
@@ -347,9 +347,9 @@ osl.util = class {
 
     static getRelativeJsonSchemaUrl(title, pretty=true) {
         if (title.startsWith("JsonSchema:")) {
-            return mwjson.util.getRelativePageUrl(title, {"action": "raw"}, pretty)
+            return mwjson.util.getRelativePageUrl(title, {"action": "raw"}, pretty);
         }
-		return mwjson.util.getRelativePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty)
+		return mwjson.util.getRelativePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty);
 	}
 
     static postProcessPage(page, categories = []) {
@@ -357,18 +357,18 @@ osl.util = class {
         //if (namespace_prefix === "Item:" || namespace_prefix === "Category:" || namespace_prefix === "Property:") {
         //could not be solved by modified RevisionRecord.php.
         if (page.slots['header'] !== "{{#invoke:Entity|header}}") {
-            page.slots['header'] = "{{#invoke:Entity|header}}"
+            page.slots['header'] = "{{#invoke:Entity|header}}";
             page.slots_changed['header'] = true;
         }
         if (page.slots['footer'] !== "{{#invoke:Entity|footer}}") {
-            page.slots['footer'] = "{{#invoke:Entity|footer}}"
+            page.slots['footer'] = "{{#invoke:Entity|footer}}";
             page.slots_changed['footer'] = true;
         }
         //}
 
         if (page.slots['jsondata']) {
             if (mwjson.util.isString(page.slots['jsondata']))
-                page.slots['jsondata'] = JSON.parse(page.slots['jsondata'])
+                page.slots['jsondata'] = JSON.parse(page.slots['jsondata']);
             var org_name = page.slots['jsondata']['name'];
             var name = "";
             if (!org_name || org_name === "") {
@@ -389,7 +389,7 @@ osl.util = class {
         }
         if (page.slots['jsonschema']) {
             if (mwjson.util.isString(page.slots['jsonschema']))
-                page.slots['jsonschema'] = JSON.parse(page.slots['jsonschema'])
+                page.slots['jsonschema'] = JSON.parse(page.slots['jsonschema']);
             /* title is generated by Category:Category schema_template
             var org_title = page.slots['jsonschema']['title'];
             var title = "";
@@ -457,7 +457,7 @@ osl.util = class {
                                 page.slots['jsondata']
                             )));
                         } catch (error) {
-                            console.error("Error while parsing handlebars template schema_template: ", template_text, error)
+                            console.error("Error while parsing handlebars template schema_template: ", template_text, error);
                         }
 
                         try {
@@ -495,7 +495,7 @@ osl.util = class {
                                         page.slots['jsonschema']['@context'] = mwjson.util.mergeDeep({'@context': existing_context}, {'@context': generated_context})['@context'];
                                         page.slots['jsonschema']['@context'] = mwjson.util.mergeJsonLdContextObjectList(page.slots['jsonschema']['@context']);
                                     }
-                                    if (!page.slots['jsonschema'][def_key]) page.slots['jsonschema'][def_key] = {}
+                                    if (!page.slots['jsonschema'][def_key]) page.slots['jsonschema'][def_key] = {};
                                     if (!page.slots['jsonschema'][def_key][gen_def_key]) page.slots['jsonschema'][def_key][gen_def_key] = {"$comment": "Autogenerated section - do not edit. Generated from"};
                                     page.slots['jsonschema'][def_key][gen_def_key]['$comment'] += " " + category_page.title;
                                     //page.slots['jsonschema'][def_key][gen_def_key] = generated_schema; // full override
@@ -549,11 +549,11 @@ osl.util = class {
                     const category_page = result.value;
                     if (category_page.slots['jsondata']) {
                         if (mwjson.util.isString(category_page.slots['jsondata']))
-                            category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata'])
+                            category_page.slots['jsondata'] = JSON.parse(category_page.slots['jsondata']);
                         if (category_page.slots['jsondata']['subclass_of'])
-                            parents = parents.concat(category_page.slots['jsondata']['subclass_of'])
+                            parents = parents.concat(category_page.slots['jsondata']['subclass_of']);
                         if (category_page.slots['jsondata']['metaclass'])
-                            meta_categories = meta_categories.concat(category_page.slots['jsondata']['metaclass'])
+                            meta_categories = meta_categories.concat(category_page.slots['jsondata']['metaclass']);
                     }
                 }
                 if (!meta_categories.length && parents.length) {
@@ -567,7 +567,7 @@ osl.util = class {
         });
         return promise;
     }
-}
+};
 
 osl.ui = class {
     constructor() {
@@ -594,7 +594,7 @@ osl.ui = class {
         $('[class]').each(function () {
             $($(this).attr('class').split(' ')).each(function () {
                 if (this.length > 0 && $.inArray(this.valueOf(), classes) === -1) {
-                    var value = this.valueOf()
+                    var value = this.valueOf();
                     if (value.startsWith('print-section-')) {
                         classes.push(value);
                         msgs.push('open-semantic-lab-' + value);
@@ -615,7 +615,7 @@ osl.ui = class {
                 "required": [],
                 "properties": {
                 }
-            }
+            };
 
             classes.forEach(element => {
                 console.log(element);
@@ -713,9 +713,9 @@ osl.ui = class {
                             else detached.parent.children().eq(detached.index-1).after(detached.bar);
                         }
                         pdfObject.save($('#firstHeading').text().replace(' ', '_') + ".pdf");
-                    })
-            }
-            if (classes.length) var editor = new mwjson.editor(config)
+                    });
+            };
+            if (classes.length) var editor = new mwjson.editor(config);
             else config.onsubmit({}, {});
         });
     }
@@ -757,7 +757,7 @@ osl.ui = class {
                 console.log(params.editor.jsonschema.subschemas_uuids, " => ", target);  
                 return target;
             }
-        }
+        };
     }
 
     static editData(params) {
@@ -799,7 +799,7 @@ osl.ui = class {
             config.JSONEditorConfig.disable_edit_json = false;
             config.JSONEditorConfig.disable_properties = false;
             config.JSONEditorConfig.show_errors = 'never';
-            config.popupConfig.edit_comment_required = true // comment for documentation required
+            config.popupConfig.edit_comment_required = true; // comment for documentation required
         }
 
         var multi_edit = true;
@@ -828,14 +828,14 @@ osl.ui = class {
             ).done(function (pages) {
 
                 //build schema
-                var jsondata_array = []
+                var jsondata_array = [];
 
                 if (!pages || pages.length === 0) {
                     if (params.categories) {
-                        config.schema = { "allOf": [] }
+                        config.schema = { "allOf": [] };
                         if (!Array.isArray(params.categories)) params.categories = [params.categories];
                         for (const category of params.categories) {
-                            config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) })
+                            config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) });
                         }
                     }
                 }
@@ -858,16 +858,16 @@ osl.ui = class {
                         if (params.categories) jsondata.type = params.categories; //override type / schema
 
                         if (jsondata.type) {
-                            config.schema = { "allOf": [] }
+                            config.schema = { "allOf": [] };
                             if (Array.isArray(jsondata.type)) {
                                 for (const category of jsondata.type) {
                                     categories.push(category);
-                                    config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) })
+                                    config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(category) });
                                 }
                             }
                             else if (typeof jsondata.type === 'string' || jsondata.type instanceof String) {
                                 categories.push(jsondata.type);
-                                config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(jsondata.type) })
+                                config.schema["allOf"].push({ "$ref": osl.util.getAbsoluteJsonSchemaUrl(jsondata.type) });
                             }
                             else {
                                 console.log("Error: Page has no jsonschema");
@@ -906,7 +906,7 @@ osl.ui = class {
                         jsondata['based_on'] = [params.source_page[page_index]];
                         var label = jsondata['label'] ? jsondata['label'][0]['text'] : "";
                         var lang = jsondata['label'] ? jsondata['label'][0]['lang'] : "en";
-                        if (!label.includes("Copy")) label += " Copy 1"
+                        if (!label.includes("Copy")) label += " Copy 1";
                         else {
                             // From: https://stackoverflow.com/questions/21122338/how-to-increment-a-string-in-javascript
                             // Find the trailing number or it will match the empty string
@@ -925,7 +925,7 @@ osl.ui = class {
                         page.exists = false;
                     }
 
-                    jsondata_array.push(jsondata)
+                    jsondata_array.push(jsondata);
                 }
 
                 if (multi_edit) {
@@ -983,7 +983,7 @@ osl.ui = class {
                             title: "Item" + ":" + mwjson.util.OswId(e['uuid']), // ToDo: Detect namespace
                             exists: false, changed: true, content: "",
                             slots: { main: "" }, slots_changed: { main: true }, content_model: { main: "wikitext" },
-                        }
+                        };
                         _page.slots[dataslot] = e;
                         _page.slots_changed[dataslot] = true;
                         _page.content_model[dataslot] = "json";
@@ -1008,7 +1008,7 @@ osl.ui = class {
                         const page_namespace = new mw.Title(page.title).getNamespacePrefix().replace(":", "");
                         if (page_namespace === "Category") {
                             // determine all metacategories. Different from createSubcategory, where we lookup only the nearest metacategory
-                            let meta_categories = ["Category:Category"]
+                            let meta_categories = ["Category:Category"];
                             for (const subschema_uuid of editor.jsonschema.subschemas_uuids) { // note: this also includes Characteristic-Categories
 
                                 if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
@@ -1066,14 +1066,14 @@ osl.ui = class {
                                 if (params.reload) 
                                     window.location.href = window.location.href;
                             }
-                            else resolve(processedPages[0])
+                            else resolve(processedPages[0]);
                         });
 
                     return promise;
-                }
+                };
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
-                var editor = new mwjson.editor(config)
+                var editor = new mwjson.editor(config);
             });
         });
 
@@ -1124,7 +1124,7 @@ osl.ui = class {
                 config.data = page.slots;
 
                 config.onsubmit = (slots, meta) => {
-                    console.log(meta)
+                    console.log(meta);
                     page.slots = slots;
                     console.log(page.slots);
                     for (var slot_key of Object.keys(page.slots)) {
@@ -1140,10 +1140,10 @@ osl.ui = class {
                     });
 
                     return promise;
-                }
+                };
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
-                var editor = new mwjson.editor(config)
+                var editor = new mwjson.editor(config);
             });
         });
 
@@ -1202,7 +1202,7 @@ osl.ui = class {
                         page.slots_changed['jsondata'] = true;
 
                         //console.log(editor.jsonschema.subschemas_uuids);
-                        meta_categories = ["Category:Category"]
+                        meta_categories = ["Category:Category"];
                         for (const subschema_uuid of editor.jsonschema.subschemas_uuids) {
 
                             if (subschema_uuid !== "89aafe6d-ae5a-4f29-97ff-df7736d4cab6" && subschema_uuid !== "ce353767-c628-45bd-9d88-d6eb3009aec0") {//Category:Category, Category:Entity
@@ -1222,10 +1222,10 @@ osl.ui = class {
 
                     return promise;
 
-                }
+                };
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
-                var editor = new mwjson.editor(config)
+                var editor = new mwjson.editor(config);
             });
         });
 
@@ -1280,7 +1280,7 @@ osl.ui = class {
                 mwjson.editor.init()
             ).done(function () {
 
-                config.schema = { "allOf": [] }
+                config.schema = { "allOf": [] };
 
                 //if (mode !== 'query') 
                 //config.data = { "type": [] } // prevents json-editor from displaying defaultProperties not contained in config.data
@@ -1317,11 +1317,11 @@ osl.ui = class {
                             });
                         });
                         return promise;
-                    }
+                    };
                 }
                 config.popupConfig.size = "larger";
                 config.popupConfig.toggle_fullscreen = true;
-                var editor = new mwjson.editor(config)
+                var editor = new mwjson.editor(config);
             });
 
         });
@@ -1379,17 +1379,17 @@ osl.ui = class {
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true
             }
-        }
+        };
         var preview_config = {
 
-        }
+        };
         schema_config = mwjson.util.mergeDeep(schema_config, params.schema_editor);
         data_config = mwjson.util.mergeDeep(data_config, params.data_editor);
         preview_config = mwjson.util.mergeDeep(preview_config, params.preview);
 
         data_config.schema = mwjson.util.deepCopy(schema_config.data.jsonschema);
 
-        console.log(schema_config, data_config, preview_config)
+        console.log(schema_config, data_config, preview_config);
 
         const promise = new Promise((resolve, reject) => {
 
@@ -1432,7 +1432,7 @@ osl.ui = class {
                     data_editor.createUI();
                     //virtual_page.slots['jsondata'] = data_editor.getData(); //not loaded yet
                     //osl.ui.createPagePreview(preview_config);
-                }
+                };
 
                 data_config.onsubmit = (jsondata, meta) => {
                     //virtual_page.slots = schema_editor.getData();
@@ -1440,7 +1440,7 @@ osl.ui = class {
                     virtual_page.slots['jsondata'] = jsondata;
                     if (mwjson.util.isString(virtual_page.slots['jsonschema'])) virtual_page.slots['jsonschema'] = JSON.parse(virtual_page.slots['jsonschema']);
                     osl.ui.createPagePreview(preview_config);
-                }
+                };
 
                 schema_editor = new mwjson.editor(schema_config);
                 data_editor = new mwjson.editor(data_config);
@@ -1451,4 +1451,4 @@ osl.ui = class {
 
         return promise;
     }
-}
+};
