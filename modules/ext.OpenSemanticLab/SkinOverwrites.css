@@ -46,6 +46,14 @@ REL: modules/ext.OpenSemanticLab/SkinOverwrites.css
     padding-left: unset;
 }
 
+/* --padding-page is "2*16px" with needs calc() to work */
+.citizen-body-container {
+    padding: 0 calc(var(--padding-page)) !important;
+}
+.citizen-footer {
+    padding: var(--space-xxl) calc(var(--padding-page)) !important;
+}
+
 /* prevent overwriting by bootstrap (use by jsoneditor) */
 /*body.mediawiki {
 	background: #72777d; => conflic with Reveals.js
