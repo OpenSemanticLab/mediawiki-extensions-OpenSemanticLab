@@ -702,6 +702,7 @@ function VeExtensions_create() {
 				else if (template_tool.dialog_type === 'custom_dialog') {
 					//store current position
 					var currentPos = surface.getModel().getFragment().getSelection().getCoveringRange().start;
+					var currentEndPos = surface.getModel().getFragment().getSelection().getCoveringRange().end;
 
 					if (args[0] === "transclusion") {
 						//console.log("Edit existing template");
@@ -740,7 +741,7 @@ function VeExtensions_create() {
 
 								//restore position
 								//console.log("Restore position ", currentPos);
-								//surface.getModel().setLinearSelection(new ve.Range(0, currentPos));
+								//surface.getModel().setLinearSelection(new ve.Range(currentPos, currentEndPos));
 
 								//insert template (don't replace existing)
 								//surface.getModel().getFragment().collapseToEnd().insertContent(args[0], args[1]).select();
@@ -840,6 +841,20 @@ function VeExtensions_create() {
 		};
 
 		//console.log(name);
+
+		/*if (name === 'link' && ve.init.target.getSurface() && ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange()) {
+			var currentPos = ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange().start;
+			var model = ve.init.target.getSurface().getModel().documentModel.data.data[currentPos];
+			console.log(model);
+			var annotations = ve.init.target.getSurface().getModel().getFragment().getAnnotations(true);
+			console.log(annotations);
+			var selectedText = ve.init.target.getSurface().getModel().getFragment().getText();
+			console.log(selectedText);
+
+		}
+
+		else */
+		
 		if ((name === 'transclusion' || name === 'link') && ve.init.target.getSurface() && ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange()) {
 			var currentPos = ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange().start;
 			var data = ve.init.target.getSurface().getModel().documentModel.data.data[currentPos];

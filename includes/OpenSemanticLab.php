@@ -371,6 +371,12 @@ class OpenSemanticLab {
 
 		$out->addModules( 'ext.osw.ui.qr' );
 		$out->addModules( 'ext.osw.ui.kanban' );
+		#$out->addModules( 'ext.osw.cards' );
+		$script = '
+		<link rel="stylesheet" type="text/css" href="/w/extensions/OpenSemanticLab/modules/ext.osw.cards/vue-tiles/dist/assets/index.css">
+		<script type="module" crossorigin src="/w/extensions/OpenSemanticLab/modules/ext.osw.cards/vue-tiles/dist/assets/index.js"></script>
+		';
+		$out->addHeadItem("vue-cards script", $script);
 
 		return true;
 

@@ -10,6 +10,7 @@ $(document).ready(function () {
         mw.loader.using('ext.mwjson.api'),
         mw.loader.using('ext.mwjson.parser'),
         mw.loader.using('ext.mwjson.editor'),
+        //mw.loader.using('ext.OpenSemanticLab.print'),
         //$.getScript("//cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.js"),
         //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.1.5/html2canvas.js"),
         //$.getScript("//cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.12/purify.min.js"),
@@ -20,6 +21,8 @@ $(document).ready(function () {
         $.when(
             mwjson.api.getUserInfo()
         ).done(function (userInfo) {
+
+            osl.ui.setPageFavicon();
 
             //Create Copy link in the page tools sidebar
             let current_title = new mw.Title(mw.config.get("wgPageName"));
@@ -319,7 +322,9 @@ $(document).ready(function () {
                         hide: ["footer", "header", "jsondata"]
                     },
                     data_editor: { container: this },
-                    preview: {}
+                    preview: {
+                        
+                    }
                 };
                 var userOptions = {};
 
@@ -330,6 +335,148 @@ $(document).ready(function () {
                 config.preview.container = document.getElementById(config.preview.container_id);
                 osl.ui.createPreviewEditor(config);
             });
+
+            if ($('.openlca-report').length) { //only on pages with a openlca-report-div
+                $.when(
+                    mw.loader.using('ext.openlca'),
+                ).done(function () {
+                    $(".openlca-report").each(function () {
+                        var defaultOptions = {
+                            container: this
+                        };
+                        var userOptions = {};
+
+                        if (this.dataset.config) userOptions = JSON.parse(this.dataset.config);
+                        var config = mwjson.util.mergeDeep(defaultOptions, userOptions);
+
+                        report = {};
+                        if (this.dataset.report) report = JSON.parse(this.dataset.report);
+
+                        // we have to modify report.js:
+                        // window.setData=function(e) .. document.getElementById("react-root")
+                        // => window.openlca = {}; window.openlca.createReport=function(e, cid) .. document.getElementById(cid)
+                        //$(this).append($(`<div id="react-root"></div>`))
+                        //window.setData(report);
+                        window.openlca.createReport(report, $(this).attr('id'))
+                    });
+                });
+            }
+
+            if ($('.drawio-dashboard').length) {
+                $.when(
+                    //$.getScript("//cdn.plot.ly/plotly-latest.min.js"),
+                ).done(function () {
+
+
+
+                    function changeTag(node, tag) {
+                        const clone = createElement(tag)
+                        for (const attr of node.attributes) {
+                            clone.setAttributeNS(null, attr.name, attr.value)
+                        }
+                        while (node.firstChild) {
+                            clone.appendChild(node.firstChild)
+                        }
+                        node.replaceWith(clone)
+                        return clone
+                    }
+
+                    function createElement(tag) {
+                        if (tag === 'svg') {
+                            return document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+                        } else {
+                            return document.createElementNS('http://www.w3.org/1999/xhtml', tag)
+                        }
+                    }
+
+                    function createPlots() {
+                        //https://stackoverflow.com/questions/23034283/is-it-possible-to-use-htmls-queryselector-to-select-by-xlink-attribute-in-an
+                        var links = document.querySelectorAll('.drawio-dashboard svg a[*|href*=OSW]')
+                        console.log(links)
+                        for (var link of links) {
+                            var rect = link.querySelectorAll('rect')[0]
+                            console.log(rect)
+                            var foreignObject = changeTag(rect, 'foreignObject')
+                            var body = document.createElementNS('http://www.w3.org/1999/xhtml', 'body')
+                            body.setAttribute('xmlns', "http://www.w3.org/1999/xhtml");
+                            var div = document.createElementNS('http://www.w3.org/1999/xhtml', 'div')
+                            //var div = document.createElement('div')
+                            div.setAttribute('id', "tester1");
+                            div.setAttribute('style', "width:100%;height:100%;");
+                            div.setAttribute('class', "drawio-dashboard-element");
+                            body.appendChild(div)
+                            foreignObject.appendChild(body)
+                            
+                            console.log(body)
+                        }
+                        //https://stackoverflow.com/questions/36339444/how-to-redraw-svg-after-change-from-javascript-internet-explorer-and-edge
+                        for (var svg_element of document.querySelectorAll('.drawio-dashboard')) svg_element.innerHTML += "";
+
+                        var elements = document.querySelectorAll('.drawio-dashboard-element');
+                        //var elements = document.querySelectorAll('.drawio-dashboard-testplot');
+                        //return;
+                        function rand() {
+                            return Math.random();
+                        }
+
+                        for (var el of elements) {
+                            Plotly.plot(el, [{
+                                y: [1, 2, 3].map(rand)
+                            }, {
+                                y: [1, 2, 3].map(rand)
+                            }]);
+                        }
+
+                        var cnt = 0;
+
+                        var interval = setInterval(function () {
+
+                            for (var el of elements) {
+                                Plotly.extendTraces(el, {
+                                    y: [[rand()], [rand()]]
+                                }, [0, 1])
+                            }
+
+                            if (cnt === 100) clearInterval(interval);
+                        }, 300);
+                    }
+
+                    //Replace all SVG images with inline SVG
+                    $('.drawio-dashboard img').each(function () {
+                        var $img = $(this);
+                        var imgClass = $img.attr('class');
+                        var imgURL = $img.attr('src');
+
+                        $.get(imgURL, function (data) {
+                            // Get the SVG tag, ignore the rest
+                            var $svg = $(data).find('svg');
+
+                            // Add replaced image's classes to the new SVG
+                            if (typeof imgClass !== 'undefined') {
+                                $svg = $svg.attr('class', imgClass + ' replaced-svg');
+                            }
+
+                            // Remove any invalid XML tags as per http://validator.w3.org
+                            $svg = $svg.removeAttr('xmlns:a');
+
+                            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+                            if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+                                $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+                            }
+
+                            // Replace image with new SVG
+                            //$img.replaceWith($svg);
+
+                            $svg.insertAfter($img);
+                            $img.hide();
+
+                            createPlots();
+
+                        }, 'xml');
+
+                    });
+                });
+            }
         });
     });
 });
@@ -420,7 +567,7 @@ osl.util = class {
                 promises.push(p);
             }
             Promise.allSettled(promises).then((results) => {
-
+                console.log("Meta categories:", categories);
                 let mode = 'root_level';
                 if (categories.includes("Category:OSWffe74f291d354037b318c422591c5023")) mode = 'definitions_section'; // only enable new mode for Characteristics
                 // Settings for mode definitions_section
@@ -573,6 +720,30 @@ osl.ui = class {
     constructor() {
     }
 
+    static async setPageFavicon() {
+        // see https://www.mediawiki.org/wiki/Extension:PageImages#API
+        // ToDo: Do this server side
+        let query_url =  mw.config.get("wgScriptPath") + "/api.php?action=query&format=json&prop=pageimages&formatversion=2&titles=" + mw.config.get("wgPageName");
+        let result = await (await fetch(query_url)).json();
+        if (result?.query?.pages?.[0]?.thumbnail?.source) {
+            // the result page title respects redirects,
+            // e.g. Item:... is returned if User:... redirects to Item:...
+            for (let page_title in result.query.results) user_page_or_item = page_title;
+        
+            // https://stackoverflow.com/questions/260857/changing-website-favicon-dynamically
+            var link = document.querySelector("link[rel~='icon']");
+            if (!link) {
+                link = document.createElement('link');
+                link.rel = 'icon';
+                document.head.appendChild(link);
+            }
+            //link.href = 'https://stackoverflow.com/favicon.ico';
+            //link.href = "https://wiki-dev.open-semantic-lab.org/w/img_auth.php/9/96/OSW1d181dc59c7b4ee287d1e42b0f430750.png";
+            link.href = result?.query?.pages?.[0]?.thumbnail?.source;
+        }
+    }
+        
+
     static printPage() {
         console.log("Print PDF");
 
@@ -605,6 +776,14 @@ osl.ui = class {
 
         $.when(
             mw.loader.using('ext.OpenSemanticLab.print'),
+        //$.getScript("//cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.js"),
+        //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"),
+       //$.getScript("//cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"),
+        //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2canvas/1.1.5/html2canvas.js"),
+
+        //$.getScript("//cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.12/purify.min.js"),
+        //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"),
+        //$.getScript("//cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"),
             new mw.Api().loadMessagesIfMissing(msgs),
             mwjson.editor.init()
         ).done(function () {
@@ -723,6 +902,7 @@ osl.ui = class {
     static getDefaultEditorConfig(){
         return {
             onEditInline: (params) => osl.ui.editData({source_page: params.page_title, reload: false, mode: params.mode}),
+            //onCopyInline: (params) => osl.ui.editData({source_page: params.page_title, reload: false}),
             onCreateInline: (params) => {
                 if (params.super_categories) return osl.ui.createSubcategory(params.super_categories, params.categories, "inline");
                 else if (params.categories) return osl.ui.createOrQueryInstance(params.categories, "inline");
@@ -766,6 +946,7 @@ osl.ui = class {
             source_page: mw.config.get('wgPageName'),
             autosave: true,
             reload: true,
+            //reload_target: 
             //categories //to override the schema
             //source_page_obj // already loaded page object(s), e.g. from kanban board
         }, params);
@@ -1220,7 +1401,7 @@ osl.ui = class {
                         });
                     });
 
-                    return promise;
+                    return promise; //needed?
 
                 };
                 config.popupConfig.size = "larger";
@@ -1260,6 +1441,8 @@ osl.ui = class {
             config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-query-dialog-title").plain();
             config.popupConfig.msg["continue"] = mw.message("open-semantic-lab-query-dialog-continue").plain();
             config.popupConfig.msg["cancel"] = mw.message("open-semantic-lab-query-dialog-cancel").plain();
+            config.JSONEditorConfig.disable_properties = false;
+            config.JSONEditorConfig.no_additional_properties = true;
         }
         else {
             config.popupConfig.msg["dialog-title"] = mw.message("open-semantic-lab-edit-page-data-dialog-title").plain();
@@ -1316,7 +1499,7 @@ osl.ui = class {
                                 });
                             });
                         });
-                        return promise;
+                        return promise; //needed?
                     };
                 }
                 config.popupConfig.size = "larger";
@@ -1356,7 +1539,7 @@ osl.ui = class {
         mwjson.api.parseWikiText({
             container: params.container,
             text: wikitext,
-            display_mode: config.display_mode,
+            display_mode: config.display_mode, // iframe
             copy_parent_frame_style: true
         });
     }
@@ -1377,11 +1560,12 @@ osl.ui = class {
                 display_required_only: true,
                 disable_array_reorder: true,
                 disable_array_delete_all_rows: true,
-                disable_array_delete_last_row: true
+                disable_array_delete_last_row: true,
+                no_additional_properties: false,
             }
         };
         var preview_config = {
-
+            display_mode: "iframe",
         };
         schema_config = mwjson.util.mergeDeep(schema_config, params.schema_editor);
         data_config = mwjson.util.mergeDeep(data_config, params.data_editor);

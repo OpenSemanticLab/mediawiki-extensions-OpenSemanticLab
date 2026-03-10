@@ -50,7 +50,8 @@
 				"Tiles.js",
 				"DynamicSidebar.js",
 				"D3graphviz.js",
-				"prefect.js"
+				"prefect.js",
+				"plotly.min.js"
 			],
 			"position": "bottom"
 		},
@@ -163,6 +164,26 @@
 			],
 			"styles": [
 				"kanban.css"
+			]
+		},
+		"ext.osw.cards": {
+			"es6": false,
+            "scripts": [
+                "modules/ext.osw.cards/vue-tiles/dist/assets/index-f08cfb57.js"
+            ]
+		},
+		"ext.openlca": {
+			"localBasePath": "modules/ext.openlca",
+			"remoteExtPath": "OpenSemanticLab/modules/ext.openlca",
+			"scripts": [
+				"react.js",
+				"react-dom.js",
+				"chart.min.js",
+				"report.js"
+			],
+			"styles": [
+
+				"milligram.min.css"
 			]
 		}
 	},
@@ -529,14 +550,25 @@
 	},
 	"AutoloadClasses": {
 		"OpenSemanticLab": "includes/OpenSemanticLab.php",
-		"SpecialAskResolver": "special/AskResolver.php"
+		"SpecialAskResolver": "special/AskResolver.php",
+		"OpenSemanticLabHooks": "includes/OpenSemanticLab.hooks.php",
+		"ApiCategories": "includes/api/Category.php"
+	},
+	"ExtensionMessagesFiles": {
+		"OpenSemanticLabMagic": "includes/OpenSemanticLab.i18n.magic.php"
 	},
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
-		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal"
+		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal",
+		"ParserFirstCallInit": "OpenSemanticLabHooks::onParserFirstCallInit"
 	},
 	"SpecialPages": {
 		"AskResolver": "SpecialAskResolver"
+	},
+	"APIModules": {
+		"categories": {
+			"class": "ApiCategories"
+		}
 	}
 }
