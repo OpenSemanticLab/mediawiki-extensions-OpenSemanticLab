@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.41.1",
+	"version": "0.41.2",
 	"author": [
 		"Simon Stier"
 	],
@@ -440,7 +440,7 @@
 				7300,
 				7310
 			],
-			"merge_strategy": "array_plus"
+			"merge_strategy": "array_merge"
 		},
 		"smwgNamespacesWithSemanticLinks": {
 			"value": {
