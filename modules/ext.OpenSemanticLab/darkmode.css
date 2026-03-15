@@ -70,10 +70,51 @@ apply only in the content body, not in the sidebar */
     filter: invert(1.0);
 }
 
-/* ResultFormat DataTable */
-.skin-citizen-dark .dtsp-searchPanes { 
-    filter: invert(0.9); color: black;
+/* ResultFormat DataTable
+   DataTables has built-in dark mode via html.dark selector.
+   Citizen skin uses .skin-citizen-dark on <html> instead,
+   so we override the DT CSS variables and duplicate dark rules. */
+html.skin-citizen-dark {
+    --dt-html-background: var(--color-surface-0);
+    --dt-row-stripe: 255, 255, 255;
+    --dt-row-hover: 255, 255, 255;
+    --dt-column-ordering: 255, 255, 255;
 }
-.skin-citizen-dark .dt-buttons { 
-    filter: invert(0.9); 
+html.skin-citizen-dark table.dataTable,
+html.skin-citizen-dark table.dataTable > tbody > tr,
+html.skin-citizen-dark table.dataTable > tbody > tr > td,
+html.skin-citizen-dark table.dataTable > tbody > tr > th {
+    background-color: var(--color-surface-0) !important;
+}
+html.skin-citizen-dark table.dataTable > thead > tr > th,
+html.skin-citizen-dark table.dataTable > thead > tr > td {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
+html.skin-citizen-dark table.dataTable > tbody > tr:nth-child(odd) > td,
+html.skin-citizen-dark table.dataTable > tbody > tr:nth-child(odd) > th,
+html.skin-citizen-dark table.dataTable > tbody > tr.odd > td {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+}
+html.skin-citizen-dark table.dataTable > tbody > tr:hover > td,
+html.skin-citizen-dark table.dataTable > tbody > tr:hover > th {
+    background-color: var(--color-surface-3) !important;
+}
+html.skin-citizen-dark table.dataTable > tbody > tr > .sorting_1,
+html.skin-citizen-dark table.dataTable > tbody > tr > .sorting_2,
+html.skin-citizen-dark table.dataTable > tbody > tr > .sorting_3 {
+    box-shadow: none !important;
+}
+html.skin-citizen-dark .dt-container .dt-search input,
+html.skin-citizen-dark .dt-container .dt-length select {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--dt-html-background);
+}
+html.skin-citizen-dark .dt-container .dt-paging .dt-paging-button.current,
+html.skin-citizen-dark .dt-container .dt-paging .dt-paging-button.current:hover {
+    border: 1px solid rgb(89, 91, 94);
+    background: rgba(255, 255, 255, 0.15);
+}
+html.skin-citizen-dark .dt-container .dt-paging .dt-paging-button:hover {
+    border: 1px solid rgb(53, 53, 53);
+    background: rgb(53, 53, 53);
 }
