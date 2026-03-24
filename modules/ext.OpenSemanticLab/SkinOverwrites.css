@@ -177,7 +177,7 @@ ul.gallery.mw-gallery-slideshow.ve-ce-leafNode .gallerybox > div {
 }
 
 /* hide real title - better set in Extension:DisplayTitle? */
-#contentSub
+#contentSub .mw-displaytitle-subtitle
 {
     display: none !important;
 }
