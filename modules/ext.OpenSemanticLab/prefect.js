@@ -20,7 +20,27 @@ $(document).ready(function () {
             return scheme + '://' + config.host + port + path;
         }
 
+        function isApiGateway(config) {
+            return getApiBaseUrl(config).indexOf('/rest.php/apigateway/') !== -1;
+        }
+
+        // Build full API URL. When routed through ApiGateway, use ?path= param
+        // since MW REST routes don't support wildcard path segments.
+        // For POST/PUT/PATCH/DELETE via ApiGateway, append CSRF token.
+        function buildApiUrl(config, subpath, method) {
+            const base = getApiBaseUrl(config);
+            if (isApiGateway(config)) {
+                let url = base + '?path=' + encodeURIComponent(subpath);
+                if (method && method !== 'GET') {
+                    url += '&token=' + encodeURIComponent(mw.user.tokens.get('csrfToken'));
+                }
+                return url;
+            }
+            return base + '/' + subpath;
+        }
+
         function getUiBaseUrl(config) {
+            if (isApiGateway(config)) return '#';
             if (config.url) return config.url.replace(/\/api\/?$/, '');
             const scheme = config.scheme || 'https';
             const port = config.network_port ? ':' + config.network_port : '';
@@ -106,7 +126,7 @@ $(document).ready(function () {
 
         async function fetchFlowDeployments(config) {
             let id = config.flow_id;
-            let url = getApiBaseUrl(config) + '/deployments/filter';
+            let url = buildApiUrl(config, 'deployments/filter', 'POST');
             let headers = new Headers();
 
             headers.append('Content-Type', 'application/json');
@@ -132,7 +152,7 @@ $(document).ready(function () {
 
         async function runFlow(config) {
             let id = config.flow_id;
-            let url = getApiBaseUrl(config) + '/deployments/' + config.deployment_id + '/create_flow_run';
+            let url = buildApiUrl(config, 'deployments/' + config.deployment_id + '/create_flow_run', 'POST');
             let headers = new Headers();
 
             headers.append('Content-Type', 'application/json');
@@ -152,7 +172,7 @@ $(document).ready(function () {
 
         async function setFlowState(config) {
             let id = config.run_id;
-            let url = getApiBaseUrl(config) + '/flow_runs/' + id + '/set_state';
+            let url = buildApiUrl(config, 'flow_runs/' + id + '/set_state', 'POST');
             let headers = new Headers();
             let state_id = states[config.state_name].api_id;
             //{"state":{"name":"AwaitingRetry","message":"Retry from the UI","type":"SCHEDULED"},"force":true}
@@ -176,7 +196,7 @@ $(document).ready(function () {
         async function fetchStatus_old(config) {
 
             let id = config.run_id;
-            let url = getApiBaseUrl(config) + '/flow_runs/' + id;
+            let url = buildApiUrl(config, 'flow_runs/' + id, 'GET');
 
             let headers = new Headers();
 
@@ -196,7 +216,7 @@ $(document).ready(function () {
 
             let id = config.uuid;
             if (config.run_id) id = config.run_id;
-            let url = getApiBaseUrl(config) + '/flow_runs/filter';
+            let url = buildApiUrl(config, 'flow_runs/filter', 'POST');
 
             let headers = new Headers();
 
