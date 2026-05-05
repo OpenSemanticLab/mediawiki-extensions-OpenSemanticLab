@@ -12,6 +12,21 @@ $(document).ready(function () {
         {{#if url}}<a class="prefect-run-link" href="{{url}}" target="_blank" style="display: inline;" title="Open run"></a>{{/if}}
         `);
 
+        function getApiBaseUrl(config) {
+            if (config.url) return config.url.replace(/\/$/, '');
+            const scheme = config.scheme || 'https';
+            const port = config.network_port ? ':' + config.network_port : '';
+            const path = config.url_path || '/api';
+            return scheme + '://' + config.host + port + path;
+        }
+
+        function getUiBaseUrl(config) {
+            if (config.url) return config.url.replace(/\/api\/?$/, '');
+            const scheme = config.scheme || 'https';
+            const port = config.network_port ? ':' + config.network_port : '';
+            return scheme + '://' + config.host + port;
+        }
+
         const states = {
             "Unknown": {
                 "description": "Flow run does not exists or an error occured.",
@@ -91,7 +106,7 @@ $(document).ready(function () {
 
         async function fetchFlowDeployments(config) {
             let id = config.flow_id;
-            let url = 'https://' + config.host + '/api/deployments/filter';
+            let url = getApiBaseUrl(config) + '/deployments/filter';
             let headers = new Headers();
 
             headers.append('Content-Type', 'application/json');
@@ -117,7 +132,7 @@ $(document).ready(function () {
 
         async function runFlow(config) {
             let id = config.flow_id;
-            let url = 'https://' + config.host + '/api/deployments/' + config.deployment_id + '/create_flow_run';
+            let url = getApiBaseUrl(config) + '/deployments/' + config.deployment_id + '/create_flow_run';
             let headers = new Headers();
 
             headers.append('Content-Type', 'application/json');
@@ -137,7 +152,7 @@ $(document).ready(function () {
 
         async function setFlowState(config) {
             let id = config.run_id;
-            let url = 'https://' + config.host + '/api/flow_runs/' + id + '/set_state';
+            let url = getApiBaseUrl(config) + '/flow_runs/' + id + '/set_state';
             let headers = new Headers();
             let state_id = states[config.state_name].api_id;
             //{"state":{"name":"AwaitingRetry","message":"Retry from the UI","type":"SCHEDULED"},"force":true}
@@ -161,7 +176,7 @@ $(document).ready(function () {
         async function fetchStatus_old(config) {
 
             let id = config.run_id;
-            let url = 'https://' + config.host + '/api/flow_runs/' + id;
+            let url = getApiBaseUrl(config) + '/flow_runs/' + id;
 
             let headers = new Headers();
 
@@ -181,7 +196,7 @@ $(document).ready(function () {
 
             let id = config.uuid;
             if (config.run_id) id = config.run_id;
-            let url = 'https://' + config.host + '/api/flow_runs/filter';
+            let url = getApiBaseUrl(config) + '/flow_runs/filter';
 
             let headers = new Headers();
 
@@ -245,7 +260,7 @@ $(document).ready(function () {
             else if ( ["Scheduled", "Pending", "Running", "Late"].includes(state.name) ) msg = "Cancel";
 
             let run_url = null;
-            if (config.run_id) run_url = 'https://' + config.host + '/flow-runs/flow-run/' + config.run_id;
+            if (config.run_id) run_url = getUiBaseUrl(config) + '/flow-runs/flow-run/' + config.run_id;
             config.container.innerHTML = badgeTemplate({ uuid: config.uuid, text: config.label + ": " + state_name, msg: msg, class: stateInfo.class, url: run_url });
 
             const btn = document.getElementById("prefect-state-badge_" + config.uuid);
@@ -265,7 +280,7 @@ $(document).ready(function () {
                     await setFlowState({...config, ...{state_name: "Cancelling", message: "Cancelled from OSW UI"}});
                 }
                 /*else {
-                    window.open('https://' + config.host + '/flow-runs/flow-run/' + config.run_id, '_blank');
+                    window.open(getUiBaseUrl(config) + '/flow-runs/flow-run/' + config.run_id, '_blank');
                 }*/
             };
             //btn.className = "btn badge-pill btn-" + stateInfo.class;
@@ -348,6 +363,10 @@ $(document).ready(function () {
                 if (services.source_nodes && services.source_nodes[0]) {
                     let service = await getJsonLd(services.source_nodes[0]);
                     if (!config.host && service.domain) config.host = service.domain;
+                    if (!config.url && service.url) config.url = service.url;
+                    if (!config.scheme && service.scheme) config.scheme = service.scheme;
+                    if (!config.network_port && service.network_port) config.network_port = service.network_port;
+                    if (!config.url_path && service.url_path) config.url_path = service.url_path;
                     if (!config.flow_id && service.flow_id) config.flow_id = service.flow_id;
                     else if (!config.flow_id && service.uuid) config.flow_id = service.uuid;
                 }
