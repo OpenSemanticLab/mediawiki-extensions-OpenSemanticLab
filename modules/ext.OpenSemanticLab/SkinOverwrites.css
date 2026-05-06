@@ -366,7 +366,7 @@ details.mw-slot-details[open] summary {
     width: unset !important;
     border: 1px solid #aaa;
     border-radius: 4px;
-    min-width: 500px;
+    min-width: min(500px, 100%);
 }
 
 .SvgEdit {
@@ -374,19 +374,19 @@ details.mw-slot-details[open] summary {
     border: 1px solid #aaa;
     border-radius: 4px;
     display: flex;
-    min-width: 500px;
+    min-width: min(500px, 100%);
 }
 
 .SvgEdit div {
     width: 100%;
-    min-width: 500px;
+    min-width: min(500px, 100%);
 }
 
 .Kanban {
     display: flex;
     border: 1px solid #aaa;
     border-radius: 4px;
-    min-width: 500px;
+    min-width: min(500px, 100%);
 }
 
 /* fix overlaying map, see https://github.com/StarCitizenTools/mediawiki-skins-Citizen/issues/577 */
