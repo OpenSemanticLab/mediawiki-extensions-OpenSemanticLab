@@ -7,6 +7,7 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
 .info_box {
     display: table;
     width: 30em;
+    max-width: 100%;
     font-family: Arial;
     background-color: #f1f3f3;
     color: black;
@@ -18,6 +19,15 @@ REL: modules/ext.OpenSemanticLab.LIMS/LimsInfoBox.css
     text-align: left !important;
     border-collapse: collapse;
     border-radius: 8px;
+}
+
+/* On mobile screens, stack info_box below headings instead of floating */
+@media (max-width: 720px) {
+    .info_box {
+        float: none;
+        width: 100%;
+        margin-left: 0;
+    }
 }
 
 .info_box th {
