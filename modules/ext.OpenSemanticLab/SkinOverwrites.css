@@ -182,13 +182,22 @@ ul.gallery.mw-gallery-slideshow.ve-ce-leafNode .gallerybox > div {
     display: none !important;
 }
 
-/* hide SimpleBatchUploader elements globally */
+/* SimpleBatchUploader */
 .fileupload-container label {
     display: none !important;
 }
 
 .fileupload-container textarea {
     display: none !important;
+}
+
+@media (max-width: 720px) {
+    span.fileupload-dropzone.fileinput-button {
+        white-space: normal !important;
+        display: flex !important;
+        flex-wrap: wrap;
+        gap: 0.5em;
+    }
 }
 
 /* alterative / partially solution:
