@@ -144,7 +144,7 @@ var template_tools = [
 		dialog_type: 'custom_dialog',
 		edit_dialog: false,
 		is_edit_dialog: true, //also edit existing template with this dialog
-		overrides: ['link'], //replaces build-in command 'link'
+		overrides: ['link', 'linkNoExpand'], //replaces build-in 'link' (Ctrl+K) and 'linkNoExpand' ([[ sequence)
 		transclusion_type: 'mwTransclusionInline', //default: mwTransclusionBlock
 		handle_types: ['mwTransclusionInline'], // not 'link/mwInternal'
 		sequence: '{L}',
@@ -883,7 +883,7 @@ function VeExtensions_create() {
 		};
 
 		//console.log(name);
-		if ((name === 'transclusion' || name === 'link') && ve.init.target.getSurface() && ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange()) {
+		if ((name === 'transclusion' || name === 'link' || name === 'linkNoExpand') && ve.init.target.getSurface() && ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange()) {
 			var currentPos = ve.init.target.getSurface().getModel().getFragment().getSelection().getCoveringRange().start;
 			var data = ve.init.target.getSurface().getModel().documentModel.data.data[currentPos];
 			//console.log(data);
@@ -896,7 +896,7 @@ function VeExtensions_create() {
 					var annotation = annotations.store.hashStore[hash].element;
 					console.log(annotation);
 					if ((name === 'transclusion' && annotation.type !== 'mwTransclusionBlock')
-						|| (name === 'link' && (annotation.type === 'link/mwExternal' || annotation.type === 'link/mwInternal')) // ignore existing and direct pasted urls
+						|| ((name === 'link' || name === 'linkNoExpand') && (annotation.type === 'link/mwExternal' || annotation.type === 'link/mwInternal')) // ignore existing and direct pasted urls
 					) {
 						replacement_name = null;
 						replacement_tool = null;
