@@ -737,23 +737,30 @@ function VeExtensions_create() {
 						});
 					}
 					else {
-						// Detect if cursor is on an existing matching template (e.g. Ctrl+Alt+L invoked
-						// while the cursor is on a previously inserted Template:Viewer/Link).
-						// Without this, args[0] !== "transclusion" so we'd take the fresh-insert path,
-						// reset params to {}, and the dialog would show empty fields for an existing link.
+						var isSourceMode = surface.getMode && surface.getMode() === 'source';
+
+						// In visual mode: detect if cursor is on an existing matching template
+						// (e.g. Ctrl+Alt+L invoked while the cursor is on a previously inserted
+						// Template:Viewer/Link). Without this, args[0] !== "transclusion" so we'd
+						// take the fresh-insert path, reset params to {}, and the dialog would
+						// show empty fields for an existing link.
+						// In source mode: the document model is plain wikitext, so this lookup
+						// would not find a structured template node anyway — skip it.
 						var existing_template_node = null;
 						var existing_template = null;
-						var coveringRange = surface.getModel().getFragment().getSelection().getCoveringRange();
-						if (coveringRange) {
-							var pos = coveringRange.start;
-							var nodeData = surface.getModel().documentModel.data.data[pos];
-							var nodeTemplate = nodeData?.attributes?.mw?.parts?.[0]?.template;
-							if (nodeTemplate?.target?.wt) {
-								var existingWt = nodeTemplate.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, '');
-								var toolWt = template_tool.template.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, '');
-								if (existingWt === toolWt) {
-									existing_template = nodeTemplate;
-									existing_template_node = { pos: pos };
+						if (!isSourceMode) {
+							var coveringRange = surface.getModel().getFragment().getSelection().getCoveringRange();
+							if (coveringRange) {
+								var pos = coveringRange.start;
+								var nodeData = surface.getModel().documentModel.data.data[pos];
+								var nodeTemplate = nodeData?.attributes?.mw?.parts?.[0]?.template;
+								if (nodeTemplate?.target?.wt) {
+									var existingWt = nodeTemplate.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, '');
+									var toolWt = template_tool.template.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, '');
+									if (existingWt === toolWt) {
+										existing_template = nodeTemplate;
+										existing_template_node = { pos: pos };
+									}
 								}
 							}
 						}
@@ -770,7 +777,21 @@ function VeExtensions_create() {
 
 						template_tool.custom_dialog(surface, template_to_edit).done(function (template) {
 							if (template !== null) {
-								if (existing_template_node) {
+								if (isSourceMode) {
+									// Source mode (wikitext editor): build wikitext and insert as plain string.
+									// Inserting a structured transclusion node into a wikitext surface produces garbage.
+									var tplName = template.target.wt.replace(/^\s*Template:\s*/, '').replace(/^\s+|\s+$/g, '');
+									var wt = '{{' + tplName;
+									for (var paramName in template.params) {
+										if (Object.prototype.hasOwnProperty.call(template.params, paramName)) {
+											var paramVal = template.params[paramName]?.wt;
+											if (paramVal === undefined || paramVal === null) paramVal = '';
+											wt += '|' + paramName + '=' + paramVal;
+										}
+									}
+									wt += '}}';
+									surface.getModel().getFragment().insertContent(wt).select();
+								} else if (existing_template_node) {
 									// Replace the existing transclusion node in place
 									var new_args = [
 										{ type: template_tool.transclusion_type, attributes: { mw: { parts: [{ template: template }] } } },
@@ -790,8 +811,8 @@ function VeExtensions_create() {
 									surface.getModel().getFragment().insertContent(args[0], args[1]).select();
 								}
 
-								//open template edit dialog if requested
-								if (template_tool.edit_dialog) surface.execute('window', 'open', 'transclusion');
+								//open template edit dialog if requested (visual mode only)
+								if (template_tool.edit_dialog && !isSourceMode) surface.execute('window', 'open', 'transclusion');
 							}
 						});
 					}
@@ -808,6 +829,17 @@ function VeExtensions_create() {
 					supportedSelections: ['linear']
 				})
 			);
+			// Also register in the wikitext (source-mode) command registry so
+			// toolbar buttons and sequences in source mode resolve to the same
+			// custom command instead of VE's default wikitextLink inspector.
+			if (ve.ui.wikitextCommandRegistry) {
+				ve.ui.wikitextCommandRegistry.register(
+					new InsertAndOpenCommand(template_tool.command_name, {
+						args: [custom_template, false],
+						supportedSelections: ['linear']
+					})
+				);
+			}
 		}
 		else {
 			//Insert template
@@ -817,6 +849,14 @@ function VeExtensions_create() {
 					supportedSelections: ['linear']
 				})
 			);
+			if (ve.ui.wikitextCommandRegistry) {
+				ve.ui.wikitextCommandRegistry.register(
+					new ve.ui.Command(template_tool.command_name, 'content', 'insert', {
+						args: [custom_template, false, true],
+						supportedSelections: ['linear']
+					})
+				);
+			}
 		}
 
 		//Create and register wikitext command (only for source editor
@@ -867,7 +907,10 @@ function VeExtensions_create() {
 	// monkey patch command registry
 	// look if a command handles a specific template
 	// if yes, call it directly to edit the already existing template
-	ve.ui.commandRegistry.lookup = function(name) {
+	// Applied to both ve.ui.commandRegistry (visual mode) and
+	// ve.ui.wikitextCommandRegistry (source mode); 'this' resolves to the right
+	// registry on each call so this.registry points at the right command dict.
+	var lookupOverride = function(name) {
 
 		var replacement_name = null;
 		var replacement_tool = null;
@@ -931,4 +974,8 @@ function VeExtensions_create() {
 			return this.registry[name];
 		}
 	};
+	ve.ui.commandRegistry.lookup = lookupOverride;
+	if (ve.ui.wikitextCommandRegistry) {
+		ve.ui.wikitextCommandRegistry.lookup = lookupOverride;
+	}
 }
