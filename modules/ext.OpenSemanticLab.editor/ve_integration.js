@@ -170,11 +170,16 @@ var template_tools = [
 			});
 
 			if (template.params) {
-				console.log("Params: ", template.params);
-				config.data = {};
-				config.data.page = template.params.page?.wt;
-				config.data.url = template.params.url?.wt;
-				config.data.label = template.params.label?.wt;
+				// Defensive extraction: only assign properties that actually have a wikitext value.
+				// Assigning undefined produced {label: undefined, page: undefined, url: undefined} which
+				// JSONEditor renders as empty fields and defeats the selected-text label fallback below.
+				const data = {};
+				if (template.params.page?.wt !== undefined) data.page = template.params.page.wt;
+				if (template.params.url?.wt !== undefined)  data.url  = template.params.url.wt;
+				if (template.params.label?.wt !== undefined) data.label = template.params.label.wt;
+				if (Object.keys(data).length > 0) {
+					config.data = data;
+				}
 			}
 
 			// use selected text as label if available
@@ -732,20 +737,58 @@ function VeExtensions_create() {
 						});
 					}
 					else {
-						//var fresh_template = JSON.parse(JSON.stringify(args[0][0].attributes.mw.parts[0].template)); //deepcopy
-						var fresh_template = args[0][0].attributes.mw.parts[0].template;
-						fresh_template.params = {}; //reset params
-						template_tool.custom_dialog(surface, fresh_template).done(function (template) {
+						// Detect if cursor is on an existing matching template (e.g. Ctrl+Alt+L invoked
+						// while the cursor is on a previously inserted Template:Viewer/Link).
+						// Without this, args[0] !== "transclusion" so we'd take the fresh-insert path,
+						// reset params to {}, and the dialog would show empty fields for an existing link.
+						var existing_template_node = null;
+						var existing_template = null;
+						var coveringRange = surface.getModel().getFragment().getSelection().getCoveringRange();
+						if (coveringRange) {
+							var pos = coveringRange.start;
+							var nodeData = surface.getModel().documentModel.data.data[pos];
+							var nodeTemplate = nodeData?.attributes?.mw?.parts?.[0]?.template;
+							if (nodeTemplate?.target?.wt) {
+								var existingWt = nodeTemplate.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, '');
+								var toolWt = template_tool.template.target.wt.replace("Template:", "").replace(/^\s+|\s+$/g, '');
+								if (existingWt === toolWt) {
+									existing_template = nodeTemplate;
+									existing_template_node = { pos: pos };
+								}
+							}
+						}
+
+						var template_to_edit;
+						if (existing_template) {
+							// Edit in place - keep the existing params so the form is populated
+							template_to_edit = existing_template;
+						} else {
+							//var fresh_template = JSON.parse(JSON.stringify(args[0][0].attributes.mw.parts[0].template)); //deepcopy
+							template_to_edit = args[0][0].attributes.mw.parts[0].template;
+							template_to_edit.params = {}; //reset params
+						}
+
+						template_tool.custom_dialog(surface, template_to_edit).done(function (template) {
 							if (template !== null) {
+								if (existing_template_node) {
+									// Replace the existing transclusion node in place
+									var new_args = [
+										{ type: template_tool.transclusion_type, attributes: { mw: { parts: [{ template: template }] } } },
+										{ type: '/' + template_tool.transclusion_type }
+									];
+									var nodeRange = new ve.Range(existing_template_node.pos, existing_template_node.pos + 2);
+									surface.getModel().setLinearSelection(nodeRange);
+									surface.getModel().getFragment().insertContent(new_args, false).select();
+								} else {
+									//restore position
+									//console.log("Restore position ", currentPos);
+									//surface.getModel().setLinearSelection(new ve.Range(0, currentPos));
 
-								//restore position
-								//console.log("Restore position ", currentPos);
-								//surface.getModel().setLinearSelection(new ve.Range(0, currentPos));
-
-								//insert template (don't replace existing)
-								//surface.getModel().getFragment().collapseToEnd().insertContent(args[0], args[1]).select();
-								//insert template (replace existing)
-								surface.getModel().getFragment().insertContent(args[0], args[1]).select();
+									//insert template (don't replace existing)
+									//surface.getModel().getFragment().collapseToEnd().insertContent(args[0], args[1]).select();
+									//insert template (replace existing)
+									surface.getModel().getFragment().insertContent(args[0], args[1]).select();
+								}
 
 								//open template edit dialog if requested
 								if (template_tool.edit_dialog) surface.execute('window', 'open', 'transclusion');
