@@ -973,6 +973,12 @@ function VeExtensions_create() {
 		if (this.registry.hasOwnProperty(name)) {
 			return this.registry[name];
 		}
+		// MWWikitextCommandRegistry chains to ve.ui.commandRegistry via this.fallbackRegistry.
+		// Honour that so source-mode tools (e.g. CodeMirror, only registered in commandRegistry)
+		// can still find their commands instead of crashing on undefined.execute().
+		if (this.fallbackRegistry && typeof this.fallbackRegistry.lookup === 'function') {
+			return this.fallbackRegistry.lookup(name);
+		}
 	};
 	ve.ui.commandRegistry.lookup = lookupOverride;
 	if (ve.ui.wikitextCommandRegistry) {

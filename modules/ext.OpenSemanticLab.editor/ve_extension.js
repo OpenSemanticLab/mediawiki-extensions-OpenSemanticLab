@@ -113,66 +113,177 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
         //});
     });
     
-    //Allow copy-paste on SimpleBatchUploader drag-and-drop field
+    //Allow copy-paste / drag-drop image upload via the OSL custom dialog
+    //instead of VE's built-in media upload dialog, and never inside the
+    //MwJson editor popup (so it can keep its own paste handling).
     $(document).ready( function() {
         $(".fileupload-dropzone").first().each( function() {
             var debug = false;
-            var enabled = true;
-            
-            mw.hook( 've.activate' ).add( function() {
-                enabled = false;
-                if (debug) console.log("Disable clipboard");
-            });
-    
-            mw.hook( 've.deactivationComplete' ).add( function() {
-                enabled = true;
-                if (debug) console.log("Enable clipboard");
-            });
-            
-            if (debug) console.log("Register paste event handler");
             var dropzone = this;
-            document.onpaste = function(event){
-                if (!enabled) return;
-                if (debug) console.log("paste event");
-                var items = (event.clipboardData || event.originalEvent.clipboardData).items;
-                for (var i = 0 ; i < items.length ; i++) {
-                    var item = items[i];
-                    if (debug) console.log(item);
-                    if (item.type.indexOf("image") != -1) {
-                        var file = item.getAsFile();
-                        var file_name_prefix = mw.config.get('wgPageName').replace(':','_').replace('/','_').replace(' ','_'); 
-                        var file_name = "clipboard_" + Date.now();
-                        var file_name_postfix = file.name.split('.')[file.name.split('.').length-1];
-                        //ask for file rename and upload confirmation
-                        OO.ui.prompt( 'Upload Clipboard as file', { textInput: { text: 'File name', value: file_name } } ).done( function ( result ) {
-                            if ( result !== null ) {
-                                if (debug) console.log( 'User typed "' + result + '" then clicked "OK".' );
-                                //file_name = file_name_prefix + '_' + result + '.' + file_name_postfix;
-                                file_name = result + '.' + file_name_postfix;
-                                if (debug) console.log( 'Final file name: "' + file_name );
-                                //we have to copy the file for renaming because file.name is read only
-                                file = new File([file], file_name, {type: file.type, lastModified: file.lastModified });
-                                if (debug) console.log(file);
-                                
-                                var fakeDropEvent = new DragEvent('drop');
-                                Object.defineProperty(fakeDropEvent, 'dataTransfer', {
-                                    value: {  dropEffect: 'all',
-                                              effectAllowed: 'all',
-                                              items: [],
-                                              types: ['Files'],
-                                              getData: function() {return file;},
-                                              files: [file],
-                                    }
-                                });
-                                
-                                dropzone.dispatchEvent(fakeDropEvent);
-                            } else {
-                                if (debug) console.log( 'User clicked "Cancel" or closed the dialog.' );
-                            }
-                        } );
+
+            function isMwjsonEditorOpen() {
+                return !!document.querySelector('div.modal.show[id^="dataEditorModal_"]');
+            }
+
+            function isVeActive() {
+                try {
+                    return !!(typeof ve !== 'undefined' && ve.init && ve.init.target && ve.init.target.getSurface());
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            function filesFromPaste(event) {
+                var items = (event.clipboardData || (event.originalEvent && event.originalEvent.clipboardData));
+                items = items && items.items;
+                if (!items) return [];
+                var files = [];
+                for (var i = 0; i < items.length; i++) {
+                    // Only File items - skip 'string' (e.g. plain text/html paste).
+                    if (items[i].kind === 'file') {
+                        var f = items[i].getAsFile();
+                        if (f) files.push(f);
                     }
                 }
-            };
+                return files;
+            }
+
+            function filesFromDrop(event) {
+                var dt = event.dataTransfer;
+                if (!dt || !dt.files || !dt.files.length) return [];
+                return Array.prototype.slice.call(dt.files);
+            }
+
+            function promptForName(file) {
+                var nameParts = file.name.split('.');
+                var ext = nameParts.length > 1 ? nameParts.pop() : '';
+                var base = nameParts.join('.');
+                // Clipboard images often come in as "image.png" with no meaningful name -> timestamp default.
+                // Drag-dropped files have real filenames -> default to the original base name so the user
+                // can confirm or rename.
+                var defaultName = (!base || base === 'image') ? 'clipboard_' + Date.now() : base;
+                // OO.ui.prompt blurs the surface; when the dialog closes the browser may auto-scroll
+                // the refocused element into view (often the top of the editor surface). Save the
+                // window scroll position and restore it after the dialog resolves to keep the user
+                // anchored where they pasted/dropped.
+                var savedScrollY = window.scrollY;
+                var savedScrollX = window.scrollX;
+                var dfd = $.Deferred();
+                OO.ui.prompt('Upload file', { textInput: { text: 'File name', value: defaultName } }).done(function (result) {
+                    window.scrollTo(savedScrollX, savedScrollY);
+                    if (result === null) return dfd.resolve(null);
+                    var finalName = ext ? result + '.' + ext : result;
+                    dfd.resolve(new File([file], finalName, { type: file.type, lastModified: file.lastModified }));
+                });
+                return dfd.promise();
+            }
+
+            function uploadFiles(files) {
+                // Capture the VE fragment NOW (before any async UI). After the prompt resolves
+                // and SBU finishes uploading, the surface's current selection has typically reset,
+                // so inserting at "current cursor" would land at the document start.
+                if (isVeActive()) {
+                    try {
+                        window.__oslPendingVeFragment = ve.init.target.getSurface().getModel().getFragment();
+                    } catch (e) { window.__oslPendingVeFragment = null; }
+                } else {
+                    window.__oslPendingVeFragment = null;
+                }
+
+                // Observe SimpleBatchUpload's results <ul> for newly-added <li>.ful-error entries
+                // (e.g. "ERROR: File extension ".msix" does not match the detected MIME type..."),
+                // and surface them via mw.notify so the user actually sees the problem when the
+                // SBU dropzone is offscreen (e.g. while editing in VE).
+                var resultsUl = document.querySelector('ul.fileupload-results');
+                if (resultsUl && !resultsUl.__oslErrorObserved) {
+                    resultsUl.__oslErrorObserved = true;
+                    new MutationObserver(function (mutations) {
+                        mutations.forEach(function (m) {
+                            m.addedNodes && m.addedNodes.forEach(function (n) {
+                                if (!(n instanceof HTMLElement)) return;
+                                var checkErr = function () {
+                                    if (!n.classList || !n.classList.contains('ful-error')) return;
+                                    if (n.__oslNotified) return;
+                                    n.__oslNotified = true;
+                                    var raw = (n.textContent || '').trim();
+                                    var idx = raw.indexOf('ERROR:');
+                                    var msg = idx >= 0 ? raw.substring(idx) : raw;
+                                    mw.notify(msg, { type: 'error', autoHide: false });
+                                };
+                                checkErr();
+                                new MutationObserver(checkErr).observe(n, { childList: true, characterData: true, subtree: true, attributes: true });
+                            });
+                        });
+                    }).observe(resultsUl, { childList: true });
+                }
+
+                // Prompt for each file SEQUENTIALLY (so dialogs don't stack), collect the renamed files,
+                // then dispatch ONE fake drop with all of them so SBU treats them as a single batch
+                // and fires simplebatchupload.files.uploaded exactly once.
+                var renamedFiles = [];
+                var chain = $.Deferred().resolve().promise();
+                files.forEach(function (f) {
+                    chain = chain.then(function () {
+                        return promptForName(f).then(function (renamed) {
+                            if (renamed) renamedFiles.push(renamed);
+                        });
+                    });
+                });
+                chain.then(function () {
+                    if (!renamedFiles.length) { window.__oslPendingVeFragment = null; return; }
+                    var preDropScrollX = window.scrollX, preDropScrollY = window.scrollY;
+                    var fakeDropEvent = new DragEvent('drop');
+                    // Mark so our own capture-phase handler skips this re-dispatched event.
+                    fakeDropEvent.__oslSynthetic = true;
+                    Object.defineProperty(fakeDropEvent, 'dataTransfer', {
+                        value: { dropEffect: 'all',
+                                 effectAllowed: 'all',
+                                 items: [],
+                                 types: ['Files'],
+                                 getData: function () { return renamedFiles[0]; },
+                                 files: renamedFiles }
+                    });
+                    dropzone.dispatchEvent(fakeDropEvent);
+                    // SBU briefly mutates its offscreen UI which can nudge the viewport; pin scroll again.
+                    requestAnimationFrame(function () { window.scrollTo(preDropScrollX, preDropScrollY); });
+                });
+            }
+
+            function handlePasteCapture(event) {
+                if (isMwjsonEditorOpen()) return;
+                var files = filesFromPaste(event);
+                if (!files.length) return;
+                if (debug) console.log("intercept paste, files=", files);
+                event.stopPropagation();
+                event.preventDefault();
+                uploadFiles(files);
+            }
+
+            function handleDropCapture(event) {
+                // Skip our own re-dispatched synthetic drop that lands on the SBU dropzone.
+                if (event.__oslSynthetic) return;
+                if (isMwjsonEditorOpen()) return;
+                var files = filesFromDrop(event);
+                if (!files.length) return;
+                if (debug) console.log("intercept drop, files=", files);
+                event.stopPropagation();
+                event.preventDefault();
+                uploadFiles(files);
+            }
+
+            function handleDragOverCapture(event) {
+                if (event.__oslSynthetic) return;
+                if (isMwjsonEditorOpen()) return;
+                var types = event.dataTransfer && event.dataTransfer.types;
+                if (types && Array.prototype.indexOf.call(types, 'Files') !== -1) {
+                    // Required so the browser will fire the subsequent drop event on us
+                    event.preventDefault();
+                }
+            }
+
+            document.addEventListener('paste', handlePasteCapture, true);
+            document.addEventListener('drop', handleDropCapture, true);
+            document.addEventListener('dragover', handleDragOverCapture, true);
         });
     });
 
@@ -231,19 +342,136 @@ $(document).ready(function() {
         mw.hook( 'kekuleeditor.file.uploaded' ).add( (file) => {fileUploadHandler("KekuleEditor", file);});
         mw.hook( 'spreadsheeteditor.file.uploaded' ).add( (file) => {fileUploadHandler("LuckySheetEditor", file);});
         mw.hook( 'simplebatchupload.file.uploaded' ).add( (file) => {fileUploadHandler("SimpleBatchUpload", file);}); 
+        function isVeActive() {
+            try {
+                return !!(typeof ve !== 'undefined' && ve.init && ve.init.target && ve.init.target.getSurface());
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // If the captured fragment is positioned on an existing Template:Viewer/Media node,
+        // return info about it (so we can append into it instead of replacing). Visual mode only.
+        function getExistingViewerMediaAt(surface, fragment) {
+            try {
+                var range = fragment.getSelection().getRange();
+                if (!range) return null;
+                var data = surface.getModel().getDocument().data.data;
+                // The covering range start could point at the open tag of the transclusion node,
+                // OR (when fully selected) at one offset inside; check both positions.
+                var candidates = [range.start, range.start - 1].filter(function (p) { return p >= 0; });
+                for (var i = 0; i < candidates.length; i++) {
+                    var node = data[candidates[i]];
+                    var tpl = node && node.attributes && node.attributes.mw && node.attributes.mw.parts
+                        && node.attributes.mw.parts[0] && node.attributes.mw.parts[0].template;
+                    if (!tpl || !tpl.target || !tpl.target.wt) continue;
+                    var tplName = tpl.target.wt.replace(/^\s*Template:\s*/, '').replace(/^\s+|\s+$/g, '');
+                    if (tplName === 'Viewer/Media') {
+                        return { pos: candidates[i], type: node.type, template: tpl };
+                    }
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        function insertViewerMediaIntoVE(files) {
+            var surface = ve.init.target.getSurface();
+            var isSourceMode = surface.getMode && surface.getMode() === 'source';
+            var newTextdata = files.map(function (f) { return 'File:' + f.name + '{{!}}'; }).join('; ') + ';';
+
+            // Use the fragment captured at paste/drop time (before the prompt/upload async work
+            // reset the surface selection). Falls back to the current fragment if we don't have one.
+            var fragment = window.__oslPendingVeFragment || surface.getModel().getFragment();
+            window.__oslPendingVeFragment = null;
+
+            // After OO.ui.prompt closes, VE loses focus and the surface often scrolls to top.
+            // Re-focus the surface view first so the upcoming insertContent + select scrolls
+            // the inserted block into view at the captured cursor position instead of page top.
+            try { surface.getView().focus(); } catch (e) {}
+
+            if (isSourceMode) {
+                var wt = '{{Viewer/Media|image_size=300|mode=default|textdata=' + newTextdata + '}}';
+                fragment.insertContent(wt).select();
+                return;
+            }
+
+            // Visual mode: if the captured cursor was on an existing Viewer/Media node,
+            // merge the new files into its textdata so we add to the existing gallery instead
+            // of replacing it.
+            var existing = getExistingViewerMediaAt(surface, fragment);
+            if (existing) {
+                var prev = (existing.template.params && existing.template.params.textdata && existing.template.params.textdata.wt) || '';
+                prev = prev.replace(/\s+$/, '');
+                if (prev && !/;\s*$/.test(prev)) prev += ';';
+                var mergedTextdata = prev ? (prev + ' ' + newTextdata) : newTextdata;
+
+                var mergedParams = {};
+                if (existing.template.params) {
+                    for (var k in existing.template.params) {
+                        if (Object.prototype.hasOwnProperty.call(existing.template.params, k)) {
+                            mergedParams[k] = existing.template.params[k];
+                        }
+                    }
+                }
+                mergedParams.textdata = { wt: mergedTextdata };
+
+                var mergedNode = {
+                    type: existing.type,
+                    attributes: { mw: { parts: [{
+                        template: {
+                            target: existing.template.target,
+                            params: mergedParams
+                        }
+                    }] } }
+                };
+                // Replace the existing node in place by explicitly selecting its 2-offset range.
+                var nodeRange = new ve.Range(existing.pos, existing.pos + 2);
+                surface.getModel().setLinearSelection(nodeRange);
+                surface.getModel().getFragment().insertContent([mergedNode, { type: '/' + existing.type }], false).select();
+                return;
+            }
+
+            // No existing gallery at cursor — insert a fresh Viewer/Media block.
+            var node = {
+                type: 'mwTransclusionBlock',
+                attributes: { mw: { parts: [{
+                    template: {
+                        target: { wt: 'Viewer/Media', href: 'Template:Viewer/Media' },
+                        params: {
+                            image_size: { wt: '300' },
+                            mode: { wt: 'default' },
+                            textdata: { wt: newTextdata }
+                        }
+                    }
+                }] } }
+            };
+            fragment.insertContent([node, { type: '/mwTransclusionBlock' }], false).select();
+        }
+
         mw.hook( 'simplebatchupload.files.uploaded' ).add( (result) => {
             console.log(result.files);
+            var veActive = isVeActive();
+            if (veActive) {
+                // Inside VE: insert a Viewer/Media gallery template at the cursor.
+                insertViewerMediaIntoVE(result.files);
+            }
+            // Always update the page's jsondata.attachments so the uploaded files are
+            // tracked. Skip the reload when VE is active so unsaved VE changes survive.
             mwjson.api.getPage(mw.config.get('wgPageName')).then( (page) => {
                 if (!page.slots['jsondata']) page.slots['jsondata'] = {};
                 if (mwjson.util.isString(page.slots['jsondata'])) page.slots['jsondata'] = JSON.parse(page.slots['jsondata']);
                 if (!page.slots['jsondata']['attachments']) page.slots['jsondata']['attachments'] = [];
                 for (const file of result.files) page.slots['jsondata']['attachments'].push("File:" + file.name);
                 page.slots_changed['jsondata'] = true;
-                var status = $( '<li>' ).text( "Reloading..." ).data('filenode_text', "Reloading...");
-                $( 'ul.fileupload-results').append( status );
-                mwjson.api.updatePage(page, `Edited with SimpleBatchUpload`).then((page) => window.location.reload());
+                if (!veActive) {
+                    var status = $( '<li>' ).text( "Reloading..." ).data('filenode_text', "Reloading...");
+                    $( 'ul.fileupload-results').append( status );
+                }
+                mwjson.api.updatePage(page, `Edited with SimpleBatchUpload`).then((page) => {
+                    if (!veActive) window.location.reload();
+                });
             });
-        }); 
+        });
         
     });
 });
