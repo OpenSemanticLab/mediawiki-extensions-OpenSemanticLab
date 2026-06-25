@@ -461,52 +461,27 @@ var template_tools = [
 							}
 					};
 
-					//const editor_promise = new Promise((editor_resolve, editor_reject) => {
-						config.onsubmit = (jsondata) => {
-							mwjson.api.getPage(mw.config.get('wgPageName')).then((page) => {
-								var page_jsondata = page.slots['jsondata']; // note: if undefinded we are on a "classic" page without jsondata slot 
-								if (page_jsondata && mwjson.util.isString(page_jsondata)) page_jsondata = JSON.parse(page_jsondata);
-								//template.target.href = dialog_result.fulltext;
-								//template.target.wt = "subst:" + dialog_result.fulltext;
-								console.log(template);
-								template.target = { href: 'Template:Viewer/Media', wt: 'Template:Viewer/Media' };
-								template.params = { 
-										'image_size': { wt: jsondata.image_size },
-										'mode': { wt: jsondata.mode },
-								};
-								if (jsondata.elements) {
-									var textdata = "";
-									if (page_jsondata && !page_jsondata.attachments) page_jsondata.attachments = [];
-
-									for (const element of jsondata.elements) {
-										var description = element.description ? element.description : "";
-										textdata += "\n" + element.file + "{{!}}" + description + ";";
-
-										if (page_jsondata && !page_jsondata.attachments.includes(element.file)) {
-											page_jsondata.attachments.push(element.file);
-											//console.log("Add attachement:", element.file);
-											page.slots_changed['jsondata'] = true;
-										}
-									}
-									template.params['textdata'] = {wt: textdata};
-									
-									if (page_jsondata) {
-										page.slots['jsondata'] = page_jsondata;
-										mwjson.api.updatePage(page, {comment: "Add attachment"}).done((page) => {
-								
-										});
-									}
-								}
-								//editor_resolve();
-								
-								resolve();
-								//resolve(template);
-								deferred.resolve(template);
-							});
-							//return editor_promise;
-							return promise;
+					config.onsubmit = (jsondata) => {
+						// Referencing a file in a gallery does not make it an attachment of
+						// the current page. Page jsondata.attachments is managed exclusively
+						// by the paste/drop upload flow.
+						template.target = { href: 'Template:Viewer/Media', wt: 'Template:Viewer/Media' };
+						template.params = {
+							'image_size': { wt: jsondata.image_size },
+							'mode': { wt: jsondata.mode },
 						};
-					//});
+						if (jsondata.elements) {
+							var textdata = "";
+							for (const element of jsondata.elements) {
+								var description = element.description ? element.description : "";
+								textdata += "\n" + element.file + "{{!}}" + description + ";";
+							}
+							template.params['textdata'] = {wt: textdata};
+						}
+						resolve();
+						deferred.resolve(template);
+						return promise;
+					};
 					
 					config.popupConfig.size = "large";
 					config.popupConfig.toggle_fullscreen = true;
