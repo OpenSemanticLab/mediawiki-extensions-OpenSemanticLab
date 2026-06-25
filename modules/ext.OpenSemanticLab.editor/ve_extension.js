@@ -154,6 +154,26 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
                 return Array.prototype.slice.call(dt.files);
             }
 
+            // Lock the page scroll while a callback runs. While locked, every scroll event is
+            // immediately snapped back to the saved position. This kills the up/down flicker
+            // caused by OO.ui.prompt blurring the VE surface, the dialog focusing its input,
+            // and VE refocusing on close - each of those can trigger a browser scroll-into-view.
+            function withScrollLock(run) {
+                var x = window.scrollX, y = window.scrollY;
+                var locking = true;
+                var snap = function () {
+                    if (!locking) return;
+                    if (window.scrollX !== x || window.scrollY !== y) window.scrollTo(x, y);
+                };
+                window.addEventListener('scroll', snap, true);
+                var unlock = function () {
+                    locking = false;
+                    window.removeEventListener('scroll', snap, true);
+                    window.scrollTo(x, y);
+                };
+                return run(unlock);
+            }
+
             function promptForName(file) {
                 var nameParts = file.name.split('.');
                 var ext = nameParts.length > 1 ? nameParts.pop() : '';
@@ -162,18 +182,16 @@ $('#create_page_or_subpage_input').find('input[name=title]').focus();
                 // Drag-dropped files have real filenames -> default to the original base name so the user
                 // can confirm or rename.
                 var defaultName = (!base || base === 'image') ? 'clipboard_' + Date.now() : base;
-                // OO.ui.prompt blurs the surface; when the dialog closes the browser may auto-scroll
-                // the refocused element into view (often the top of the editor surface). Save the
-                // window scroll position and restore it after the dialog resolves to keep the user
-                // anchored where they pasted/dropped.
-                var savedScrollY = window.scrollY;
-                var savedScrollX = window.scrollX;
                 var dfd = $.Deferred();
-                OO.ui.prompt('Upload file', { textInput: { text: 'File name', value: defaultName } }).done(function (result) {
-                    window.scrollTo(savedScrollX, savedScrollY);
-                    if (result === null) return dfd.resolve(null);
-                    var finalName = ext ? result + '.' + ext : result;
-                    dfd.resolve(new File([file], finalName, { type: file.type, lastModified: file.lastModified }));
+                withScrollLock(function (unlock) {
+                    OO.ui.prompt('Upload file', { textInput: { text: 'File name', value: defaultName } }).done(function (result) {
+                        // Defer the unlock by one frame so VE's onSurfaceChange / refocus side-effects
+                        // that fire synchronously after dialog close are also caught by the snap.
+                        requestAnimationFrame(function () { unlock(); });
+                        if (result === null) return dfd.resolve(null);
+                        var finalName = ext ? result + '.' + ext : result;
+                        dfd.resolve(new File([file], finalName, { type: file.type, lastModified: file.lastModified }));
+                    });
                 });
                 return dfd.promise();
             }
