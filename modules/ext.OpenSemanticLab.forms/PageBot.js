@@ -1633,6 +1633,28 @@ osl.ui = class {
     // optional reload. Helpers live on osl.util.*.
     static callApi(params) {
         params = params || {};
+
+        // Literal body: a per-item button (e.g. a single-substance "Create"
+		// template) bakes its payload straight into `data-config` as a constant
+		// instead of reading it out of the page's jsondata. When `params.body` is
+		// present we skip the jsondata read/projection entirely and send it as-is,
+		// still honouring `wrap_key`, `confirm`/%count% and `csrf`. `buildUrl` only
+		// touches jsondata for {{var}} `source` substitution, which a literal-body
+		// button does not use, so an empty {} is a safe stand-in.
+		if (params.body != null) {
+			var literalBody = params.wrap_key
+				? wrap(params.wrap_key, params.body)
+				: params.body;
+			var literalCount = Array.isArray(literalBody) ? literalBody.length : 1;
+			var literalConfirm = params.confirm
+				? String(params.confirm).replace(/%count%/g, String(literalCount))
+				: null;
+			confirmThen(literalConfirm, function () {
+				send(params, {}, literalBody);
+			});
+			return;
+		}
+
         var pageName = params.source_page || mw.config.get("wgPageName");
 
         osl.util.getPageJsonData(pageName).then(function (jsondata) {
