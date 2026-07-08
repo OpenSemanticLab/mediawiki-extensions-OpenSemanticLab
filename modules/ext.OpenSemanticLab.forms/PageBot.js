@@ -193,6 +193,12 @@ $(document).ready(function () {
                         if (!config.label && config.label !== "") config.label = label;
                         $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.editData(${JSON.stringify(config.params)});'>${icon + config.label}</a>`));
                     }
+                    else if (config.action === "call-api") {
+                        // params are passed like edit-data; label is expected from the
+                        // (already i18n-resolved) config, with a plain fallback
+                        if (!config.label && config.label !== "") config.label = "Call API";
+                        $(config.target).append($(`<a class="${config.class}" role="button" href='javascript:osl.ui.callApi(${JSON.stringify(config.params)});'>${icon + config.label}</a>`));
+                    }
                     else if (config.action === "copy") {
                         label = mw.message('open-semantic-lab-copy-page').text();
                         if (!config.label && config.label !== "") config.label = label;
@@ -566,6 +572,173 @@ osl.util = class {
             });
         });
         return promise;
+    }
+
+    // --- call-api helpers ------------------------------------------------------
+    // Support osl.ui.callApi: read the current page's jsondata slot, project it
+    // into a request body and POST it to a backend endpoint (typically via the
+    // ApiGateway extension). Kept dependency-light so they also work in read mode.
+
+    // tiny jsonpath-ish getter. Supported forms: "$", "$.a.b.c", "$.a.b[*]"
+    // (trailing [*] just marks an array; the caller iterates). Enough for flat
+    // OSL result lists; swap in the full `jsonpath` lib if richer paths are needed.
+    static getByPath(data, path) {
+        if (data == null || path == null) return undefined;
+        if (path === "$" || path === "$.") return data;
+        var p = String(path).replace(/^\$\.?/, "").replace(/\[\*\]\s*$/, "");
+        if (p === "") return data;
+        var parts = p.split(".");
+        var cur = data;
+        for (var i = 0; i < parts.length; i++) {
+            if (cur == null) return undefined;
+            cur = cur[parts[i]];
+        }
+        return cur;
+    }
+
+    // Project one object into { key: value } using a { key: "$.path" } map.
+    static projectItem(item, objectMap) {
+        var out = {};
+        if (!objectMap) return out;
+        Object.keys(objectMap).forEach(function (k) {
+            out[k] = osl.util.getByPath(item, objectMap[k]);
+        });
+        return out;
+    }
+
+    // Minimal {{var}} substitution for `params.source` (Handlebars-compatible for
+    // the simple cases OSL data_source_maps use). Uses window.Handlebars if loaded.
+    static renderTemplate(tpl, data) {
+        if (!tpl) return tpl;
+        if (window.Handlebars && tpl.indexOf("{{") !== -1) {
+            try { return window.Handlebars.compile(tpl)(data); } catch (e) { /* fall through */ }
+        }
+        return String(tpl).replace(/\{\{\s*([^}]+?)\s*\}\}/g, function (_m, expr) {
+            var v = osl.util.getByPath(data, expr.charAt(0) === "$" ? expr : "$." + expr);
+            return v == null ? "" : String(v);
+        });
+    }
+
+    // Read the current page's jsondata slot via the action API. Avoids depending
+    // on mwjson.api being loaded in read mode.
+    static getPageJsonData(pageName) {
+        return new mw.Api().get({
+            action: "query",
+            prop: "revisions",
+            titles: pageName,
+            rvprop: "content",
+            rvslots: "jsondata",
+            formatversion: 2
+        }).then(function (res) {
+            try {
+                var page = res.query.pages[0];
+                var content = page.revisions[0].slots.jsondata.content;
+                return typeof content === "string" ? JSON.parse(content) : (content || {});
+            } catch (e) {
+                return {};
+            }
+        });
+    }
+
+    // Build a response summary. Prefer an explicit response_message_path; else
+    // best-effort over common batch shapes ({ results: [{action|error}],
+    // *_ids: [...] } and { message }).
+    static summarize(data, params) {
+        if (params && params.response_message_path) {
+            var msg = osl.util.getByPath(data, params.response_message_path);
+            if (msg != null) return String(msg);
+        }
+        if (!data || typeof data !== "object") return "Done";
+        if (typeof data.message === "string" && data.message) return data.message;
+        if (Array.isArray(data.results)) {
+            var created = 0, updated = 0, failed = 0;
+            data.results.forEach(function (x) {
+                if (!x) return;
+                if (x.error) failed++;
+                else if (x.action === "created") created++;
+                else if (x.action === "updated") updated++;
+            });
+            var parts = [];
+            if (created) parts.push(created + " created");
+            if (updated) parts.push(updated + " updated");
+            if (failed) parts.push(failed + " failed");
+            Object.keys(data).forEach(function (k) {
+                if (/_ids$/.test(k) && Array.isArray(data[k]) && data[k].length) {
+                    parts.push(data[k].length + " " + k.replace(/_ids$/, "") + " missing");
+                }
+            });
+            return parts.length ? parts.join(", ") : data.results.length + " item(s) processed";
+        }
+        return "Done";
+    }
+
+    // Show an optional confirmation prompt before running fn.
+    static confirmThen(message, fn) {
+        if (!message) { fn(); return; }
+        if (window.OO && OO.ui && OO.ui.confirm) {
+            OO.ui.confirm(message).done(function (ok) { if (ok) fn(); });
+        } else if (window.confirm(message)) {
+            fn();
+        }
+    }
+
+    static wrap(key, value) {
+        var o = {};
+        o[key] = value;
+        return o;
+    }
+
+    static buildUrl(params, jsondata) {
+        if (params.source) return osl.util.renderTemplate(params.source, jsondata);
+        if (params.gateway) {
+            var scriptPath = mw.config.get("wgScriptPath") || "/w";
+            return scriptPath + "/rest.php/apigateway/v1/" +
+                encodeURIComponent(params.gateway) +
+                "?path=" + encodeURIComponent(params.path || "");
+        }
+        return null;
+    }
+
+    static send(params, jsondata, body) {
+        var url = osl.util.buildUrl(params, jsondata);
+        if (!url) {
+            mw.notify("call-api: no `source` or `gateway` configured.", { type: "error" });
+            return;
+        }
+
+        var tokenPromise = params.csrf
+            ? new mw.Api().getToken("csrf").then(function (t) {
+                return url + (url.indexOf("?") >= 0 ? "&" : "?") + "token=" + encodeURIComponent(t);
+            })
+            : Promise.resolve(url);
+
+        tokenPromise.then(function (finalUrl) {
+            return fetch(finalUrl, {
+                method: params.method || "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+        }).then(function (resp) {
+            return resp.json().catch(function () { return {}; }).then(function (data) {
+                return { resp: resp, data: data };
+            });
+        }).then(function (r) {
+            if (!r.resp.ok) {
+                var detail = (r.data && (r.data.detail || r.data.message)) || ("HTTP " + r.resp.status);
+                mw.notify(String(detail), { type: "error", title: "API call failed" });
+                return;
+            }
+            mw.notify(osl.util.summarize(r.data, params), { type: "success" });
+            var onSuccess = params.on_success || "reload";
+            if (onSuccess === "reload") {
+                // eslint-disable-next-line no-restricted-globals
+                location.reload();
+            }
+        }).catch(function (err) {
+            mw.notify(String(err && err.message ? err.message : err), {
+                type: "error", title: "API call failed"
+            });
+        });
     }
 };
 
@@ -1450,5 +1623,54 @@ osl.ui = class {
         });
 
         return promise;
+    }
+
+    // Generic "call an API from page data" action, rendered from `.pagebot-button`
+    // configs with `action: "call-api"`. Reads the page's jsondata slot, projects
+    // it into a request body via `params.request_object_map` (optionally iterating
+    // `params.list_path`), POSTs it to `params.source`/`params.gateway` (typically
+    // through the ApiGateway extension), and drives an mw.notify summary and an
+    // optional reload. Helpers live on osl.util.*.
+    static callApi(params) {
+        params = params || {};
+        var pageName = params.source_page || mw.config.get("wgPageName");
+
+        osl.util.getPageJsonData(pageName).then(function (jsondata) {
+            // Build the request body.
+            var body;
+            if (params.list_path) {
+                var list = osl.util.getByPath(jsondata, params.list_path);
+                if (list == null) list = [];
+                if (!Array.isArray(list)) list = [list];
+                var items = list
+                    .map(function (it) { return osl.util.projectItem(it, params.request_object_map); })
+                    .filter(function (o) {
+                        return Object.keys(o).some(function (k) { return o[k] != null; });
+                    });
+                if (!items.length) {
+                    mw.notify("Nothing to send: no matching items on this page.", { type: "warn" });
+                    return;
+                }
+                body = params.wrap_key ? osl.util.wrap(params.wrap_key, items) : items;
+            } else {
+                var obj = osl.util.projectItem(jsondata, params.request_object_map);
+                body = params.wrap_key ? osl.util.wrap(params.wrap_key, obj) : obj;
+            }
+
+            var count = Array.isArray(body) ? body.length : 1;
+            // `%count%` (not `{{count}}`) so the placeholder survives MediaWiki
+            // wikitext expansion when `confirm` is authored in a template slot.
+            var confirmMsg = params.confirm
+                ? String(params.confirm).replace(/%count%/g, String(count))
+                : null;
+
+            osl.util.confirmThen(confirmMsg, function () {
+                osl.util.send(params, jsondata, body);
+            });
+        }).catch(function (err) {
+            mw.notify(String(err && err.message ? err.message : err), {
+                type: "error", title: "Could not read page data"
+            });
+        });
     }
 };
