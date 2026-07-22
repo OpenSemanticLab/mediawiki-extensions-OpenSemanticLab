@@ -1,0 +1,196 @@
+/* OSL info-box styles
+ * Consolidates base, dark-mode, and side-collapse styles for table.info_box
+ * (produced by Module:MwJson via category header templates).
+ *
+ * Companion: InfoBox.js registers the collapse-to-side-tab toggle.
+ */
+
+/* --- Base --- */
+.info_box {
+	display: table;
+	width: 30em;
+	max-width: 100%;
+	font-family: Arial;
+	background-color: #f1f3f3;
+	color: black;
+	margin-bottom: 0.5em;
+	margin-left: 1em;
+	padding: 0.2em;
+	float: right;
+	clear: right;
+	text-align: left !important;
+	border-collapse: collapse;
+	border-radius: 8px;
+}
+
+/* On mobile screens, stack info_box below headings instead of floating */
+@media (max-width: 720px) {
+	.info_box {
+		float: none;
+		width: 100%;
+		margin-left: 0;
+	}
+}
+
+.info_box th {
+	background-color: #f1f3f3;
+	padding: 0 0.4em 0 0.4em;
+}
+
+.info_box td {
+	padding: 0 0.4em 0 0.4em;
+	word-break: break-all; /* break long links and names */
+}
+
+/* Subheading of a section inside the info box */
+.info_box .subheading {
+	text-align: center;
+	background-color: gray;
+	color: white;
+	font-weight: bold;
+	border-radius: 4px;
+}
+
+.info_box .picture {
+	text-align: center;
+	padding: 10px 0;
+	width: 1000px;
+}
+
+/* Heading (title row) of the info box */
+.info_box .heading {
+	width: 100%;
+	text-align: center !important;
+	background-color: #14866d !important;
+	color: white;
+	font-size: larger;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.info_box .fancytree .fancytree-container {
+	border: none;
+	margin: 0;
+	white-space: wrap;
+	background: transparent;
+}
+
+.info_box .fancytree .fancytree-title {
+	display: unset;
+}
+
+/* --- Skin:Citizen dark mode overrides --- */
+.skin-citizen-dark .info_box {
+	color: var(--color-base);
+	background: var(--color-surface-0);
+}
+.skin-citizen-dark .info_box th {
+	background: var(--color-surface-0);
+	color: white;
+}
+
+/* --- Side-collapse toggle (companion: InfoBox.js) --- */
+
+/* Small collapse button injected into the heading (expanded state) */
+.info_box .info_box-toggle {
+	float: right;
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	color: inherit;
+	font: inherit;
+	line-height: 1;
+	padding: 0 0.4em;
+	margin-left: 0.25em;
+}
+.info_box .info_box-toggle:hover {
+	opacity: 0.75;
+}
+.info_box .info_box-toggle:focus-visible {
+	outline: 2px solid #36c;
+	outline-offset: 2px;
+}
+
+/* Tab button (collapsed state). display:none by default; toggled via --visible. */
+.info_box-tab {
+	display: none;
+	background: #f8f9fa;
+	border: 1px solid #a2a9b1;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+	padding: 0.6em 0.25em;
+	box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+	transition: transform 0.15s ease;
+}
+.info_box-tab:hover {
+	transform: translateX(-2px);
+}
+.info_box-tab:focus-visible {
+	outline: 2px solid #36c;
+	outline-offset: 2px;
+}
+.info_box-tab-label {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+/* Desktop: pin the tab to the viewport edge, hide the table when collapsed. */
+@media screen and (min-width: 769px) {
+	.info_box-tab {
+		position: fixed;
+		right: 0;
+		top: 20vh;
+		z-index: 100;
+		border-right: 0;
+		border-radius: 4px 0 0 4px;
+		max-height: 70vh;
+	}
+	.info_box-tab-label {
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+		max-height: 60vh;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.info_box.info_box--collapsed {
+		display: none;
+	}
+	.info_box-tab.info_box-tab--visible {
+		display: inline-block;
+	}
+}
+
+/* Mobile: no side-tab. Render the toggle inline where the box used to be. */
+@media screen and (max-width: 768px) {
+	.info_box-tab {
+		width: 100%;
+		text-align: left;
+		margin: 0.5em 0;
+		border-radius: 4px;
+	}
+	.info_box.info_box--collapsed {
+		display: none;
+	}
+	.info_box-tab.info_box-tab--visible {
+		display: block;
+	}
+}
+
+/* Dark-mode overrides for the collapse controls */
+.skin-citizen-dark .info_box-tab {
+	background: var(--color-surface-0);
+	color: var(--color-base);
+	border-color: var(--color-surface-3);
+}
+
+/* Print: force the box to render in full; hide toggles regardless of state. */
+@media print {
+	.info_box.info_box--collapsed {
+		display: table !important;
+	}
+	.info_box-tab,
+	.info_box .info_box-toggle {
+		display: none !important;
+	}
+}

@@ -363,7 +363,6 @@ class OpenSemanticLab {
 
 		//handle css explicitly, see https://www.mediawiki.org/wiki/ResourceLoader/Developing_with_ResourceLoader#CSS_2
 		$out->addModuleStyles( 'ext.OpenSemanticLab.styles' );
-		$out->addModuleStyles( 'ext.OpenSemanticLab.LIMS.styles' );
 
 		$out->addModules( 'ext.OpenSemanticLab' );
 		$out->addModules( 'ext.OpenSemanticLab.editor' );

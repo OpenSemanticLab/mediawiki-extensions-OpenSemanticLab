@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.42.6",
+	"version": "0.43.0",
 	"author": [
 		"Simon Stier"
 	],
@@ -38,7 +38,8 @@
 				"SkinOverwrites.css",
 				"darkmode.css",
 				"TileGrid2.css",
-				"placeholder.css"
+				"placeholder.css",
+				"InfoBox.css"
 			],
 			"position": "bottom"
 		},
@@ -50,7 +51,8 @@
 				"Tiles.js",
 				"DynamicSidebar.js",
 				"D3graphviz.js",
-				"prefect.js"
+				"prefect.js",
+				"InfoBox.js"
 			],
 			"position": "bottom"
 		},
@@ -117,14 +119,6 @@
 				"open-semantic-lab-query-dialog-continue",
 				"open-semantic-lab-query-dialog-cancel",
 				"open-semantic-lab-preview"
-			],
-			"position": "top"
-		},
-		"ext.OpenSemanticLab.LIMS.styles": {
-			"localBasePath": "modules/ext.OpenSemanticLab.LIMS",
-			"remoteExtPath": "OpenSemanticLab/modules/ext.OpenSemanticLab.LIMS",
-			"styles": [
-				"LimsInfoBox.css"
 			],
 			"position": "top"
 		},

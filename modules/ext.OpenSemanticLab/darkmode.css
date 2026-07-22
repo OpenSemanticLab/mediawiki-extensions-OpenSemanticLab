@@ -13,15 +13,7 @@ generated element if Skin:Citizen darkmode is active */
     background-color: var(--color-surface-4);
 }
 
-/* InfoBox */
-.skin-citizen-dark .info_box {
-    color: var(--color-base);
-    background: var(--color-surface-0);
-}
-.skin-citizen-dark .info_box th {
-    background: var(--color-surface-0);
-    color: white;
-}
+/* InfoBox dark-mode rules moved to modules/ext.OpenSemanticLab/InfoBox.css */
 
 /* All IFrame editors */
 /*.skin-citizen-dark iframe {
