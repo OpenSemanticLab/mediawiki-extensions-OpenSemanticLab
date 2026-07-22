@@ -120,6 +120,21 @@ html.osl-info-box-collapsed .info_box {
 	align-items: center;
 	justify-content: center;
 }
+.info_box .info_box-toggle::before {
+	content: '\25B6'; /* ▶ collapse the box to the right into the side tab */
+}
+@media screen and (max-width: 768px) {
+	/* On mobile the tab appears inline below the box, so the collapse arrow
+	 * points up. Move the button to the left of the heading to mirror the
+	 * inline flow (icon anchors the heading's start edge). */
+	.info_box .info_box-toggle {
+		right: auto;
+		left: 0.5em;
+	}
+	.info_box .info_box-toggle::before {
+		content: '\25B2'; /* ▲ collapse the box upward into the inline tab */
+	}
+}
 .info_box .info_box-toggle:hover {
 	opacity: 0.75;
 }

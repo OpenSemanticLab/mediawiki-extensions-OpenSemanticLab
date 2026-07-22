@@ -77,9 +77,10 @@
 		var btn = document.createElement( 'button' );
 		btn.type = 'button';
 		btn.className = 'info_box-toggle';
-		btn.setAttribute( 'aria-label', 'Collapse info box to side tab' );
+		btn.setAttribute( 'aria-label', 'Collapse info box' );
 		btn.title = 'Collapse info box';
-		btn.textContent = '▶'; // ▶
+		// Glyph provided by CSS ::before so it can adapt to viewport
+		// (▶ on desktop, ▲ on mobile).
 		heading.appendChild( btn );
 
 		btn.addEventListener( 'click', function ( e ) {
@@ -100,7 +101,7 @@
 		var firstBox = boxes[ 0 ];
 		var firstHeading = firstBox.querySelector( 'th.heading' );
 		var titleText = firstHeading ? extractHeadingText( firstHeading ) : 'Info';
-		var labelText = titleText + ' Info Box';
+		var labelText = titleText + ' - Info Box';
 
 		var tabBtn = document.createElement( 'button' );
 		tabBtn.type = 'button';
