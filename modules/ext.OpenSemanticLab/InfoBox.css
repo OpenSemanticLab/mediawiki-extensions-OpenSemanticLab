@@ -59,6 +59,7 @@
 
 /* Heading (title row) of the info box */
 .info_box .heading {
+	position: relative; /* anchor for absolute-positioned collapse button */
 	width: 100%;
 	text-align: center !important;
 	background-color: #14866d !important;
@@ -91,27 +92,44 @@
 
 /* --- Side-collapse toggle (companion: InfoBox.js) --- */
 
-/* Small collapse button injected into the heading (expanded state) */
+/* Anti-flicker: if the persisted state is collapsed, an inline head script
+ * sets .osl-info-box-collapsed on <html> before the body renders. This rule
+ * hides the box immediately, before InfoBox.js has a chance to apply state.
+ * InfoBox.js removes the html-level class once it has added the per-box
+ * .info_box--collapsed class, which takes over the hiding job. */
+html.osl-info-box-collapsed .info_box {
+	display: none;
+}
+
+/* Collapse button injected into each heading (expanded state).
+ * Absolutely positioned so the title stays centered in the heading and the
+ * icon glyph is vertically centered against the title baseline. */
 .info_box .info_box-toggle {
-	float: right;
+	position: absolute;
+	right: 0.5em;
+	top: 50%;
+	transform: translateY(-50%);
 	background: transparent;
 	border: 0;
 	cursor: pointer;
 	color: inherit;
 	font: inherit;
 	line-height: 1;
-	padding: 0 0.4em;
-	margin-left: 0.25em;
+	padding: 0.15em 0.4em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
 .info_box .info_box-toggle:hover {
 	opacity: 0.75;
 }
 .info_box .info_box-toggle:focus-visible {
-	outline: 2px solid #36c;
+	outline: 2px solid #fff;
 	outline-offset: 2px;
 }
 
-/* Tab button (collapsed state). display:none by default; toggled via --visible. */
+/* Tab button (collapsed state). Single tab shared by all boxes on the page.
+ * display:none by default; toggled via --visible. */
 .info_box-tab {
 	display: none;
 	background: #f8f9fa;
@@ -119,7 +137,7 @@
 	color: inherit;
 	font: inherit;
 	cursor: pointer;
-	padding: 0.6em 0.25em;
+	padding: 0.6em 0.4em;
 	box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
 	transition: transform 0.15s ease;
 }
@@ -130,8 +148,11 @@
 	outline: 2px solid #36c;
 	outline-offset: 2px;
 }
+.info_box-tab-icon,
 .info_box-tab-label {
-	display: inline-block;
+	text-align: center;
+}
+.info_box-tab-label {
 	white-space: nowrap;
 }
 
@@ -146,18 +167,29 @@
 		border-radius: 4px 0 0 4px;
 		max-height: 70vh;
 	}
+	.info_box-tab-icon {
+		display: block;
+		font-size: 1.1em;
+		margin-bottom: 0.4em;
+	}
+	.info_box-tab-icon::before {
+		content: '\25C0'; /* ◀ leftward-pointing triangle: expand box to the left */
+	}
 	.info_box-tab-label {
 		writing-mode: vertical-rl;
 		transform: rotate(180deg);
 		max-height: 60vh;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		margin: 0 auto;
 	}
 	.info_box.info_box--collapsed {
 		display: none;
 	}
 	.info_box-tab.info_box-tab--visible {
-		display: inline-block;
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
 	}
 }
 
@@ -165,9 +197,20 @@
 @media screen and (max-width: 768px) {
 	.info_box-tab {
 		width: 100%;
-		text-align: left;
+		text-align: center;
 		margin: 0.5em 0;
 		border-radius: 4px;
+	}
+	.info_box-tab-icon,
+	.info_box-tab-label {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.info_box-tab-icon {
+		margin-right: 0.5em;
+	}
+	.info_box-tab-icon::before {
+		content: '\25BC'; /* ▼ downward-pointing triangle: expand box below */
 	}
 	.info_box.info_box--collapsed {
 		display: none;
@@ -186,6 +229,7 @@
 
 /* Print: force the box to render in full; hide toggles regardless of state. */
 @media print {
+	html.osl-info-box-collapsed .info_box,
 	.info_box.info_box--collapsed {
 		display: table !important;
 	}

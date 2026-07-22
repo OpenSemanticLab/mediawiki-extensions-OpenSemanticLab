@@ -1,12 +1,20 @@
 /* OSL info-box side-collapse toggle
  * Companion to modules/ext.OpenSemanticLab/InfoBox.css
  * Persistence: global (single localStorage flag for all info boxes on the wiki).
- * Idempotent: re-runs safely on mw.hook('wikipage.content') refires (VE, etc.).
+ * Multiple info boxes on one page share ONE tab; every info box gets its own
+ * collapse button so the toggle is reachable wherever you scroll.
+ *
+ * An inline head script in OpenSemanticLab::onBeforePageDisplay pre-sets
+ * .osl-info-box-collapsed on <html> when the persisted state is collapsed so
+ * the CSS can hide the box before this script runs (no flash of visible box).
+ * We remove that html-level class here once we've applied .info_box--collapsed
+ * to the individual boxes.
  */
 ( function () {
 	'use strict';
 
 	var STORAGE_KEY = 'osl-info-box-collapsed';
+	var HTML_HINT_CLASS = 'osl-info-box-collapsed';
 	var COLLAPSED_CLASS = 'info_box--collapsed';
 	var TAB_VISIBLE_CLASS = 'info_box-tab--visible';
 
@@ -39,7 +47,23 @@
 		return out || 'Info';
 	}
 
-	function enhance( box ) {
+	function applyState( collapsed ) {
+		var boxes = document.querySelectorAll( 'table.info_box' );
+		for ( var i = 0; i < boxes.length; i++ ) {
+			boxes[ i ].classList.toggle( COLLAPSED_CLASS, collapsed );
+		}
+		var tab = document.querySelector( '.info_box-tab' );
+		if ( tab ) {
+			tab.classList.toggle( TAB_VISIBLE_CLASS, collapsed );
+			tab.setAttribute( 'aria-expanded', collapsed ? 'false' : 'true' );
+		}
+		var toggles = document.querySelectorAll( '.info_box-toggle' );
+		for ( var j = 0; j < toggles.length; j++ ) {
+			toggles[ j ].setAttribute( 'aria-expanded', collapsed ? 'false' : 'true' );
+		}
+	}
+
+	function addCollapseButton( box ) {
 		if ( box.dataset.oslInfoBoxEnhanced === '1' ) {
 			return;
 		}
@@ -50,57 +74,79 @@
 			return; // not the expected DOM shape
 		}
 
-		var titleText = extractHeadingText( heading );
+		var btn = document.createElement( 'button' );
+		btn.type = 'button';
+		btn.className = 'info_box-toggle';
+		btn.setAttribute( 'aria-label', 'Collapse info box to side tab' );
+		btn.title = 'Collapse info box';
+		btn.textContent = '▶'; // ▶
+		heading.appendChild( btn );
 
-		var collapseBtn = document.createElement( 'button' );
-		collapseBtn.type = 'button';
-		collapseBtn.className = 'info_box-toggle';
-		collapseBtn.setAttribute( 'aria-controls', box.id || '' );
-		collapseBtn.setAttribute( 'aria-label', 'Collapse info box to side tab' );
-		collapseBtn.title = 'Collapse info box';
-		collapseBtn.textContent = '▶'; // right-pointing triangle
-		heading.appendChild( collapseBtn );
+		btn.addEventListener( 'click', function ( e ) {
+			e.stopPropagation();
+			applyState( true );
+			setStoredCollapsed( true );
+			var tab = document.querySelector( '.info_box-tab' );
+			if ( tab ) {
+				tab.focus();
+			}
+		} );
+	}
+
+	function ensureSharedTab( boxes ) {
+		if ( document.querySelector( '.info_box-tab' ) ) {
+			return; // shared tab already exists
+		}
+		var firstBox = boxes[ 0 ];
+		var firstHeading = firstBox.querySelector( 'th.heading' );
+		var titleText = firstHeading ? extractHeadingText( firstHeading ) : 'Info';
+		var labelText = titleText + ' Info Box';
 
 		var tabBtn = document.createElement( 'button' );
 		tabBtn.type = 'button';
 		tabBtn.className = 'info_box-tab';
-		tabBtn.setAttribute( 'aria-controls', box.id || '' );
 		tabBtn.setAttribute( 'aria-label', 'Expand info box' );
 		tabBtn.title = 'Expand info box';
-		var tabLabel = document.createElement( 'span' );
-		tabLabel.className = 'info_box-tab-label';
-		tabLabel.textContent = titleText;
-		tabBtn.appendChild( tabLabel );
-		box.parentNode.insertBefore( tabBtn, box.nextSibling );
 
-		function apply( collapsed ) {
-			box.classList.toggle( COLLAPSED_CLASS, collapsed );
-			tabBtn.classList.toggle( TAB_VISIBLE_CLASS, collapsed );
-			collapseBtn.setAttribute( 'aria-expanded', collapsed ? 'false' : 'true' );
-			tabBtn.setAttribute( 'aria-expanded', collapsed ? 'false' : 'true' );
-		}
+		var icon = document.createElement( 'span' );
+		icon.className = 'info_box-tab-icon';
+		tabBtn.appendChild( icon );
 
-		apply( getStoredCollapsed() );
+		var label = document.createElement( 'span' );
+		label.className = 'info_box-tab-label';
+		label.textContent = labelText;
+		tabBtn.appendChild( label );
 
-		collapseBtn.addEventListener( 'click', function ( e ) {
-			e.stopPropagation();
-			apply( true );
-			setStoredCollapsed( true );
-			tabBtn.focus();
-		} );
+		// Insert right after the first info box so mobile (inline) mode shows
+		// the tab in place of the box. On desktop it is position:fixed so DOM
+		// position does not matter visually.
+		firstBox.parentNode.insertBefore( tabBtn, firstBox.nextSibling );
+
 		tabBtn.addEventListener( 'click', function ( e ) {
 			e.stopPropagation();
-			apply( false );
+			applyState( false );
 			setStoredCollapsed( false );
-			collapseBtn.focus();
+			var first = document.querySelector( '.info_box-toggle' );
+			if ( first ) {
+				first.focus();
+			}
 		} );
 	}
 
 	function scan( root ) {
 		var boxes = ( root || document ).querySelectorAll( 'table.info_box' );
-		for ( var i = 0; i < boxes.length; i++ ) {
-			enhance( boxes[ i ] );
+		if ( !boxes.length ) {
+			return;
 		}
+		for ( var i = 0; i < boxes.length; i++ ) {
+			addCollapseButton( boxes[ i ] );
+		}
+		ensureSharedTab( boxes );
+
+		applyState( getStoredCollapsed() );
+		// Hand off from the anti-flicker html class to the per-box classes so
+		// the CSS rule scoped to html.osl-info-box-collapsed no longer applies.
+		document.documentElement.classList.remove( HTML_HINT_CLASS );
 	}
 
 	if ( window.mw && mw.hook ) {
