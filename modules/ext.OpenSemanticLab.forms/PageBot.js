@@ -352,6 +352,58 @@ osl.util = class {
 		return mwjson.util.getRelativePageUrl(title, {"action": "raw", "slot": "jsonschema"}, pretty);
 	}
 
+    // Schemas written before the generated content moved into $defs carry generated
+    // members such as uuid or properties.type.default at root level, and a copy inherits
+    // them. Regeneration rebuilds only $defs.generated, so those root copies survive
+    // still naming the source category, and then shadow the freshly generated ones,
+    // because a member declared at root takes precedence over the same member pulled in
+    // through allOf/$ref. Instances of a copied category were therefore typed as the
+    // source category, and since 'type' is hidden in the form the wrong value was neither
+    // visible nor correctable.
+    //
+    // Remove every root member the generated section now defines, recursing so manual
+    // siblings on the same object survive (properties.type loses the generated 'default'
+    // but keeps 'items', 'minItems' and 'options'). Members we deliberately promote to
+    // root are skipped, and nothing happens when there is no generated section, so a
+    // failed generation can never strip a schema bare.
+    static stripRootMembersSupersededByGenerated(root_schema, generated_schema) {
+        // written to root on purpose by the generation below, or required there by spec
+        const promoted_to_root = ['title', 'title*', 'description', 'description*', '@context', '$defs', 'allOf', '$ref', '$comment'];
+        const strip = (target, generated, is_root) => {
+            if (!mwjson.util.isObject(target) || !mwjson.util.isObject(generated)) return;
+            for (const key of Object.keys(generated)) {
+                if (is_root && promoted_to_root.includes(key)) continue;
+                if (!Object.hasOwn(target, key)) continue;
+                if (mwjson.util.isObject(generated[key]) && mwjson.util.isObject(target[key])) {
+                    strip(target[key], generated[key], false);
+                    // the container only existed to hold generated members, so drop it too
+                    if (Object.keys(target[key]).length === 0) delete target[key];
+                } else {
+                    delete target[key];
+                }
+            }
+        };
+        strip(root_schema, generated_schema, true);
+    }
+
+    // JSON-LD requires @context at root, so unlike the rest of the generated schema it
+    // cannot live in $defs.generated and be dropped together with it. By convention the
+    // generated property mappings are the first object entry of the @context array; the
+    // string entries before it are parent schema references, and multi-inheritance yields
+    // several of them. Remove that entry before regenerating, because the merge below
+    // unions and never removes: mappings of renamed properties, or of properties
+    // inherited from a copied category, would otherwise linger forever and accumulate
+    // with every further copy.
+    static resetGeneratedJsonLdContext(schema) {
+        if (!schema) return;
+        const context = schema['@context'];
+        // a bare string is a parent reference only, a bare object cannot be told apart
+        // from a hand written context, so only the array form carries a generated block
+        if (!mwjson.util.isArray(context)) return;
+        const index = context.findIndex(entry => mwjson.util.isObject(entry));
+        if (index !== -1) context.splice(index, 1);
+    }
+
     static postProcessPage(page, categories = []) {
         //var namespace_prefix = new mw.Title(page.title).getNamespacePrefix();
         //if (namespace_prefix === "Item:" || namespace_prefix === "Category:" || namespace_prefix === "Property:") {
@@ -431,6 +483,9 @@ osl.util = class {
 
                 // reset generated content
                 if (categories.length) { // (meta)categories only specified in normal edit mode but not in slot edit mode to allow manual changes
+                    // drop the generated @context block too, it is rebuilt from the
+                    // templates below just like the generated schema itself
+                    osl.util.resetGeneratedJsonLdContext(page.slots['jsonschema']);
                     if (page.slots['jsonschema'] && page.slots['jsonschema'][def_key] && page.slots['jsonschema'][def_key][gen_def_key]) {
                         // Delete generated schema
                         delete page.slots['jsonschema'][def_key][gen_def_key];
@@ -528,6 +583,22 @@ osl.util = class {
                         }
                     }
                 }
+
+                // $defs.generated is the single source of truth for generated members.
+                // Retire any copy of them left at root, so a schema copied from another
+                // category stops naming its source. Only runs when a generated section
+                // was actually produced.
+                if (mode === 'definitions_section'
+                    && page.slots['jsonschema']
+                    && page.slots['jsonschema'][def_key]
+                    && page.slots['jsonschema'][def_key][gen_def_key]) {
+                    osl.util.stripRootMembersSupersededByGenerated(
+                        page.slots['jsonschema'],
+                        page.slots['jsonschema'][def_key][gen_def_key]
+                    );
+                    page.slots_changed['jsonschema'] = true;
+                }
+
                 resolve(page);
             });
         });
