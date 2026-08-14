@@ -55,6 +55,8 @@
 	"open-semantic-lab-print-section-qr-code": "QR Code",
 	"open-semantic-lab-print-section-master-data": "Stammdaten",
 	"open-semantic-lab-preview": "Vorschau",
+	"open-semantic-lab-schema-generation-save-anyway": "Trotzdem speichern",
+	"open-semantic-lab-schema-generation-cancel": "Zurück zum Editor",
 	"open-semantic-lab-schema-generation-error-title": "Schemagenerierung",
 	"open-semantic-lab-schema-generation-error": "Das Schema konnte nicht vollständig neu erzeugt werden: $1. Beim Speichern wird möglicherweise ein unvollständiges Schema abgelegt.",
 	"open-semantic-lab-lims-location": "Standort",

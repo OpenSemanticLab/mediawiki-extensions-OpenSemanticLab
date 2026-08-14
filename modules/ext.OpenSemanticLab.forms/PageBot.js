@@ -527,6 +527,7 @@ osl.util = class {
                             )));
                         } catch (error) {
                             console.error("Error while parsing handlebars template schema_template: ", template_text, error);
+                            generation_errors.push(category_page.title + ": schema_template is not a valid handlebars template (" + error.message + ")");
                         }
 
                         try {
@@ -594,6 +595,7 @@ osl.util = class {
                             }
                         } catch (error) {
                             console.error("Error while parsing JSON from schema_template: ", json_schema_text, error);
+                            generation_errors.push(category_page.title + ": schema_template did not render valid JSON (" + error.message + ")");
                         }
                     }
                 }
@@ -616,16 +618,49 @@ osl.util = class {
                 if (generation_errors.length) {
                     const summary = mw.message('open-semantic-lab-schema-generation-error', generation_errors.join(", ")).text();
                     console.error(summary);
-                    if (mw.config.get('wgOslAbortOnSchemaGenerationError')) {
-                        // never persist a schema we already know is incomplete
+                    // With the abort policy there is no choice to offer, but the dialog
+                    // still has to explain why nothing was saved: rejecting silently just
+                    // left the editor open with an uncaught rejection in the console.
+                    const abort_on_error = mw.config.get('wgOslAbortOnSchemaGenerationError');
+                    // Same dialog as schema validation errors, and like those it has to
+                    // gate the save: resolving here would let the page be written while
+                    // the user is still reading the message. settle() decides.
+                    const title = mw.message('open-semantic-lab-schema-generation-error-title').text();
+                    if (mwjson.editor && typeof mwjson.editor.createModal === 'function') {
+                        let settled = false;
+                        let modal = null;
+                        const settle = (save_anyway) => {
+                            if (settled) return;
+                            settled = true;
+                            if (modal && typeof modal.hide === 'function') modal.hide();
+                            if (save_anyway) resolve(page);
+                            else reject(new Error(summary));
+                        };
+                        // Save anyway is only offered when the policy permits it
+                        const buttons = [
+                            { label: mw.message('open-semantic-lab-schema-generation-cancel').text(), class: 'btn btn-secondary', onclick: function () { settle(false); } }
+                        ];
+                        if (!abort_on_error) {
+                            buttons.push({ label: mw.message('open-semantic-lab-schema-generation-save-anyway').text(), class: 'btn btn-warning', onclick: function () { settle(true); } });
+                        }
+                        modal = mwjson.editor.createModal({
+                            id: 'osl-schema-generation-error-' + mwjson.util.getShortUid(),
+                            title: title,
+                            body: '<p>' + mw.html.escape(summary) + '</p>',
+                            size: 'md',
+                            class: abort_on_error ? 'modal-danger' : 'modal-warning',
+                            // no closing:true, settle() drives hide() so the choice is not
+                            // raced by Bootstrap's own dismiss
+                            buttons: buttons
+                        });
+                        if (modal && typeof modal.show === 'function') modal.show();
+                        return; // settle() resolves or rejects
+                    }
+                    if (abort_on_error) {
                         reject(new Error(summary));
                         return;
                     }
-                    mw.notify(summary, {
-                        title: mw.message('open-semantic-lab-schema-generation-error-title').text(),
-                        type: 'warn',
-                        autoHide: false
-                    });
+                    mw.notify(summary, { title: title, type: 'warn', autoHide: false });
                 }
 
                 resolve(page);
@@ -1157,6 +1192,15 @@ osl.ui = class {
                       
                     Promise.allSettled(postprocessing_promises.concat(delete_promises))
                         .then((results) => {
+                            // A rejected postprocessing means the page was deliberately not
+                            // written, e.g. the user cancelled on a schema generation error.
+                            // Filtering those out and resolving anyway made the editor
+                            // announce "saved" for a save that never happened.
+                            const failed = results.filter((result) => result.status === "rejected");
+                            if (failed.length) {
+                                reject(failed[0].reason);
+                                return;
+                            }
                             const processedPages = results
                                 .filter((result) => result.status === "fulfilled")
                                 .map((result) => result.value);

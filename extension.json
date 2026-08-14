@@ -120,6 +120,8 @@
 				"open-semantic-lab-query-dialog-cancel",
 				"open-semantic-lab-preview",
 				"open-semantic-lab-schema-generation-error-title",
+				"open-semantic-lab-schema-generation-save-anyway",
+				"open-semantic-lab-schema-generation-cancel",
 				"open-semantic-lab-schema-generation-error"
 			],
 			"position": "top"
