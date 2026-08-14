@@ -388,6 +388,21 @@ osl.util = class {
             }
         };
         strip(root_schema, generated_schema, true);
+
+        // The generated section repeats the parent refs in its own allOf, so root listed
+        // them twice: once directly and once again through #/$defs/generated. Drop the
+        // duplicates at root and keep the pointer to the generated section.
+        const generated_allof = mwjson.util.isArray(generated_schema.allOf) ? generated_schema.allOf : [];
+        if (mwjson.util.isArray(root_schema.allOf) && generated_allof.length) {
+            const generated_refs = generated_allof
+                .map(item => (item && item.$ref) ? item.$ref : null)
+                .filter(ref => ref !== null);
+            const before = root_schema.allOf.length;
+            root_schema.allOf = root_schema.allOf.filter(
+                item => !( item && item.$ref && generated_refs.includes(item.$ref) )
+            );
+            if (root_schema.allOf.length !== before) removed = true;
+        }
         return removed;
     }
 
@@ -399,14 +414,26 @@ osl.util = class {
     // unions and never removes: mappings of renamed properties, or of properties
     // inherited from a copied category, would otherwise linger forever and accumulate
     // with every further copy.
-    static resetGeneratedJsonLdContext(schema) {
+    // had_generated_section: whether $defs.generated existed before this save. Without it
+    // the schema was never generated, so its first object block is hand written and must
+    // not be cleared: reserve a new slot in front of it instead.
+    static resetGeneratedJsonLdContext(schema, had_generated_section) {
         if (!schema) return;
         const context = schema['@context'];
         // a bare string is a parent reference only, a bare object cannot be told apart
         // from a hand written context, so only the array form carries a generated block
         if (!mwjson.util.isArray(context)) return;
         const index = context.findIndex(entry => mwjson.util.isObject(entry));
-        if (index !== -1) context.splice(index, 1);
+        if (!had_generated_section) {
+            // hand written schema: insert an empty generated block ahead of the manual one
+            context.splice(index === -1 ? context.length : index, 0, {});
+            return;
+        }
+        // Empty it in place rather than removing it: the slot has to stay reserved, or
+        // the regenerated mappings would be merged into whatever object block follows,
+        // which is a manual one.
+        if (index !== -1) context[index] = {};
+        else context.push({});
     }
 
     static postProcessPage(page, categories = []) {
@@ -490,7 +517,10 @@ osl.util = class {
                 if (categories.length) { // (meta)categories only specified in normal edit mode but not in slot edit mode to allow manual changes
                     // drop the generated @context block too, it is rebuilt from the
                     // templates below just like the generated schema itself
-                    osl.util.resetGeneratedJsonLdContext(page.slots['jsonschema']);
+                    osl.util.resetGeneratedJsonLdContext(
+                        page.slots['jsonschema'],
+                        !!( page.slots['jsonschema'] && page.slots['jsonschema'][def_key] && page.slots['jsonschema'][def_key][gen_def_key] )
+                    );
                     if (page.slots['jsonschema'] && page.slots['jsonschema'][def_key] && page.slots['jsonschema'][def_key][gen_def_key]) {
                         // Delete generated schema
                         delete page.slots['jsonschema'][def_key][gen_def_key];
@@ -573,8 +603,29 @@ osl.util = class {
                                             }
                                             // case E + F: nothing to do
                                         }
-                                        page.slots['jsonschema']['@context'] = mwjson.util.mergeDeep({'@context': existing_context}, {'@context': generated_context})['@context'];
-                                        page.slots['jsonschema']['@context'] = mwjson.util.mergeJsonLdContextObjectList(page.slots['jsonschema']['@context']);
+                                        // Merge into the reserved first object block only.
+                                        // mergeJsonLdContextObjectList() collapses every
+                                        // object entry into one, which fused the generated
+                                        // mappings with a manual block placed after them;
+                                        // the next reset would then delete the manual
+                                        // entries along with the generated ones.
+                                        let context_list = mwjson.util.isArray(existing_context)
+                                            ? existing_context
+                                            : (existing_context ? [existing_context] : []);
+                                        // flatten what the template produced down to its mappings
+                                        let generated_entries = mwjson.util.isArray(generated_context) ? generated_context : [generated_context];
+                                        let generated_object = {};
+                                        for (const entry of generated_entries) {
+                                            if (mwjson.util.isObject(entry)) generated_object = mwjson.util.mergeDeep(generated_object, entry);
+                                            else if (entry && !context_list.includes(entry)) context_list.push(entry); // parent ref
+                                        }
+                                        let generated_index = context_list.findIndex(entry => mwjson.util.isObject(entry));
+                                        if (generated_index === -1) {
+                                            context_list.push(generated_object);
+                                        } else {
+                                            context_list[generated_index] = mwjson.util.mergeDeep(context_list[generated_index], generated_object);
+                                        }
+                                        page.slots['jsonschema']['@context'] = context_list;
                                     }
                                     if (!page.slots['jsonschema'][def_key]) page.slots['jsonschema'][def_key] = {};
                                     if (!page.slots['jsonschema'][def_key][gen_def_key]) page.slots['jsonschema'][def_key][gen_def_key] = {"$comment": "Autogenerated section - do not edit. Generated from"};
