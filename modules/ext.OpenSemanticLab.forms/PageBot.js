@@ -366,9 +366,12 @@ osl.util = class {
     // but keeps 'items', 'minItems' and 'options'). Members we deliberately promote to
     // root are skipped, and nothing happens when there is no generated section, so a
     // failed generation can never strip a schema bare.
+    // Returns true when something was actually removed, so the caller can avoid
+    // marking the slot dirty for a schema that was already clean.
     static stripRootMembersSupersededByGenerated(root_schema, generated_schema) {
         // written to root on purpose by the generation below, or required there by spec
         const promoted_to_root = ['title', 'title*', 'description', 'description*', '@context', '$defs', 'allOf', '$ref', '$comment'];
+        let removed = false;
         const strip = (target, generated, is_root) => {
             if (!mwjson.util.isObject(target) || !mwjson.util.isObject(generated)) return;
             for (const key of Object.keys(generated)) {
@@ -377,13 +380,15 @@ osl.util = class {
                 if (mwjson.util.isObject(generated[key]) && mwjson.util.isObject(target[key])) {
                     strip(target[key], generated[key], false);
                     // the container only existed to hold generated members, so drop it too
-                    if (Object.keys(target[key]).length === 0) delete target[key];
+                    if (Object.keys(target[key]).length === 0) { delete target[key]; removed = true; }
                 } else {
                     delete target[key];
+                    removed = true;
                 }
             }
         };
         strip(root_schema, generated_schema, true);
+        return removed;
     }
 
     // JSON-LD requires @context at root, so unlike the rest of the generated schema it
@@ -489,10 +494,16 @@ osl.util = class {
                     if (page.slots['jsonschema'] && page.slots['jsonschema'][def_key] && page.slots['jsonschema'][def_key][gen_def_key]) {
                         // Delete generated schema
                         delete page.slots['jsonschema'][def_key][gen_def_key];
-                        if (generate_root_ref) 
-                            if (page.slots['jsonschema']['$ref'] && page.slots['jsonschema']['$ref'] === gen_def_pointer) 
+                        // the else bound to the inner if, not the outer one, and referenced
+                        // an undefined 'schema'. Dormant only because generate_root_ref is
+                        // false, so the whole branch was skipped.
+                        if (generate_root_ref) {
+                            if (page.slots['jsonschema']['$ref'] === gen_def_pointer) {
                                 delete page.slots['jsonschema']['$ref'];
-                        else if (page.slots['jsonschema']['allOf']) schema.allOf = schema.allOf.filter(item => item.$ref !== gen_def_pointer);
+                            }
+                        } else if (page.slots['jsonschema']['allOf']) {
+                            page.slots['jsonschema'].allOf = page.slots['jsonschema'].allOf.filter(item => item.$ref !== gen_def_pointer);
+                        }
 
                     }
                 }
@@ -608,16 +619,20 @@ osl.util = class {
                     && page.slots['jsonschema']
                     && page.slots['jsonschema'][def_key]
                     && page.slots['jsonschema'][def_key][gen_def_key]) {
-                    osl.util.stripRootMembersSupersededByGenerated(
+                    // only mark the slot dirty when something was actually retired: the
+                    // flag is never cleared here, so a save requested by the generation
+                    // above still stands
+                    const stripped = osl.util.stripRootMembersSupersededByGenerated(
                         page.slots['jsonschema'],
                         page.slots['jsonschema'][def_key][gen_def_key]
                     );
-                    page.slots_changed['jsonschema'] = true;
+                    if (stripped) page.slots_changed['jsonschema'] = true;
                 }
 
                 if (generation_errors.length) {
+                    // no console output: the dialog carries the summary and each
+                    // underlying failure is already logged where it was detected
                     const summary = mw.message('open-semantic-lab-schema-generation-error', generation_errors.join(", ")).text();
-                    console.error(summary);
                     // With the abort policy there is no choice to offer, but the dialog
                     // still has to explain why nothing was saved: rejecting silently just
                     // left the editor open with an uncaught rejection in the console.
@@ -1213,6 +1228,10 @@ osl.ui = class {
                             else resolve(processedPages[0]);
                         });
 
+                    // A deliberate abort is reported through the dialog, so it must not
+                    // also surface as an uncaught rejection. Callers can still attach
+                    // their own handler; this only marks it as handled.
+                    promise.catch(() => {});
                     return promise;
                 };
                 config.popupConfig.size = "larger";
