@@ -496,8 +496,22 @@ osl.util = class {
 
                     }
                 }
-                for (const result of results) {
+                // A category whose page or schema_template could not be fetched used to be
+                // skipped without a trace: the generated section was already deleted above,
+                // so the page was saved with a schema that had silently lost content. That
+                // turned a transient network fault into permanent corruption. Collect the
+                // failures instead and report them below.
+                const generation_errors = [];
+                for (const [index, result] of results.entries()) {
                     const category_page = result.value;
+                    if (result.status === 'rejected' || !category_page || !category_page.slots) {
+                        generation_errors.push(categories[index] + " could not be loaded");
+                        continue;
+                    }
+                    if (page.slots['jsondata'] && !category_page.slots['schema_template'] && category_page.exists === false) {
+                        generation_errors.push(categories[index] + " does not exist");
+                        continue;
+                    }
                     if (page.slots['jsondata'] && category_page.slots['schema_template']) {
                         var json_schema_text = "";
                         try {
@@ -597,6 +611,21 @@ osl.util = class {
                         page.slots['jsonschema'][def_key][gen_def_key]
                     );
                     page.slots_changed['jsonschema'] = true;
+                }
+
+                if (generation_errors.length) {
+                    const summary = mw.message('open-semantic-lab-schema-generation-error', generation_errors.join(", ")).text();
+                    console.error(summary);
+                    if (mw.config.get('wgOslAbortOnSchemaGenerationError')) {
+                        // never persist a schema we already know is incomplete
+                        reject(new Error(summary));
+                        return;
+                    }
+                    mw.notify(summary, {
+                        title: mw.message('open-semantic-lab-schema-generation-error-title').text(),
+                        type: 'warn',
+                        autoHide: false
+                    });
                 }
 
                 resolve(page);

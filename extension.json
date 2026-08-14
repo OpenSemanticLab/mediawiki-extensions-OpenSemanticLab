@@ -118,7 +118,9 @@
 				"open-semantic-lab-query-dialog-title",
 				"open-semantic-lab-query-dialog-continue",
 				"open-semantic-lab-query-dialog-cancel",
-				"open-semantic-lab-preview"
+				"open-semantic-lab-preview",
+				"open-semantic-lab-schema-generation-error-title",
+				"open-semantic-lab-schema-generation-error"
 			],
 			"position": "top"
 		},
@@ -418,6 +420,10 @@
 	],
 	"config_prefix": "",
 	"config": {
+		"wgOslAbortOnSchemaGenerationError": {
+			"value": false,
+			"description": "Abort saving when the schema of a category cannot be regenerated, e.g. because a meta category or its schema_template could not be fetched. Default false: the user is warned and the save proceeds, matching how data that does not validate against the schema is handled."
+		},
 		"wgContentNamespaces": {
 			"value": [
 				2,
@@ -528,7 +534,8 @@
 	"Hooks": {
 		"PageImporterRegisterPageLists": "OpenSemanticLab::onPageImporterRegisterPageLists",
 		"BeforePageDisplay": "OpenSemanticLab::onBeforePageDisplay",
-		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal"
+		"SkinTemplateNavigation::Universal": "OpenSemanticLab::onSkinTemplateNavigation_Universal",
+		"ResourceLoaderGetConfigVars": "OpenSemanticLab::onResourceLoaderGetConfigVars"
 	},
 	"SpecialPages": {
 		"AskResolver": "SpecialAskResolver"

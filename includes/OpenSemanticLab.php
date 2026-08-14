@@ -383,6 +383,11 @@ class OpenSemanticLab {
 
 	}
 	
+	// see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderGetConfigVars
+	public static function onResourceLoaderGetConfigVars( array &$vars, $skin, Config $config ): void {
+		$vars['wgOslAbortOnSchemaGenerationError'] = $config->get( 'OslAbortOnSchemaGenerationError' );
+	}
+
 	public static function onSkinTemplateNavigation_Universal( &$skin, &$links ) {
 		// Add an additional link
 		//https://stackoverflow.com/questions/18442495/how-to-get-current-page-url-in-mediawiki
