@@ -1,6 +1,6 @@
 {
 	"name": "OpenSemanticLab",
-	"version": "0.43.1",
+	"version": "0.43.2",
 	"author": [
 		"Simon Stier"
 	],
@@ -52,7 +52,7 @@
 				"DynamicSidebar.js",
 				"D3graphviz.js",
 				"prefect.js",
-				"InfoBox.js"
+				"SkinOverwrites.js"
 			],
 			"position": "bottom"
 		},

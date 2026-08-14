@@ -161,3 +161,62 @@
 		scan();
 	}
 }() );
+
+/* A second horizontal scrollbar above wide DataTables.
+ *
+ * DataTables renders the header in .dt-scroll-head with overflow:hidden and drives it
+ * from .dt-scroll-body, so the only scrollbar sits below the table: a wide table has
+ * to be scrolled to the bottom before it can be scrolled sideways. Making the head
+ * scrollable and mirroring scrollLeft in both directions adds a scrollbar on top
+ * without touching DataTables, since both elements already share the inner width.
+ */
+( function () {
+	'use strict';
+
+	function enhance( container ) {
+		if ( container.dataset.oslTopScroll === '1' ) {
+			return;
+		}
+		var head = container.querySelector( '.dt-scroll-head' );
+		var body = container.querySelector( '.dt-scroll-body' );
+		if ( !head || !body ) {
+			return; // not a scrollX table, nothing to scroll
+		}
+		container.dataset.oslTopScroll = '1';
+
+		// DataTables sets overflow inline, so it has to be overridden the same way
+		head.style.overflowX = 'auto';
+
+		var syncing = false;
+		function mirror( from, to ) {
+			return function () {
+				if ( syncing ) {
+					return; // otherwise the two handlers chase each other
+				}
+				syncing = true;
+				to.scrollLeft = from.scrollLeft;
+				syncing = false;
+			};
+		}
+		head.addEventListener( 'scroll', mirror( head, body ) );
+		body.addEventListener( 'scroll', mirror( body, head ) );
+	}
+
+	function scan( root ) {
+		var containers = ( root || document ).querySelectorAll( '.dt-container' );
+		for ( var i = 0; i < containers.length; i++ ) {
+			enhance( containers[ i ] );
+		}
+	}
+
+	if ( window.mw && mw.hook ) {
+		mw.hook( 'wikipage.content' ).add( function ( $content ) {
+			var root = $content && $content.length ? $content[ 0 ] : document;
+			scan( root );
+			// DataTables initialises after the content hook, so look again once it has
+			setTimeout( function () { scan( root ); }, 0 );
+		} );
+	} else {
+		scan();
+	}
+}() );

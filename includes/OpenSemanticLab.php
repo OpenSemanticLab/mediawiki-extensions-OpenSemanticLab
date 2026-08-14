@@ -366,7 +366,7 @@ class OpenSemanticLab {
 
 		// Anti-flicker: mark <html> from localStorage before body parses so the
 		// info box CSS can hide it immediately if the user's persisted state is
-		// collapsed. Removed once InfoBox.js applies the state to individual boxes.
+		// collapsed. Removed once SkinOverwrites.js applies the state to individual boxes.
 		$out->addHeadItem(
 			'osl-info-box-init',
 			"<script>try{if(window.localStorage&&localStorage.getItem('osl-info-box-collapsed')==='1')document.documentElement.classList.add('osl-info-box-collapsed');}catch(e){}</script>"

@@ -2,7 +2,7 @@
  * Consolidates base, dark-mode, and side-collapse styles for table.info_box
  * (produced by Module:MwJson via category header templates).
  *
- * Companion: InfoBox.js registers the collapse-to-side-tab toggle.
+ * Companion: SkinOverwrites.js registers the collapse-to-side-tab toggle.
  */
 
 /* --- Base --- */
@@ -90,12 +90,12 @@
 	color: white;
 }
 
-/* --- Side-collapse toggle (companion: InfoBox.js) --- */
+/* --- Side-collapse toggle (companion: SkinOverwrites.js) --- */
 
 /* Anti-flicker: if the persisted state is collapsed, an inline head script
  * sets .osl-info-box-collapsed on <html> before the body renders. This rule
- * hides the box immediately, before InfoBox.js has a chance to apply state.
- * InfoBox.js removes the html-level class once it has added the per-box
+ * hides the box immediately, before SkinOverwrites.js has a chance to apply state.
+ * SkinOverwrites.js removes the html-level class once it has added the per-box
  * .info_box--collapsed class, which takes over the hiding job. */
 html.osl-info-box-collapsed .info_box {
 	display: none;

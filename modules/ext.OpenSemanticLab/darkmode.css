@@ -172,3 +172,12 @@ html.skin-citizen-dark .srf-datatables-info-chip {
     color: inherit !important;
     border: 1px solid rgb(89, 91, 94) !important;
 }
+
+/* MediaWiki core's HTMLForm button footer (Special:Preferences and friends) is
+ * light only, so it stayed a bright bar at the bottom of the dark page. */
+html.skin-citizen-dark .mw-htmlform-submit-buttons {
+    background: var(--color-surface-0, #202122) !important;
+    color: inherit !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
