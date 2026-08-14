@@ -110,3 +110,65 @@ html.skin-citizen-dark .dt-container .dt-paging .dt-paging-button:hover {
     border: 1px solid rgb(53, 53, 53);
     background: rgb(53, 53, 53);
 }
+/* DataTables SearchBuilder (SemanticResultFormats) ships light-only styling, so its
+ * selects and dropdowns stayed white on white in dark mode.
+ * Uses Citizen's --color-surface-0, not the DataTables --dt-html-background of the
+ * rules above: that one is scoped to .dt-container and SearchBuilder sits outside it,
+ * so it resolved to nothing. !important because SearchBuilder's own stylesheet
+ * otherwise outranks these. */
+html.skin-citizen-dark .dtsb-searchBuilder,
+html.skin-citizen-dark .dtsb-group {
+    background: var(--color-surface-0, #202122) !important;
+    color: inherit !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+html.skin-citizen-dark .dtsb-data,
+html.skin-citizen-dark .dtsb-condition,
+html.skin-citizen-dark .dtsb-value,
+html.skin-citizen-dark .dtsb-dropDown,
+html.skin-citizen-dark .dtsb-inputCont input,
+html.skin-citizen-dark .dtsb-inputCont select {
+    background-color: var(--color-surface-0, #202122) !important;
+    color: inherit !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+html.skin-citizen-dark .dtsb-data option,
+html.skin-citizen-dark .dtsb-condition option,
+html.skin-citizen-dark .dtsb-value option,
+html.skin-citizen-dark .dtsb-dropDown option {
+    background-color: var(--color-surface-0, #202122) !important;
+    color: inherit !important;
+}
+html.skin-citizen-dark .dtsb-add,
+html.skin-citizen-dark .dtsb-delete,
+html.skin-citizen-dark .dtsb-clearAll,
+html.skin-citizen-dark .dtsb-logic,
+html.skin-citizen-dark .dtsb-button {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: inherit !important;
+    border: 1px solid rgb(89, 91, 94) !important;
+}
+html.skin-citizen-dark .dtsb-add:hover,
+html.skin-citizen-dark .dtsb-delete:hover,
+html.skin-citizen-dark .dtsb-clearAll:hover,
+html.skin-citizen-dark .dtsb-logic:hover,
+html.skin-citizen-dark .dtsb-button:hover {
+    border: 1px solid rgb(53, 53, 53) !important;
+    background: rgb(53, 53, 53) !important;
+}
+
+/* Title row and the SRF condition-count chip are outside SearchBuilder's own
+ * control styling, so they kept light backgrounds. Wrappers only inherit. */
+html.skin-citizen-dark .dtsb-titleRow,
+html.skin-citizen-dark .dtsb-title,
+html.skin-citizen-dark .dtsb-logicContainer,
+html.skin-citizen-dark .dtsb-criteria,
+html.skin-citizen-dark .dtsb-buttonContainer {
+    color: inherit !important;
+    background: transparent !important;
+}
+html.skin-citizen-dark .srf-datatables-info-chip {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: inherit !important;
+    border: 1px solid rgb(89, 91, 94) !important;
+}

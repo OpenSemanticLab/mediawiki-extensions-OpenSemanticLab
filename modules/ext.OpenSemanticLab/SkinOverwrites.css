@@ -415,3 +415,16 @@ details.mw-slot-details[open] summary {
     -webkit-mask-size: contain;
     mask-size: contain
 }
+
+/* Citizen fades the edges of a horizontally overflowing table with a mask-image
+ * gradient (citizen-overflow--left/--right). DataTables brings its own scroll
+ * controls and a fixed header, so the fade only dims the outer columns and the
+ * header no longer lines up with the body once both are masked. Turn it off for
+ * DataTables, leaving plain wiki tables untouched. */
+.dt-container .citizen-overflow--left,
+.dt-container .citizen-overflow--right,
+.citizen-table-wrapper:has(.dt-container).citizen-overflow--left,
+.citizen-table-wrapper:has(.dt-container).citizen-overflow--right {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
