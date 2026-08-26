@@ -127,9 +127,14 @@ $(document).ready(function () {
                     if (config.action === "reload") window.location.reload();
 
                     if (config.action === "purge") {
+                        // A plain purge only drops the parser cache; page_props and the
+                        // link tables are rebuilt only by a links update. Without it the
+                        // button could not repair a page whose properties were lost, e.g.
+                        // a display title emitted by a non-main slot. Recursive stays off,
+                        // that would also reparse every page embedding this one.
                         mwjson.api.purgePage(mw.config.get('wgPageName'),
                             {
-                                "forcelinkupdate": false,
+                                "forcelinkupdate": true,
                                 "forcerecursivelinkupdate": false
                             }).then(() => window.location.reload() 
                         );
