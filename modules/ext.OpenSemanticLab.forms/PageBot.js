@@ -344,10 +344,25 @@ osl.util = class {
     }
 
     static getAbsoluteJsonSchemaUrl(title, pretty=true) {
-        if (title.startsWith("JsonSchema:")) {
-            return mwjson.util.getAbsolutePageUrl("Special:SlotResolver", pretty) + "/" + title.replace(":", "/") + ".slot_main.json";
-        }
-        return mwjson.util.getAbsolutePageUrl("Special:SlotResolver", pretty) + "/" + title.replace(":", "/") + ".slot_jsonschema.json";
+        const slot = title.startsWith("JsonSchema:") ? "main" : "jsonschema";
+        return mwjson.util.getAbsolutePageUrl("Special:SlotResolver", pretty)
+            + "/" + title.replace(":", "/") + ".slot_" + slot + ".json"
+            + osl.util.uiPatchsetQuery();
+	}
+
+    /**
+     * Ask Special:SlotResolver for the patch sets the form should be built from.
+     *
+     * This url goes into a $ref, and MwJson's own resolver does not recognise
+     * a Special:SlotResolver address, so $RefParser fetches it directly. Without
+     * the query the page's own schema would be the one thing on the form that a
+     * patch could not reach.
+     */
+    static uiPatchsetQuery() {
+        if (typeof mw === "undefined" || !mw.config.get("wgMwJsonEnablePatches")) return "";
+        const patchsets = mw.config.get("wgMwJsonUiPatchsets") || [];
+        const list = Array.isArray(patchsets) ? patchsets : [patchsets];
+        return list.length ? "?patchset=" + encodeURIComponent(list.join("|")) : "";
 	}
 
     static getRelativeJsonSchemaUrl(title, pretty=true) {
