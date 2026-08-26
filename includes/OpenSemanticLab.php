@@ -409,6 +409,20 @@ class OpenSemanticLab {
 		$user_can_edit_ns = $permissionManager->userCan( 'create', $user, Title::newFromText( $namespace . ":" . $dummy_page_title), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
 		$user_can_subclass = $permissionManager->userCan( 'create', $user, Title::newFromText("Category:" . $dummy_page_title), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
 		$user_can_instanciate = $permissionManager->userCan( 'create', $user, Title::newFromText("Item:" . $dummy_page_title), MediaWiki\Permissions\PermissionManager::RIGOR_QUICK );
+		// The check above asks about a placeholder title, so it can only say
+		// whether the namespace is writable at all. Whether *this* class may be
+		// instantiated is decided by the class, which is what MwJson's rule
+		// names, so ask it about the category actually being viewed. Without
+		// this a create button appeared for a user whose save would be refused.
+		if ( $user_can_instanciate
+			&& $namespace === NS_CATEGORY
+			&& class_exists( \MediaWiki\Extension\MwJson\Mw\CategoryEditRight::class )
+		) {
+			$user_can_instanciate = \MediaWiki\Extension\MwJson\Mw\CategoryEditRight::userCanUse(
+				$user, $page_title
+			);
+			$user_can_subclass = $user_can_subclass && $user_can_instanciate;
+		}
 		$data_editable = in_array($namespace, [
 			0, // Main
 			6, // File
