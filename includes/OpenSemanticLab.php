@@ -587,8 +587,18 @@ class OpenSemanticLab {
 			$links['actions']['history'] = $links['views']['history'];
 			unset($links['views']['history']);
 
-			// rename "Read" button (visible when VisualEditor is active)
-			$links['views']['view']['text'] = wfMessage( 'open-semantic-lab-edit-page-visual-cancel' )->text();
+			// Relabel the "Read" tab according to what it actually does here. It was
+			// renamed to "cancel" unconditionally, which also hit action pages such as
+			// action=approve or action=info, where nothing is being cancelled.
+			$request = $skin->getRequest();
+			$action = $request->getVal( 'action', 'view' );
+			if ( $request->getVal( 'veaction' ) !== null || $action === 'edit' || $action === 'submit' ) {
+				// editing: the tab leaves the editor without saving
+				$links['views']['view']['text'] = wfMessage( 'open-semantic-lab-edit-page-visual-cancel' )->text();
+			} elseif ( $action !== 'view' ) {
+				// any other action page: the tab just returns to the article
+				$links['views']['view']['text'] = wfMessage( 'open-semantic-lab-back-to-page' )->text();
+			}
 		}
 
 		return true;
