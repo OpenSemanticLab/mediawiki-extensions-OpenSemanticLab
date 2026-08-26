@@ -220,3 +220,38 @@
 		scan();
 	}
 }() );
+
+/* Make the toolbar reload button rebuild page properties.
+ *
+ * The reload icon is SemanticMediaWiki's purge link. Its script posts
+ * forcelinkupdate=false by default, so the click only drops the parser cache:
+ * page_props and the link tables are rebuilt only by a links update, which left the
+ * button unable to repair a page that had lost them, such as a display title emitted
+ * by a non-main slot.
+ *
+ * ext.smw.util.purge.js reads the flag from the link's data at click time
+ * ($( "#ca-purge a, .purge" ).on( "click", ... ) passing $( this )), so setting it
+ * here needs no change to SemanticMediaWiki. It is done in JS rather than from
+ * SkinTemplateNavigation::Universal because SMW adds the purge entry after this
+ * extension's handler has already run, so the key is not there to modify.
+ * Recursive updates are deliberately left off: those would reparse every page
+ * embedding this one.
+ */
+( function () {
+	'use strict';
+
+	function markPurgeLinks() {
+		if ( !window.jQuery ) {
+			return;
+		}
+		jQuery( '#ca-purge a, .purge' ).data( 'forcelinkupdate', true );
+	}
+
+	if ( window.mw && mw.hook ) {
+		mw.hook( 'wikipage.content' ).add( markPurgeLinks );
+	}
+	if ( window.jQuery ) {
+		jQuery( markPurgeLinks );
+	}
+}() );
+
