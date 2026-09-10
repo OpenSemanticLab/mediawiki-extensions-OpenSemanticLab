@@ -7,7 +7,7 @@
 	"url": "https://github.com/OpenSemanticLab/mediawiki-extensions-OpenSemanticLab",
 	"descriptionmsg": "open-semantic-lab-desc",
 	"namemsg": "open-semantic-lab-name",
-	"license-name": "AGPL v3",
+	"license-name": "Apache-2.0",
 	"type": "semantic",
 	"requires": {
 		"MediaWiki": ">= 1.35",
