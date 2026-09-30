@@ -173,16 +173,11 @@
 ( function () {
 	'use strict';
 
-	function enhance( container ) {
-		if ( container.dataset.oslTopScroll === '1' ) {
-			return;
+	function enhance( head, body ) {
+		if ( !head || !body || head.dataset.oslTopScroll === '1' ) {
+			return; // not a scrolling table, or already enhanced
 		}
-		var head = container.querySelector( '.dt-scroll-head' );
-		var body = container.querySelector( '.dt-scroll-body' );
-		if ( !head || !body ) {
-			return; // not a scrollX table, nothing to scroll
-		}
-		container.dataset.oslTopScroll = '1';
+		head.dataset.oslTopScroll = '1';
 
 		// DataTables sets overflow inline, so it has to be overridden the same way
 		head.style.overflowX = 'auto';
@@ -202,19 +197,43 @@
 		body.addEventListener( 'scroll', mirror( body, head ) );
 	}
 
+	// Every SearchPanes pane is a scrolling DataTable of its own, reporting its own
+	// init and rendering ahead of the table's header, so it has to be skipped.
+	function isSearchPane( wrapper ) {
+		return !!( wrapper && wrapper.closest && wrapper.closest( '.dtsp-searchPane' ) );
+	}
+
 	function scan( root ) {
 		var containers = ( root || document ).querySelectorAll( '.dt-container' );
 		for ( var i = 0; i < containers.length; i++ ) {
-			enhance( containers[ i ] );
+			if ( isSearchPane( containers[ i ] ) ) {
+				continue;
+			}
+			// direct descendants only, or a pane's head matches first
+			enhance(
+				containers[ i ].querySelector( ':scope > .dt-layout-row > .dt-layout-cell > .dt-scroll > .dt-scroll-head' ),
+				containers[ i ].querySelector( ':scope > .dt-layout-row > .dt-layout-cell > .dt-scroll > .dt-scroll-body' )
+			);
 		}
 	}
 
+	// DataTables builds the scroll wrapper only once it initialises, which for the
+	// ajax path is after the first response, so any fixed delay after wikipage.content
+	// loses the race. init.dt also carries the two nodes directly, which matters
+	// because a descendant query finds a SearchPanes pane instead of the header.
+	if ( window.jQuery ) {
+		jQuery( document ).on( 'init.dt', function ( e, settings ) {
+			if ( isSearchPane( settings.nTableWrapper ) ) {
+				return;
+			}
+			enhance( settings.nScrollHead, settings.nScrollBody );
+		} );
+	}
+
+	// Tables already initialised before this ran.
 	if ( window.mw && mw.hook ) {
 		mw.hook( 'wikipage.content' ).add( function ( $content ) {
-			var root = $content && $content.length ? $content[ 0 ] : document;
-			scan( root );
-			// DataTables initialises after the content hook, so look again once it has
-			setTimeout( function () { scan( root ); }, 0 );
+			scan( $content && $content.length ? $content[ 0 ] : document );
 		} );
 	} else {
 		scan();
